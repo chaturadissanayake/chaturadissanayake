@@ -33,6 +33,8 @@ The website is a dynamic, fast, and accessible single-page application built wit
 
 ### 1. File Structure
 
+. ├── assets/ # Images, favicons, and other media files. ├── index.html # Main page structure and content. ├── style.css # All custom styles and theming rules. └── app.js # All client-side interactivity and event listeners.
+
 ### 2. Getting Started
 
 1.  Clone this repository to your local machine.
