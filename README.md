@@ -1,51 +1,44 @@
-# Chatura Dissanayake: Visual Communication & Data Storytelling Portfolio
+# Hi, I'm Chatura Dissanayake 👋
 
-This repository hosts the official portfolio website for **Chatura Dissanayake**, a professional specializing in **Visual Communication** and **Data Storytelling**. The site showcases expertise in media relations, strategic communication, data visualisation, and design for international and government institutions.
+**Visual Communicator | Data Storyteller | Information Management Professional**
 
-The website is a dynamic, fast, and accessible single-page application built with modern HTML, CSS, and vanilla JavaScript.
-
----
-
-## Key Features
-
-* **Dynamic Theme Toggle:** A user-controlled dark/light mode preference that persists via local storage.
-* **Active Nav Link Highlighting:** Uses the **Intersection Observer API** to highlight the current section in navigation menus as the user scrolls.
-* **Visualisation Carousel with Lightbox:** A custom, vanilla JavaScript-driven carousel with a fade transition for showcasing data visualisations, plus a lightbox for enlargement.
-* **Capabilities Accordion:** An interactive accordion that triggers a custom **CSS skill-bar animation** when expanded.
-* **Scroll-Triggered Fade-In Animation:** Utilizes the **Intersection Observer API** for a staggered fade-in effect on all main content sections.
-* **Enhanced Form Handling:** Asynchronous (AJAX) form submission with loading state and user feedback.
-* **Mobile-First Design:** Includes a slide-down mobile navigation menu with smooth transitions and keyboard (`Esc`) closure support.
+I help organisations transform complex data and strategic goals into clear, compelling, and actionable visual narratives. My background combines Public Relations, Information Management, and high-impact digital design for international and government institutions.
 
 ---
 
-## Technology Stack
+## 🚀 Expertise & Focus
 
-| Category | Technology | Notes |
+My work focuses on bridging the gap between technical data and public understanding.
+
+### Communication & Strategy
+* **Strategic Communication:** Expertise in press & public information, stakeholder coordination, and media relations (Media Relations: 90%, Stakeholder Coordination: 95%).
+* **Policy Communication:** Producing high-quality communication materials and aligning digital outreach with organisational priorities.
+* **Project Coordination:** Adept at multi-agency project coordination and workflow optimisation (Project Coordination: 90%).
+
+### Data & Design
+* **Data Storytelling:** Specialising in turning dense data into intuitive visual narratives, such as Sankey diagrams, process-flow charts, and geospatial visualisations.
+* **Design Tools:** High proficiency in industry-standard software:
+    * **Adobe CS:** InDesign, Illustrator, Photoshop (95%)
+    * **UI/UX:** Figma (90%)
+    * **Data Visualization:** Tableau, Power BI (80%), and Flourish (90%)
+
+---
+
+## 💼 Career Highlights (Recent)
+
+| Role | Organization | Period |
 | :--- | :--- | :--- |
-| **Markup** | HTML5 | Semantic structure for accessibility. |
-| **Styling** | CSS3 | Custom theming using **CSS Variables**. |
-| **Interactivity** | Vanilla JavaScript | All functionality, including Intersection Observer implementation, is written in native JS. |
-| **Icons** | Lucide Icons | Embedded SVG icons for a scalable UI. |
+| Independent Communications & Design Consultant | Self-employed / Freelance | 2025 - CURRENT |
+| UN National Volunteer Specialist - Graphic Designer | United Nations Resident Coordinator's Office | MAR - JUN 2025 |
+| Senior Communications Designer | Verité Research | 2022 - 2024 |
 
 ---
 
-## Customization & Setup
+## 🔗 Connect With Me
 
-### 1. File Structure
+* **Portfolio:** View my work for the UN, Verité Research, and data storytelling projects on my website.
+* **LinkedIn:** [httpss://lk.linkedin.com/in/chaturadissanayake]
+* **GitHub:** [httpss://github.com/chaturadissanayake]
+* **Email:** [consultchatura@gmail.com](mailto:consultchatura@gmail.com)
 
-. ├── assets/ # Images, favicons, and other media files. ├── index.html # Main page structure and content. ├── style.css # All custom styles and theming rules. └── app.js # All client-side interactivity and event listeners.
-
-### 2. Getting Started
-
-1.  Clone this repository to your local machine.
-2.  Open the `index.html` file in your preferred web browser.
-
-### 3. Contact Form Configuration
-
-The contact form is configured to use [Formspree](https://formspree.io/). To enable submissions to your email, you must update the form action in `index.html`:
-
-```html
-<form class="lead-capture-form" action="[https://formspree.io/f/your-form-id](https://formspree.io/f/your-form-id)" method="POST" aria-label="Contact form">
-
-Contact
-Chatura Dissanayake – consultchatura@gmail.com
+Available for freelance consultancy and new project opportunities. Let's collaborate!
