@@ -292,6 +292,7 @@ a:hover {
     line-height: 1.5;
     position: relative;
     overflow: hidden;
+    will-change: transform, box-shadow;
 }
 
 .cta-button::before {
@@ -606,6 +607,36 @@ section:last-of-type,
     pointer-events: none;
 }
 
+/* NEW: Hero fade-in-up animations */
+.hero-text > * {
+    opacity: 0;
+    animation: hero-fade-in-up 0.8s ease forwards;
+    will-change: transform, opacity;
+}
+.hero-text .section-overline { animation-delay: 0.2s; }
+.hero-text .hero-title      { animation-delay: 0.3s; }
+.hero-text .hero-subtitle   { animation-delay: 0.4s; }
+.hero-text .hero-mission    { animation-delay: 0.5s; }
+.hero-visual                { 
+    opacity: 0; 
+    animation: hero-fade-in-up 0.8s ease forwards;
+    animation-delay: 0.6s; 
+    will-change: transform, opacity;
+}
+
+@keyframes hero-fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* END NEW */
+
+
 /* FIX: Prevent horizontal scroll on mobile */
 .testimonials-section,
 .visualisations-section {
@@ -698,6 +729,7 @@ section:last-of-type,
     scroll-snap-type: x mandatory;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    scroll-behavior: smooth; /* NEW: Smooth scrolling for button clicks */
 }
 
 .testimonial-carousel-viewport::-webkit-scrollbar {
@@ -715,10 +747,16 @@ section:last-of-type,
     flex: 0 0 85%; /* Mobile-first: 1-up carousel */
     scroll-snap-align: center;
     min-width: 0;
+    opacity: 0.4; /* NEW: Enable 3D effect on mobile */
+    transform: scale(0.9); /* NEW: Enable 3D effect on mobile */
+    transition: transform var(--transition-slow), opacity var(--transition-slow); /* NEW: Enable 3D effect on mobile */
+    will-change: transform, opacity;
+}
+
+/* NEW: Active slide styling for mobile AND desktop */
+.testimonial-slide.is-active {
     opacity: 1;
     transform: scale(1);
-    transition: none; /* No 3D effect on mobile */
-    will-change: transform, opacity;
 }
 
 .testimonial-card {
@@ -734,6 +772,7 @@ section:last-of-type,
     height: 100%;
     transition: var(--transition);
     position: relative;
+    will-change: transform, box-shadow;
 }
 
 .testimonial-card:hover {
@@ -820,6 +859,7 @@ section:last-of-type,
     cursor: pointer;
     transition: var(--transition);
     flex-shrink: 0;
+    will-change: transform;
 }
 
 .carousel-btn .lucide {
@@ -861,6 +901,7 @@ section:last-of-type,
     transition: var(--transition);
     position: relative;
     flex-shrink: 0;
+    will-change: transform, background-color;
 }
 
 .carousel-pagination-btn:hover {
@@ -879,6 +920,7 @@ section:last-of-type,
     scroll-snap-type: x mandatory;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    scroll-behavior: smooth; /* NEW: Smooth scrolling for button clicks */
 }
 
 .viz-carousel-viewport::-webkit-scrollbar {
@@ -915,6 +957,7 @@ section:last-of-type,
     cursor: zoom-in;
     transition: var(--transition);
     line-height: 0;
+    will-change: transform, box-shadow;
 }
 
 .viz-lightbox-trigger:hover {
@@ -930,6 +973,7 @@ section:last-of-type,
     object-fit: cover;
     transition: var(--transition);
     transform: scale(1.0);
+    will-change: transform;
 }
 
 .viz-lightbox-trigger:hover img {
@@ -956,6 +1000,7 @@ figcaption.viz-description p {
 }
 
 /* ======== 7. Insights Section (REVISED) ======== */
+/* These styles are no longer used by the new HTML, but are safe to keep */
 .insights-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -973,6 +1018,7 @@ figcaption.viz-description p {
     display: flex;
     flex-direction: column;
     height: 100%;
+    will-change: transform, box-shadow;
 }
 
 .insight-card:hover {
@@ -981,8 +1027,6 @@ figcaption.viz-description p {
     opacity: 1;
     background-color: var(--color-card-hover);
 }
-
-/* .insight-icon class removed */
 
 .insight-card h3 {
     font-size: 1.25rem;
@@ -1015,6 +1059,7 @@ figcaption.viz-description p {
     content: ' →';
     display: inline-block;
     transition: transform 0.2s;
+    will-change: transform;
 }
 
 .insight-card:hover .insight-link {
@@ -1026,8 +1071,10 @@ figcaption.viz-description p {
 .insight-card:hover .insight-link::after {
     transform: translateX(4px);
 }
+/* End of unused Insights styles */
 
-/* ======== 8. Capabilities Accordion ======== */
+
+/* ======== 8. Capabilities Accordion (This styles the "Services" section) ======== */
 .capabilities-accordion {
     display: flex;
     flex-direction: column;
@@ -1071,6 +1118,7 @@ summary.capability-header::-webkit-details-marker {
     color: var(--color-text-primary);
     transition: transform var(--transition);
     margin-left: var(--spacing-md);
+    will-change: transform;
 }
 
 .capability-toggle-icon .lucide {
@@ -1139,6 +1187,7 @@ details[open] > .capability-content {
     justify-content: center;
     margin-bottom: var(--spacing-md);
     transition: var(--transition);
+    will-change: transform, background-color, color;
 }
 
 .process-icon .lucide {
@@ -1163,6 +1212,7 @@ details[open] > .capability-content {
     background-color: var(--color-card);
     box-shadow: var(--shadow-card);
     text-align: left;
+    will-change: transform, box-shadow;
 }
 
 .process-item h3 {
@@ -1186,6 +1236,7 @@ details[open] > .capability-content {
     z-index: 1;
     transition: var(--transition);
     user-select: none;
+    will-change: color, opacity;
 }
 
 .process-item:hover {
@@ -1222,6 +1273,7 @@ details[open] > .capability-content {
     box-shadow: var(--shadow-card);
     overflow: hidden;
     height: 100%;
+    will-change: transform, box-shadow;
 }
 
 .work-card:hover {
@@ -1287,6 +1339,7 @@ details[open] > .capability-content {
     display: inline-block;
     transition: transform 0.2s;
     color: var(--color-accent);
+    will-change: transform;
 }
 
 .work-card:hover .link-button {
@@ -1327,13 +1380,13 @@ details[open] > .capability-content {
     align-items: flex-start;
     gap: var(--spacing-md);
     padding-left: 0;
-}
-
-/* NEW: Timeline Animation States */
-.timeline-item.is-hidden {
+    
+    /* NEW: Animation States */
     opacity: 0;
     transform: translateY(20px);
+    will-change: opacity, transform;
 }
+
 .timeline-item.is-visible {
     opacity: 1;
     transform: translateY(0);
@@ -1356,6 +1409,7 @@ details[open] > .capability-content {
     flex-shrink: 0;
     z-index: 1;
     transition: var(--transition);
+    will-change: transform, border-color, background-color;
 }
 
 .timeline-icon .lucide {
@@ -1371,6 +1425,7 @@ details[open] > .capability-content {
     box-shadow: var(--shadow-card);
     transition: var(--transition), transform 0.3s ease, box-shadow 0.3s ease;
     flex-grow: 1;
+    will-change: transform, box-shadow;
 }
 
 .timeline-card:hover {
@@ -1449,6 +1504,7 @@ details[open] > .capability-content {
     color: var(--color-text-primary);
     transition: transform var(--transition);
     margin-left: var(--spacing-md);
+    will-change: transform;
 }
 
 .faq-icon .lucide {
@@ -1682,6 +1738,7 @@ textarea.form-input {
     height: 40px;
     border-radius: 50%;
     background: var(--color-bg);
+    will-change: transform, color, background-color;
 }
 
 .footer-bottom .social-icons a:hover {
@@ -1734,6 +1791,7 @@ textarea.form-input {
     width: 44px;
     height: 44px;
     box-shadow: 0 4px 12px rgba(0, 167, 157, 0.3); /* Updated shadow color */
+    will-change: transform, opacity, visibility, box-shadow;
 }
 
 .scroll-to-top .lucide {
@@ -1800,6 +1858,7 @@ textarea.form-input {
     transition: var(--transition);
     line-height: 0;
     border-radius: var(--border-radius-pill); /* Rounded */
+    will-change: transform, background-color;
 }
 
 .lightbox-close .lucide {
@@ -1856,13 +1915,7 @@ textarea.form-input {
     /* RE-ENABLE 3D effect for testimonials */
     .testimonial-slide {
         flex: 0 0 60%;
-        opacity: 0.4;
-        transform: scale(0.9);
-        transition: transform var(--transition-slow), opacity var(--transition-slow);
-    }
-    .testimonial-slide.is-active {
-        opacity: 1;
-        transform: scale(1);
+        /* Styling is now universal, no changes needed here */
     }
     
     .footer-info {
@@ -1952,8 +2005,9 @@ textarea.form-input {
 
     .testimonial-slide {
         flex-basis: calc((100% / 3) - var(--spacing-lg) * 2 / 3);
-        opacity: 1;
-        transform: scale(1);
+        opacity: 1; /* All slides visible on desktop grid */
+        transform: scale(1); /* No 3D scaling on desktop grid */
+        transition: none; /* Disable transition for grid */
     }
     
     .testimonial-carousel-track {
