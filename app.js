@@ -45,6 +45,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
     };
+    
+    /**
+     * NEW: A more general-purpose throttle for events like scrolling
+     * that don't need to sync with requestAnimationFrame.
+     */
+    const simpleThrottle = (func, limit) => {
+      let inThrottle;
+      return function(...args) {
+        const context = this;
+        if (!inThrottle) {
+          func.apply(context, args);
+          inThrottle = true;
+          setTimeout(() => inThrottle = false, limit);
+        }
+      };
+    };
+
 
     /**
      * Check if element is in viewport
@@ -180,10 +197,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (targetId.startsWith('#')) {
                     const targetEl = document.querySelector(targetId);
                     if (targetEl) {
-                        // Delay to allow menu to close, then scroll
-                        setTimeout(() => {
-                            scrollToElement(targetEl, 0); 
-                        }, 300); // Wait for menu close animation
+                        // REVISED: Remove delay. Close menu and scroll immediately.
+                        scrollToElement(targetEl); 
                     }
                 }
             });
@@ -211,24 +226,22 @@ document.addEventListener('DOMContentLoaded', () => {
         '.nav-link, .scroll-to-top, .nav-logo, .about-buttons .cta-button[href^="#"], .cta-section .cta-button[href^="#"]'
     );
 
-    const scrollToElement = (element, delay = 0) => {
-        setTimeout(() => {
-            const headerOffset = mainHeader ? mainHeader.offsetHeight : 72;
-            const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-            const offsetPosition = elementPosition - headerOffset - 16;
+    const scrollToElement = (element) => {
+        const headerOffset = mainHeader ? mainHeader.offsetHeight : 72;
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - headerOffset - 16;
 
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: "smooth"
-            });
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth"
+        });
 
-            // Focus the target for accessibility
-            element.setAttribute('tabindex', '-1');
-            element.focus({ preventScroll: true });
-            
-            // Remove tabindex after focus
-            setTimeout(() => element.removeAttribute('tabindex'), 1000);
-        }, delay);
+        // Focus the target for accessibility
+        element.setAttribute('tabindex', '-1');
+        element.focus({ preventScroll: true });
+        
+        // Remove tabindex after focus
+        setTimeout(() => element.removeAttribute('tabindex'), 1000);
     };
 
     scrollLinks.forEach(link => {
@@ -239,7 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (href && href.startsWith('#')) {
                 // We only prevent default for non-mobile-menu links
                 // The mobile menu handler does its own logic
-                if (!link.closest('.mobile-nav-menu')) {
+                if (!link.closest('#mobile-nav-menu')) {
                     e.preventDefault();
                     const targetSection = document.querySelector(href);
                 
@@ -408,7 +421,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // =================================================================================
-    // --- Enhanced Carousel System (with LOOPING) ---
+    // --- Enhanced Carousel System (REBUILT FOR SMOOTHNESS) ---
     // =================================================================================
     let activeCarousels = [];
 
@@ -428,20 +441,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             this.slides = Array.from(this.track.children);
-            
+            if (this.slides.length === 0) return;
+
             this.currentIndex = 0;
             this.paginationBtns = [];
-            this.observers = [];
+            
+            // Throttled scroll handler for updating active slide
+            this.throttledScrollHandler = simpleThrottle(this.findActiveSlide.bind(this), 100);
             
             this.init();
         }
 
         init() {
-            if (!this.viewport || !this.track || this.slides.length === 0) {
-                this.hideControls();
-                return;
-            }
-
             // Hide controls if only one slide
             if (this.slides.length <= 1) {
                 this.hideControls();
@@ -452,19 +463,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const isDesktop = window.innerWidth >= 1024;
             if (this.options.desktopGridOn && isDesktop) {
                 this.hideControls();
+                // Ensure all slides are active/visible in grid mode
+                if (this.options.is3D) {
+                    this.slides.forEach(slide => slide.classList.add('is-active'));
+                }
                 return;
             }
             
             this.showControls();
             this.createPagination();
             this.setupEventListeners();
-            this.setupIntersectionObserver();
-            this.updateControls();
             
-            // Initial active slide for 3D carousel
-            if (this.options.is3D && !isDesktop) { // Only apply 3D logic if not desktop
-                this.updateActiveSlideClass();
-            }
+            // Set initial active slide
+            this.updateCurrentIndex(0, true); // Force update on init
         }
 
         createPagination() {
@@ -524,6 +535,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 endX = e.changedTouches[0].clientX;
                 this.handleSwipe(startX, endX);
             }, { passive: true });
+            
+            // REBUILT: Listen to scroll event to find active slide
+            this.viewport.addEventListener('scroll', this.throttledScrollHandler, { passive: true });
+        }
+        
+        // NEW: Find active slide based on scroll position
+        findActiveSlide() {
+            const viewportCenter = this.viewport.scrollLeft + this.viewport.clientWidth / 2;
+            let minDistance = Infinity;
+            let newIndex = this.currentIndex;
+
+            this.slides.forEach((slide, index) => {
+                const slideCenter = slide.offsetLeft + slide.clientWidth / 2;
+                const distance = Math.abs(viewportCenter - slideCenter);
+                
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    newIndex = index;
+                }
+            });
+
+            this.updateCurrentIndex(newIndex);
         }
 
         handleSwipe(startX, endX) {
@@ -539,33 +572,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        setupIntersectionObserver() {
-            const threshold = 0.51; 
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting && entry.intersectionRatio >= threshold) {
-                        const newIndex = this.slides.indexOf(entry.target);
-                        this.updateCurrentIndex(newIndex);
-                    }
-                });
-            }, {
-                root: this.viewport,
-                threshold: threshold
-            });
-
-            this.slides.forEach(slide => observer.observe(slide));
-            this.observers.push(observer);
-        }
-
         scrollToSlide(index) {
-            // *** NEW LOOPING LOGIC ***
+            // *** Looping Logic ***
             if (index < 0) {
                 index = this.slides.length - 1;
             } else if (index >= this.slides.length) {
                 index = 0;
             }
-            // *** END NEW LOGIC ***
 
             if (!this.slides[index]) return; // Failsafe
             
@@ -579,20 +592,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 behavior: 'smooth'
             });
 
-            // Manually update index and controls since observer can be slow
+            // Manually update index and controls. The scroll listener will
+            // catch up, but this makes the UI feel more responsive.
             this.updateCurrentIndex(index);
             
             // Update focus for accessibility
             slide.focus({ preventScroll: true });
         }
 
-        updateCurrentIndex(newIndex) {
-            if (newIndex === this.currentIndex) return; // Prevent redundant updates
+        updateCurrentIndex(newIndex, force = false) {
+            if (newIndex === this.currentIndex && !force) return; // Prevent redundant updates
 
             this.currentIndex = newIndex;
             this.updateControls();
             
-            // CSS handles 3D effect, but JS still toggles 'is-active' for it
             if (this.options.is3D) {
                 this.updateActiveSlideClass();
             }
@@ -618,8 +631,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     btn.setAttribute('aria-selected', isActive);
                 });
             }
-
-            // *** REMOVED disabled logic for prev/next buttons to allow looping ***
         }
 
         showControls() {
@@ -638,13 +649,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-
-
         destroy() {
-            // Clean up observers
-            this.observers.forEach(observer => observer.disconnect());
+            // Clean up scroll listener
+            this.viewport.removeEventListener('scroll', this.throttledScrollHandler);
             
             // Clean up event listeners (basic removal)
+            // A more robust way is to use AbortController, but this is fine
+            // since we are replacing the nodes.
             if (this.prevBtn) {
                 this.prevBtn.replaceWith(this.prevBtn.cloneNode(true));
             }
@@ -670,7 +681,7 @@ document.addEventListener('DOMContentLoaded', () => {
         activeCarousels.forEach(carousel => carousel.destroy());
         activeCarousels = [];
 
-        // Initialize Data Viz Carousel (now finds all 9 slides)
+        // Initialize Data Viz Carousel
         const vizCarousel = new Carousel({
             viewportSelector: '.viz-carousel-viewport',
             trackSelector: '#viz-carousel-track',
@@ -907,24 +918,9 @@ document.addEventListener('DOMContentLoaded', () => {
     handleAccordion(capabilitiesAccordion);
     
     // =================================================================================
-    // --- Typing Animation for Hero Section ---
+    // --- Typing Animation for Hero Section (REMOVED) ---
+    // CSS now handles the fade-in-up animations on load.
     // =================================================================================
-    const initHeroAnimation = () => {
-        const heroTitle = document.querySelector('.hero-title');
-        if (!heroTitle) return;
-        
-        const highlightSpan = heroTitle.querySelector('.hero-highlight');
-        
-        if (highlightSpan) {
-            // Use opacity for a simple, clean fade-in
-            highlightSpan.style.opacity = '0';
-            
-            setTimeout(() => {
-                highlightSpan.style.transition = 'opacity 0.5s ease';
-                highlightSpan.style.opacity = '1';
-            }, 500);
-        }
-    };
 
     // =================================================================================
     // --- Timeline Animation (REVISED) ---
@@ -937,7 +933,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('is-visible'); // Use class
                     timelineObserver.unobserve(entry.target);
-                }
+D                }
             });
         }, {
             threshold: 0.1,
@@ -945,8 +941,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Add 'is-hidden' class via JS to prevent flash of unstyled content
+        // This logic was correct and works with the new CSS animations.
         timelineItems.forEach((item, index) => {
-            item.classList.add('is-hidden'); // Use class
+            // item.classList.add('is-hidden'); // This is now set in CSS
             item.style.transitionDelay = `${index * 0.1}s`;
             timelineObserver.observe(item);
         });
@@ -968,7 +965,8 @@ document.addEventListener('DOMContentLoaded', () => {
             (lastWidth < 1024 && currentWidth >= 1024) ||
             (lastWidth >= 1024 && currentWidth < 1024);
         
-        if (breakpointCrossed || Math.abs(currentWidth - lastWidth) > 50) { 
+        // Re-setup carousels on breakpoint cross to handle desktop grid logic
+        if (breakpointCrossed) { 
             lastWidth = currentWidth;
             setupCarousels();
         }
@@ -988,7 +986,7 @@ document.addEventListener('DOMContentLoaded', () => {
         handleHeaderScroll();
         
         // Initialize animations and interactions
-        initHeroAnimation();
+        // initHeroAnimation(); // Removed, CSS handles this
         initTimelineAnimation();
         
         // Add loading class for any initial animations
