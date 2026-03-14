@@ -1,44 +1,45 @@
 # Hi, I'm Chatura Dissanayake 👋
 
-**Visual Communicator | Data Storyteller | Information Management Professional**
+**Information Designer | Digital Strategist | Communication Specialist**
 
-I help organisations transform complex data and strategic goals into clear, compelling, and actionable visual narratives. My background combines Public Relations, Information Management, and high-impact digital design for international and government institutions.
-
----
-
-## 🚀 Expertise & Focus
-
-My work focuses on bridging the gap between technical data and public understanding.
-
-### Communication & Strategy
-* **Strategic Communication:** Expertise in press & public information, stakeholder coordination, and media relations (Media Relations: 90%, Stakeholder Coordination: 95%).
-* **Policy Communication:** Producing high-quality communication materials and aligning digital outreach with organisational priorities.
-* **Project Coordination:** Adept at multi-agency project coordination and workflow optimisation (Project Coordination: 90%).
-
-### Data & Design
-* **Data Storytelling:** Specialising in turning dense data into intuitive visual narratives, such as Sankey diagrams, process-flow charts, and geospatial visualisations.
-* **Design Tools:** High proficiency in industry-standard software:
-    * **Adobe CS:** InDesign, Illustrator, Photoshop (95%)
-    * **UI/UX:** Figma (90%)
-    * **Data Visualization:** Tableau, Power BI (80%), and Flourish (90%)
+[cite_start]I am an Information Designer bridging the gap between technical research and public understanding[cite: 8]. [cite_start]My work focuses on translating dense national data into accessible narratives and scaling digital platforms for clarity and impact[cite: 8].
 
 ---
 
-## 💼 Career Highlights (Recent)
+## 🚀 Strategic Capabilities
 
-| Role | Organization | Period |
+[cite_start]My hybrid toolkit is engineered to translate complex ideas into highly visible formats[cite: 8].
+
+### Data Narrative Engineering
+* [cite_start]**Focus:** Transforming complex policy, research, and datasets into compelling visual narratives ready for institutional publication[cite: 8].
+* [cite_start]**Tools:** Tableau, ECharts, Adobe Illustrator, Adobe InDesign, MS Excel[cite: 8].
+
+### Mass-Digital Reach
+* [cite_start]**Focus:** Applying real-time analytics, retention metrics, and audience psychology to engineer content strategies that scale platforms to millions of views[cite: 8].
+* [cite_start]**Tools:** Google Analytics, YouTube Studio, Meta Business Suite, Premiere Pro[cite: 8].
+
+### Policy Communication UX
+* [cite_start]**Focus:** Designing intuitive digital environments, wireframes, and scrollytelling websites to make dense, bureaucratic information highly user-friendly[cite: 8].
+* [cite_start]**Tools:** Figma, HTML / CSS / JS, Webflow, Hotjar, Notion[cite: 8].
+
+---
+
+## 💼 Professional Evolution
+
+| Role | Organisation | Period |
 | :--- | :--- | :--- |
-| Independent Communications & Design Consultant | Self-employed / Freelance | 2025 - CURRENT |
-| UN National Volunteer Specialist - Graphic Designer | United Nations Resident Coordinator's Office | MAR - JUN 2025 |
-| Senior Communications Designer | Verité Research | 2022 - 2024 |
+| Freelance Information Designer & Digital Strategist | Independent / Self-employed | [cite_start]2025 – CURRENT [cite: 8] |
+| Communications & Design Consultant | Govt. of Sri Lanka - Dept. of National Planning | [cite_start]2025 (JUL) [cite: 8] |
+| UN National Volunteer Specialist | United Nations Resident Coordinator's Office | [cite_start]2025 (MAR – JUN) [cite: 8] |
+| Senior Communications Designer | Verité Research | [cite_start]2022 – 2024 [cite: 8] |
 
 ---
 
 ## 🔗 Connect With Me
 
-* **Portfolio:** View my work for the UN, Verité Research, and data storytelling projects on my website.
-* **LinkedIn:** [httpss://lk.linkedin.com/in/chaturadissanayake]
-* **GitHub:** [httpss://github.com/chaturadissanayake]
-* **Email:** [consultchatura@gmail.com](mailto:consultchatura@gmail.com)
+* [cite_start]**LinkedIn:** [https://linkedin.com/in/chaturadissanayake](https://linkedin.com/in/chaturadissanayake) [cite: 8]
+* [cite_start]**GitHub:** [https://github.com/chaturadissanayake](https://github.com/chaturadissanayake) [cite: 8]
+* [cite_start]**X (Twitter):** [https://x.com/atakatus](https://x.com/atakatus) [cite: 8]
+* [cite_start]**Email:** [consultchatura@gmail.com](mailto:consultchatura@gmail.com) [cite: 8]
 
-Available for freelance consultancy and new project opportunities. Let's collaborate!
+Available for freelance consultancy and data storytelling opportunities. Let's collaborate!
