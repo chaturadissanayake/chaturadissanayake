@@ -27,8 +27,8 @@
                 <a href="#about" class="nav-link">Intro</a>
                 <a href="#projects" class="nav-link">Projects</a>
                 <a href="#visualisations" class="nav-link">Data Storytelling</a>
-                <a href="#capabilities" class="nav-link">Capabilities</a>
                 <a href="#evolution" class="nav-link">Evolution</a>
+                <a href="#capabilities" class="nav-link">Capabilities</a>
             </nav>
 
             <div class="header-controls">
@@ -49,8 +49,8 @@
             <a href="#about" class="mobile-link">Intro</a>
             <a href="#projects" class="mobile-link">Projects</a>
             <a href="#visualisations" class="mobile-link">Data Storytelling</a>
-            <a href="#capabilities" class="mobile-link">Capabilities</a>
             <a href="#evolution" class="mobile-link">Evolution</a>
+            <a href="#capabilities" class="mobile-link">Capabilities</a>
             <a href="#contact" class="mobile-link highlight">Say Hello</a>
         </nav>
     </div>
@@ -84,22 +84,31 @@
                     </div>
                 </div>
             </div>
-            
-            <a href="#projects" class="scroll-cue" aria-label="Scroll Down">
-                <span>Scroll to Explore</span>
-                <i data-lucide="arrow-down"></i>
-            </a>
         </section>
 
         <section class="projects-section section-fade-in" id="projects">
             <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Selected Projects</h2>
-                    <p class="section-subtitle">Evidence-based narratives where I applied design to solve real-world engagement problems.</p>
+                <div class="projects-header-flex">
+                    <div class="section-header">
+                        <h2 class="section-title">Selected Projects</h2>
+                        <p class="section-subtitle">Evidence-based narratives where I applied design to solve real-world engagement problems.</p>
+                    </div>
+                    <div class="view-toggle-controls">
+                        <button class="toggle-btn active" id="grid-view-btn" title="Gallery View">
+                            <i data-lucide="layout-grid"></i>
+                        </button>
+                        <button class="toggle-btn" id="list-view-btn" title="List View">
+                            <i data-lucide="list"></i>
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="case-grid">
+                <div class="projects-wrapper grid-mode" id="projects-container">
                     <article class="case-card">
+                        <div class="list-metadata">
+                            <span class="l-cat">Data Storytelling</span>
+                            <span class="l-date">MAR 2026</span>
+                        </div>
                         <div class="card-image-wrapper">
                             <img src="Assets/Project_1_Image.jpeg" alt="Disaster Narrative Sri Lanka" class="case-image">
                             <div class="status-badge"><i data-lucide="activity"></i> Currently in the works</div>
@@ -116,6 +125,10 @@
                     </article>
 
                     <article class="case-card">
+                        <div class="list-metadata">
+                            <span class="l-cat">Institutional Reporting</span>
+                            <span class="l-date">FEB 2026</span>
+                        </div>
                         <div class="card-image-wrapper">
                             <img src="Assets/Project_2_Image.jpeg" alt="UN Annual Results Report" class="case-image">
                         </div>
@@ -131,11 +144,15 @@
                     </article>
 
                     <article class="case-card">
+                        <div class="list-metadata">
+                            <span class="l-cat">Audience Growth</span>
+                            <span class="l-date">JAN 2026</span>
+                        </div>
                         <div class="card-image-wrapper">
-                            <img src="Assets/Project_3_Image.jpeg" alt="The Lanka Edit Growth" class="case-image">
+                            <img src="Assets/Project_3_Image.jpeg" alt="Social Media Growth" class="case-image">
                         </div>
                         <div class="case-content">
-                            <h3>Mass Reach: The Lanka Edit</h3>
+                            <h3>Mass Reach: YouTube</h3>
                             <p>Scaled an entertainment news platform to 2M+ views in 28 days through rigorous sentiment analysis and iterative retention testing.</p>
                             <div class="case-meta">
                                 <span class="case-tag">Audience Growth</span>
@@ -146,6 +163,10 @@
                     </article>
 
                     <article class="case-card">
+                        <div class="list-metadata">
+                            <span class="l-cat">Interactive Design</span>
+                            <span class="l-date">DEC 2025</span>
+                        </div>
                         <div class="card-image-wrapper">
                             <img src="Assets/Project_4_Image.jpeg" alt="The Shadow War" class="case-image">
                         </div>
@@ -161,6 +182,10 @@
                     </article>
 
                     <article class="case-card">
+                        <div class="list-metadata">
+                            <span class="l-cat">Government Report</span>
+                            <span class="l-date">JUL 2025</span>
+                        </div>
                         <div class="card-image-wrapper">
                             <img src="Assets/Project_5_Image.jpeg" alt="Public Investment Programme" class="case-image">
                         </div>
@@ -176,6 +201,10 @@
                     </article>
 
                     <article class="case-card">
+                        <div class="list-metadata">
+                            <span class="l-cat">UX Research</span>
+                            <span class="l-date">MAR 2025</span>
+                        </div>
                         <div class="card-image-wrapper">
                             <img src="Assets/Project_6_Image.jpeg" alt="Embracy UX Design" class="case-image">
                         </div>
@@ -191,8 +220,12 @@
                     </article>
                 </div>
 
-                <div class="extended-work" id="extended-work">
+                <div class="extended-work grid-mode" id="extended-work">
                     <article class="case-card">
+                        <div class="list-metadata">
+                            <span class="l-cat">Video Production</span>
+                            <span class="l-date">FEB 2025</span>
+                        </div>
                         <div class="card-image-wrapper">
                             <img src="Assets/Project_7_Image.jpeg" alt="Documentary Iran" class="case-image">
                             <div class="status-badge"><i data-lucide="activity"></i> Currently in the works</div>
@@ -209,6 +242,10 @@
                     </article>
 
                     <article class="case-card">
+                        <div class="list-metadata">
+                            <span class="l-cat">Market Research</span>
+                            <span class="l-date">FEB 2025</span>
+                        </div>
                         <div class="card-image-wrapper">
                             <img src="Assets/Project_8_Image.jpeg" alt="Valentine Data Study" class="case-image">
                             <div class="status-badge"><i data-lucide="activity"></i> Currently in the works</div>
@@ -225,6 +262,10 @@
                     </article>
 
                     <article class="case-card">
+                        <div class="list-metadata">
+                            <span class="l-cat">Audience Psychology</span>
+                            <span class="l-date">JAN 2025</span>
+                        </div>
                         <div class="card-image-wrapper">
                             <img src="Assets/Project_9_Image.jpeg" alt="Platform Retention" class="case-image">
                             <div class="status-badge"><i data-lucide="activity"></i> Currently in the works</div>
@@ -241,6 +282,10 @@
                     </article>
 
                     <article class="case-card">
+                        <div class="list-metadata">
+                            <span class="l-cat">Advocacy</span>
+                            <span class="l-date">DEC 2024</span>
+                        </div>
                         <div class="card-image-wrapper">
                             <img src="Assets/Project_10_Image.jpeg" alt="Broken Lotus" class="case-image">
                         </div>
@@ -256,6 +301,10 @@
                     </article>
 
                     <article class="case-card">
+                        <div class="list-metadata">
+                            <span class="l-cat">Policy Communication</span>
+                            <span class="l-date">NOV 2024</span>
+                        </div>
                         <div class="card-image-wrapper">
                             <img src="Assets/Project_11_Image.jpeg" alt="Verite Research" class="case-image">
                         </div>
@@ -271,6 +320,10 @@
                     </article>
 
                     <article class="case-card">
+                        <div class="list-metadata">
+                            <span class="l-cat">Brand Strategy</span>
+                            <span class="l-date">OCT 2024</span>
+                        </div>
                         <div class="card-image-wrapper">
                             <img src="Assets/Project_12_Image.jpeg" alt="Brand Identity" class="case-image">
                         </div>
@@ -312,12 +365,20 @@
                                 <img src="Assets/1740080800678.jpg" alt="Sri Lanka Government Budget visualisation" loading="lazy">
                                 <div class="viz-expand-icon"><i data-lucide="maximize-2"></i></div>
                             </div>
+                            <div class="viz-caption">
+                                <h4>Sri Lanka Government Budget — Incomes & Expenditures 2025</h4>
+                                <p>The Sri Lankan government budget summarises the country's total revenue from taxes and other sources, and expenditures on public services, programs, and other expenses.</p>
+                            </div>
                         </li>
                         <li class="viz-slide">
                             <div class="viz-lightbox-trigger">
                                 <div class="viz-bg-blur" style="background-image: url('Assets/1744189418229.jpg')"></div>
                                 <img src="Assets/1744189418229.jpg" alt="A streamgraph chart" loading="lazy">
                                 <div class="viz-expand-icon"><i data-lucide="maximize-2"></i></div>
+                            </div>
+                            <div class="viz-caption">
+                                <h4>From Skipping Classes to Figuring It Out Myself</h4>
+                                <p>A visual reflection on growing through uncertainty, navigating chaos without a clear map, and slowly figuring things out one step at a time.</p>
                             </div>
                         </li>
                         <li class="viz-slide">
@@ -326,12 +387,20 @@
                                 <img src="Assets/1747091438707.jpg" alt="A circular dot plot visualization" loading="lazy">
                                 <div class="viz-expand-icon"><i data-lucide="maximize-2"></i></div>
                             </div>
+                            <div class="viz-caption">
+                                <h4>338 Acts of Change</h4>
+                                <p>This spiral visualizes 338 initiatives that shaped Sri Lanka in 2024, with each dot representing an effort to strengthen communities, inform policy, and promote resilience.</p>
+                            </div>
                         </li>
                         <li class="viz-slide">
                             <div class="viz-lightbox-trigger">
                                 <div class="viz-bg-blur" style="background-image: url('Assets/1748281420050.jpg')"></div>
                                 <img src="Assets/1748281420050.jpg" alt="Sexual harassment cases visualization" loading="lazy">
                                 <div class="viz-expand-icon"><i data-lucide="maximize-2"></i></div>
+                            </div>
+                            <div class="viz-caption">
+                                <h4>Broken Lotus: Sexual Harassment in Sri Lanka</h4>
+                                <p>This visual narrative uses a broken lotus flower to symbolize the weight of 2,252 reported cases, with each petal representing 100 incidents.</p>
                             </div>
                         </li>
                         <li class="viz-slide">
@@ -340,12 +409,20 @@
                                 <img src="Assets/1759351398618.jpg" alt="Drug-related arrests visualization" loading="lazy">
                                 <div class="viz-expand-icon"><i data-lucide="maximize-2"></i></div>
                             </div>
+                            <div class="viz-caption">
+                                <h4>Drug-Related Arrests vs. Treatment Cases (2018-2023)</h4>
+                                <p>The nation faces a widening gap between soaring arrests for drug-related offenses and stagnant access to treatment.</p>
+                            </div>
                         </li>
                         <li class="viz-slide">
                             <div class="viz-lightbox-trigger">
                                 <div class="viz-bg-blur" style="background-image: url('Assets/1759351542088.jpg')"></div>
                                 <img src="Assets/1759351542088.jpg" alt="Drug-related arrests visualization" loading="lazy">
                                 <div class="viz-expand-icon"><i data-lucide="maximize-2"></i></div>
+                            </div>
+                            <div class="viz-caption">
+                                <h4>Drug-Related Arrests by Substance (2018–2023)</h4>
+                                <p>Sri Lanka faces a widening gap: drug-related arrests are soaring, especially for heroin, cannabis, and methamphetamines, while access to treatment remains stagnant.</p>
                             </div>
                         </li>
                         <li class="viz-slide">
@@ -354,6 +431,10 @@
                                 <img src="Assets/1759351805325.jpg" alt="Drug-related arrests visualization" loading="lazy">
                                 <div class="viz-expand-icon"><i data-lucide="maximize-2"></i></div>
                             </div>
+                            <div class="viz-caption">
+                                <h4>Drug Control Under Sri Lanka’s Presidents (2018–2025)</h4>
+                                <p>Arrests have surged across successive presidencies, with record cannabis and heroin seizures under Gotabaya Rajapaksa and the highest-ever arrests under Ranil Wickremesinghe.</p>
+                            </div>
                         </li>
                         <li class="viz-slide">
                             <div class="viz-lightbox-trigger">
@@ -361,12 +442,20 @@
                                 <img src="Assets/1759351877989.jpg" alt="Drug-related arrests visualization" loading="lazy">
                                 <div class="viz-expand-icon"><i data-lucide="maximize-2"></i></div>
                             </div>
+                            <div class="viz-caption">
+                                <h4>Provincial Drug Case Outcomes (2024)</h4>
+                                <p>The estimated case flow highlights a severe strategic imbalance and geographic concentration, reinforcing the national focus on punishment over rehabilitation.</p>
+                            </div>
                         </li>
                         <li class="viz-slide">
                             <div class="viz-lightbox-trigger">
                                 <div class="viz-bg-blur" style="background-image: url('Assets/1759352007093.jpg')"></div>
                                 <img src="Assets/1759352007093.jpg" alt="Drug-related arrests visualization" loading="lazy">
                                 <div class="viz-expand-icon"><i data-lucide="maximize-2"></i></div>
+                            </div>
+                            <div class="viz-caption">
+                                <h4>Who Provides Rehabilitation in Sri Lanka (2022–2023)</h4>
+                                <p>Rehabilitation services are largely delivered by NDDCB Centers, which account for more than half of all cases, while prison-based rehab roughly a quarter.</p>
                             </div>
                         </li>
                     </ul>
@@ -376,50 +465,6 @@
                     <button class="carousel-btn" id="viz-prev-btn"><i data-lucide="arrow-left"></i></button>
                     <div class="carousel-pagination" id="viz-pagination"></div>
                     <button class="carousel-btn" id="viz-next-btn"><i data-lucide="arrow-right"></i></button>
-                </div>
-            </div>
-        </section>
-
-        <section class="capabilities-section section-fade-in" id="capabilities">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Strategic Capabilities</h2>
-                    <p class="section-subtitle">A hybrid toolkit engineered to translate complex ideas into highly visible formats.</p>
-                </div>
-                
-                <div class="capabilities-bento">
-                    <div class="cap-card">
-                        <div class="cap-info">
-                            <h3>Data Narrative Engineering</h3>
-                            <p>Transforming complex policy, research, and datasets into compelling visual narratives that are accessible, insightful, and ready for institutional publication.</p>
-                        </div>
-                        <div class="cap-stack">
-                            <h4>Software & Tools</h4>
-                            <p>Tableau, ECharts, Adobe Illustrator, Adobe InDesign, MS Excel</p>
-                        </div>
-                    </div>
-                    
-                    <div class="cap-card">
-                        <div class="cap-info">
-                            <h3>Mass-Digital Reach</h3>
-                            <p>Applying real-time analytics, retention metrics, and audience psychology to engineer content strategies that scale platforms to millions of views.</p>
-                        </div>
-                        <div class="cap-stack">
-                            <h4>Software & Tools</h4>
-                            <p>Google Analytics, YouTube Studio, Meta Business Suite, Premiere Pro</p>
-                        </div>
-                    </div>
-
-                    <div class="cap-card">
-                        <div class="cap-info">
-                            <h3>Policy Communication UX</h3>
-                            <p>Designing intuitive digital environments, wireframes, and scrollytelling websites to make dense, bureaucratic information highly user-friendly.</p>
-                        </div>
-                        <div class="cap-stack">
-                            <h4>Software & Tools</h4>
-                            <p>Figma, HTML / CSS / JS, Webflow, Hotjar, Notion</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -466,6 +511,50 @@
                             <h3>Senior Communications Designer</h3>
                             <p class="timeline-company">Verité Research</p>
                             <p>Designed and published 150+ data-driven narratives to make complex policy research accessible to public and media audiences.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="capabilities-section section-fade-in" id="capabilities">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Strategic Capabilities</h2>
+                    <p class="section-subtitle">A hybrid toolkit engineered to translate complex ideas into highly visible formats.</p>
+                </div>
+                
+                <div class="capabilities-bento">
+                    <div class="cap-card">
+                        <div class="cap-info">
+                            <h3>Data Narrative Engineering</h3>
+                            <p>Transforming complex policy, research, and datasets into compelling visual narratives that are accessible, insightful, and ready for institutional publication.</p>
+                        </div>
+                        <div class="cap-stack">
+                            <h4>Software & Tools</h4>
+                            <p>Tableau, ECharts, Adobe Illustrator, Adobe InDesign, MS Excel</p>
+                        </div>
+                    </div>
+                    
+                    <div class="cap-card">
+                        <div class="cap-info">
+                            <h3>Mass-Digital Reach</h3>
+                            <p>Applying real-time analytics, retention metrics, and audience psychology to engineer content strategies that scale platforms to millions of views.</p>
+                        </div>
+                        <div class="cap-stack">
+                            <h4>Software & Tools</h4>
+                            <p>Google Analytics, YouTube Studio, Meta Business Suite, Premiere Pro</p>
+                        </div>
+                    </div>
+
+                    <div class="cap-card">
+                        <div class="cap-info">
+                            <h3>Policy Communication UX</h3>
+                            <p>Designing intuitive digital environments, wireframes, and scrollytelling websites to make dense, bureaucratic information highly user-friendly.</p>
+                        </div>
+                        <div class="cap-stack">
+                            <h4>Software & Tools</h4>
+                            <p>Figma, HTML / CSS / JS, Webflow, Hotjar, Notion</p>
                         </div>
                     </div>
                 </div>
