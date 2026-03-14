@@ -175,36 +175,31 @@ html[data-theme="dark"] .icon-moon { display: block; }
 .stat-num { font-weight: 700; color: var(--color-accent); font-size: 1.25rem; font-family: var(--font-sans); }
 .stat-desc { font-size: 0.85rem; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
-/* Scroll Down Liveliness Cue */
-.scroll-cue {
-    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-    opacity: 0.7; animation: bounce 2s infinite; color: var(--color-text-muted);
-    font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
-}
-.scroll-cue i { width: 20px; height: 20px; }
-@keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
-    40% { transform: translateY(-10px) translateX(-50%); }
-    60% { transform: translateY(-5px) translateX(-50%); }
-}
-
-/* ======== 7. Strategic Projects (Locked Grid & Mobile Swipe) ======== */
+/* ======== 7. Strategic Projects (Locked Grid & List Modes) ======== */
 .projects-section { background-color: var(--color-bg-alt); }
 
-.case-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 32px; }
+/* Header and Controls Setup */
+.projects-header-flex { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 48px; }
+.projects-header-flex .section-header { margin-bottom: 0; }
+.projects-header-flex .section-title { text-align: left; margin-bottom: 8px; }
+.projects-header-flex .section-subtitle { text-align: left; margin-bottom: 0; max-width: 500px; }
+.view-toggle-controls { display: flex; gap: 8px; }
+.toggle-btn {
+    background: transparent; border: 1px solid var(--color-border);
+    color: var(--color-text-muted); width: 44px; height: 44px;
+    border-radius: var(--radius-sm); cursor: pointer; display: flex;
+    align-items: center; justify-content: center; transition: var(--transition);
+}
+.toggle-btn.active, .toggle-btn:hover {
+    background: var(--color-surface); color: var(--color-accent); border-color: var(--color-accent);
+}
 
-/* Extended work uses exact same styling */
-.extended-work { display: none; margin-top: 32px; }
-.extended-work.show { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 32px; }
-
+/* Base Case Card Styles */
 .case-card {
     background-color: var(--color-surface); border: 1px solid var(--color-border);
     border-radius: var(--radius-md); overflow: hidden; display: flex; flex-direction: column;
     transition: var(--transition);
 }
-.case-card:hover { transform: translateY(-8px); border-color: var(--color-accent); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
-
 .card-image-wrapper { position: relative; height: 220px; border-bottom: 1px solid var(--color-border); }
 .case-image { width: 100%; height: 100%; object-fit: cover; }
 .status-badge {
@@ -213,37 +208,62 @@ html[data-theme="dark"] .icon-moon { display: block; }
     border-radius: var(--radius-pill); display: flex; align-items: center; gap: 6px;
 }
 .status-badge i { width: 14px; height: 14px; }
-
 .case-content { padding: 24px; display: flex; flex-direction: column; flex-grow: 1; }
 .case-content h3 { font-family: var(--font-sans); font-size: 1.25rem; margin-bottom: 8px; }
 .case-content p { font-size: 0.95rem; flex-grow: 1; }
-
 .case-meta { display: flex; gap: 8px; margin: 16px 0; }
 .case-tag { background-color: var(--color-bg); border: 1px solid var(--color-border); color: var(--color-text-muted); font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: var(--radius-sm); }
-
 .link-button { font-size: 0.95rem; font-weight: 600; display: inline-flex; align-items: center; margin-top: auto; }
 .link-button::after { content: '→'; margin-left: 6px; transition: transform 0.2s; }
-.case-card:hover .link-button { color: var(--color-accent); }
-.case-card:hover .link-button::after { transform: translateX(4px); }
+
+/* Grid Mode Specifics */
+.projects-wrapper.grid-mode, .extended-work.show.grid-mode { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 32px; }
+.grid-mode .list-metadata { display: none; }
+.grid-mode .case-card:hover { transform: translateY(-8px); border-color: var(--color-accent); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+.grid-mode .case-card:hover .link-button { color: var(--color-accent); }
+.grid-mode .case-card:hover .link-button::after { transform: translateX(4px); }
+
+/* Extended work hide state */
+.extended-work { display: none; margin-top: 32px; }
+
+/* List Mode Specifics (Inspired by OpenAI design) */
+.projects-wrapper.list-mode, .extended-work.show.list-mode { display: flex; flex-direction: column; gap: 0; }
+.list-mode .case-card {
+    flex-direction: row; align-items: flex-start;
+    border: none; border-bottom: 1px solid var(--color-border);
+    border-radius: 0; padding: 32px 0; background: transparent;
+    box-shadow: none; gap: 48px; transition: border-color 0.3s ease;
+}
+.list-mode .case-card:hover { transform: none; box-shadow: none; border-bottom-color: var(--color-accent); }
+.list-mode .case-card:last-child { border-bottom: none; }
+.list-mode .card-image-wrapper { display: none; }
+.list-mode .list-metadata { display: flex; flex-direction: column; min-width: 150px; gap: 8px; }
+.list-mode .l-cat { font-weight: 700; font-size: 0.9rem; color: var(--color-text); font-family: var(--font-sans); }
+.list-mode .l-date { font-size: 0.85rem; color: var(--color-text-muted); }
+.list-mode .case-content { padding: 0; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
+.list-mode .case-content h3 { font-size: 1.5rem; margin-bottom: 12px; transition: color 0.3s ease; }
+.list-mode .case-card:hover .case-content h3 { color: var(--color-accent); }
+.list-mode .case-meta, .list-mode .link-button { display: none; } 
 
 .gallery-toggle-container { text-align: center; margin-top: 48px; }
 .show-more-btn i { transition: transform 0.3s; margin-left: 6px; }
 
-/* ======== 8. Data Storytelling (Narrow Frames, Blurred BG, Minimal Icon) ======== */
+/* ======== 8. Data Storytelling (Narrow Frames, Blurred BG, Captions) ======== */
 .visualisations-section { background-color: var(--color-bg); }
 .viz-carousel-viewport { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding: 24px 0; }
 .viz-carousel-viewport::-webkit-scrollbar { display: none; }
-.viz-carousel-track { display: flex; gap: 48px; list-style: none; }
+.viz-carousel-track { display: flex; gap: 48px; list-style: none; margin: 0; padding: 0 24px; }
 
-/* Reduced width so frames aren't too wide */
-.viz-slide { flex: 0 0 100%; max-width: 600px; scroll-snap-align: center; margin: 0 auto; }
+/* Slide setup */
+.viz-slide { flex: 0 0 auto; width: 100%; max-width: 600px; scroll-snap-align: center; display: flex; flex-direction: column; gap: 24px; }
 
 /* Fixed rigid container ensures every chart frame is exactly identical */
 .viz-lightbox-trigger {
     display: flex; align-items: center; justify-content: center; position: relative;
-    width: 100%; max-width: 600px; height: 450px; margin: 0 auto;
+    width: 100%; height: 450px; 
     border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--color-border);
     cursor: zoom-in; transition: var(--transition);
+    background-color: #111; 
 }
 
 /* Beautiful Blurred Backdrop */
@@ -269,10 +289,14 @@ html[data-theme="dark"] .icon-moon { display: block; }
 }
 .viz-lightbox-trigger:hover .viz-expand-icon { background: var(--color-accent); border-color: var(--color-accent); transform: scale(1.1); }
 
+/* Data Visualization Captions matching reference */
+.viz-caption { text-align: center; padding: 0 16px; }
+.viz-caption h4 { font-family: var(--font-sans); font-size: 1.15rem; font-weight: 700; color: var(--color-text); margin-bottom: 8px; }
+.viz-caption p { font-size: 0.95rem; color: var(--color-text-muted); line-height: 1.5; max-width: 550px; margin: 0 auto; }
+
 .carousel-controls { display: flex; justify-content: center; align-items: center; gap: 16px; margin-top: 16px; }
 .carousel-btn { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text); cursor: pointer; transition: var(--transition); display: flex; align-items: center; justify-content: center; }
 .carousel-btn:hover { background-color: var(--color-accent); color: #FFF; border-color: var(--color-accent); }
-
 
 /* ======== 9. Capabilities (Plain, Editorial & Tool Integrated) ======== */
 .capabilities-section { background-color: var(--color-bg-alt); }
@@ -436,20 +460,26 @@ details[open] .faq-icon { transform: rotate(180deg); }
     .editorial-image-frame { max-width: 280px; }
     .editorial-image-frame::before { top: 12px; left: -12px; }
     .stat-block { padding: 8px 16px; }
-    .youtube-stat { bottom: 20px; left: -20px; }
-    .facebook-stat { top: 20px; right: -20px; }
+    .top-stat { bottom: 20px; left: -20px; }
+    .bottom-stat { top: 20px; right: -20px; }
     .stat-num { font-size: 1.1rem; }
     .stat-desc { font-size: 0.75rem; }
     
-    /* Mobile Case Studies Swipe UX */
-    .case-grid, .extended-work.show { 
+    .projects-header-flex { flex-direction: column; align-items: flex-start; gap: 24px; }
+    
+    /* Mobile Case Studies Swipe UX (Grid Only) */
+    .projects-wrapper.grid-mode, .extended-work.show.grid-mode { 
         display: flex; overflow-x: auto; scroll-snap-type: x mandatory; 
         gap: 16px; padding-bottom: 24px; margin-bottom: 16px;
         scrollbar-width: none; 
     }
-    .case-grid::-webkit-scrollbar, .extended-work.show::-webkit-scrollbar { display: none; }
-    .case-card { flex: 0 0 85vw; scroll-snap-align: center; }
+    .projects-wrapper.grid-mode::-webkit-scrollbar, .extended-work.show.grid-mode::-webkit-scrollbar { display: none; }
+    .grid-mode .case-card { flex: 0 0 85vw; scroll-snap-align: center; }
     
+    /* List mode adaptations for Mobile */
+    .list-mode .case-card { flex-direction: column; gap: 16px; padding: 24px 0; }
+    .list-mode .list-metadata { min-width: auto; flex-direction: row; gap: 16px; align-items: center; }
+
     /* Strict Mobile Data Storytelling Uniform Frame */
     .viz-lightbox-trigger { 
         height: 320px; max-height: 320px; 
