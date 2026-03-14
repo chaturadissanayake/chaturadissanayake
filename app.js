@@ -115,10 +115,43 @@ document.addEventListener('DOMContentLoaded', () => {
             ticking = true;
         }
     }, { passive: true });
-
-    // 6. Extended Gallery Toggle 
-    const showMoreBtn = document.getElementById('show-more-btn');
+    
+    // 6. View Toggle Logic (Grid/List)
+    const gridBtn = document.getElementById('grid-view-btn');
+    const listBtn = document.getElementById('list-view-btn');
+    const projectsContainer = document.getElementById('projects-container');
     const extendedWork = document.getElementById('extended-work');
+
+    if (gridBtn && listBtn && projectsContainer) {
+        gridBtn.addEventListener('click', () => {
+            gridBtn.classList.add('active');
+            listBtn.classList.remove('active');
+            
+            projectsContainer.classList.remove('list-mode');
+            projectsContainer.classList.add('grid-mode');
+            
+            if (extendedWork) {
+                extendedWork.classList.remove('list-mode');
+                extendedWork.classList.add('grid-mode');
+            }
+        });
+
+        listBtn.addEventListener('click', () => {
+            listBtn.classList.add('active');
+            gridBtn.classList.remove('active');
+            
+            projectsContainer.classList.remove('grid-mode');
+            projectsContainer.classList.add('list-mode');
+            
+            if (extendedWork) {
+                extendedWork.classList.remove('grid-mode');
+                extendedWork.classList.add('list-mode');
+            }
+        });
+    }
+
+    // 7. Extended Gallery Toggle 
+    const showMoreBtn = document.getElementById('show-more-btn');
 
     if (showMoreBtn && extendedWork) {
         showMoreBtn.addEventListener('click', () => {
@@ -136,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 7. FAQ Accordion Logic
+    // 8. FAQ Accordion Logic
     const faqAccordions = document.querySelectorAll('.faq-item');
     faqAccordions.forEach(item => {
         const summary = item.querySelector('summary');
@@ -154,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 8. Visualisations Lightbox
+    // 9. Visualisations Lightbox
     const modal = document.getElementById('lightbox-modal');
     const modalImg = document.getElementById('lightbox-image');
     const closeBtn = document.querySelector('.lightbox-close');
@@ -186,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 9. Visualisations Simple Carousel Controls
+    // 10. Visualisations Simple Carousel Controls
     const vizViewport = document.querySelector('.viz-carousel-viewport');
     const btnNext = document.getElementById('viz-next-btn');
     const btnPrev = document.getElementById('viz-prev-btn');
@@ -200,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 10. Fade In on Scroll
+    // 11. Fade In on Scroll
     const fadeSections = document.querySelectorAll('.section-fade-in');
     const fadeInObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
