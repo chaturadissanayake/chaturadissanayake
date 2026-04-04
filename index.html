@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,8 +16,6 @@
     <link rel="icon" href="Assets/favicon.ico" type="image/x-icon">
 </head>
 <body class="loading">
-
-    <div class="scroll-progress" id="scroll-progress"></div>
 
     <header class="main-header">
         <div class="nav-container container">
@@ -94,10 +92,10 @@
                         <p class="section-subtitle">Evidence-based narratives where I applied design to solve real-world engagement problems.</p>
                     </div>
                     <div class="view-toggle-controls">
-                        <button class="toggle-btn active" id="grid-view-btn" title="Gallery View">
+                        <button class="toggle-btn active" id="grid-view-btn" aria-label="Gallery View" title="Gallery View">
                             <i data-lucide="layout-grid"></i>
                         </button>
-                        <button class="toggle-btn" id="list-view-btn" title="List View">
+                        <button class="toggle-btn" id="list-view-btn" aria-label="List View" title="List View">
                             <i data-lucide="list"></i>
                         </button>
                     </div>
@@ -110,7 +108,7 @@
                             <span class="l-date">MAR 2026</span>
                         </div>
                         <div class="card-image-wrapper">
-                            <img src="Assets/Project_1_Image.jpeg" alt="Disaster Narrative Sri Lanka" class="case-image">
+                            <img src="Assets/Project_1_Image.jpeg" alt="Disaster Narrative Sri Lanka" class="case-image" loading="lazy">
                             <div class="status-badge"><i data-lucide="activity"></i> Currently in the works</div>
                         </div>
                         <div class="case-content">
@@ -120,17 +118,18 @@
                                 <span class="case-tag">Data Storytelling</span>
                                 <span class="case-tag">Crisis Comms</span>
                             </div>
-                            <a href="#" class="link-button">View Project</a>
+                            <span class="link-button disabled-link">Coming Soon</span>
                         </div>
                     </article>
 
                     <article class="case-card">
+                        <a href="https://srilanka.un.org/en/293540-un-sri-lanka-2024-annual-results-report" target="_blank" class="card-overlay-link" aria-label="View UN Annual Results Synthesis"></a>
                         <div class="list-metadata">
                             <span class="l-cat">Institutional Reporting</span>
                             <span class="l-date">FEB 2026</span>
                         </div>
                         <div class="card-image-wrapper">
-                            <img src="Assets/Project_2_Image.jpeg" alt="UN Annual Results Report" class="case-image">
+                            <img src="Assets/Project_2_Image.jpeg" alt="UN Annual Results Report" class="case-image" loading="lazy">
                         </div>
                         <div class="case-content">
                             <h3>UN Annual Results Synthesis</h3>
@@ -139,7 +138,7 @@
                                 <span class="case-tag">Institutional Reporting</span>
                                 <span class="case-tag">Data Visualisation</span>
                             </div>
-                            <a href="https://srilanka.un.org/en/293540-un-sri-lanka-2024-annual-results-report" target="_blank" class="link-button">View Project</a>
+                            <span class="link-button">View Project</span>
                         </div>
                     </article>
 
@@ -149,7 +148,7 @@
                             <span class="l-date">JAN 2026</span>
                         </div>
                         <div class="card-image-wrapper">
-                            <img src="Assets/Project_3_Image.jpeg" alt="YouTube Chanel Growth" class="case-image">
+                            <img src="Assets/Project_3_Image.jpeg" alt="YouTube Channel Growth" class="case-image" loading="lazy">
                         </div>
                         <div class="case-content">
                             <h3>Mass Reach: YouTube</h3>
@@ -158,17 +157,18 @@
                                 <span class="case-tag">Audience Growth</span>
                                 <span class="case-tag">Digital Strategy</span>
                             </div>
-                            <a href="#" class="link-button">View Project</a>
+                            <span class="link-button disabled-link">Coming Soon</span>
                         </div>
                     </article>
 
                     <article class="case-card">
+                        <a href="https://chaturadissanayake.github.io/sri-lanka-drug-crisis-website/" target="_blank" class="card-overlay-link" aria-label="View The Shadow War"></a>
                         <div class="list-metadata">
                             <span class="l-cat">Interactive Design</span>
                             <span class="l-date">DEC 2025</span>
                         </div>
                         <div class="card-image-wrapper">
-                            <img src="Assets/Project_4_Image.jpeg" alt="The Shadow War" class="case-image">
+                            <img src="Assets/Project_4_Image.jpeg" alt="The Shadow War" class="case-image" loading="lazy">
                         </div>
                         <div class="case-content">
                             <h3>The Shadow War: Drug Crisis</h3>
@@ -177,17 +177,18 @@
                                 <span class="case-tag">Interactive Design</span>
                                 <span class="case-tag">Scrollytelling</span>
                             </div>
-                            <a href="https://chaturadissanayake.github.io/sri-lanka-drug-crisis-website/" target="_blank" class="link-button">View Project</a>
+                            <span class="link-button">View Project</span>
                         </div>
                     </article>
 
                     <article class="case-card">
+                        <a href="https://npd.treasury.gov.lk/files/PIP%202026-2030%20final_new.pdf" target="_blank" class="card-overlay-link" aria-label="View Public Investment 2026-2030"></a>
                         <div class="list-metadata">
                             <span class="l-cat">Government Report</span>
                             <span class="l-date">JUL 2025</span>
                         </div>
                         <div class="card-image-wrapper">
-                            <img src="Assets/Project_5_Image.jpeg" alt="Public Investment Programme" class="case-image">
+                            <img src="Assets/Project_5_Image.jpeg" alt="Public Investment Programme" class="case-image" loading="lazy">
                         </div>
                         <div class="case-content">
                             <h3>Public Investment 2026-2030</h3>
@@ -196,17 +197,18 @@
                                 <span class="case-tag">Government Report</span>
                                 <span class="case-tag">Information Design</span>
                             </div>
-                            <a href="https://npd.treasury.gov.lk/files/PIP%202026-2030%20final_new.pdf" target="_blank" class="link-button">View Project</a>
+                            <span class="link-button">View Project</span>
                         </div>
                     </article>
 
                     <article class="case-card">
+                        <a href="https://drive.google.com/drive/folders/1Ria6BG5ML2PYXCr3Hx-n5H9PNIjra5Zf" target="_blank" class="card-overlay-link" aria-label="View Embracy UX Design"></a>
                         <div class="list-metadata">
                             <span class="l-cat">UX Research</span>
                             <span class="l-date">MAR 2025</span>
                         </div>
                         <div class="card-image-wrapper">
-                            <img src="Assets/Project_6_Image.jpeg" alt="Embracy UX Design" class="case-image">
+                            <img src="Assets/Project_6_Image.jpeg" alt="Embracy UX Design" class="case-image" loading="lazy">
                         </div>
                         <div class="case-content">
                             <h3>Embracy: UX/UI Platform</h3>
@@ -215,7 +217,7 @@
                                 <span class="case-tag">UX Research</span>
                                 <span class="case-tag">UI Design</span>
                             </div>
-                            <a href="https://drive.google.com/drive/folders/1Ria6BG5ML2PYXCr3Hx-n5H9PNIjra5Zf" target="_blank" class="link-button">View Project</a>
+                            <span class="link-button">View Project</span>
                         </div>
                     </article>
                 </div>
@@ -227,7 +229,7 @@
                             <span class="l-date">FEB 2025</span>
                         </div>
                         <div class="card-image-wrapper">
-                            <img src="Assets/Project_7_Image.jpeg" alt="Documentary Iran" class="case-image">
+                            <img src="Assets/Project_7_Image.jpeg" alt="Documentary Iran" class="case-image" loading="lazy">
                             <div class="status-badge"><i data-lucide="activity"></i> Currently in the works</div>
                         </div>
                         <div class="case-content">
@@ -237,7 +239,7 @@
                                 <span class="case-tag">Video Production</span>
                                 <span class="case-tag">Visual Pacing</span>
                             </div>
-                            <a href="#" class="link-button">View Project</a>
+                            <span class="link-button disabled-link">Coming Soon</span>
                         </div>
                     </article>
 
@@ -247,7 +249,7 @@
                             <span class="l-date">FEB 2025</span>
                         </div>
                         <div class="card-image-wrapper">
-                            <img src="Assets/Project_8_Image.jpeg" alt="Valentine Data Study" class="case-image">
+                            <img src="Assets/Project_8_Image.jpeg" alt="Valentine Data Study" class="case-image" loading="lazy">
                             <div class="status-badge"><i data-lucide="activity"></i> Currently in the works</div>
                         </div>
                         <div class="case-content">
@@ -257,7 +259,7 @@
                                 <span class="case-tag">Market Research</span>
                                 <span class="case-tag">Data Analysis</span>
                             </div>
-                            <a href="#" class="link-button">View Project</a>
+                            <span class="link-button disabled-link">Coming Soon</span>
                         </div>
                     </article>
 
@@ -267,7 +269,7 @@
                             <span class="l-date">JAN 2025</span>
                         </div>
                         <div class="card-image-wrapper">
-                            <img src="Assets/Project_9_Image.jpeg" alt="Platform Retention" class="case-image">
+                            <img src="Assets/Project_9_Image.jpeg" alt="Platform Retention" class="case-image" loading="lazy">
                             <div class="status-badge"><i data-lucide="activity"></i> Currently in the works</div>
                         </div>
                         <div class="case-content">
@@ -277,7 +279,7 @@
                                 <span class="case-tag">Audience Psychology</span>
                                 <span class="case-tag">Analytics</span>
                             </div>
-                            <a href="#" class="link-button">View Project</a>
+                            <span class="link-button disabled-link">Coming Soon</span>
                         </div>
                     </article>
 
@@ -287,7 +289,7 @@
                             <span class="l-date">DEC 2024</span>
                         </div>
                         <div class="card-image-wrapper">
-                            <img src="Assets/Project_10_Image.jpeg" alt="Broken Lotus" class="case-image">
+                            <img src="Assets/Project_10_Image.jpeg" alt="Broken Lotus" class="case-image" loading="lazy">
                         </div>
                         <div class="case-content">
                             <h3>Broken Lotus: GBV</h3>
@@ -296,17 +298,18 @@
                                 <span class="case-tag">Advocacy</span>
                                 <span class="case-tag">Data Visualisation</span>
                             </div>
-                            <a href="#" class="link-button">View Project</a>
+                            <span class="link-button disabled-link">Coming Soon</span>
                         </div>
                     </article>
 
                     <article class="case-card">
+                        <a href="https://drive.google.com/drive/folders/1ZqJW_fn2OPetaUTigps9YKQ2KnOipvdy" target="_blank" class="card-overlay-link" aria-label="View Verité Research Communications"></a>
                         <div class="list-metadata">
                             <span class="l-cat">Policy Communication</span>
                             <span class="l-date">NOV 2024</span>
                         </div>
                         <div class="card-image-wrapper">
-                            <img src="Assets/Project_11_Image.jpeg" alt="Verite Research" class="case-image">
+                            <img src="Assets/Project_11_Image.jpeg" alt="Verite Research" class="case-image" loading="lazy">
                         </div>
                         <div class="case-content">
                             <h3>Verité Research Communications</h3>
@@ -315,17 +318,18 @@
                                 <span class="case-tag">Policy Communication</span>
                                 <span class="case-tag">Information Design</span>
                             </div>
-                            <a href="https://drive.google.com/drive/folders/1ZqJW_fn2OPetaUTigps9YKQ2KnOipvdy" target="_blank" class="link-button">View Project</a>
+                            <span class="link-button">View Project</span>
                         </div>
                     </article>
 
                     <article class="case-card">
+                        <a href="https://www.ideasmarketing.com.au/get-out-experience/" target="_blank" class="card-overlay-link" aria-label="View Get Out Experiences"></a>
                         <div class="list-metadata">
                             <span class="l-cat">Brand Strategy</span>
                             <span class="l-date">OCT 2024</span>
                         </div>
                         <div class="card-image-wrapper">
-                            <img src="Assets/Project_12_Image.jpeg" alt="Brand Identity" class="case-image">
+                            <img src="Assets/Project_12_Image.jpeg" alt="Brand Identity" class="case-image" loading="lazy">
                         </div>
                         <div class="case-content">
                             <h3>Get Out Experiences</h3>
@@ -334,7 +338,7 @@
                                 <span class="case-tag">Brand Strategy</span>
                                 <span class="case-tag">Visual Identity</span>
                             </div>
-                            <a href="https://www.ideasmarketing.com.au/get-out-experience/" target="_blank" class="link-button">View Project</a>
+                            <span class="link-button">View Project</span>
                         </div>
                     </article>
                 </div>
@@ -462,9 +466,9 @@
                 </div>
                 
                 <div class="carousel-controls">
-                    <button class="carousel-btn" id="viz-prev-btn"><i data-lucide="arrow-left"></i></button>
+                    <button class="carousel-btn" id="viz-prev-btn" aria-label="Previous image"><i data-lucide="arrow-left"></i></button>
                     <div class="carousel-pagination" id="viz-pagination"></div>
-                    <button class="carousel-btn" id="viz-next-btn"><i data-lucide="arrow-right"></i></button>
+                    <button class="carousel-btn" id="viz-next-btn" aria-label="Next image"><i data-lucide="arrow-right"></i></button>
                 </div>
             </div>
         </section>
@@ -628,13 +632,23 @@
             
             <div class="footer-bottom container">
                 <div class="social-icons">
-                    <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+                    <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" aria-label="LinkedIn">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                            <rect x="2" y="9" width="4" height="12"></rect>
+                            <circle cx="4" cy="4" r="2"></circle>
+                        </svg>
+                    </a>
                     <a href="https://x.com/atakatus" target="_blank" aria-label="X (Twitter)">
                         <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 22.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
                         </svg>
                     </a>
-                    <a href="https://github.com/chaturadissanayake" target="_blank" aria-label="GitHub"><i data-lucide="github"></i></a>
+                    <a href="https://github.com/chaturadissanayake" target="_blank" aria-label="GitHub">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                        </svg>
+                    </a>
                 </div>
                 <p class="copyright">All rights reserved &copy; 2026 Chatura Dissanayake</p>
             </div>
@@ -643,7 +657,7 @@
     </main>
 
     <div id="lightbox-modal" class="lightbox-modal">
-        <button class="lightbox-close"><i data-lucide="x"></i></button>
+        <button class="lightbox-close" aria-label="Close image"><i data-lucide="x"></i></button>
         <img class="lightbox-content" id="lightbox-image" alt="Data Visualisation">
     </div>
 
