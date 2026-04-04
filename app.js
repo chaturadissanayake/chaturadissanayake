@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const htmlEl = document.documentElement;
     const bodyEl = document.body;
     const mainHeader = document.querySelector('.main-header');
-    const scrollProgress = document.getElementById('scroll-progress');
 
     // Set blurred background images for data storytelling slides securely
     document.querySelectorAll('.viz-lightbox-trigger').forEach(trigger => {
@@ -16,9 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 2. Theme Toggle Logic
+    // 2. Theme Toggle Logic (Default set to Light Mode)
     const themeToggleBtn = document.getElementById('theme-toggle');
-    const savedTheme = localStorage.getItem('theme') || 'dark';
+    const savedTheme = localStorage.getItem('theme') || 'light';
 
     const updateTheme = (theme) => {
         htmlEl.setAttribute('data-theme', theme);
@@ -51,8 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4. Smooth Scrolling Logic & Active States
-    const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('section[id]');
+    
+    // Select all navigation links across both desktop and mobile
+    const allNavLinks = document.querySelectorAll('.nav-link, .mobile-link');
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -74,24 +75,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 5. Scroll Events (Header, Active Link, Progress Bar)
+    // 5. Scroll Events (Header, Active Link)
     let ticking = false;
     window.addEventListener('scroll', () => {
         if (!ticking) {
             requestAnimationFrame(() => {
                 const currentScroll = window.scrollY;
                 
-                // Header Shrink
+                // Header Shrink logic
                 if (currentScroll > 50) {
                     mainHeader.classList.add('scrolled');
                 } else {
                     mainHeader.classList.remove('scrolled');
                 }
-
-                // Scroll Progress Bar
-                const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
-                const progressWidth = (currentScroll / totalHeight) * 100;
-                if(scrollProgress) scrollProgress.style.width = `${progressWidth}%`;
 
                 // Active Navigation Highlight
                 let currentSection = '';
@@ -103,8 +99,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
 
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
+                allNavLinks.forEach(link => {
+                    // Do not override the default Say Hello highlight logic in the menu unless active
+                    if (!link.classList.contains('highlight')) {
+                        link.classList.remove('active');
+                    }
                     if (link.getAttribute('href') === `#${currentSection}`) {
                         link.classList.add('active');
                     }
@@ -116,38 +115,57 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, { passive: true });
     
-    // 6. View Toggle Logic (Grid/List)
+    // 6. Fluid View Toggle Logic (Grid/List with cross-fade animation)
     const gridBtn = document.getElementById('grid-view-btn');
     const listBtn = document.getElementById('list-view-btn');
     const projectsContainer = document.getElementById('projects-container');
     const extendedWork = document.getElementById('extended-work');
 
-    if (gridBtn && listBtn && projectsContainer) {
-        gridBtn.addEventListener('click', () => {
-            gridBtn.classList.add('active');
-            listBtn.classList.remove('active');
-            
-            projectsContainer.classList.remove('list-mode');
-            projectsContainer.classList.add('grid-mode');
-            
-            if (extendedWork) {
-                extendedWork.classList.remove('list-mode');
-                extendedWork.classList.add('grid-mode');
-            }
-        });
+    const toggleFluidView = (mode) => {
+        if (mode === 'grid' && gridBtn.classList.contains('active')) return;
+        if (mode === 'list' && listBtn.classList.contains('active')) return;
 
-        listBtn.addEventListener('click', () => {
-            listBtn.classList.add('active');
-            gridBtn.classList.remove('active');
-            
-            projectsContainer.classList.remove('grid-mode');
-            projectsContainer.classList.add('list-mode');
-            
-            if (extendedWork) {
-                extendedWork.classList.remove('grid-mode');
-                extendedWork.classList.add('list-mode');
+        // Start fade out
+        projectsContainer.classList.add('fade-out-transition');
+        if (extendedWork && extendedWork.classList.contains('show')) {
+            extendedWork.classList.add('fade-out-transition');
+        }
+
+        setTimeout(() => {
+            if (mode === 'grid') {
+                gridBtn.classList.add('active');
+                listBtn.classList.remove('active');
+                
+                projectsContainer.classList.remove('list-mode');
+                projectsContainer.classList.add('grid-mode');
+                
+                if (extendedWork) {
+                    extendedWork.classList.remove('list-mode');
+                    extendedWork.classList.add('grid-mode');
+                }
+            } else {
+                listBtn.classList.add('active');
+                gridBtn.classList.remove('active');
+                
+                projectsContainer.classList.remove('grid-mode');
+                projectsContainer.classList.add('list-mode');
+                
+                if (extendedWork) {
+                    extendedWork.classList.remove('grid-mode');
+                    extendedWork.classList.add('list-mode');
+                }
             }
-        });
+            
+            // Fade back in
+            projectsContainer.classList.remove('fade-out-transition');
+            if (extendedWork) extendedWork.classList.remove('fade-out-transition');
+            
+        }, 300); // Wait for CSS opacity transition
+    };
+
+    if (gridBtn && listBtn && projectsContainer) {
+        gridBtn.addEventListener('click', () => toggleFluidView('grid'));
+        listBtn.addEventListener('click', () => toggleFluidView('list'));
     }
 
     // 7. Extended Gallery Toggle 
@@ -160,6 +178,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 extendedWork.classList.add('show');
                 showMoreBtn.querySelector('span').textContent = 'Hide Extended Gallery';
                 showMoreBtn.querySelector('i').style.transform = 'rotate(180deg)';
+                
+                // Set initial view state based on current toggle
+                if(listBtn.classList.contains('active')) {
+                    extendedWork.classList.remove('grid-mode');
+                    extendedWork.classList.add('list-mode');
+                } else {
+                    extendedWork.classList.add('grid-mode');
+                    extendedWork.classList.remove('list-mode');
+                }
             } else {
                 extendedWork.classList.remove('show');
                 showMoreBtn.querySelector('span').textContent = 'Show Extended Gallery';
