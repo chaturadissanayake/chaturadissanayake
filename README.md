@@ -1,41 +1,44 @@
-# /// WANTED: THE DATA WRANGLER ///
+# Chatura Dissanayake
+**Information Designer | Digital Strategist | Communication Specialist**
 
-**Alias:** Chatura Dissanayake (@atakatus)
-**Objective:** Translating the wild west of raw data into dead-accurate narratives.
-
-There is a lot of noise out there in the digital frontier. I hunt down the truth in the data, structure the chaos, and engineer visuals that hit the mark every time. 
+I am an Information Designer based in Sri Lanka, bridging the gap between technical research and public understanding. With over six years of experience, my work focuses on translating dense national data into accessible narratives and scaling digital platforms for clarity and impact. Every system has a story; my job is to find it.
 
 ---
 
-### /// DEAD EYE: TARGET SELECTION
+## Strategic Capabilities
 
-*Take your shot. Click a crosshair to access the network.*
+My hybrid toolkit is engineered to translate complex ideas into highly visible, accurate formats.
 
-| PORTFOLIO | LINKEDIN | GITHUB | COMM-LINK |
-| :---: | :---: | :---: | :---: |
-| <a href="#projects">`-(-)-`</a> | <a href="https://linkedin.com/in/chaturadissanayake">`-(-)-`</a> | <a href="https://github.com/chaturadissanayake">`-(-)-`</a> | <a href="mailto:consultchatura@gmail.com">`-(-)-`</a> |
+### Data Narrative Engineering
+* **Focus:** Transforming complex policy, research, and datasets into compelling visual narratives ready for institutional publication.
+* **Tools:** Tableau, ECharts, Adobe Illustrator, Adobe InDesign, MS Excel.
 
----
+### Mass-Digital Reach
+* **Focus:** Applying real-time analytics, retention metrics, and audience psychology to engineer content strategies that scale platforms to millions of views.
+* **Tools:** Google Analytics, YouTube Studio, Meta Business Suite, Premiere Pro.
 
-### /// EQUIPPED LOADOUT
-
-**[ PRIMARY WEAPON ] : Data Narrative Engineering**
-* **Caliber:** Tableau, ECharts, Adobe Illustrator, InDesign, MS Excel.
-* **Impact:** Transforming dense policy, research, and chaotic datasets into high-impact visual narratives ready for institutional publication. High precision.
-
-**[ SECONDARY WEAPON ] : Mass-Digital Reach**
-* **Caliber:** Google Analytics, YouTube Studio, Meta Business Suite, Premiere Pro.
-* **Impact:** Engineering content strategies driven by retention metrics and audience psychology. Capable of scaling platforms to millions of views. High AOE (Area of Effect) range.
-
-**[ TACTICAL GEAR ] : Policy Communication UX**
-* **Caliber:** Figma, HTML / CSS / JS, Webflow, Hotjar, Notion.
-* **Impact:** Designing intuitive digital environments, wireframes, and scrollytelling websites to make bureaucratic information highly navigable without misfiring.
+### Policy Communication UX
+* **Focus:** Designing intuitive digital environments, wireframes, and scrollytelling websites to make dense, bureaucratic information highly user-friendly.
+* **Tools:** Figma, HTML / CSS / JS, Webflow, Hotjar, Notion.
 
 ---
 
-### /// LAST KNOWN WHEREABOUTS
+## Professional Evolution
 
-* **Region:** Sri Lanka
-* **Status:** Available for co-op campaigns, freelance consultancy, and data storytelling contracts.
+| Role | Organisation | Period |
+| :--- | :--- | :--- |
+| Freelance Information Designer & Digital Strategist | Independent / Self-employed | 2025 – Present |
+| Communications & Design Consultant | Govt. of Sri Lanka - Dept. of National Planning | 2025 (Jul) |
+| UN National Volunteer Specialist | United Nations Resident Coordinator's Office | 2025 (Mar – Jun) |
+| Senior Communications Designer | Verité Research | 2022 – 2024 |
 
-> *"Every system has a story. You just need the right aim to find it."*
+---
+
+## Connect With Me
+
+* **LinkedIn:** [linkedin.com/in/chaturadissanayake](https://linkedin.com/in/chaturadissanayake)
+* **GitHub:** [github.com/chaturadissanayake](https://github.com/chaturadissanayake)
+* **X (Twitter):** [x.com/atakatus](https://x.com/atakatus)
+* **Email:** [consultchatura@gmail.com](mailto:consultchatura@gmail.com)
+
+*Available for freelance consultancy and data storytelling opportunities.*
