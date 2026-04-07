@@ -1,45 +1,38 @@
-# Hi, I'm Chatura Dissanayake 👋
+```text
+> SYSTEM BOOT
+> LOADING PROFILE: "Chatura_Dissanayake.dat"
+> [========================================] 100%
+> CONNECTION ESTABLISHED.
 
-**Information Designer | Digital Strategist | Communication Specialist**
+> whoami
+Name:   Chatura Dissanayake
+Alias:  @atakatus
+Class:  Information Designer | Digital Strategist | Systems Thinker
+Base:   Sri Lanka
+Status: Translating dense data into accessible narratives.
 
-I am an Information Designer bridging the gap between technical research and public understanding. My work focuses on translating dense national data into accessible narratives and scaling digital platforms for clarity and impact.
+> ./list_capabilities.sh
 
----
+[+] DATA_NARRATIVE_ENGINEERING
+    - Task: Transforming complex datasets into visual narratives.
+    - Loadout: Tableau, ECharts, Illustrator, InDesign, Excel
 
-## 🚀 Strategic Capabilities
+[+] MASS_DIGITAL_REACH
+    - Task: Scaling platforms using analytics and audience psychology.
+    - Loadout: Google Analytics, YouTube Studio, Meta Business Suite, Premiere Pro
 
-My hybrid toolkit is engineered to translate complex ideas into highly visible formats.
+[+] POLICY_COMMUNICATION_UX
+    - Task: Designing intuitive digital environments and scrollytelling websites.
+    - Loadout: Figma, HTML/CSS/JS, Webflow, Hotjar, Notion
 
-### Data Narrative Engineering
-* **Focus:** Transforming complex policy, research, and datasets into compelling visual narratives ready for institutional publication.
-* **Tools:** Tableau, ECharts, Adobe Illustrator, Adobe InDesign, MS Excel.
+> ping connections
 
-### Mass-Digital Reach
-* **Focus:** Applying real-time analytics, retention metrics, and audience psychology to engineer content strategies that scale platforms to millions of views.
-* **Tools:** Google Analytics, YouTube Studio, Meta Business Suite, Premiere Pro.
+[MAIL]   consultchatura@gmail.com
+[LINKED] [https://linkedin.com/in/chaturadissanayake](https://linkedin.com/in/chaturadissanayake)
+[X]      [https://x.com/atakatus](https://x.com/atakatus)
+[GITHUB] [https://github.com/chaturadissanayake](https://github.com/chaturadissanayake)
 
-### Policy Communication UX
-* **Focus:** Designing intuitive digital environments, wireframes, and scrollytelling websites to make dense, bureaucratic information highly user-friendly.
-* **Tools:** Figma, HTML / CSS / JS, Webflow, Hotjar, Notion.
+> echo "Every system has a story. I find it."
+Every system has a story. I find it.
 
----
-
-## 💼 Professional Evolution
-
-| Role | Organisation | Period |
-| :--- | :--- | :--- |
-| Freelance Information Designer & Digital Strategist | Independent / Self-employed | 2025 – CURRENT |
-| Communications & Design Consultant | Govt. of Sri Lanka - Dept. of National Planning | 2025 (JUL) |
-| UN National Volunteer Specialist | United Nations Resident Coordinator's Office | 2025 (MAR – JUN) |
-| Senior Communications Designer | Verité Research | 2022 – 2024 |
-
----
-
-## 🔗 Connect With Me
-
-* **LinkedIn:** [https://linkedin.com/in/chaturadissanayake](https://linkedin.com/in/chaturadissanayake)
-* **GitHub:** [https://github.com/chaturadissanayake](https://github.com/chaturadissanayake)
-* **X (Twitter):** [https://x.com/atakatus](https://x.com/atakatus)
-* **Email:** [consultchatura@gmail.com](mailto:consultchatura@gmail.com)
-
-Available for freelance consultancy and data storytelling opportunities. Let's collaborate!
+> _
