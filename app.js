@@ -1,285 +1,350 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // ── 1. INITIALIZE ICONS ──────────────────────────────────────────────
     lucide.createIcons();
 
-    // 1. Core Variables
-    const htmlEl = document.documentElement;
-    const bodyEl = document.body;
-    const mainHeader = document.querySelector('.main-header');
-
-    // Set blurred background images for data storytelling slides securely
-    document.querySelectorAll('.viz-lightbox-trigger').forEach(trigger => {
-        const img = trigger.querySelector('img');
-        const blurDiv = trigger.querySelector('.viz-bg-blur');
-        if (img && blurDiv) {
-            blurDiv.style.backgroundImage = `url(${img.src})`;
-        }
+    // ── 2. REMOVE LOADING STATE ──────────────────────────────────────────
+    requestAnimationFrame(() => {
+        setTimeout(() => document.body.classList.remove('loading'), 80);
     });
 
-    // 2. Theme Toggle Logic (Default set to Light Mode)
-    const themeToggleBtn = document.getElementById('theme-toggle');
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    // ── 3. CUSTOM CURSOR (DESKTOP ONLY) ──────────────────────────────────
+    const cursorDot  = document.getElementById('cursor-dot');
+    const cursorRing = document.getElementById('cursor-ring');
 
-    const updateTheme = (theme) => {
-        htmlEl.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-    };
-    
-    updateTheme(savedTheme);
+    if (window.matchMedia('(pointer: fine)').matches && cursorDot && cursorRing) {
+        let rx = 0, ry = 0, mx = 0, my = 0;
 
-    if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', () => {
-            const newTheme = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-            updateTheme(newTheme);
+        document.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            cursorDot.style.left  = mx + 'px';
+            cursorDot.style.top   = my + 'px';
+        });
+
+        (function animateCursor() {
+            rx += (mx - rx) * 0.14;
+            ry += (my - ry) * 0.14;
+            cursorRing.style.left = rx + 'px';
+            cursorRing.style.top  = ry + 'px';
+            requestAnimationFrame(animateCursor);
+        })();
+
+        const hoverEls = 'a, button, .project-card, .card-hitbox, .viz-item, input, textarea';
+        document.querySelectorAll(hoverEls).forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
         });
     }
 
-    // 3. Mobile Navigation Menu
+    // ── 4. SCROLL PROGRESS BAR ───────────────────────────────────────────
+    const progressBar = document.getElementById('scroll-progress');
+    const updateProgress = () => {
+        const scrollTop  = window.scrollY;
+        const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        if (progressBar) progressBar.style.width = pct + '%';
+    };
+    window.addEventListener('scroll', updateProgress, { passive: true });
+
+    // ── 5. STICKY HEADER ─────────────────────────────────────────────────
+    const header = document.getElementById('main-header');
+    window.addEventListener('scroll', () => {
+        if (header) header.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    // ── 6. ACTIVE NAV HIGHLIGHTING ───────────────────────────────────────
+    const sections  = document.querySelectorAll('section[id]');
+    const navLinks  = document.querySelectorAll('.nav-link[data-section]');
+
+    const activateNav = () => {
+        let current = '';
+        sections.forEach(s => {
+            if (window.scrollY >= s.offsetTop - 120) current = s.id;
+        });
+        navLinks.forEach(l => {
+            l.classList.toggle('active', l.getAttribute('data-section') === current);
+        });
+    };
+    window.addEventListener('scroll', activateNav, { passive: true });
+    activateNav();
+
+    // ── 7. MOBILE MENU ───────────────────────────────────────────────────
     const mobileToggle = document.getElementById('mobile-nav-toggle');
-    const mobileMenu = document.getElementById('mobile-nav-menu');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
+    const mobileMenu   = document.getElementById('mobile-nav-menu');
 
     const toggleMobileMenu = () => {
-        mobileToggle.classList.toggle('is-active');
-        mobileMenu.classList.toggle('is-active');
-        bodyEl.classList.toggle('menu-is-active');
+        const isOpen = mobileMenu.classList.toggle('is-active');
+        mobileToggle.classList.toggle('is-active', isOpen);
+        mobileToggle.setAttribute('aria-expanded', String(isOpen));
+        document.body.classList.toggle('modal-open', isOpen);
     };
 
     if (mobileToggle) {
         mobileToggle.addEventListener('click', toggleMobileMenu);
-        mobileLinks.forEach(link => link.addEventListener('click', toggleMobileMenu));
+        
+        document.querySelectorAll('.mobile-link, .mobile-cta').forEach(l =>
+            l.addEventListener('click', () => {
+                mobileMenu.classList.remove('is-active');
+                mobileToggle.classList.remove('is-active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+                document.body.classList.remove('modal-open');
+            })
+        );
     }
 
-    // 4. Smooth Scrolling Logic & Active States
-    const sections = document.querySelectorAll('section[id]');
-    
-    // Select all navigation links across both desktop and mobile
-    const allNavLinks = document.querySelectorAll('.nav-link, .mobile-link');
-
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                const headerOffset = 90; 
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: "smooth"
-                });
-            }
-        });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileMenu?.classList.contains('is-active')) {
+            toggleMobileMenu();
+        }
     });
 
-    // 5. Scroll Events (Header, Active Link)
-    let ticking = false;
-    window.addEventListener('scroll', () => {
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                const currentScroll = window.scrollY;
-                
-                // Header Shrink logic
-                if (currentScroll > 50) {
-                    mainHeader.classList.add('scrolled');
-                } else {
-                    mainHeader.classList.remove('scrolled');
-                }
+    // ── 8. SCROLL REVEAL ANIMATIONS ──────────────────────────────────────
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('is-visible');
+                observer.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+    document.querySelectorAll('.section-fade-in').forEach(s => observer.observe(s));
 
-                // Active Navigation Highlight
-                let currentSection = '';
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop - 150;
-                    const sectionHeight = section.clientHeight;
-                    if (currentScroll >= sectionTop && currentScroll < sectionTop + sectionHeight) {
-                        currentSection = section.getAttribute('id');
-                    }
-                });
+    // ── 9. VIEW TOGGLE (Grid / List) ─────────────────────────────────────
+    const gridBtn  = document.getElementById('grid-view-btn');
+    const listBtn  = document.getElementById('list-view-btn');
+    const projWrap = document.getElementById('projects-container');
+    const extWrap  = document.getElementById('extended-work');
 
-                allNavLinks.forEach(link => {
-                    // Do not override the default Say Hello highlight logic in the menu unless active
-                    if (!link.classList.contains('highlight')) {
-                        link.classList.remove('active');
-                    }
-                    if (link.getAttribute('href') === `#${currentSection}`) {
-                        link.classList.add('active');
-                    }
-                });
-                
-                ticking = false;
-            });
-            ticking = true;
+    const setView = mode => {
+        const isGrid = mode === 'grid';
+        gridBtn?.classList.toggle('active', isGrid);
+        listBtn?.classList.toggle('active', !isGrid);
+
+        if (projWrap) projWrap.className = `projects-wrapper ${isGrid ? 'grid' : 'list'}-mode`;
+        if (extWrap) {
+            const wasShowing = extWrap.classList.contains('show');
+            extWrap.className = `extended-work ${isGrid ? 'grid' : 'list'}-mode${wasShowing ? ' show' : ''}`;
         }
-    }, { passive: true });
-    
-    // 6. Fluid View Toggle Logic (Grid/List with cross-fade animation)
-    const gridBtn = document.getElementById('grid-view-btn');
-    const listBtn = document.getElementById('list-view-btn');
-    const projectsContainer = document.getElementById('projects-container');
-    const extendedWork = document.getElementById('extended-work');
+    };
+    gridBtn?.addEventListener('click', () => setView('grid'));
+    listBtn?.addEventListener('click', () => setView('list'));
 
-    const toggleFluidView = (mode) => {
-        if (mode === 'grid' && gridBtn.classList.contains('active')) return;
-        if (mode === 'list' && listBtn.classList.contains('active')) return;
-
-        // Start fade out
-        projectsContainer.classList.add('fade-out-transition');
-        if (extendedWork && extendedWork.classList.contains('show')) {
-            extendedWork.classList.add('fade-out-transition');
-        }
-
-        setTimeout(() => {
-            if (mode === 'grid') {
-                gridBtn.classList.add('active');
-                listBtn.classList.remove('active');
-                
-                projectsContainer.classList.remove('list-mode');
-                projectsContainer.classList.add('grid-mode');
-                
-                if (extendedWork) {
-                    extendedWork.classList.remove('list-mode');
-                    extendedWork.classList.add('grid-mode');
-                }
-            } else {
-                listBtn.classList.add('active');
-                gridBtn.classList.remove('active');
-                
-                projectsContainer.classList.remove('grid-mode');
-                projectsContainer.classList.add('list-mode');
-                
-                if (extendedWork) {
-                    extendedWork.classList.remove('grid-mode');
-                    extendedWork.classList.add('list-mode');
-                }
+    // ── 10. EXTENDED GALLERY (Show / Hide Logic) ─────────────────────────
+    const showMoreBtn = document.getElementById('show-more-btn');
+    if (showMoreBtn && extWrap) {
+        showMoreBtn.addEventListener('click', () => {
+            const isShowing = extWrap.classList.toggle('show');
+            
+            // Swap the text dynamically
+            const textSpan = showMoreBtn.querySelector('span:not(.btn-icon-wrap)');
+            if (textSpan) {
+                textSpan.textContent = isShowing ? 'Hide Extended Gallery' : 'Show Extended Gallery';
             }
             
-            // Fade back in
-            projectsContainer.classList.remove('fade-out-transition');
-            if (extendedWork) extendedWork.classList.remove('fade-out-transition');
-            
-        }, 300); // Wait for CSS opacity transition
+            // Smoothly scroll back to the main projects section if hiding
+            if (!isShowing) {
+                document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+            }
+            applyProjectFilter();
+        });
+    }
+
+    // ── 11. PROJECT FILTERING ─────────────────────────────────────────────
+    const filterBtns   = document.querySelectorAll('.filter-pill');
+    const allProjCards = document.querySelectorAll('.project-card.project-trigger');
+    const noProjMsg    = document.getElementById('no-projects-msg');
+    let currentFilter  = 'all';
+
+    const applyProjectFilter = () => {
+        const extendedVisible = extWrap?.classList.contains('show');
+        let count = 0;
+
+        allProjCards.forEach(card => {
+            const isExtended = card.closest('#extended-work') !== null;
+            const cat = card.getAttribute('data-category');
+            const matches = currentFilter === 'all' || cat === currentFilter;
+
+            if (matches) {
+                card.style.display = '';
+                if (!isExtended || extendedVisible) count++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        if (noProjMsg) noProjMsg.style.display = count === 0 ? 'block' : 'none';
     };
 
-    if (gridBtn && listBtn && projectsContainer) {
-        gridBtn.addEventListener('click', () => toggleFluidView('grid'));
-        listBtn.addEventListener('click', () => toggleFluidView('list'));
-    }
+    filterBtns.forEach(btn => btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.getAttribute('data-filter');
+        applyProjectFilter();
+    }));
+    applyProjectFilter();
 
-    // 7. Extended Gallery Toggle 
-    const showMoreBtn = document.getElementById('show-more-btn');
+    // ── 12. INSIGHTS SEARCH ───────────────────────────────────────────────
+    const insightSearch = document.getElementById('article-search');
+    const insightCards  = document.querySelectorAll('.insight-card');
+    const noArticlesMsg = document.getElementById('no-articles-msg');
 
-    if (showMoreBtn && extendedWork) {
-        showMoreBtn.addEventListener('click', () => {
-            const isShowing = extendedWork.classList.contains('show');
-            if (!isShowing) {
-                extendedWork.classList.add('show');
-                showMoreBtn.querySelector('span').textContent = 'Hide Extended Gallery';
-                showMoreBtn.querySelector('i').style.transform = 'rotate(180deg)';
-                
-                // Set initial view state based on current toggle
-                if(listBtn.classList.contains('active')) {
-                    extendedWork.classList.remove('grid-mode');
-                    extendedWork.classList.add('list-mode');
-                } else {
-                    extendedWork.classList.add('grid-mode');
-                    extendedWork.classList.remove('list-mode');
-                }
-            } else {
-                extendedWork.classList.remove('show');
-                showMoreBtn.querySelector('span').textContent = 'Show Extended Gallery';
-                showMoreBtn.querySelector('i').style.transform = 'rotate(0deg)';
-                document.getElementById('projects').scrollIntoView({behavior: 'smooth'});
-            }
+    insightSearch?.addEventListener('input', e => {
+        const term = e.target.value.toLowerCase().trim();
+        let count = 0;
+        insightCards.forEach(card => {
+            // Check only the title for cleaner search results
+            const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
+            const visible = title.includes(term);
+            card.style.display = visible ? '' : 'none';
+            if (visible) count++;
         });
-    }
-
-    // 8. FAQ Accordion Logic
-    const faqAccordions = document.querySelectorAll('.faq-item');
-    faqAccordions.forEach(item => {
-        const summary = item.querySelector('summary');
-        if (summary) {
-            summary.addEventListener('click', () => {
-                const parentGroup = item.parentElement;
-                const siblings = parentGroup.querySelectorAll('details');
-                
-                siblings.forEach(sibling => {
-                    if (sibling !== item && sibling.open) {
-                        sibling.open = false;
-                    }
-                });
-            });
-        }
+        if (noArticlesMsg) noArticlesMsg.style.display = count === 0 ? 'block' : 'none';
     });
 
-    // 9. Visualisations Lightbox
-    const modal = document.getElementById('lightbox-modal');
-    const modalImg = document.getElementById('lightbox-image');
-    const closeBtn = document.querySelector('.lightbox-close');
+    // ── 13. PROJECT DETAIL MODAL ──────────────────────────────────────────
+    const projectModal    = document.getElementById('project-detail-modal');
+    const closeProjectBtn = document.getElementById('close-project-modal');
 
-    if (modal) {
+    const openModal = card => {
+        document.getElementById('pm-title').textContent    = card.getAttribute('data-title')    || card.querySelector('h3')?.textContent || 'Project';
+        document.getElementById('pm-challenge').textContent = card.getAttribute('data-challenge') || '—';
+        document.getElementById('pm-role').textContent     = card.getAttribute('data-role')     || '—';
+        document.getElementById('pm-outcome').textContent  = card.getAttribute('data-outcome')  || '—';
+
+        const link   = document.getElementById('pm-link');
+        const href   = card.getAttribute('data-link');
+        const status = card.getAttribute('data-status') || 'View Project';
+        
+        // Re-inject icon cleanly so Lucide can process it
+        link.innerHTML = `${status} <i data-lucide="arrow-up-right" style="width:14px;height:14px;margin-left:4px;"></i>`;
+        lucide.createIcons({ nameAttr: 'data-lucide', root: link });
+
+        if (href && href !== '#') {
+            link.href = href;
+            link.style.display = 'inline-flex';
+        } else {
+            link.removeAttribute('href');
+            link.style.display = href === '#' ? 'none' : 'inline-flex';
+        }
+
+        const tagsEl = document.getElementById('pm-tags');
+        tagsEl.innerHTML = '';
+        const rawTags = card.getAttribute('data-tags');
+        if (rawTags) {
+            rawTags.split(',').forEach(t => {
+                const span = document.createElement('span');
+                span.className = 'pm-tag';
+                span.textContent = t.trim();
+                tagsEl.appendChild(span);
+            });
+        }
+
+        projectModal.classList.add('active');
+        document.body.classList.add('modal-open');
+    };
+
+    const closeModal = () => {
+        projectModal?.classList.remove('active');
+        document.body.classList.remove('modal-open');
+    };
+
+    document.querySelectorAll('.project-trigger').forEach(card => {
+        card.addEventListener('click', e => {
+            if (e.target.closest('.card-direct-link')) return;
+            openModal(card);
+        });
+    });
+
+    closeProjectBtn?.addEventListener('click', closeModal);
+    projectModal?.addEventListener('click', e => {
+        if (e.target === projectModal) closeModal();
+    });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && projectModal?.classList.contains('active')) closeModal();
+    });
+
+    // ── 14. VISUALISATIONS CAROUSEL ───────────────────────────────────────
+    const vizTrack = document.querySelector('.viz-carousel-track');
+    if (vizTrack) {
+        // Dynamically calculate scroll based on card width + CSS gap (approx 24px)
+        const scrollAmt = () => {
+            const item = vizTrack.querySelector('.viz-item');
+            return item ? item.offsetWidth + 24 : Math.min(420, window.innerWidth * 0.72);
+        };
+        
+        document.getElementById('viz-next-btn')?.addEventListener('click', () =>
+            vizTrack.scrollBy({ left: scrollAmt(), behavior: 'smooth' })
+        );
+        document.getElementById('viz-prev-btn')?.addEventListener('click', () =>
+            vizTrack.scrollBy({ left: -scrollAmt(), behavior: 'smooth' })
+        );
+    }
+
+    // ── 15. LIGHTBOX ──────────────────────────────────────────────────────
+    const lbModal = document.getElementById('lightbox-modal');
+    const lbImg   = document.getElementById('lightbox-image');
+    if (lbModal && lbImg) {
         document.querySelectorAll('.viz-lightbox-trigger').forEach(trigger => {
-            trigger.addEventListener('click', (e) => {
-                e.preventDefault();
-                const img = trigger.querySelector('img');
-                if (img) {
-                    modal.style.display = 'flex';
-                    modalImg.src = img.src;
-                    modalImg.alt = img.alt;
-                    bodyEl.style.overflow = 'hidden';
-                }
+            trigger.addEventListener('click', () => {
+                // Ensure we grab the sharp foreground image, NOT the blurred background
+                const img = trigger.querySelector('.viz-main-img') || trigger.querySelector('img');
+                if (!img) return;
+                lbImg.src = img.src;
+                lbImg.alt = img.alt;
+                lbModal.style.display = 'flex';
+                document.body.classList.add('modal-open');
             });
         });
 
-        closeBtn.addEventListener('click', () => {
-            modal.style.display = 'none';
-            bodyEl.style.overflow = '';
-        });
+        const closeLightbox = () => {
+            lbModal.style.display = 'none';
+            document.body.classList.remove('modal-open');
+        };
 
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal || e.target === closeBtn.querySelector('i')) {
-                modal.style.display = 'none';
-                bodyEl.style.overflow = '';
+        lbModal.addEventListener('click', e => {
+            if (e.target === lbModal || e.target.closest('.lightbox-close')) closeLightbox();
+        });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && lbModal.style.display === 'flex') closeLightbox();
+        });
+    }
+
+    // ── 16. SMOOTH SCROLL (Hash Links & Back To Top) ──────────────────────
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', e => {
+            const targetId = a.getAttribute('href');
+            // Prevent default only if the target is a valid section on this page
+            if (targetId !== '#' && document.querySelector(targetId)) {
+                e.preventDefault();
+                document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
             }
         });
-    }
+    });
 
-    // 10. Visualisations Simple Carousel Controls
-    const vizViewport = document.querySelector('.viz-carousel-viewport');
-    const btnNext = document.getElementById('viz-next-btn');
-    const btnPrev = document.getElementById('viz-prev-btn');
-
-    if (vizViewport && btnNext && btnPrev) {
-        btnNext.addEventListener('click', () => {
-            vizViewport.scrollBy({ left: Math.min(600, window.innerWidth * 0.8), behavior: 'smooth' });
-        });
-        btnPrev.addEventListener('click', () => {
-            vizViewport.scrollBy({ left: -Math.min(600, window.innerWidth * 0.8), behavior: 'smooth' });
+    // Dedicated listener for the explicit back-to-top button
+    const backToTopBtn = document.getElementById('back-to-top');
+    if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 
-    // 11. Fade In on Scroll
-    const fadeSections = document.querySelectorAll('.section-fade-in');
-    const fadeInObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
+    // ── 17. STAGGERED CARD REVEAL ──────────────────────────────────────────
+    const cardObserver = new IntersectionObserver(entries => {
+        entries.forEach((entry, i) => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                fadeInObserver.unobserve(entry.target);
+                entry.target.style.transitionDelay = `${i * 60}ms`;
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                cardObserver.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
 
-    fadeSections.forEach(section => fadeInObserver.observe(section));
-
-    // Final Setup
-    setTimeout(() => {
-        document.body.classList.remove('loading');
-        fadeSections.forEach(section => {
-            if (section.getBoundingClientRect().top < window.innerHeight) {
-                section.classList.add('is-visible');
-            }
-        });
-    }, 100);
+    // Added .viz-item so the visual archive cards get the same elegant fade-in
+    document.querySelectorAll('.project-card, .lab-card, .insight-card, .viz-item').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        card.style.transition = 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        cardObserver.observe(card);
+    });
 });
