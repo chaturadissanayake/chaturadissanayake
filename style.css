@@ -5,7 +5,7 @@
     /* Palette */
     --ink:         #0d0d0f;
     --ink-soft:    #3a3a42;
-    --ink-muted:   #6e6e80;
+    --ink-muted:   #5a5a6a; /* Updated for WCAG AA Contrast Compliance */
     --surface:     #f8f7f4;
     --surface-2:   #f0ede8;
     --surface-3:   #e4dfd7;
