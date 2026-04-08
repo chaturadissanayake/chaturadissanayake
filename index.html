@@ -22,16 +22,16 @@
 </head>
 <body class="loading">
 
-<div class="scroll-progress-bar" id="scroll-progress"></div>
+<div class="scroll-progress-bar" id="scroll-progress" aria-hidden="true"></div>
 
-<div class="cursor-dot" id="cursor-dot"></div>
-<div class="cursor-ring" id="cursor-ring"></div>
+<div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
 
 <header class="main-header" id="main-header">
     <div class="nav-inner">
-        <a href="#hero" class="nav-logo">
+        <a href="#hero" class="nav-logo" aria-label="Chatura Dissanayake Home">
             <span class="logo-mark">
-                <img src="Assets/Logo_Placeholder.png" alt="CD" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                <img src="Assets/Logo_Placeholder.png" alt="Chatura Dissanayake Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
             </span>
             <span class="logo-full">Chatura Dissanayake</span>
         </a>
@@ -44,15 +44,15 @@
             <a href="#about" class="nav-link" data-section="about">About</a>
         </nav>
         <div class="nav-actions">
-            <a href="#contact" class="nav-cta">Let's Talk <i data-lucide="arrow-right" style="width:14px;height:14px;margin-left:4px;"></i></a>
-            <button class="hamburger-btn" id="mobile-nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+            <a href="#contact" class="nav-cta">Let's Talk <i data-lucide="arrow-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
+            <button type="button" class="hamburger-btn" id="mobile-nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav-menu">
                 <span></span><span></span><span></span>
             </button>
         </div>
     </div>
 </header>
 
-<div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Navigation">
+<div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
     <nav class="mobile-nav-links">
         <a href="#projects" class="mobile-link">Work</a>
         <a href="#visualisations" class="mobile-link">Data Stories</a>
@@ -60,7 +60,7 @@
         <a href="#insights" class="mobile-link">Insights</a>
         <a href="#evolution" class="mobile-link">Journey</a>
         <a href="#about" class="mobile-link">About</a>
-        <a href="#contact" class="mobile-link mobile-cta">Let's Talk <i data-lucide="arrow-right" style="width:18px;height:18px;margin-left:6px;"></i></a>
+        <a href="#contact" class="mobile-link mobile-cta">Let's Talk <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
     </nav>
     <div class="mobile-menu-footer">
         <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
@@ -95,9 +95,9 @@
             </p>
             
             <div class="minimal-scroll-action reveal-up" style="--d:280ms">
-                <a href="#projects" class="scroll-link-custom">
+                <a href="#projects" class="scroll-link-custom" aria-label="Scroll down to projects">
                     <span class="scroll-text">See My Work</span>
-                    <div class="scroll-line-drop"></div>
+                    <div class="scroll-line-drop" aria-hidden="true"></div>
                 </a>
             </div>
 
@@ -106,12 +106,12 @@
                     <span class="stat-num">150+</span>
                     <span class="stat-label">Data Narratives</span>
                 </div>
-                <div class="stat-divider"></div>
+                <div class="stat-divider" aria-hidden="true"></div>
                 <div class="stat">
                     <span class="stat-num">8+</span>
                     <span class="stat-label">Institutional Collaborations</span>
                 </div>
-                <div class="stat-divider"></div>
+                <div class="stat-divider" aria-hidden="true"></div>
                 <div class="stat">
                     <span class="stat-num">2M+</span>
                     <span class="stat-label">Views Reached</span>
@@ -132,17 +132,17 @@
             
             <div class="projects-controls-right">
                 <div class="filter-group" role="group" aria-label="Filter projects">
-                    <button class="filter-pill active" data-filter="all">All</button>
-                    <button class="filter-pill" data-filter="strategic">Data Stories</button>
-                    <button class="filter-pill" data-filter="visual">Visual Reports</button>
-                    <button class="filter-pill" data-filter="personal">Personal</button>
+                    <button type="button" class="filter-pill active" data-filter="all">All</button>
+                    <button type="button" class="filter-pill" data-filter="strategic">Data Stories</button>
+                    <button type="button" class="filter-pill" data-filter="visual">Visual Reports</button>
+                    <button type="button" class="filter-pill" data-filter="personal">Personal</button>
                 </div>
                 <div class="view-toggles">
-                    <button class="view-btn active" id="grid-view-btn" aria-label="Grid view" title="Grid view">
-                        <i data-lucide="layout-grid" style="width:16px;height:16px;"></i>
+                    <button type="button" class="view-btn active" id="grid-view-btn" aria-label="Grid view" title="Grid view">
+                        <i data-lucide="layout-grid" aria-hidden="true" style="width:16px;height:16px;"></i>
                     </button>
-                    <button class="view-btn" id="list-view-btn" aria-label="List view" title="List view">
-                        <i data-lucide="list" style="width:16px;height:16px;"></i>
+                    <button type="button" class="view-btn" id="list-view-btn" aria-label="List view" title="List view">
+                        <i data-lucide="list" aria-hidden="true" style="width:16px;height:16px;"></i>
                     </button>
                 </div>
             </div>
@@ -160,7 +160,7 @@
                     <div class="card-image">
                         <img src="Assets/Project_1_Image.jpeg" alt="Ditwah Cyclone 2025: Disaster Narrative" loading="lazy">
                         <div class="card-overlay">
-                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" style="width:14px;height:14px;margin-left:4px;"></i></span>
+                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                         </div>
                     </div>
                     <div class="card-body">
@@ -189,7 +189,7 @@
                     <div class="card-image">
                         <img src="Assets/Project_2_Image.jpeg" alt="UN Sri Lanka 2024 Annual Results" loading="lazy">
                         <div class="card-overlay">
-                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" style="width:14px;height:14px;margin-left:4px;"></i></span>
+                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                         </div>
                     </div>
                     <div class="card-body">
@@ -218,7 +218,7 @@
                     <div class="card-image">
                         <img src="Assets/Project_3_Image.jpeg" alt="UN Sri Lanka SDG Fund 2024 Results" loading="lazy">
                         <div class="card-overlay">
-                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" style="width:14px;height:14px;margin-left:4px;"></i></span>
+                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                         </div>
                     </div>
                     <div class="card-body">
@@ -247,7 +247,7 @@
                     <div class="card-image">
                         <img src="Assets/Project_5_Image.jpeg" alt="Public Investment Programme 2026-2030" loading="lazy">
                         <div class="card-overlay">
-                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" style="width:14px;height:14px;margin-left:4px;"></i></span>
+                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                         </div>
                     </div>
                     <div class="card-body">
@@ -276,7 +276,7 @@
                     <div class="card-image">
                         <img src="Assets/Project_6_Image.jpeg" alt="Embracy Financial Management Platform" loading="lazy">
                         <div class="card-overlay">
-                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" style="width:14px;height:14px;margin-left:4px;"></i></span>
+                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                         </div>
                     </div>
                     <div class="card-body">
@@ -305,7 +305,7 @@
                     <div class="card-image">
                         <img src="Assets/Project_4_Image.jpeg" alt="Mass Reach: YouTube Audience Growth" loading="lazy">
                         <div class="card-overlay">
-                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" style="width:14px;height:14px;margin-left:4px;"></i></span>
+                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                         </div>
                     </div>
                     <div class="card-body">
@@ -337,7 +337,7 @@
                 <div class="card-inner">
                     <div class="card-image">
                         <img src="Assets/Project_3_Image.jpeg" alt="Mass Reach: Facebook Audience Growth" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="card-body">
                         <div class="card-meta"><span class="card-cat">Audience Growth</span><span class="card-date">APR 2026</span></div>
@@ -359,7 +359,7 @@
                 <div class="card-inner">
                     <div class="card-image">
                         <img src="Assets/Project_4_Image.jpeg" alt="The Shadow War: Drug Crisis" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="card-body">
                         <div class="card-meta"><span class="card-cat">Interactive Design</span><span class="card-date">DEC 2025</span></div>
@@ -381,7 +381,7 @@
                 <div class="card-inner">
                     <div class="card-image">
                         <img src="Assets/Project_8_Image.jpeg" alt="Sri Lanka Economic Snapshots" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="card-body">
                         <div class="card-meta"><span class="card-cat">Data Visualisation</span><span class="card-date">OCT 2024</span></div>
@@ -403,7 +403,7 @@
                 <div class="card-inner">
                     <div class="card-image">
                         <img src="Assets/Project_9_Image.jpeg" alt="Language of Power: Political Networks" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="card-body">
                         <div class="card-meta"><span class="card-cat">Network Analysis</span><span class="card-date">JUN 2024</span></div>
@@ -425,7 +425,7 @@
                 <div class="card-inner">
                     <div class="card-image">
                         <img src="Assets/Project_1_Image.jpeg" alt="Sri Lanka Climate Vulnerability Atlas" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="card-body">
                         <div class="card-meta"><span class="card-cat">Geo-Data Visualisation</span><span class="card-date">IN DEV.</span></div>
@@ -447,7 +447,7 @@
                 <div class="card-inner">
                     <div class="card-image">
                         <img src="Assets/Project_9_Image.jpeg" alt="Data for Democracy: Election Infographics" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="card-body">
                         <div class="card-meta"><span class="card-cat">Civic Data</span><span class="card-date">IN DEV.</span></div>
@@ -464,9 +464,9 @@
 
         <div class="show-more-row">
             <div id="no-projects-msg" class="empty-msg" style="display:none">No matching projects found.</div>
-            <button class="show-more-btn" id="show-more-btn">
+            <button type="button" class="show-more-btn" id="show-more-btn">
                 <span>Show Extended Gallery</span>
-                <span class="btn-icon-wrap"><i data-lucide="chevron-down"></i></span>
+                <span class="btn-icon-wrap"><i data-lucide="chevron-down" aria-hidden="true"></i></span>
             </button>
         </div>
     </div>
@@ -481,8 +481,8 @@
                 <h2 class="section-title">Visual Archive</h2>
             </div>
             <div class="carousel-controls desktop-only-arrows">
-                <button class="carousel-btn" id="viz-prev-btn" aria-label="Previous"><i data-lucide="arrow-left"></i></button>
-                <button class="carousel-btn" id="viz-next-btn" aria-label="Next"><i data-lucide="arrow-right"></i></button>
+                <button type="button" class="carousel-btn" id="viz-prev-btn" aria-label="Previous"><i data-lucide="arrow-left" aria-hidden="true"></i></button>
+                <button type="button" class="carousel-btn" id="viz-next-btn" aria-label="Next"><i data-lucide="arrow-right" aria-hidden="true"></i></button>
             </div>
         </div>
         
@@ -493,7 +493,7 @@
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_1.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
                         <img src="Assets/Viz_1.jpg" alt="Sri Lanka Government Budget" class="viz-main-img" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
                         <span class="lab-tag-label">2025</span>
@@ -506,7 +506,7 @@
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_2.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
                         <img src="Assets/Viz_2.jpg" alt="From Skipping Classes to Figuring It Out Myself" class="viz-main-img" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
                         <span class="lab-tag-label">Reflection</span>
@@ -519,7 +519,7 @@
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_3.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
                         <img src="Assets/Viz_3.jpg" alt="338 Acts of Change" class="viz-main-img" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
                         <span class="lab-tag-label">Civic Data</span>
@@ -532,7 +532,7 @@
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_4.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
                         <img src="Assets/Viz_4.jpg" alt="Broken Lotus: Sexual Harassment in Sri Lanka" class="viz-main-img" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
                         <span class="lab-tag-label">Social Issue</span>
@@ -545,7 +545,7 @@
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_5.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
                         <img src="Assets/Viz_5.jpg" alt="Drug-Related Arrests vs. Treatment Cases" class="viz-main-img" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
                         <span class="lab-tag-label">2018–2023</span>
@@ -558,7 +558,7 @@
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_6.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
                         <img src="Assets/Viz_6.jpg" alt="Drug-Related Arrests by Substance" class="viz-main-img" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
                         <span class="lab-tag-label">2018–2023</span>
@@ -571,7 +571,7 @@
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_7.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
                         <img src="Assets/Viz_7.jpg" alt="Drug Control Under Sri Lanka's Presidents" class="viz-main-img" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
                         <span class="lab-tag-label">2018–2025</span>
@@ -584,7 +584,7 @@
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_8.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
                         <img src="Assets/Viz_8.jpg" alt="Provincial Drug Case Outcomes" class="viz-main-img" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
                         <span class="lab-tag-label">2024</span>
@@ -597,7 +597,7 @@
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_9.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
                         <img src="Assets/Viz_9.jpg" alt="Who Provides Rehabilitation in Sri Lanka" class="viz-main-img" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                        <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
                         <span class="lab-tag-label">2022–2023</span>
@@ -670,7 +670,7 @@
                 <p class="section-header-desc">Notes on information design, data ethics, and the systems that shape public understanding.</p>
             </div>
             <div class="insights-search-box">
-                <i data-lucide="search" style="width:16px;height:16px;"></i>
+                <i data-lucide="search" aria-hidden="true" style="width:16px;height:16px;"></i>
                 <input type="text" id="article-search" placeholder="Search articles..." aria-label="Search articles">
             </div>
         </div>
@@ -685,7 +685,7 @@
                     <div class="insight-meta">ETHICS | 5 MIN READ</div>
                     <h3>The Ethics of Data Visualisation</h3>
                     <p>When design decisions are also moral decisions — on accuracy, framing, and the responsibilities of those who hold the pen.</p>
-                    <span class="insight-read-link">Read Article <i data-lucide="arrow-right" class="inline-icon"></i></span>
+                    <span class="insight-read-link">Read Article <i data-lucide="arrow-right" aria-hidden="true" class="inline-icon"></i></span>
                 </div>
             </article>
             <article class="insight-card card-interactive">
@@ -698,7 +698,7 @@
                     <div class="insight-meta">BEST PRACTICES | 8 MIN READ</div>
                     <h3>The Dangers of Misleading Charts</h3>
                     <p>Exploring the common pitfalls — truncated axes, cherry-picked timeframes, and the design choices that distort truth without lying.</p>
-                    <span class="insight-read-link">Read Article <i data-lucide="arrow-right" class="inline-icon"></i></span>
+                    <span class="insight-read-link">Read Article <i data-lucide="arrow-right" aria-hidden="true" class="inline-icon"></i></span>
                 </div>
             </article>
             <article class="insight-card card-interactive">
@@ -711,7 +711,7 @@
                     <div class="insight-meta">FUTURE | 6 MIN READ</div>
                     <h3>The Future of Information Design</h3>
                     <p>AI can generate charts. But it cannot yet generate judgment. A reflection on what remains irreducibly human in this practice.</p>
-                    <span class="insight-read-link">Read Article <i data-lucide="arrow-right" class="inline-icon"></i></span>
+                    <span class="insight-read-link">Read Article <i data-lucide="arrow-right" aria-hidden="true" class="inline-icon"></i></span>
                 </div>
             </article>
         </div>
@@ -728,7 +728,7 @@
         </div>
         <div class="timeline mobile-timeline-optimized">
             <div class="timeline-item">
-                <div class="timeline-marker"><i data-lucide="zap"></i></div>
+                <div class="timeline-marker"><i data-lucide="zap" aria-hidden="true"></i></div>
                 <div class="timeline-content">
                     <span class="timeline-period">2025 – Present</span>
                     <h3>Freelance Information Designer | Digital Strategist</h3>
@@ -737,7 +737,7 @@
                 </div>
             </div>
             <div class="timeline-item">
-                <div class="timeline-marker"><i data-lucide="landmark"></i></div>
+                <div class="timeline-marker"><i data-lucide="landmark" aria-hidden="true"></i></div>
                 <div class="timeline-content">
                     <span class="timeline-period">Jul 2025</span>
                     <h3>Communications | Design Consultant</h3>
@@ -746,7 +746,7 @@
                 </div>
             </div>
             <div class="timeline-item">
-                <div class="timeline-marker"><i data-lucide="globe"></i></div>
+                <div class="timeline-marker"><i data-lucide="globe" aria-hidden="true"></i></div>
                 <div class="timeline-content">
                     <span class="timeline-period">Mar – Jun 2025</span>
                     <h3>UN National Volunteer Specialist</h3>
@@ -755,7 +755,7 @@
                 </div>
             </div>
             <div class="timeline-item">
-                <div class="timeline-marker"><i data-lucide="layers"></i></div>
+                <div class="timeline-marker"><i data-lucide="layers" aria-hidden="true"></i></div>
                 <div class="timeline-content">
                     <span class="timeline-period">2022 – 2024</span>
                     <h3>Senior Communications Designer</h3>
@@ -815,7 +815,7 @@
                 <h2 class="contact-headline">Have a project<br>in mind?</h2>
                 <p class="contact-body">Available for consulting roles, institutional partnerships, and speaking engagements. Let's discuss how structured information design can serve your work.</p>
                 <a href="mailto:consultchatura@gmail.com" class="contact-email">
-                    <i data-lucide="mail"></i>
+                    <i data-lucide="mail" aria-hidden="true"></i>
                     <span>consultchatura@gmail.com</span>
                 </a>
             </div>
@@ -836,7 +836,7 @@
                         <textarea id="contact-message" name="message" rows="5" placeholder="What are you working on?" required></textarea>
                     </div>
                     <button type="submit" class="form-submit">
-                        Send Message <i data-lucide="arrow-right"></i>
+                        Send Message <i data-lucide="arrow-right" aria-hidden="true"></i>
                     </button>
                 </form>
             </div>
@@ -888,8 +888,8 @@
 
 <div id="project-detail-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pm-title">
     <div class="modal-panel">
-        <button class="modal-close" id="close-project-modal" aria-label="Close">
-            <i data-lucide="x"></i>
+        <button type="button" class="modal-close" id="close-project-modal" aria-label="Close">
+            <i data-lucide="x" aria-hidden="true"></i>
         </button>
         <div class="modal-inner">
             <div class="modal-header">
@@ -920,14 +920,14 @@
                 </div>
             </div>
             <div class="modal-footer-action">
-                <a href="#" id="pm-link" target="_blank" rel="noopener" class="modal-cta-btn">View Project <i data-lucide="arrow-up-right"></i></a>
+                <a href="#" id="pm-link" target="_blank" rel="noopener" class="modal-cta-btn">View Project <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
             </div>
         </div>
     </div>
 </div>
 
 <div id="lightbox-modal" class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Image viewer">
-    <button class="lightbox-close" aria-label="Close lightbox"><i data-lucide="x"></i></button>
+    <button type="button" class="lightbox-close" aria-label="Close lightbox"><i data-lucide="x" aria-hidden="true"></i></button>
     <img id="lightbox-image" class="lightbox-img" src="" alt="">
 </div>
 
