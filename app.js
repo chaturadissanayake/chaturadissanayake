@@ -2,10 +2,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── 1. INITIALIZE ICONS ──────────────────────────────────────────────
     lucide.createIcons();
 
-    // ── 2. REMOVE LOADING STATE ──────────────────────────────────────────
-    requestAnimationFrame(() => {
-        setTimeout(() => document.body.classList.remove('loading'), 80);
-    });
+    // ── 2. REMOVE LOADING STATE (Updated for better UX) ──────────────────
+    // Wait for actual assets to load to prevent layout shifts, with a fallback
+    const removeLoadingState = () => {
+        document.body.classList.remove('loading');
+    };
+    if (document.readyState === 'complete') {
+        removeLoadingState();
+    } else {
+        window.addEventListener('load', removeLoadingState);
+        // Fallback just in case a third-party script hangs
+        setTimeout(removeLoadingState, 2000);
+    }
 
     // ── 3. CUSTOM CURSOR (DESKTOP ONLY) ──────────────────────────────────
     const cursorDot  = document.getElementById('cursor-dot');
@@ -21,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         (function animateCursor() {
+            // 0.14 Lerp factor keeps it snappy but smooth
             rx += (mx - rx) * 0.14;
             ry += (my - ry) * 0.14;
             cursorRing.style.left = rx + 'px';
@@ -182,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
     applyProjectFilter();
 
-    // ── 12. INSIGHTS SEARCH ───────────────────────────────────────────────
+    // ── 12. INSIGHTS SEARCH (Updated Logic) ───────────────────────────────
     const insightSearch = document.getElementById('article-search');
     const insightCards  = document.querySelectorAll('.insight-card');
     const noArticlesMsg = document.getElementById('no-articles-msg');
@@ -190,13 +199,17 @@ document.addEventListener('DOMContentLoaded', () => {
     insightSearch?.addEventListener('input', e => {
         const term = e.target.value.toLowerCase().trim();
         let count = 0;
+        
         insightCards.forEach(card => {
-            // Check only the title for cleaner search results
+            // Now checks both title and description for matches
             const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
-            const visible = title.includes(term);
+            const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
+            
+            const visible = title.includes(term) || desc.includes(term);
             card.style.display = visible ? '' : 'none';
             if (visible) count++;
         });
+        
         if (noArticlesMsg) noArticlesMsg.style.display = count === 0 ? 'block' : 'none';
     });
 
@@ -215,7 +228,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const status = card.getAttribute('data-status') || 'View Project';
         
         // Re-inject icon cleanly so Lucide can process it
-        link.innerHTML = `${status} <i data-lucide="arrow-up-right" style="width:14px;height:14px;margin-left:4px;"></i>`;
+        link.innerHTML = `${status} <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i>`;
         lucide.createIcons({ nameAttr: 'data-lucide', root: link });
 
         if (href && href !== '#') {
