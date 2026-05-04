@@ -4,44 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatura Dissanayake | Information Designer</title>
-    <meta name="description" content="Chatura Dissanayake | Information Designer. Translating complex data into clear, impactful narratives for institutions, policy, and the public.">
+    <meta name="description" content="Chatura Dissanayake — Information Designer. Data visualisation, policy reports, and communication design for institutions that need clarity.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@0.292.0"></script>
     <style>
-        /* Fix gap between main list and extended list in list-view */
-        .extended-work.list-mode.show { margin-top: var(--space-3) !important; }
-        
-        /* Hide back-to-top button on mobile */
-        @media (max-width: 640px) {
-            #back-to-top { display: none !important; }
-        }
+        @media (max-width: 640px) { #back-to-top { display: none !important; } }
     </style>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="Assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="Assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="Assets/favicon-16x16.png">
+<link rel="manifest" href="Assets/site.webmanifest">
+
 </head>
 <body class="loading">
 
 <div class="scroll-progress-bar" id="scroll-progress" aria-hidden="true"></div>
-
 <div class="cursor-dot" id="cursor-dot" aria-hidden="true"></div>
 <div class="cursor-ring" id="cursor-ring" aria-hidden="true"></div>
 
+<!-- ─── HEADER ─────────────────────────────────────────────────────── -->
 <header class="main-header" id="main-header">
     <div class="nav-inner">
         <a href="#hero" class="nav-logo" aria-label="Chatura Dissanayake Home">
             <span class="logo-mark">
-                <img src="Assets/Logo_Placeholder.png" alt="Chatura Dissanayake Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                <img src="Assets/Logo_Placeholder.png" alt="Chatura Dissanayake Logo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
             </span>
             <span class="logo-full">Chatura Dissanayake</span>
         </a>
         <nav class="desktop-nav" role="navigation" aria-label="Primary">
-            <a href="#projects" class="nav-link" data-section="projects">Work</a>
-            <a href="#visualisations" class="nav-link" data-section="visualisations">Data Stories</a>
-            <a href="#lab" class="nav-link" data-section="lab">Lab</a>
-            <a href="#insights" class="nav-link" data-section="insights">Insights</a>
-            <a href="#evolution" class="nav-link" data-section="evolution">Journey</a>
-            <a href="#about" class="nav-link" data-section="about">About</a>
+            <a href="#projects"       class="nav-link" data-section="projects">Work</a>
+            <a href="#visualisations" class="nav-link" data-section="visualisations">Archive</a>
+            <a href="#insights"       class="nav-link" data-section="insights">Insights</a>
+            <a href="#about"          class="nav-link" data-section="about">About</a>
         </nav>
         <div class="nav-actions">
             <a href="#contact" class="nav-cta">Let's Talk <i data-lucide="arrow-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
@@ -54,88 +52,65 @@
 
 <div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
     <nav class="mobile-nav-links">
-        <a href="#projects" class="mobile-link">Work</a>
-        <a href="#visualisations" class="mobile-link">Data Stories</a>
-        <a href="#lab" class="mobile-link">Lab</a>
-        <a href="#insights" class="mobile-link">Insights</a>
-        <a href="#evolution" class="mobile-link">Journey</a>
-        <a href="#about" class="mobile-link">About</a>
-        <a href="#contact" class="mobile-link mobile-cta">Let's Talk <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
+        <a href="#projects"       class="mobile-link">Work</a>
+        <a href="#visualisations" class="mobile-link">Archive</a>
+        <a href="#insights"       class="mobile-link">Insights</a>
+        <a href="#about"          class="mobile-link">About</a>
+        <a href="#contact"        class="mobile-link mobile-cta">Let's Talk <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
     </nav>
     <div class="mobile-menu-footer">
         <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/chaturadissanayake" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://github.com/chaturadissanayake"      target="_blank" rel="noopener">GitHub</a>
     </div>
 </div>
 
 <main>
 
+<!-- ─── HERO ──────────────────────────────────────────────────────── -->
 <section class="hero-section text-center" id="hero">
     <div class="hero-bg-decor" aria-hidden="true">
         <div class="hero-ring hero-ring-1"></div>
         <div class="hero-ring hero-ring-2"></div>
         <div class="hero-ring hero-ring-3"></div>
+        <div class="hero-grain"></div>
     </div>
     <div class="container-narrow hero-container-centered">
         <div class="hero-content">
             <div class="hero-label reveal-up" style="--d:0ms">
-                Information Designer | Systems Thinker
+                Information Designer
             </div>
             <h1 class="hero-title-massive reveal-up" style="--d:80ms">
-                Designing<br>
-                <em>clarity</em><br>
-                from complexity.
+                I make complex<br>
+                information<br>
+                <em>readable.</em>
             </h1>
-            <p class="hero-body-centered reveal-up" style="--d:160ms">
-                I translate dense data into clear, impactful narratives that inform, persuade, and move people to act.
+            <p class="hero-body-centered reveal-up" style="--d:200ms">
+                Data visualisation, reports, and communication design for organisations where clarity matters.
             </p>
-            <p class="hero-body-centered hero-tagline reveal-up" style="--d:200ms">
-                Every system has a story. I find it.
-            </p>
-            
-            <div class="minimal-scroll-action reveal-up" style="--d:280ms">
-                <a href="#projects" class="scroll-link-custom" aria-label="Scroll down to projects">
+            <div class="minimal-scroll-action reveal-up" style="--d:320ms">
+                <a href="#projects" class="scroll-link-custom" aria-label="See my work">
                     <span class="scroll-text">See My Work</span>
                     <div class="scroll-line-drop" aria-hidden="true"></div>
                 </a>
-            </div>
-
-            <div class="hero-stats-centered reveal-up" style="--d:360ms">
-                <div class="stat">
-                    <span class="stat-num">150+</span>
-                    <span class="stat-label">Data Narratives</span>
-                </div>
-                <div class="stat-divider" aria-hidden="true"></div>
-                <div class="stat">
-                    <span class="stat-num">8+</span>
-                    <span class="stat-label">Institutional Collaborations</span>
-                </div>
-                <div class="stat-divider" aria-hidden="true"></div>
-                <div class="stat">
-                    <span class="stat-num">2M+</span>
-                    <span class="stat-label">Views Reached</span>
-                </div>
             </div>
         </div>
     </div>
 </section>
 
+<!-- ─── PROJECTS ─────────────────────────────────────────────────── -->
 <section class="projects-section section-fade-in" id="projects">
     <div class="container">
-        
         <div class="section-header-row mobile-optimize-header">
             <div class="header-text-block">
                 <p class="section-eyebrow">Selected Work</p>
-                <h2 class="section-title">Case Studies</h2>
+                <h2 class="section-title">Projects</h2>
             </div>
-            
             <div class="projects-controls-right">
                 <div class="filter-group" role="group" aria-label="Filter projects">
                     <button type="button" class="filter-pill active" data-filter="all">All</button>
-                    <button type="button" class="filter-pill" data-filter="strategic">Data Stories</button>
+                    <button type="button" class="filter-pill" data-filter="data-story">Data Stories</button>
                     <button type="button" class="filter-pill" data-filter="visual">Visual Reports</button>
-                    <button type="button" class="filter-pill" data-filter="personal">Personal</button>
+                    <button type="button" class="filter-pill" data-filter="interactive">Interactive</button>
                 </div>
                 <div class="view-toggles">
                     <button type="button" class="view-btn active" id="grid-view-btn" aria-label="Grid view" title="Grid view">
@@ -150,15 +125,16 @@
 
         <div class="projects-wrapper grid-mode" id="projects-container">
 
-            <article class="project-card project-trigger" data-category="strategic"
+            <!-- Project 1: Ditwah -->
+            <article class="project-card project-trigger" data-category="data-story personal"
                 data-title="Ditwah Cyclone 2025: Disaster Narrative"
-                data-challenge="National disasters require immediate, factual reporting without sensationalism. The challenge was tracking fluid recovery data in real-time after Cyclone E2 and presenting it so that both public officials and ordinary citizens could understand the scale of impact and act on it."
-                data-role="As lead Information Designer, I structured ground-truth damage, displacement, and relief data into cohesive visual situation reports — building a narrative framework that could be updated daily as conditions evolved on the ground."
-                data-outcome="Established a trusted visual baseline now used by NGOs, government emergency units, and UN agencies to coordinate recovery efforts across affected regions. The narrative framework was praised for its clarity under operational pressure."
-                data-link="#" data-status="Currently in the Works" data-tags="Crisis Communication,Data Storytelling">
+                data-challenge="National disasters require immediate, factual reporting without sensationalism. The challenge was tracking fluid recovery data in real-time after Cyclone Ditwah and presenting it so both public officials and ordinary citizens could understand the true scale of impact — which was far worse than early estimates suggested."
+                data-role="Sole information designer on the project. I sourced and verified data from UN OCHA, UNICEF, the World Bank GRADE Report, and the Disaster Management Centre across the full response period. I built the complete narrative architecture, visual system, and interactive site in hand-coded HTML, CSS, and JavaScript — including a custom P5.js unit chart, before/after map comparison, and scrollytelling structure."
+                data-outcome="The story revealed that 2.3 million people were affected — nearly three times the early estimate of 800,000. As of April 2026, 149,000 people remain displaced and the aid fund stalled at $22.5M against a $35.3M target. One reader commented: 'I've been trying to find proper articles capturing the true extent of this disaster, and this is the best I've found so far.'"
+                data-link="https://chaturadissanayake.github.io/cycloneditwah/" data-status="View Full Story" data-tags="Crisis Communication,Data Storytelling">
                 <div class="card-inner">
                     <div class="card-image">
-                        <img src="Assets/Project_1_Image.jpeg" alt="Ditwah Cyclone 2025: Disaster Narrative" loading="lazy">
+                        <img src="Assets/Project_1_Image.png" alt="Ditwah Cyclone 2025: Disaster Narrative" loading="lazy">
                         <div class="card-overlay">
                             <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                         </div>
@@ -170,24 +146,23 @@
                         </div>
                         <div class="card-title-wrap">
                             <h3 class="card-title">Ditwah Cyclone 2025: Disaster Narrative</h3>
-                            <p class="card-desc">A real-time data storytelling initiative documenting the impact and recovery of Cyclone E2, focused on ground-truth evidence and narrative clarity for emergency response.</p>
+                            <p class="card-desc">A data storytelling initiative documenting the true scale of Cyclone Ditwah's impact and recovery — revealing figures far worse than official early estimates.</p>
                         </div>
-                        <div class="card-tags">
-                            <span>Crisis Comms</span><span>Data Storytelling</span>
-                        </div>
+                        <div class="card-tags"><span>Crisis Comms</span><span>Data Storytelling</span></div>
                     </div>
                 </div>
             </article>
 
-            <article class="project-card project-trigger" data-category="visual"
+            <!-- Project 2: UN Annual Results -->
+            <article class="project-card project-trigger" data-category="visual client"
                 data-title="UN Sri Lanka 2024 Annual Results"
                 data-challenge="Data from 8+ UN agencies was fragmented and siloed, making it impossible to see unified national impact. Policymakers and donors needed a single coherent source of truth that accurately reflected the UN system's collective footprint in Sri Lanka."
-                data-role="Coordinated with agency heads to synthesise disparate data streams into a cohesive, branded annual report, managing editorial workflow, information hierarchy, chart design, and final publication layout."
-                data-outcome="Published as the official national UN synthesis for 2024 — widely praised for making complex development metrics digestible. Adopted as reference material by the UNDP Sri Lanka office and shared across UN country offices."
+                data-role="Coordinated with agency heads to synthesise disparate data streams into a cohesive, branded annual report, managing editorial workflow, information hierarchy, chart design, and final publication layout under strict UN branding standards."
+                data-outcome="Published as the official national UN synthesis for 2024 — distributed to 4,000+ stakeholders including the Prime Minister. Adopted as reference material by the UNDP Sri Lanka office."
                 data-link="https://srilanka.un.org/en/293540-un-sri-lanka-2024-annual-results-report" data-status="View Full Report" data-tags="UN Reporting,Info Design">
                 <div class="card-inner">
                     <div class="card-image">
-                        <img src="Assets/Project_2_Image.jpeg" alt="UN Sri Lanka 2024 Annual Results" loading="lazy">
+                        <img src="Assets/Project_2_Image.png" alt="UN Sri Lanka 2024 Annual Results" loading="lazy">
                         <div class="card-overlay">
                             <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                         </div>
@@ -201,22 +176,21 @@
                             <h3 class="card-title">UN Sri Lanka 2024 Annual Results</h3>
                             <p class="card-desc">Designing and coordinating the official UN Sri Lanka annual report — synthesising impact data across 8+ agencies into a cohesive national development narrative.</p>
                         </div>
-                        <div class="card-tags">
-                            <span>UN Reporting</span><span>Info Design</span>
-                        </div>
+                        <div class="card-tags"><span>UN Reporting</span><span>Info Design</span></div>
                     </div>
                 </div>
             </article>
 
-            <article class="project-card project-trigger" data-category="visual"
+            <!-- Project 3: SDG Fund -->
+            <article class="project-card project-trigger" data-category="visual client"
                 data-title="UN Sri Lanka SDG Fund 2024 Results"
-                data-challenge="The SDG Fund's multi-programme results needed to be presented to donors and policymakers as a unified impact story — not a set of disconnected agency outputs. Translating SDG indicators into visual language that non-technical audiences could act on was the core challenge."
+                data-challenge="The SDG Fund's multi-programme results needed to be presented to donors and policymakers as a unified impact story. Translating SDG indicators into visual language that non-technical audiences could act on was the core challenge."
                 data-role="Designed the full information architecture and visual system for the SDG Fund results report, including programme-level data visualisation, thematic narratives, and an accessible layout system aligned with UN brand standards."
                 data-outcome="Delivered a publication that brought SDG programme outcomes to life for stakeholders at government and donor levels, strengthening the case for continued investment in Sri Lanka's sustainable development agenda."
-                data-link="#" data-status="Currently in the Works" data-tags="SDG Reporting,Data Vis">
+                data-link="https://srilanka.un.org" data-status="Report in Final Review" data-tags="SDG Reporting,Data Vis">
                 <div class="card-inner">
                     <div class="card-image">
-                        <img src="Assets/Project_3_Image.jpeg" alt="UN Sri Lanka SDG Fund 2024 Results" loading="lazy">
+                        <img src="Assets/Project_3_Image.png" alt="UN Sri Lanka SDG Fund 2024 Results" loading="lazy">
                         <div class="card-overlay">
                             <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                         </div>
@@ -230,51 +204,78 @@
                             <h3 class="card-title">UN Sri Lanka SDG Fund 2024 Results</h3>
                             <p class="card-desc">Translating the UN SDG Fund's multi-programme results into a compelling visual report for donors and policymakers, aligned with sustainable development goals.</p>
                         </div>
-                        <div class="card-tags">
-                            <span>SDG Reporting</span><span>Data Vis</span>
-                        </div>
+                        <div class="card-tags"><span>SDG Reporting</span><span>Data Vis</span></div>
                     </div>
                 </div>
             </article>
 
-            <article class="project-card project-trigger" data-category="visual"
-                data-title="Public Investment Programme 2026–2030"
-                data-challenge="National budgets are dense, technical documents written for bureaucrats, not the public. The challenge was rendering macroeconomic complexity legible without sacrificing accuracy — and doing so within a tight government publication timeline."
-                data-role="Designed the official policy report for the Ministry of Finance, engineering high-impact data visuals for GDP projections, sectoral allocations, and investment targets across the five-year national development cycle."
-                data-outcome="Adopted as the primary reference document by the Ministry of Finance for the 2026–2030 cycle and publicly distributed to parliament, press, and international financial institutions."
-                data-link="https://npd.treasury.gov.lk/files/PIP%202026-2030%20final_new.pdf" data-status="View Full Report" data-tags="Gov't Report,Info Design">
+            <!-- Project 5: Drug Crisis Interactive -->
+            <article class="project-card project-trigger" data-category="data-story personal"
+                data-title="The Shadow War: Drug Crisis"
+                data-challenge="Translating public health outcomes into an engaging, accessible format to explain Sri Lanka's national drug policy — a topic dense with jargon and political sensitivity — for a non-specialist audience."
+                data-role="Designed and developed a complete interactive scrollytelling experience from wireframing to final code deployment, building the full narrative architecture, visual language, and data pipeline."
+                data-outcome="A highly user-friendly digital environment mapping national drug policy against public health realities, enabling non-specialist audiences to engage with complex data through a compelling visual journey."
+                data-link="https://chaturadissanayake.github.io/sri-lanka-drug-crisis-website/" data-status="View Full Case Study" data-tags="Scrollytelling,Public Health">
                 <div class="card-inner">
                     <div class="card-image">
-                        <img src="Assets/Project_5_Image.jpeg" alt="Public Investment Programme 2026-2030" loading="lazy">
+                        <img src="Assets/Project_4_Image.png" alt="The Shadow War: Drug Crisis" loading="lazy">
                         <div class="card-overlay">
                             <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="card-meta">
-                            <span class="card-cat">Government Report</span>
-                            <span class="card-date">JUL 2025</span>
+                            <span class="card-cat">Interactive Design</span>
+                            <span class="card-date">DEC 2025</span>
                         </div>
                         <div class="card-title-wrap">
-                            <h3 class="card-title">Public Investment Programme 2026–2030</h3>
-                            <p class="card-desc">Designed the official Ministry of Finance five-year investment policy report, simplifying macroeconomic data into high-impact visuals for policymakers and parliament.</p>
+                            <h3 class="card-title">The Shadow War: Drug Crisis</h3>
+                            <p class="card-desc">An interactive scrollytelling experience mapping Sri Lanka's drug policy against public health outcomes for a general audience.</p>
                         </div>
-                        <div class="card-tags">
-                            <span>Gov't Report</span><span>Info Design</span>
-                        </div>
+                        <div class="card-tags"><span>Scrollytelling</span><span>Public Health</span></div>
                     </div>
                 </div>
             </article>
 
-            <article class="project-card project-trigger" data-category="personal"
+            <!-- Project 6: VoteWise -->
+            <article class="project-card project-trigger" data-category="interactive personal"
+                data-title="Voter Education Web Game"
+                data-challenge="Civic education about elections is dry, text-heavy, and rarely reaches young or first-time voters. The challenge is building genuine engagement around democratic participation through interactive experience rather than passive reading."
+                data-role="Designing and developing a browser-based game that teaches voters how elections work — covering candidate evaluation, constituency systems, and the logic of democratic choice — using scenario-based gameplay and AI-assisted development."
+                data-outcome="In active development. Intended for distribution through civil society organisations and schools to improve informed voter participation among younger demographics."
+                data-link="#" data-status="Active Development" data-tags="Civic Tech,Interactive Design">
+                <div class="card-inner">
+                    <div class="card-image">
+                        <div class="card-status-badge active-badge">Active</div>
+                        <img src="Assets/Project_9_Image.png" alt="Voter Education Web Game" loading="lazy">
+                        <div class="card-overlay">
+                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-meta">
+                            <span class="card-cat">Civic Technology</span>
+                            <span class="card-date">ACTIVE</span>
+                        </div>
+                        <div class="card-title-wrap">
+                            <h3 class="card-title">Voter Education Web Game</h3>
+                            <p class="card-desc">A browser-based interactive game teaching voters how democratic elections work — scenario-driven, accessible, and designed for first-time and young voters.</p>
+                        </div>
+                        <div class="card-tags"><span>Civic Tech</span><span>Interactive Design</span></div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Project 7: Embracy -->
+            <article class="project-card project-trigger" data-category="visual client"
                 data-title="Embracy Financial Management Platform"
-                data-challenge="Financial management tools suffer from feature bloat and poor user retention. The core challenge was identifying where cognitive load breaks the relationship between user and product — and redesigning that experience from first principles."
-                data-role="Led end-to-end UX research: user interviews, journey mapping, and competitive analysis, then built comprehensive high-fidelity wireframes and a redesigned onboarding flow optimised for sustained engagement."
-                data-outcome="Delivered a scalable, intuitive interface with a measurably improved onboarding path, tested for reduced drop-off and extended session depth across user segments."
+                data-challenge="Financial management tools suffer from feature bloat and poor user retention. The challenge was identifying where cognitive load breaks the relationship between user and product — and redesigning that experience from first principles."
+                data-role="Led end-to-end UX research: user interviews, journey mapping, and competitive analysis, then built comprehensive high-fidelity wireframes and a redesigned onboarding flow optimised for sustained engagement. Reduced user drop-off rates by 30% and cut internal production time by 50%."
+                data-outcome="Delivered a scalable, intuitive interface with a measurably improved onboarding path. The redesigned system reduced drop-off by 30% and was adopted as the foundation for the platform's ongoing product development."
                 data-link="https://drive.google.com/drive/folders/1Ria6BG5ML2PYXCr3Hx-n5H9PNIjra5Zf" data-status="View Full Case Study" data-tags="UX Research,UI Design">
                 <div class="card-inner">
                     <div class="card-image">
-                        <img src="Assets/Project_6_Image.jpeg" alt="Embracy Financial Management Platform" loading="lazy">
+                        <img src="Assets/Project_6_Image.png" alt="Embracy Financial Management Platform" loading="lazy">
                         <div class="card-overlay">
                             <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                         </div>
@@ -288,193 +289,21 @@
                             <h3 class="card-title">Embracy Financial Management Platform</h3>
                             <p class="card-desc">End-to-end UX research and interface design for a scalable financial management platform, focused on reducing cognitive load and improving user retention.</p>
                         </div>
-                        <div class="card-tags">
-                            <span>UX Research</span><span>UI Design</span>
-                        </div>
+                        <div class="card-tags"><span>UX Research</span><span>UI Design</span></div>
                     </div>
                 </div>
             </article>
 
-            <article class="project-card project-trigger" data-category="strategic"
-                data-title="Mass Reach: YouTube Audience Growth"
-                data-challenge="Scaling an entertainment news platform requires cutting through enormous digital noise. The challenge was understanding audience psychology at scale and building a repeatable, data-driven growth engine that didn't depend on luck."
-                data-role="Led digital strategy end-to-end: sentiment analysis of audience response, iterative A/B testing of video formats, thumbnail psychology, and retention engineering using YouTube Studio analytics."
-                data-outcome="Scaled the channel to over 2 million views within a 28-day window, with sustained growth in subscriber retention month-over-month — establishing a repeatable playbook for audience development."
-                data-link="#" data-status="Coming Soon" data-tags="Growth Strategy,Digital Media">
-                <div class="card-inner">
-                    <div class="card-image">
-                        <img src="Assets/Project_4_Image.jpeg" alt="Mass Reach: YouTube Audience Growth" loading="lazy">
-                        <div class="card-overlay">
-                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-meta">
-                            <span class="card-cat">Audience Growth</span>
-                            <span class="card-date">JAN 2026</span>
-                        </div>
-                        <div class="card-title-wrap">
-                            <h3 class="card-title">Mass Reach: YouTube Audience Growth</h3>
-                            <p class="card-desc">Scaled an entertainment news channel to 2M+ views in 28 days through rigorous sentiment analysis, retention engineering, and iterative content testing.</p>
-                        </div>
-                        <div class="card-tags">
-                            <span>Growth Strategy</span><span>Digital Media</span>
-                        </div>
-                    </div>
-                </div>
-            </article>
+        </div><!-- /#projects-container -->
 
-        </div>
+        <div id="no-projects-msg" class="empty-msg" style="display:none">No matching projects found.</div>
 
-        <div class="extended-work grid-mode" id="extended-work">
-
-            <article class="project-card project-trigger" data-category="strategic"
-                data-title="Mass Reach: Facebook Audience Growth"
-                data-challenge="Building a Facebook page from zero to a meaningful audience requires understanding platform-specific content mechanics, community behaviour, and the algorithm's appetite — very different from YouTube's search-driven discovery model."
-                data-role="Developing and executing the full growth strategy: content calendar architecture, format testing, community engagement patterns, and performance analytics through Meta Business Suite."
-                data-outcome="Grew the page to ~9,000 followers organically, approaching 10K. Once that milestone is reached, a structured case study on the growth playbook will be published — comparable to the YouTube audience growth analysis."
-                data-link="#" data-status="In Progress — Case Study Coming at 10K" data-tags="Audience Growth,Social Media">
-                <div class="card-inner">
-                    <div class="card-image">
-                        <img src="Assets/Project_3_Image.jpeg" alt="Mass Reach: Facebook Audience Growth" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-meta"><span class="card-cat">Audience Growth</span><span class="card-date">APR 2026</span></div>
-                        <div class="card-title-wrap">
-                            <h3 class="card-title">Mass Reach: Facebook Audience Growth</h3>
-                            <p class="card-desc">Growing a Facebook page from zero to 9K+ followers organically — a companion case study to the YouTube growth experiment, analysing platform-specific audience mechanics.</p>
-                        </div>
-                        <div class="card-tags"><span>Audience Growth</span><span>Social Media</span></div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project-card project-trigger" data-category="strategic"
-                data-title="The Shadow War: Drug Crisis"
-                data-challenge="Translating public health outcomes into an engaging, accessible format to explain Sri Lanka's national drug policy — a topic dense with jargon and political sensitivity — for a non-specialist audience."
-                data-role="Designed and developed a complete interactive scrollytelling experience from wireframing to final code deployment, building the full narrative architecture, visual language, and data pipeline."
-                data-outcome="Created a highly user-friendly digital environment mapping national drug policy against public health realities, enabling non-specialist audiences to engage with complex data through a compelling visual journey."
-                data-link="https://chaturadissanayake.github.io/sri-lanka-drug-crisis-website/" data-status="View Full Case Study" data-tags="Scrollytelling,Public Health">
-                <div class="card-inner">
-                    <div class="card-image">
-                        <img src="Assets/Project_4_Image.jpeg" alt="The Shadow War: Drug Crisis" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-meta"><span class="card-cat">Interactive Design</span><span class="card-date">DEC 2025</span></div>
-                        <div class="card-title-wrap">
-                            <h3 class="card-title">The Shadow War: Drug Crisis</h3>
-                            <p class="card-desc">An interactive scrollytelling experience mapping Sri Lanka's drug policy against public health outcomes for a general audience.</p>
-                        </div>
-                        <div class="card-tags"><span>Scrollytelling</span><span>Public Health</span></div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project-card project-trigger" data-category="visual"
-                data-title="Sri Lanka Economic Snapshots"
-                data-challenge="Weekly economic indicators arrive as raw spreadsheets. The challenge is transforming them into social-ready visuals within a tight publication window, without sacrificing accuracy or analytical rigour."
-                data-role="Designed a repeatable visual template system in Illustrator that could be populated with fresh data weekly, enabling fast publication with consistent brand quality across all formats."
-                data-outcome="Published 40+ weekly snapshots reaching policy journalists, government analysts, and the general public through the Verité Research social channels — building a trusted weekly touchpoint for economic literacy."
-                data-link="#" data-status="Coming Soon" data-tags="Data Vis,Policy">
-                <div class="card-inner">
-                    <div class="card-image">
-                        <img src="Assets/Project_8_Image.jpeg" alt="Sri Lanka Economic Snapshots" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-meta"><span class="card-cat">Data Visualisation</span><span class="card-date">OCT 2024</span></div>
-                        <div class="card-title-wrap">
-                            <h3 class="card-title">Sri Lanka Economic Snapshots</h3>
-                            <p class="card-desc">A repeatable visual system for publishing weekly economic data as social-ready, media-grade visual reports with consistent brand quality.</p>
-                        </div>
-                        <div class="card-tags"><span>Data Vis</span><span>Policy</span></div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project-card project-trigger" data-category="personal"
-                data-title="Language of Power: Political Networks"
-                data-challenge="Visualising political influence networks requires balancing journalistic ethics with analytical clarity — the structure must reveal meaningful relationships without distorting or sensationalising the underlying data."
-                data-role="Researched and mapped political relationships using network graph methodology, then rendered the output in a digestible editorial format suitable for public and media audiences."
-                data-outcome="A working prototype for data-driven political analysis, currently being refined for potential publication with a media partner. The methodology is being documented as a replicable framework."
-                data-link="#" data-status="In Development" data-tags="Network Data,Investigative">
-                <div class="card-inner">
-                    <div class="card-image">
-                        <img src="Assets/Project_9_Image.jpeg" alt="Language of Power: Political Networks" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-meta"><span class="card-cat">Network Analysis</span><span class="card-date">JUN 2024</span></div>
-                        <div class="card-title-wrap">
-                            <h3 class="card-title">Language of Power: Political Networks</h3>
-                            <p class="card-desc">A network graph analysis of political influence relationships in Sri Lanka, rendered as editorial-grade data journalism.</p>
-                        </div>
-                        <div class="card-tags"><span>Network Data</span><span>Investigative</span></div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project-card project-trigger" data-category="visual"
-                data-title="Sri Lanka Climate Vulnerability Atlas"
-                data-challenge="Climate risk data is scattered across fragmented government and IPCC datasets. Communicating vulnerability at the district level — in a format that aids policy prioritisation — requires both rigorous data integration and clear visual architecture."
-                data-role="Developing a multi-layer geographic data visualisation mapping flood risk, drought exposure, and coastal erosion indices across Sri Lanka's administrative districts, with a policy brief format for government use."
-                data-outcome="In development. Intended to serve as a reference tool for climate adaptation planning across ministries and to support multilateral funding applications for climate resilience infrastructure."
-                data-link="#" data-status="In Development" data-tags="Data Vis,Climate">
-                <div class="card-inner">
-                    <div class="card-image">
-                        <img src="Assets/Project_1_Image.jpeg" alt="Sri Lanka Climate Vulnerability Atlas" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-meta"><span class="card-cat">Geo-Data Visualisation</span><span class="card-date">IN DEV.</span></div>
-                        <div class="card-title-wrap">
-                            <h3 class="card-title">Sri Lanka Climate Vulnerability Atlas</h3>
-                            <p class="card-desc">A district-level geographic data visualisation mapping climate risk indices — flood, drought, and coastal erosion — to support national adaptation planning.</p>
-                        </div>
-                        <div class="card-tags"><span>Data Vis</span><span>Climate</span></div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project-card project-trigger" data-category="personal"
-                data-title="Data for Democracy: Election Infographics"
-                data-challenge="Electoral data is rarely communicated in a format that builds public understanding rather than partisan narrative. The challenge is designing non-partisan, accurate visual explainers that help citizens engage with democratic processes."
-                data-role="Researching, structuring, and designing a series of civic data visualisations around Sri Lankan election results, voter behaviour patterns, and constituency-level demographic shifts."
-                data-outcome="In development. A civic information initiative intended for open distribution via social media and civil society organisations to promote informed public participation in democratic processes."
-                data-link="#" data-status="In Development" data-tags="Civic Data,Data Storytelling">
-                <div class="card-inner">
-                    <div class="card-image">
-                        <img src="Assets/Project_9_Image.jpeg" alt="Data for Democracy: Election Infographics" loading="lazy">
-                        <div class="card-overlay"><span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-meta"><span class="card-cat">Civic Data</span><span class="card-date">IN DEV.</span></div>
-                        <div class="card-title-wrap">
-                            <h3 class="card-title">Data for Democracy: Election Infographics</h3>
-                            <p class="card-desc">A non-partisan civic data series visualising Sri Lankan electoral patterns, voter behaviour, and constituency demographics to support informed public participation.</p>
-                        </div>
-                        <div class="card-tags"><span>Civic Data</span><span>Data Storytelling</span></div>
-                    </div>
-                </div>
-            </article>
-
-        </div>
-
-        <div class="show-more-row">
-            <div id="no-projects-msg" class="empty-msg" style="display:none">No matching projects found.</div>
-            <button type="button" class="show-more-btn" id="show-more-btn">
-                <span>Show Extended Gallery</span>
-                <span class="btn-icon-wrap"><i data-lucide="chevron-down" aria-hidden="true"></i></span>
-            </button>
-        </div>
     </div>
 </section>
 
+<!-- ─── VISUAL ARCHIVE ─────────────────────────────────────────── -->
 <section class="viz-section section-fade-in" id="visualisations">
     <div class="container">
-        
         <div class="section-header-row viz-header-mobile">
             <div class="header-text-block">
                 <p class="section-eyebrow">Data Storytelling</p>
@@ -485,10 +314,8 @@
                 <button type="button" class="carousel-btn" id="viz-next-btn" aria-label="Next"><i data-lucide="arrow-right" aria-hidden="true"></i></button>
             </div>
         </div>
-        
         <div class="viz-carousel-viewport">
             <div class="viz-carousel-track mobile-carousel-grid">
-                
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_1.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
@@ -498,10 +325,9 @@
                     <div class="viz-text-content">
                         <span class="lab-tag-label">2025</span>
                         <h3 class="viz-title">Sri Lanka Government Budget — Incomes & Expenditures</h3>
-                        <p class="viz-desc">The Sri Lankan government budget summarises the country's total revenue from taxes and other sources, and expenditures on public services, programs, and other expenses.</p>
+                        <p class="viz-desc">The Sri Lankan government budget summarises total revenue from taxes and other sources, and expenditures on public services and programs.</p>
                     </div>
                 </article>
-
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_2.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
@@ -514,7 +340,6 @@
                         <p class="viz-desc">A visual reflection on growing through uncertainty, navigating chaos without a clear map, and slowly figuring things out one step at a time.</p>
                     </div>
                 </article>
-
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_3.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
@@ -524,10 +349,9 @@
                     <div class="viz-text-content">
                         <span class="lab-tag-label">Civic Data</span>
                         <h3 class="viz-title">338 Acts of Change</h3>
-                        <p class="viz-desc">This spiral visualizes 338 initiatives that shaped Sri Lanka in 2024, with each dot representing an effort to strengthen communities, inform policy, and promote resilience.</p>
+                        <p class="viz-desc">This spiral visualizes 338 initiatives that shaped Sri Lanka in 2024, with each dot representing an effort to strengthen communities and inform policy.</p>
                     </div>
                 </article>
-
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_4.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
@@ -540,7 +364,6 @@
                         <p class="viz-desc">This visual narrative uses a broken lotus flower to symbolize the weight of 2,252 reported cases, with each petal representing 100 incidents.</p>
                     </div>
                 </article>
-
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_5.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
@@ -553,7 +376,6 @@
                         <p class="viz-desc">The nation faces a widening gap between soaring arrests for drug-related offenses and stagnant access to treatment.</p>
                     </div>
                 </article>
-
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_6.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
@@ -566,7 +388,6 @@
                         <p class="viz-desc">Sri Lanka faces a widening gap: drug-related arrests are soaring, especially for heroin, cannabis, and methamphetamines, while access to treatment remains stagnant.</p>
                     </div>
                 </article>
-
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_7.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
@@ -576,10 +397,9 @@
                     <div class="viz-text-content">
                         <span class="lab-tag-label">2018–2025</span>
                         <h3 class="viz-title">Drug Control Under Sri Lanka's Presidents</h3>
-                        <p class="viz-desc">Arrests have surged across successive presidencies, with record cannabis and heroin seizures under Gotabaya Rajapaksa and the highest-ever arrests under Ranil Wickremesinghe.</p>
+                        <p class="viz-desc">Arrests have surged across successive presidencies, with record cannabis and heroin seizures under Gotabaya Rajapaksa.</p>
                     </div>
                 </article>
-
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_8.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
@@ -592,7 +412,6 @@
                         <p class="viz-desc">The estimated case flow highlights a severe strategic imbalance and geographic concentration, reinforcing the national focus on punishment over rehabilitation.</p>
                     </div>
                 </article>
-
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
                         <img src="Assets/Viz_9.jpg" alt="" class="viz-bg-blur" loading="lazy" aria-hidden="true">
@@ -602,171 +421,43 @@
                     <div class="viz-text-content">
                         <span class="lab-tag-label">2022–2023</span>
                         <h3 class="viz-title">Who Provides Rehabilitation in Sri Lanka</h3>
-                        <p class="viz-desc">Rehabilitation services are largely delivered by NDDCB Centers, which account for more than half of all cases, while prison-based rehab handles roughly a quarter.</p>
+                        <p class="viz-desc">Rehabilitation services are largely delivered by NDDCB Centers, accounting for more than half of all cases.</p>
                     </div>
                 </article>
-
             </div>
         </div>
     </div>
 </section>
 
-<section class="lab-section section-fade-in" id="lab">
-    <div class="container">
-        <div class="section-header-row">
-            <div class="header-text-block">
-                <p class="section-eyebrow">Experimental</p>
-                <h2 class="section-title">The Lab</h2>
-                <p class="section-header-desc">A space for experiments in AI, emerging formats, and speculative information design. No deadlines. Pure inquiry.</p>
-            </div>
-        </div>
-        <div class="lab-grid mobile-carousel-grid">
-            <article class="lab-card card-interactive">
-                <a href="#" class="card-hitbox" aria-label="View Generative Abstractions"></a>
-                <div class="card-image">
-                    <img src="Assets/Lab_1_Image.jpeg" alt="Generative Abstractions" loading="lazy">
-                </div>
-                <div class="lab-body">
-                    <span class="lab-tag-label">Experiment</span>
-                    <h3>Generative Abstractions</h3>
-                    <p>Using GANs to create abstract visualisations from complex datasets, exploring the boundary between data art and analytical representation.</p>
-                    <div class="lab-pills"><span>AI</span><span>Generative Art</span><span>Data Sculpture</span></div>
-                </div>
-            </article>
-            <article class="lab-card card-interactive">
-                <a href="#" class="card-hitbox" aria-label="View Portraits in Data"></a>
-                <div class="card-image">
-                    <img src="Assets/Lab_2_Image.jpeg" alt="Portraits in Data" loading="lazy">
-                </div>
-                <div class="lab-body">
-                    <span class="lab-tag-label">Prototype</span>
-                    <h3>Portraits in Data</h3>
-                    <p>Translating personal behavioural data into a unique, evolving visual portrait — where the chart is also the subject.</p>
-                    <div class="lab-pills"><span>Civic Tech</span><span>Personal Data</span><span>Art</span></div>
-                </div>
-            </article>
-            <article class="lab-card card-interactive">
-                <a href="#" class="card-hitbox" aria-label="View Rotoscope Data Animation"></a>
-                <div class="card-image">
-                    <img src="Assets/Lab_3_Image.jpeg" alt="Rotoscope Data" loading="lazy">
-                </div>
-                <div class="lab-body">
-                    <span class="lab-tag-label">Experiment</span>
-                    <h3>Rotoscope Data Animation</h3>
-                    <p>Layering quantitative data over rotoscoped video footage, bringing statistical context directly into the visual moment it describes.</p>
-                    <div class="lab-pills"><span>Animation</span><span>Context</span><span>Future Formats</span></div>
-                </div>
-            </article>
-        </div>
-    </div>
-</section>
-
+<!-- ─── INSIGHTS ──────────────────────────────────────────────────── -->
 <section class="insights-section section-fade-in" id="insights">
     <div class="container">
         <div class="section-header-row">
             <div class="header-text-block">
                 <p class="section-eyebrow">Thought Leadership</p>
                 <h2 class="section-title">Insights</h2>
-                <p class="section-header-desc">Notes on information design, data ethics, and the systems that shape public understanding.</p>
-            </div>
-            <div class="insights-search-box">
-                <i data-lucide="search" aria-hidden="true" style="width:16px;height:16px;"></i>
-                <input type="text" id="article-search" placeholder="Search articles..." aria-label="Search articles">
+                <p class="section-header-desc">Notes on information design, process, and the decisions behind the work.</p>
             </div>
         </div>
-        <div class="insights-grid mobile-carousel-grid" id="insights-container">
+        <div class="insights-grid" id="insights-container">
             <article class="insight-card card-interactive">
-                <a href="#" class="card-hitbox" aria-label="Read The Ethics of Data Visualisation"></a>
+                <a href="https://consultchatura.medium.com/i-built-a-data-story-about-cyclone-ditwah-heres-every-decision-i-made-and-why-c9c19c89398f" target="_blank" rel="noopener" class="card-hitbox" aria-label="Read I Built a Data Story About Cyclone Ditwah"></a>
                 <div class="card-image">
-                    <img src="Assets/Insights_1_Image.jpeg" alt="Ethics of Data Visualisation" loading="lazy">
-                    <div class="insight-category-badge">Ethics</div>
+                    <img src="Assets/Project_1_Image.png" alt="Behind the making of the Cyclone Ditwah data story" loading="lazy">
+                    <div class="insight-category-badge">Process</div>
                 </div>
                 <div class="insight-body">
-                    <div class="insight-meta">ETHICS | 5 MIN READ</div>
-                    <h3>The Ethics of Data Visualisation</h3>
-                    <p>When design decisions are also moral decisions — on accuracy, framing, and the responsibilities of those who hold the pen.</p>
-                    <span class="insight-read-link">Read Article <i data-lucide="arrow-right" aria-hidden="true" class="inline-icon"></i></span>
+                    <div class="insight-meta">PROCESS | 13 MIN READ</div>
+                    <h3>I Built a Data Story About Cyclone Ditwah. Here's Every Decision I Made and Why.</h3>
+                    <p>Behind the making of "How a Single Storm Broke Sri Lanka" — six iterations of a teardrop, a hero image that changed twice, and why restraint at the end is a design choice.</p>
+                    <span class="insight-read-link">Read on Medium <i data-lucide="arrow-right" aria-hidden="true" class="inline-icon"></i></span>
                 </div>
             </article>
-            <article class="insight-card card-interactive">
-                <a href="#" class="card-hitbox" aria-label="Read The Dangers of Misleading Charts"></a>
-                <div class="card-image">
-                    <img src="Assets/Insights_2_Image.jpeg" alt="Misleading Charts" loading="lazy">
-                    <div class="insight-category-badge">Best Practices</div>
-                </div>
-                <div class="insight-body">
-                    <div class="insight-meta">BEST PRACTICES | 8 MIN READ</div>
-                    <h3>The Dangers of Misleading Charts</h3>
-                    <p>Exploring the common pitfalls — truncated axes, cherry-picked timeframes, and the design choices that distort truth without lying.</p>
-                    <span class="insight-read-link">Read Article <i data-lucide="arrow-right" aria-hidden="true" class="inline-icon"></i></span>
-                </div>
-            </article>
-            <article class="insight-card card-interactive">
-                <a href="#" class="card-hitbox" aria-label="Read The Future of Information Design"></a>
-                <div class="card-image">
-                    <img src="Assets/Insights_3_Image.jpeg" alt="Future of Information Design" loading="lazy">
-                    <div class="insight-category-badge">Future</div>
-                </div>
-                <div class="insight-body">
-                    <div class="insight-meta">FUTURE | 6 MIN READ</div>
-                    <h3>The Future of Information Design</h3>
-                    <p>AI can generate charts. But it cannot yet generate judgment. A reflection on what remains irreducibly human in this practice.</p>
-                    <span class="insight-read-link">Read Article <i data-lucide="arrow-right" aria-hidden="true" class="inline-icon"></i></span>
-                </div>
-            </article>
-        </div>
-        <div id="no-articles-msg" class="empty-msg" style="display:none">No articles match your search.</div>
-    </div>
-</section>
-
-<section class="evolution-section section-fade-in" id="evolution">
-    <div class="container-narrow">
-        <div class="section-header-center">
-            <p class="section-eyebrow">Professional Journey</p>
-            <h2 class="section-title">Evolution</h2>
-            <p class="section-sub-center">Refining the craft through institutional challenge and high-growth digital experimentation.</p>
-        </div>
-        <div class="timeline mobile-timeline-optimized">
-            <div class="timeline-item">
-                <div class="timeline-marker"><i data-lucide="zap" aria-hidden="true"></i></div>
-                <div class="timeline-content">
-                    <span class="timeline-period">2025 – Present</span>
-                    <h3>Freelance Information Designer | Digital Strategist</h3>
-                    <span class="timeline-org">Independent</span>
-                    <p>Managing end-to-end data pipelines, scaling digital ecosystems to millions of views, and providing high-level UX strategy for tech and policy clients globally.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-marker"><i data-lucide="landmark" aria-hidden="true"></i></div>
-                <div class="timeline-content">
-                    <span class="timeline-period">Jul 2025</span>
-                    <h3>Communications | Design Consultant</h3>
-                    <span class="timeline-org">Government of Sri Lanka</span>
-                    <p>Designed and delivered the national Public Investment Programme report, simplifying complex macroeconomic data for policy audiences.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-marker"><i data-lucide="globe" aria-hidden="true"></i></div>
-                <div class="timeline-content">
-                    <span class="timeline-period">Mar – Jun 2025</span>
-                    <h3>UN National Volunteer Specialist</h3>
-                    <span class="timeline-org">United Nations</span>
-                    <p>Led information design for the UN Annual Results Report and SDG Fund results, coordinating editorial inputs and data visualisation across 8+ UN agencies.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-marker"><i data-lucide="layers" aria-hidden="true"></i></div>
-                <div class="timeline-content">
-                    <span class="timeline-period">2022 – 2024</span>
-                    <h3>Senior Communications Designer</h3>
-                    <span class="timeline-org">Verité Research</span>
-                    <p>Designed and published 150+ data-driven narratives, making complex policy research accessible to public and media audiences across Sri Lanka.</p>
-                </div>
-            </div>
         </div>
     </div>
 </section>
 
+<!-- ─── ABOUT ─────────────────────────────────────────────────────── -->
 <section class="about-section section-fade-in" id="about">
     <div class="container">
         <div class="about-grid">
@@ -780,42 +471,84 @@
             <div class="about-right">
                 <div class="about-philosophy">
                     <h3>Philosophy</h3>
-                    <p>I believe that effective design is a form of public service. It makes data democratic and complex topics accessible to everyone. My process prioritises both visual impact and ethical accuracy, because a beautiful chart that misleads is still a failure.</p>
-                    <p>My work sits at the intersection of systems thinking, editorial discipline, and public communication. I operate best when given a messy problem — fragmented data, contested narratives, impossible deadlines — and asked to make something coherent from it.</p>
+                    <p>I'm an information designer based in Sri Lanka. I work across data visualisation, report design, and communication strategy, mostly for institutions, policy organisations, and research bodies that need complex information made clear and actionable.</p>
+                    <p>Previously at Verité Research, the UN Resident Coordinator's Office, and the Department of National Planning. Now working independently, available for institutional partnerships, consulting engagements, and speaking.</p>
                 </div>
+
                 <div class="about-capabilities">
                     <div class="cap-block">
-                        <h5>Data Narrative Engineering</h5>
-                        <div>Tableau · ECharts · Adobe Illustrator · Adobe InDesign · Excel</div>
+                        <h5>Design & Visualisation</h5>
+                        <div>Figma · Illustrator · InDesign · Tableau · Flourish · RawGraphs · P5.js</div>
                     </div>
                     <div class="cap-block">
-                        <h5>Mass-Digital Reach</h5>
-                        <div>Google Analytics · YouTube Studio · Meta Business Suite · Premiere Pro</div>
+                        <h5>Web & Interactive</h5>
+                        <div>HTML · CSS · JavaScript · Webflow · WordPress · GitHub · Vercel</div>
                     </div>
                     <div class="cap-block">
-                        <h5>Policy Communication UX</h5>
-                        <div>Figma · HTML / CSS / JS · Webflow · Hotjar · Notion</div>
+                        <h5>Research & Analytics</h5>
+                        <div>Google Analytics · Power BI · Meta Business Suite · Notion · Mailchimp</div>
                     </div>
                 </div>
+
+                <div class="about-experience">
+                    <h3>Experience</h3>
+                    <div class="exp-list">
+                        <div class="exp-item">
+                            <span class="exp-period">2025 – Present</span>
+                            <div class="exp-detail">
+                                <strong>Freelance Information Designer</strong>
+                                <span>Independent</span>
+                            </div>
+                        </div>
+                        <div class="exp-item">
+                            <span class="exp-period">Jun 2025</span>
+                            <div class="exp-detail">
+                                <strong>Communications Design Consultant</strong>
+                                <span>Govt. of Sri Lanka — Dept. of National Planning</span>
+                            </div>
+                        </div>
+                        <div class="exp-item">
+                            <span class="exp-period">Mar – Jun 2025</span>
+                            <div class="exp-detail">
+                                <strong>UN National Volunteer Specialist</strong>
+                                <span>United Nations, Sri Lanka</span>
+                            </div>
+                        </div>
+                        <div class="exp-item">
+                            <span class="exp-period">2022 – 2024</span>
+                            <div class="exp-detail">
+                                <strong>Senior Communications Designer</strong>
+                                <span>Verité Research, Colombo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="about-links">
-                    <a href="https://github.com/chaturadissanayake" target="_blank" rel="noopener" class="about-link-pill">GitHub</a>
-                    <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener" class="about-link-pill">LinkedIn</a>
-                    <a href="Assets/Chatura_Dissanayake_CV.pdf" target="_blank" class="about-link-pill">Download CV</a>
+                    <a href="https://github.com/chaturadissanayake"       target="_blank" rel="noopener" class="about-link-pill">
+                        GitHub
+                    </a>
+                    <a href="https://linkedin.com/in/chaturadissanayake"  target="_blank" rel="noopener" class="about-link-pill">
+                        LinkedIn
+                    </a>
+                    <a href="Assets/Chatura_Dissanayake_CV.pdf"           target="_blank" class="about-link-pill">
+                        Download CV
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+<!-- ─── CONTACT ───────────────────────────────────────────────────── -->
 <section class="contact-section section-fade-in" id="contact">
     <div class="container">
         <div class="contact-grid">
             <div class="contact-left">
                 <p class="section-eyebrow">Get In Touch</p>
                 <h2 class="contact-headline">Have a project<br>in mind?</h2>
-                <p class="contact-body">Available for consulting roles, institutional partnerships, and speaking engagements. Let's discuss how structured information design can serve your work.</p>
+                <p class="contact-body">Open to freelance projects, institutional partnerships, and consulting engagements. If you have data that needs to communicate clearly, let's talk.</p>
                 <a href="mailto:consultchatura@gmail.com" class="contact-email">
-                    <i data-lucide="mail" aria-hidden="true"></i>
                     <span>consultchatura@gmail.com</span>
                 </a>
             </div>
@@ -832,6 +565,10 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="contact-org">Organisation <span style="font-weight:400;opacity:.55;">(optional)</span></label>
+                        <input type="text" id="contact-org" name="organisation" placeholder="Where do you work?">
+                    </div>
+                    <div class="form-group">
                         <label for="contact-message">Message</label>
                         <textarea id="contact-message" name="message" rows="5" placeholder="What are you working on?" required></textarea>
                     </div>
@@ -844,41 +581,41 @@
     </div>
 </section>
 
+<!-- ─── FOOTER ────────────────────────────────────────────────────── -->
 <footer class="site-footer">
     <div class="container">
         <div class="footer-grid">
             <div class="footer-col">
-                <h5>Index</h5>
+                <h5>Navigate</h5>
                 <a href="#projects">Work</a>
-                <a href="#about">About</a>
+                <a href="#visualisations">Archive</a>
                 <a href="#insights">Insights</a>
-                <a href="#lab">The Lab</a>
-            </div>
-            <div class="footer-col">
-                <h5>Info</h5>
-                <a href="#">Brand Guidelines</a>
-                <a href="#">Pricing</a>
-                <a href="#">Ethics Statement</a>
+                <a href="#about">About</a>
             </div>
             <div class="footer-col">
                 <h5>Connect</h5>
                 <a href="#contact">Contact Me</a>
                 <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
-                <a href="https://github.com/chaturadissanayake" target="_blank" rel="noopener">GitHub</a>
-                <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+                <a href="https://github.com/chaturadissanayake"      target="_blank" rel="noopener">GitHub</a>
+            </div>
+            <div class="footer-col">
+                <h5>Writing</h5>
+                <a href="https://consultchatura.medium.com" target="_blank" rel="noopener">Medium</a>
             </div>
             <div class="footer-col">
                 <h5>Legal</h5>
-                <a href="#">Privacy Policy</a>
+                <a href="privacy.html" target="_blank" rel="noopener">Privacy Policy</a>
             </div>
         </div>
-        
         <div class="footer-bottom-container">
             <div class="footer-divider"></div>
             <div class="footer-bottom-bar">
                 <div class="footer-copyright">
                     <span class="footer-brand-name">Chatura Dissanayake</span> © 2026 All Rights Reserved.
                 </div>
+                <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top">
+                    <i data-lucide="arrow-up" aria-hidden="true"></i>
+                </button>
             </div>
         </div>
     </div>
@@ -886,6 +623,7 @@
 
 </main>
 
+<!-- ─── PROJECT MODAL ─────────────────────────────────────────────── -->
 <div id="project-detail-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pm-title">
     <div class="modal-panel">
         <button type="button" class="modal-close" id="close-project-modal" aria-label="Close">
@@ -920,12 +658,13 @@
                 </div>
             </div>
             <div class="modal-footer-action">
-                <a href="#" id="pm-link" target="_blank" rel="noopener" class="modal-cta-btn">View Project <i data-lucide="arrow-up-right" aria-hidden="true"></i></a>
+                <a href="#" id="pm-link" target="_blank" rel="noopener" class="modal-cta-btn">View Project <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
             </div>
         </div>
     </div>
 </div>
 
+<!-- ─── LIGHTBOX ──────────────────────────────────────────────────── -->
 <div id="lightbox-modal" class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Image viewer">
     <button type="button" class="lightbox-close" aria-label="Close lightbox"><i data-lucide="x" aria-hidden="true"></i></button>
     <img id="lightbox-image" class="lightbox-img" src="" alt="">
