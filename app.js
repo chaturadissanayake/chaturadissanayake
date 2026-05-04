@@ -2,8 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── 1. INITIALIZE ICONS ──────────────────────────────────────────────
     lucide.createIcons();
 
-    // ── 2. REMOVE LOADING STATE (Updated for better UX) ──────────────────
-    // Wait for actual assets to load to prevent layout shifts, with a fallback
+    // ── 2. REMOVE LOADING STATE ───────────────────────────────────────────
     const removeLoadingState = () => {
         document.body.classList.remove('loading');
     };
@@ -11,11 +10,10 @@ document.addEventListener('DOMContentLoaded', () => {
         removeLoadingState();
     } else {
         window.addEventListener('load', removeLoadingState);
-        // Fallback just in case a third-party script hangs
         setTimeout(removeLoadingState, 2000);
     }
 
-    // ── 3. CUSTOM CURSOR (DESKTOP ONLY) ──────────────────────────────────
+    // ── 3. CREATIVE CURSOR (GPU ACCELERATED) ─────────────────────────────
     const cursorDot  = document.getElementById('cursor-dot');
     const cursorRing = document.getElementById('cursor-ring');
 
@@ -24,16 +22,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         document.addEventListener('mousemove', e => {
             mx = e.clientX; my = e.clientY;
-            cursorDot.style.left  = mx + 'px';
-            cursorDot.style.top   = my + 'px';
+            cursorDot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
         });
 
         (function animateCursor() {
-            // 0.14 Lerp factor keeps it snappy but smooth
-            rx += (mx - rx) * 0.14;
-            ry += (my - ry) * 0.14;
-            cursorRing.style.left = rx + 'px';
-            cursorRing.style.top  = ry + 'px';
+            rx += (mx - rx) * 0.15;
+            ry += (my - ry) * 0.15;
+            cursorRing.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`;
             requestAnimationFrame(animateCursor);
         })();
 
@@ -89,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (mobileToggle) {
         mobileToggle.addEventListener('click', toggleMobileMenu);
-        
         document.querySelectorAll('.mobile-link, .mobile-cta').forEach(l =>
             l.addEventListener('click', () => {
                 mobileMenu.classList.remove('is-active');
@@ -121,113 +115,72 @@ document.addEventListener('DOMContentLoaded', () => {
     const gridBtn  = document.getElementById('grid-view-btn');
     const listBtn  = document.getElementById('list-view-btn');
     const projWrap = document.getElementById('projects-container');
-    const extWrap  = document.getElementById('extended-work');
 
     const setView = mode => {
         const isGrid = mode === 'grid';
         gridBtn?.classList.toggle('active', isGrid);
         listBtn?.classList.toggle('active', !isGrid);
-
         if (projWrap) projWrap.className = `projects-wrapper ${isGrid ? 'grid' : 'list'}-mode`;
-        if (extWrap) {
-            const wasShowing = extWrap.classList.contains('show');
-            extWrap.className = `extended-work ${isGrid ? 'grid' : 'list'}-mode${wasShowing ? ' show' : ''}`;
-        }
     };
     gridBtn?.addEventListener('click', () => setView('grid'));
     listBtn?.addEventListener('click', () => setView('list'));
 
-    // ── 10. EXTENDED GALLERY (Show / Hide Logic) ─────────────────────────
-    const showMoreBtn = document.getElementById('show-more-btn');
-    if (showMoreBtn && extWrap) {
-        showMoreBtn.addEventListener('click', () => {
-            const isShowing = extWrap.classList.toggle('show');
-            
-            // Swap the text dynamically
-            const textSpan = showMoreBtn.querySelector('span:not(.btn-icon-wrap)');
-            if (textSpan) {
-                textSpan.textContent = isShowing ? 'Hide Extended Gallery' : 'Show Extended Gallery';
-            }
-            
-            // Smoothly scroll back to the main projects section if hiding
-            if (!isShowing) {
-                document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
-            }
-            applyProjectFilter();
-        });
-    }
-
-    // ── 11. PROJECT FILTERING ─────────────────────────────────────────────
+    // ── 10. PROJECT FILTERING ─────────────────────────────────────────────
     const filterBtns   = document.querySelectorAll('.filter-pill');
     const allProjCards = document.querySelectorAll('.project-card.project-trigger');
     const noProjMsg    = document.getElementById('no-projects-msg');
     let currentFilter  = 'all';
 
     const applyProjectFilter = () => {
-        const extendedVisible = extWrap?.classList.contains('show');
         let count = 0;
-
         allProjCards.forEach(card => {
-            const isExtended = card.closest('#extended-work') !== null;
-            const cat = card.getAttribute('data-category');
-            const matches = currentFilter === 'all' || cat === currentFilter;
-
-            if (matches) {
-                card.style.display = '';
-                if (!isExtended || extendedVisible) count++;
-            } else {
-                card.style.display = 'none';
-            }
+            const cat     = card.getAttribute('data-category') || '';
+            const matches = currentFilter === 'all' || cat.split(' ').includes(currentFilter);
+            card.style.display = matches ? '' : 'none';
+            if (matches) count++;
         });
-
         if (noProjMsg) noProjMsg.style.display = count === 0 ? 'block' : 'none';
     };
 
-    filterBtns.forEach(btn => btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentFilter = btn.getAttribute('data-filter');
-        applyProjectFilter();
-    }));
-    applyProjectFilter();
-
-    // ── 12. INSIGHTS SEARCH (Updated Logic) ───────────────────────────────
-    const insightSearch = document.getElementById('article-search');
-    const insightCards  = document.querySelectorAll('.insight-card');
-    const noArticlesMsg = document.getElementById('no-articles-msg');
-
-    insightSearch?.addEventListener('input', e => {
-        const term = e.target.value.toLowerCase().trim();
-        let count = 0;
-        
-        insightCards.forEach(card => {
-            // Now checks both title and description for matches
-            const title = card.querySelector('h3')?.textContent.toLowerCase() || '';
-            const desc = card.querySelector('p')?.textContent.toLowerCase() || '';
-            
-            const visible = title.includes(term) || desc.includes(term);
-            card.style.display = visible ? '' : 'none';
-            if (visible) count++;
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentFilter = btn.getAttribute('data-filter');
+            applyProjectFilter();
         });
-        
+    });
+
+    // ── 11. ARTICLE SEARCH ────────────────────────────────────────────────
+    const searchInput    = document.getElementById('article-search');
+    const noArticlesMsg  = document.getElementById('no-articles-msg');
+
+    searchInput?.addEventListener('input', () => {
+        const q = searchInput.value.toLowerCase().trim();
+        let count = 0;
+        document.querySelectorAll('.insight-card').forEach(card => {
+            const text = card.textContent.toLowerCase();
+            const show = !q || text.includes(q);
+            card.style.display = show ? '' : 'none';
+            if (show) count++;
+        });
         if (noArticlesMsg) noArticlesMsg.style.display = count === 0 ? 'block' : 'none';
     });
 
-    // ── 13. PROJECT DETAIL MODAL ──────────────────────────────────────────
+    // ── 12. PROJECT DETAIL MODAL ──────────────────────────────────────────
     const projectModal    = document.getElementById('project-detail-modal');
     const closeProjectBtn = document.getElementById('close-project-modal');
 
     const openModal = card => {
-        document.getElementById('pm-title').textContent    = card.getAttribute('data-title')    || card.querySelector('h3')?.textContent || 'Project';
-        document.getElementById('pm-challenge').textContent = card.getAttribute('data-challenge') || '—';
-        document.getElementById('pm-role').textContent     = card.getAttribute('data-role')     || '—';
-        document.getElementById('pm-outcome').textContent  = card.getAttribute('data-outcome')  || '—';
+        document.getElementById('pm-title').textContent     = card.getAttribute('data-title')     || card.querySelector('h3')?.textContent || 'Project';
+        document.getElementById('pm-challenge').textContent = card.getAttribute('data-challenge')  || '—';
+        document.getElementById('pm-role').textContent      = card.getAttribute('data-role')      || '—';
+        document.getElementById('pm-outcome').textContent   = card.getAttribute('data-outcome')   || '—';
 
         const link   = document.getElementById('pm-link');
         const href   = card.getAttribute('data-link');
         const status = card.getAttribute('data-status') || 'View Project';
-        
-        // Re-inject icon cleanly so Lucide can process it
+
         link.innerHTML = `${status} <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i>`;
         lucide.createIcons({ nameAttr: 'data-lucide', root: link });
 
@@ -236,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
             link.style.display = 'inline-flex';
         } else {
             link.removeAttribute('href');
-            link.style.display = href === '#' ? 'none' : 'inline-flex';
+            link.style.display = 'none';
         }
 
         const tagsEl = document.getElementById('pm-tags');
@@ -275,15 +228,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape' && projectModal?.classList.contains('active')) closeModal();
     });
 
-    // ── 14. VISUALISATIONS CAROUSEL ───────────────────────────────────────
+    // ── 13. VISUALISATIONS CAROUSEL ───────────────────────────────────────
     const vizTrack = document.querySelector('.viz-carousel-track');
     if (vizTrack) {
-        // Dynamically calculate scroll based on card width + CSS gap (approx 24px)
         const scrollAmt = () => {
             const item = vizTrack.querySelector('.viz-item');
             return item ? item.offsetWidth + 24 : Math.min(420, window.innerWidth * 0.72);
         };
-        
         document.getElementById('viz-next-btn')?.addEventListener('click', () =>
             vizTrack.scrollBy({ left: scrollAmt(), behavior: 'smooth' })
         );
@@ -292,13 +243,12 @@ document.addEventListener('DOMContentLoaded', () => {
         );
     }
 
-    // ── 15. LIGHTBOX ──────────────────────────────────────────────────────
+    // ── 14. LIGHTBOX ──────────────────────────────────────────────────────
     const lbModal = document.getElementById('lightbox-modal');
     const lbImg   = document.getElementById('lightbox-image');
     if (lbModal && lbImg) {
         document.querySelectorAll('.viz-lightbox-trigger').forEach(trigger => {
             trigger.addEventListener('click', () => {
-                // Ensure we grab the sharp foreground image, NOT the blurred background
                 const img = trigger.querySelector('.viz-main-img') || trigger.querySelector('img');
                 if (!img) return;
                 lbImg.src = img.src;
@@ -321,11 +271,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ── 16. SMOOTH SCROLL (Hash Links & Back To Top) ──────────────────────
+    // ── 15. SMOOTH SCROLL ─────────────────────────────────────────────────
     document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', e => {
             const targetId = a.getAttribute('href');
-            // Prevent default only if the target is a valid section on this page
             if (targetId !== '#' && document.querySelector(targetId)) {
                 e.preventDefault();
                 document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
@@ -333,7 +282,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Dedicated listener for the explicit back-to-top button
     const backToTopBtn = document.getElementById('back-to-top');
     if (backToTopBtn) {
         backToTopBtn.addEventListener('click', () => {
@@ -341,23 +289,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ── 17. STAGGERED CARD REVEAL ──────────────────────────────────────────
+    // ── 16. STAGGERED CARD REVEAL ─────────────────────────────────────────
+    // Scale removed — was causing the dizzy effect. Simple fade + slide only.
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     const cardObserver = new IntersectionObserver(entries => {
-        entries.forEach((entry, i) => {
+        entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.transitionDelay = `${i * 60}ms`;
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                cardObserver.unobserve(entry.target);
+                const card = entry.target;
+                const siblings = Array.from(card.parentElement?.children || []);
+                const idx = siblings.indexOf(card);
+                const delay = prefersReduced ? 0 : Math.min(idx * 60, 360);
+                card.style.transitionDelay = delay + 'ms';
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+                cardObserver.unobserve(card);
             }
         });
-    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0.04, rootMargin: '0px 0px -30px 0px' });
 
-    // Added .viz-item so the visual archive cards get the same elegant fade-in
     document.querySelectorAll('.project-card, .lab-card, .insight-card, .viz-item').forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(20px)';
-        card.style.transition = 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+        if (prefersReduced) return; // respect user OS setting
+        card.style.opacity   = '0';
+        card.style.transform = 'translateY(18px)';
+        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
         cardObserver.observe(card);
+    });
+
+    // ── 17. EXPERIENCE LIST HOVER ──────────────────────────────────────────
+    document.querySelectorAll('.exp-item').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            item.style.paddingLeft = '8px';
+            item.style.transition  = 'padding-left 0.2s ease';
+        });
+        item.addEventListener('mouseleave', () => {
+            item.style.paddingLeft = '0';
+        });
     });
 });
