@@ -178,22 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ── 11. ARTICLE SEARCH ────────────────────────────────────────────────
-    const searchInput    = document.getElementById('article-search');
-    const noArticlesMsg  = document.getElementById('no-articles-msg');
-
-    searchInput?.addEventListener('input', () => {
-        const q = searchInput.value.toLowerCase().trim();
-        let count = 0;
-        document.querySelectorAll('.insight-card').forEach(card => {
-            const text = card.textContent.toLowerCase();
-            const show = !q || text.includes(q);
-            card.style.display = show ? '' : 'none';
-            if (show) count++;
-        });
-        if (noArticlesMsg) noArticlesMsg.style.display = count === 0 ? 'block' : 'none';
-    });
-
     // ── 12. PROJECT DETAIL MODAL ──────────────────────────────────────────
     const projectModal    = document.getElementById('project-detail-modal');
     const closeProjectBtn = document.getElementById('close-project-modal');
@@ -276,6 +260,30 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('viz-prev-btn')?.addEventListener('click', () =>
             vizTrack.scrollBy({ left: -scrollAmt(), behavior: 'smooth' })
         );
+
+        // ── 13B. CAROUSEL DOTS ────────────────────────────────────────────
+        const vizDots = document.querySelectorAll('.viz-dot');
+        if (vizDots.length) {
+            const syncDots = () => {
+                const items = vizTrack.querySelectorAll('.viz-item');
+                if (!items.length) return;
+                const itemW = items[0].offsetWidth + 20;
+                const activeIdx = Math.min(
+                    Math.round(vizTrack.scrollLeft / itemW),
+                    items.length - 1
+                );
+                vizDots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+            };
+            vizTrack.addEventListener('scroll', syncDots, { passive: true });
+            vizDots.forEach((dot, i) => {
+                dot.addEventListener('click', () => {
+                    const items = vizTrack.querySelectorAll('.viz-item');
+                    if (items[i]) {
+                        vizTrack.scrollTo({ left: items[i].offsetLeft, behavior: 'smooth' });
+                    }
+                });
+            });
+        }
     }
 
     // ── 14. LIGHTBOX ──────────────────────────────────────────────────────
@@ -344,22 +352,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.04, rootMargin: '0px 0px -30px 0px' });
 
-    document.querySelectorAll('.project-card, .lab-card, .insight-card, .viz-item').forEach(card => {
+    document.querySelectorAll('.project-card, .lab-card, .insight-card, .viz-item, .service-card').forEach(card => {
         if (prefersReduced) return; // respect user OS setting
         card.style.opacity   = '0';
         card.style.transform = 'translateY(18px)';
         card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
         cardObserver.observe(card);
-    });
-
-    // ── 17. EXPERIENCE LIST HOVER ──────────────────────────────────────────
-    document.querySelectorAll('.exp-item').forEach(item => {
-        item.addEventListener('mouseenter', () => {
-            item.style.paddingLeft = '8px';
-            item.style.transition  = 'padding-left 0.2s ease';
-        });
-        item.addEventListener('mouseleave', () => {
-            item.style.paddingLeft = '0';
-        });
     });
 });
