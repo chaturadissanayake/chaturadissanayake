@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(removeLoadingState, 2000);
     }
 
-    // ── 4. SCROLL PROGRESS BAR ───────────────────────────────────────────
+    // ── 3. SCROLL PROGRESS BAR ───────────────────────────────────────────
     const progressBar = document.getElementById('scroll-progress');
     const updateProgress = () => {
         const scrollTop  = window.scrollY;
@@ -161,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: { 'Accept': 'application/json' }
                 });
                 if (res.ok) {
-                    formStatus.textContent = 'Message sent — I\'ll be in touch soon.';
+                    formStatus.textContent = 'Message sent - I\'ll be in touch soon.';
                     formStatus.classList.add('success');
                     contactForm.reset();
                 } else {
@@ -342,7 +342,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const card = entry.target;
                 const siblings = Array.from(card.parentElement?.children || []);
                 const idx = siblings.indexOf(card);
-                const delay = prefersReduced ? 0 : Math.min(idx * 60, 360);
+                
+                // Remove stagger delay entirely on mobile so scrolling feels fast
+                const isMobile = window.innerWidth < 640;
+                const delay = (prefersReduced || isMobile) ? 0 : Math.min(idx * 60, 360);
+                
                 card.style.transitionDelay = delay + 'ms';
                 card.style.opacity = '1';
                 card.style.transform = 'translateY(0)';
@@ -360,3 +364,103 @@ document.addEventListener('DOMContentLoaded', () => {
         cardObserver.observe(card);
     });
 });
+
+// ── 18. P5.JS INTERACTIVE DATA CONSTELLATION ─────────────────────────
+// This sketch runs in instance mode to prevent global variable pollution
+const sketch = (p) => {
+    let particles = [];
+    const isMobile = window.innerWidth <= 768;
+    const particleCount = isMobile ? 35 : 80; // Scale density for mobile performance
+    const interactionRadius = isMobile ? 80 : 120; // Smaller touch radius
+    const connectionRadius = isMobile ? 80 : 100;  // Closer connections to save rendering
+
+    let canvasWidth = window.innerWidth;
+
+    p.setup = () => {
+        let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+        canvas.parent('p5-hero-canvas');
+        
+        // Initialize data points
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+    };
+
+    p.draw = () => {
+        p.clear(); // Transparent background to let CSS gradient show
+        
+        // Update and display particles
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].reactToInteraction();
+            particles[i].display();
+            
+            // Check connections with other particles
+            for (let j = i + 1; j < particles.length; j++) {
+                let d = p.dist(particles[i].x, particles[i].y, particles[j].x, particles[j].y);
+                if (d < connectionRadius) {
+                    // Map distance to line opacity
+                    let alpha = p.map(d, 0, connectionRadius, 100, 0);
+                    p.stroke(26, 68, 128, alpha); // var(--accent) in RGB
+                    p.strokeWeight(1);
+                    p.line(particles[i].x, particles[i].y, particles[j].x, particles[j].y);
+                }
+            }
+        }
+    };
+
+    p.windowResized = () => {
+        // Prevent constant resizing on mobile when URL bar hides/shows
+        if (p.windowWidth !== canvasWidth) {
+            p.resizeCanvas(p.windowWidth, p.windowHeight);
+            canvasWidth = p.windowWidth;
+        }
+    };
+
+    // Particle Class
+    class Particle {
+        constructor() {
+            this.x = p.random(p.width);
+            this.y = p.random(p.height);
+            this.vx = p.random(-0.5, 0.5);
+            this.vy = p.random(-0.5, 0.5);
+            this.baseRadius = p.random(2, 4);
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            // Soft boundaries
+            if (this.x < -50) this.x = p.width + 50;
+            if (this.x > p.width + 50) this.x = -50;
+            if (this.y < -50) this.y = p.height + 50;
+            if (this.y > p.height + 50) this.y = -50;
+        }
+
+        reactToInteraction() {
+            // Handle both Mouse and Touch inputs
+            let inputX = p.touches.length > 0 ? p.touches[0].x : p.mouseX;
+            let inputY = p.touches.length > 0 ? p.touches[0].y : p.mouseY;
+
+            let d = p.dist(this.x, this.y, inputX, inputY);
+            if (d < interactionRadius && inputX > 0 && inputX < p.width && inputY > 0 && inputY < p.height) {
+                let force = p.map(d, 0, interactionRadius, 3, 0);
+                let angle = p.atan2(this.y - inputY, this.x - inputX);
+                this.x += p.cos(angle) * force;
+                this.y += p.sin(angle) * force;
+            }
+        }
+
+        display() {
+            p.noStroke();
+            p.fill(59, 130, 246, 150); // Accent blue with slight transparency
+            p.circle(this.x, this.y, this.baseRadius * 2);
+        }
+    }
+};
+
+// Initialize the P5 instance only if the container exists
+if (document.getElementById('p5-hero-canvas')) {
+    new p5(sketch);
+}
