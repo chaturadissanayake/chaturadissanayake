@@ -13,32 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(removeLoadingState, 2000);
     }
 
-    // ── 3. CREATIVE CURSOR (GPU ACCELERATED) ─────────────────────────────
-    const cursorDot  = document.getElementById('cursor-dot');
-    const cursorRing = document.getElementById('cursor-ring');
-
-    if (window.matchMedia('(pointer: fine)').matches && cursorDot && cursorRing) {
-        let rx = 0, ry = 0, mx = 0, my = 0;
-
-        document.addEventListener('mousemove', e => {
-            mx = e.clientX; my = e.clientY;
-            cursorDot.style.transform = `translate3d(${mx}px, ${my}px, 0) translate(-50%, -50%)`;
-        });
-
-        (function animateCursor() {
-            rx += (mx - rx) * 0.15;
-            ry += (my - ry) * 0.15;
-            cursorRing.style.transform = `translate3d(${rx}px, ${ry}px, 0) translate(-50%, -50%)`;
-            requestAnimationFrame(animateCursor);
-        })();
-
-        const hoverEls = 'a, button, .project-card, .card-hitbox, .viz-item, input, textarea';
-        document.querySelectorAll(hoverEls).forEach(el => {
-            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-        });
-    }
-
     // ── 4. SCROLL PROGRESS BAR ───────────────────────────────────────────
     const progressBar = document.getElementById('scroll-progress');
     const updateProgress = () => {
@@ -80,6 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileToggle.classList.toggle('is-active', isOpen);
         mobileToggle.setAttribute('aria-expanded', String(isOpen));
         document.body.classList.toggle('modal-open', isOpen);
+        if (isOpen) {
+            const firstLink = mobileMenu.querySelector('.mobile-link');
+            if (firstLink) setTimeout(() => firstLink.focus(), 60);
+        } else {
+            mobileToggle.focus();
+        }
     };
 
     if (mobileToggle) {
@@ -90,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 mobileToggle.classList.remove('is-active');
                 mobileToggle.setAttribute('aria-expanded', 'false');
                 document.body.classList.remove('modal-open');
+                mobileToggle.focus();
             })
         );
     }
@@ -136,8 +117,17 @@ document.addEventListener('DOMContentLoaded', () => {
         allProjCards.forEach(card => {
             const cat     = card.getAttribute('data-category') || '';
             const matches = currentFilter === 'all' || cat.split(' ').includes(currentFilter);
-            card.style.display = matches ? '' : 'none';
-            if (matches) count++;
+            if (matches) {
+                card.style.display = '';
+                // If card was already revealed by the IntersectionObserver, restore visible state
+                if (card.dataset.revealed === 'true') {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+                count++;
+            } else {
+                card.style.display = 'none';
+            }
         });
         if (noProjMsg) noProjMsg.style.display = count === 0 ? 'block' : 'none';
     };
@@ -150,6 +140,43 @@ document.addEventListener('DOMContentLoaded', () => {
             applyProjectFilter();
         });
     });
+
+    // ── 11A. CONTACT FORM FEEDBACK ────────────────────────────────────────
+    const contactForm   = document.getElementById('contact-form');
+    const formStatus    = document.getElementById('form-status');
+    const formSubmitBtn = document.getElementById('form-submit-btn');
+
+    if (contactForm && formStatus) {
+        contactForm.addEventListener('submit', async e => {
+            e.preventDefault();
+            formSubmitBtn.disabled = true;
+            formSubmitBtn.textContent = 'Sending…';
+            formStatus.textContent = '';
+            formStatus.className = 'form-status';
+
+            try {
+                const res = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: new FormData(contactForm),
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (res.ok) {
+                    formStatus.textContent = 'Message sent — I\'ll be in touch soon.';
+                    formStatus.classList.add('success');
+                    contactForm.reset();
+                } else {
+                    throw new Error('server');
+                }
+            } catch {
+                formStatus.textContent = 'Something went wrong. Email me directly at consultchatura@gmail.com';
+                formStatus.classList.add('error');
+            } finally {
+                formSubmitBtn.disabled = false;
+                formSubmitBtn.innerHTML = 'Send Message <i data-lucide="arrow-right" aria-hidden="true"></i>';
+                lucide.createIcons({ nameAttr: 'data-lucide', root: formSubmitBtn });
+            }
+        });
+    }
 
     // ── 11. ARTICLE SEARCH ────────────────────────────────────────────────
     const searchInput    = document.getElementById('article-search');
@@ -206,6 +233,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         projectModal.classList.add('active');
         document.body.classList.add('modal-open');
+        requestAnimationFrame(() => {
+            const panel = projectModal.querySelector('.modal-panel');
+            if (panel) panel.scrollTop = 0;
+        });
     };
 
     const closeModal = () => {
@@ -233,7 +264,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (vizTrack) {
         const scrollAmt = () => {
             const item = vizTrack.querySelector('.viz-item');
-            return item ? item.offsetWidth + 24 : Math.min(420, window.innerWidth * 0.72);
+            if (!item) return Math.min(420, window.innerWidth * 0.72);
+            const itemW = item.offsetWidth + 24;
+            const viewportW = vizTrack.parentElement?.offsetWidth || window.innerWidth;
+            const visibleCount = Math.max(1, Math.floor(viewportW / itemW));
+            return itemW * visibleCount;
         };
         document.getElementById('viz-next-btn')?.addEventListener('click', () =>
             vizTrack.scrollBy({ left: scrollAmt(), behavior: 'smooth' })
@@ -303,6 +338,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.style.transitionDelay = delay + 'ms';
                 card.style.opacity = '1';
                 card.style.transform = 'translateY(0)';
+                card.dataset.revealed = 'true';
                 cardObserver.unobserve(card);
             }
         });
