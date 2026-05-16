@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── 2. REMOVE LOADING STATE ───────────────────────────────────────────
     const removeLoadingState = () => {
         document.body.classList.remove('loading');
+        document.querySelectorAll('.card-image img').forEach(img => {
+            if (img.complete) img.classList.add('loaded');
+            else img.addEventListener('load', () => img.classList.add('loaded'));
+        });
     };
     if (document.readyState === 'complete') {
         removeLoadingState();
@@ -182,11 +186,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const projectModal    = document.getElementById('project-detail-modal');
     const closeProjectBtn = document.getElementById('close-project-modal');
 
+    const focusableSelectors = 'a, button, [tabindex]:not([tabindex="-1"])';
+    const trapFocus = e => {
+        if (!projectModal.classList.contains('active')) return;
+        const focusable = [...projectModal.querySelectorAll(focusableSelectors)];
+        const first = focusable[0], last = focusable[focusable.length - 1];
+        if (e.key === 'Tab') {
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+    };
+
     const openModal = card => {
-        document.getElementById('pm-title').textContent     = card.getAttribute('data-title')     || card.querySelector('h3')?.textContent || 'Project';
+        const titleText = card.getAttribute('data-title') || card.querySelector('h3')?.textContent || 'Project';
+        document.getElementById('pm-title').textContent = titleText;
         document.getElementById('pm-challenge').textContent = card.getAttribute('data-challenge')  || '—';
         document.getElementById('pm-role').textContent      = card.getAttribute('data-role')      || '—';
         document.getElementById('pm-outcome').textContent   = card.getAttribute('data-outcome')   || '—';
+
+        history.pushState(null, '', '#' + titleText.toLowerCase().replace(/\s+/g, '-'));
 
         const link   = document.getElementById('pm-link');
         const href   = card.getAttribute('data-link');
@@ -195,9 +213,17 @@ document.addEventListener('DOMContentLoaded', () => {
         link.innerHTML = `${status} <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i>`;
         lucide.createIcons({ nameAttr: 'data-lucide', root: link });
 
-        if (href && href !== '#') {
+        if (status === 'Report in Final Review') {
+            link.textContent = 'Report in Final Review';
+            link.removeAttribute('href');
+            link.style.opacity = '0.45';
+            link.style.pointerEvents = 'none';
+            link.style.display = 'inline-flex';
+        } else if (href && href !== '#') {
             link.href = href;
             link.style.display = 'inline-flex';
+            link.style.opacity = '1';
+            link.style.pointerEvents = 'auto';
         } else {
             link.removeAttribute('href');
             link.style.display = 'none';
@@ -217,6 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         projectModal.classList.add('active');
         document.body.classList.add('modal-open');
+        projectModal.addEventListener('keydown', trapFocus);
         requestAnimationFrame(() => {
             const panel = projectModal.querySelector('.modal-panel');
             if (panel) panel.scrollTop = 0;
@@ -226,6 +253,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeModal = () => {
         projectModal?.classList.remove('active');
         document.body.classList.remove('modal-open');
+        projectModal.removeEventListener('keydown', trapFocus);
+        history.pushState(null, '', '#projects');
     };
 
     document.querySelectorAll('.project-trigger').forEach(card => {
@@ -246,6 +275,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── 13. VISUALISATIONS CAROUSEL ───────────────────────────────────────
     const vizTrack = document.querySelector('.viz-carousel-track');
     if (vizTrack) {
+        const vizCount = document.querySelectorAll('.viz-item').length;
+        const vizCountEl = document.querySelector('.viz-count');
+        if (vizCountEl && vizCount > 0) vizCountEl.textContent = vizCount;
+
         const scrollAmt = () => {
             const item = vizTrack.querySelector('.viz-item');
             if (!item) return Math.min(420, window.innerWidth * 0.72);
@@ -286,181 +319,213 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ── 14. LIGHTBOX ──────────────────────────────────────────────────────
-    const lbModal = document.getElementById('lightbox-modal');
-    const lbImg   = document.getElementById('lightbox-image');
-    if (lbModal && lbImg) {
-        document.querySelectorAll('.viz-lightbox-trigger').forEach(trigger => {
-            trigger.addEventListener('click', () => {
-                const img = trigger.querySelector('.viz-main-img') || trigger.querySelector('img');
-                if (!img) return;
-                lbImg.src = img.src;
-                lbImg.alt = img.alt;
-                lbModal.style.display = 'flex';
-                document.body.classList.add('modal-open');
-            });
-        });
-
-        const closeLightbox = () => {
-            lbModal.style.display = 'none';
-            document.body.classList.remove('modal-open');
-        };
-
-        lbModal.addEventListener('click', e => {
-            if (e.target === lbModal || e.target.closest('.lightbox-close')) closeLightbox();
-        });
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape' && lbModal.style.display === 'flex') closeLightbox();
-        });
-    }
-
-    // ── 15. SMOOTH SCROLL ─────────────────────────────────────────────────
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-        a.addEventListener('click', e => {
-            const targetId = a.getAttribute('href');
-            if (targetId !== '#' && document.querySelector(targetId)) {
-                e.preventDefault();
-                document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
-            }
-        });
+    // ── LIGHTBOX KEYBOARD NAVIGATION ───────────────────────────────────────
+    const lightboxModal = document.getElementById('lightbox-modal');
+    document.addEventListener('keydown', e => {
+        if (!lightboxModal || !lightboxModal.classList.contains('is-active') && lightboxModal.style.display !== 'flex') return;
+        // Logic will require your explicit 'openNextViz(direction)' function implementation. 
+        // Example integration:
+        // if (e.key === 'ArrowRight') openNextViz(1);
+        // if (e.key === 'ArrowLeft')  openNextViz(-1);
     });
 
-    const backToTopBtn = document.getElementById('back-to-top');
-    if (backToTopBtn) {
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-    }
+// ── 18. P5.JS THE MULTILINGUAL SEMANTIC LENS ──────────────────────────
+// A Pentagram-level generative typographic piece.
+// Spring physics snap chaotic multilingual noise into structured personal data.
+// Easter egg: hover to uncover Chatura Dissanayake's story in three scripts.
 
-    // ── 16. STAGGERED CARD REVEAL ─────────────────────────────────────────
-    // Scale removed — was causing the dizzy effect. Simple fade + slide only.
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const cardObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const card = entry.target;
-                const siblings = Array.from(card.parentElement?.children || []);
-                const idx = siblings.indexOf(card);
-                
-                // Remove stagger delay entirely on mobile so scrolling feels fast
-                const isMobile = window.innerWidth < 640;
-                const delay = (prefersReduced || isMobile) ? 0 : Math.min(idx * 60, 360);
-                
-                card.style.transitionDelay = delay + 'ms';
-                card.style.opacity = '1';
-                card.style.transform = 'translateY(0)';
-                card.dataset.revealed = 'true';
-                cardObserver.unobserve(card);
-            }
-        });
-    }, { threshold: 0.04, rootMargin: '0px 0px -30px 0px' });
-
-    document.querySelectorAll('.project-card, .lab-card, .insight-card, .viz-item, .service-card').forEach(card => {
-        if (prefersReduced) return; // respect user OS setting
-        card.style.opacity   = '0';
-        card.style.transform = 'translateY(18px)';
-        card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        cardObserver.observe(card);
-    });
-});
-
-// ── 18. P5.JS INTERACTIVE DATA CONSTELLATION ─────────────────────────
-// This sketch runs in instance mode to prevent global variable pollution
 const sketch = (p) => {
-    let particles = [];
-    const isMobile = window.innerWidth <= 768;
-    const particleCount = isMobile ? 35 : 80; // Scale density for mobile performance
-    const interactionRadius = isMobile ? 80 : 120; // Smaller touch radius
-    const connectionRadius = isMobile ? 80 : 100;  // Closer connections to save rendering
-
+    let cells = [];
+    let cols, rows, scl;
     let canvasWidth = window.innerWidth;
+    let time = 0;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Physics — high-tension springs for tactile "snap and settle"
+    const STIFFNESS = 0.25;
+    const DAMPING   = 0.70;
+
+    // ── Ambient noise character pools (all three scripts) ─────────────
+const sinhala = ['අ','ආ','ඇ','ඈ','ඉ','ඊ','උ','ඌ','එ','ඒ','ඔ','ඕ','ක','ග','ච','ජ','ට','ඩ','ත','ද','න','ප','බ','ම','ය','ර','ල','ව','ස','හ','ළ','ෆ'];
+const tamil   = ['அ','ஆ','இ','ஈ','உ','ஊ','எ','ஏ','ஐ','ஒ','ஓ','க','ச','ஞ','ட','ண','த','ந','ப','ம','ய','ர','ல','வ','ழ','ள','ற','ன'];
+    const latin   = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1'];
+    const allChars = [].concat(sinhala, tamil, latin);
+
+    // ── Easter egg vocabulary ─────────────────────────────────────────
+    // Rows cycle EN → SI → TA. Hovering the lens peels back the noise
+    // to reveal structured personal data about Chatura in three languages.
+    //
+    //  lang:'en'  →  professional pillars       (Policy Blue   #1A4480)
+    //  lang:'si'  →  Sinhala personal data      (Warm Amber    #BE8214)
+    //  lang:'ta'  →  Tamil personal data        (Deep Crimson  #A0284A)
+    //
+const vocabRows = [
+    { text: "C L A R I T Y          ", lang:'en', rR:26,  rG:68,  rB:128 },
+    { text: "ච  ත  ර               ", lang:'si', rR:190, rG:130, rB:20  },
+    { text: "ச  த  ர               ", lang:'ta', rR:160, rG:40,  rB:74  },
+    { text: "N A R R A T I V E      ", lang:'en', rR:26,  rG:68,  rB:128 },
+    { text: "ල  ක                   ", lang:'si', rR:190, rG:130, rB:20  },
+    { text: "இ  ல  க               ", lang:'ta', rR:160, rG:40,  rB:74  },
+    { text: "E V I D E N C E        ", lang:'en', rR:26,  rG:68,  rB:128 },
+    { text: "ද  ත                   ", lang:'si', rR:190, rG:130, rB:20  },
+    { text: "த  ர  வ               ", lang:'ta', rR:160, rG:40,  rB:74  },
+    { text: "S Y S T E M S          ", lang:'en', rR:26,  rG:68,  rB:128 },
+    { text: "ස  ත  ය               ", lang:'si', rR:190, rG:130, rB:20  },
+    { text: "உ  ண  ம               ", lang:'ta', rR:160, rG:40,  rB:74  },
+    { text: "I M P A C T            ", lang:'en', rR:26,  rG:68,  rB:128 },
+    { text: "ක  ථ                   ", lang:'si', rR:190, rG:130, rB:20  },
+    { text: "க  த                   ", lang:'ta', rR:160, rG:40,  rB:74  },
+    { text: "S T R U C T U R E      ", lang:'en', rR:26,  rG:68,  rB:128 },
+    { text: "ප  හ  ද  ල            ", lang:'si', rR:190, rG:130, rB:20  },
+    { text: "த  ள  வ               ", lang:'ta', rR:160, rG:40,  rB:74  },
+];
+
+    // Discovery hint — fades to 0 the moment non-English text is first revealed
+    let hintOpacity = 40;
+    let hasDiscoveredMultilingual = false;
 
     p.setup = () => {
         let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
         canvas.parent('p5-hero-canvas');
-        
-        // Initialize data points
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
-        }
+        p.textAlign(p.CENTER, p.CENTER);
+        // system-ui ensures correct Sinhala + Tamil glyph rendering
+        p.textFont("'Noto Sans Sinhala', 'Noto Sans Tamil', 'Inter', system-ui, sans-serif");
+        initGrid();
     };
 
-    p.draw = () => {
-        p.clear(); // Transparent background to let CSS gradient show
-        
-        // Update and display particles
-        for (let i = 0; i < particles.length; i++) {
-            particles[i].update();
-            particles[i].reactToInteraction();
-            particles[i].display();
-            
-            // Check connections with other particles
-            for (let j = i + 1; j < particles.length; j++) {
-                let d = p.dist(particles[i].x, particles[i].y, particles[j].x, particles[j].y);
-                if (d < connectionRadius) {
-                    // Map distance to line opacity
-                    let alpha = p.map(d, 0, connectionRadius, 100, 0);
-                    p.stroke(26, 68, 128, alpha); // var(--accent) in RGB
-                    p.strokeWeight(1);
-                    p.line(particles[i].x, particles[i].y, particles[j].x, particles[j].y);
-                }
+    function initGrid() {
+        cells = [];
+        scl = p.windowWidth < 768 ? 26 : 34;
+        cols = p.floor(p.width / scl) + 2;
+        rows = p.floor(p.height / scl) + 2;
+
+        for (let y = 0; y < rows; y++) {
+            let row = vocabRows[y % vocabRows.length];
+            for (let x = 0; x < cols; x++) {
+                let trueChar = row.text.charAt(x % row.text.length);
+                cells.push({
+                    baseX: x * scl,   baseY: y * scl,
+                    trueChar,
+                    lang: row.lang,
+                    rR: row.rR, rG: row.rG, rB: row.rB,
+                    randomOffset: p.random(1000),
+                    curX: x * scl,    curY: y * scl,
+                    vx: 0, vy: 0,
+                    curSize: 4,       vSize: 0,
+                    curAlpha: 0,
+                    r: 120, g: 130,   b: 140
+                });
             }
         }
+    }
+
+    p.draw = () => {
+        p.clear();
+
+        let isTouch    = p.touches.length > 0;
+        let mX         = isTouch ? p.touches[0].x : p.mouseX;
+        let mY         = isTouch ? p.touches[0].y : p.mouseY;
+        let interacting = isTouch || (p.mouseX > 0 && p.mouseX < p.width && p.mouseY > 0 && p.mouseY < p.height);
+        let radius      = p.windowWidth < 768 ? 130 : 220;
+
+        for (let i = 0; i < cells.length; i++) {
+            let c = cells[i];
+
+            // ── A. Ambient: chaotic multilingual noise ────────────────
+            let noiseVal = p.noise(c.baseX * 0.004 + time, c.baseY * 0.004);
+            let driftX   = reducedMotion ? 0 : p.map(noiseVal, 0, 1, -scl * 1.5, scl * 1.5);
+            let driftY   = reducedMotion ? 0 : p.map(p.noise(c.baseX * 0.004, c.baseY * 0.004 + time), 0, 1, -scl * 1.5, scl * 1.5);
+
+            let targetX     = c.baseX + driftX;
+            let targetY     = c.baseY + driftY;
+            let targetSize  = scl * 0.35;
+            let targetAlpha = 25;
+            let displayChar = allChars[p.floor(p.noise(c.randomOffset + time * 2) * allChars.length)];
+            let cR = 140, cG = 150, cB = 160;
+
+            // ── B. Lens: reveal structured personal data ──────────────
+            if (interacting) {
+                let d = p.dist(c.baseX, c.baseY, mX, mY);
+                if (d < radius) {
+                    let intensity = p.pow(p.map(d, 0, radius, 1, 0), 1.5);
+
+                    targetX = p.lerp(targetX, c.baseX, intensity);
+                    targetY = p.lerp(targetY, c.baseY, intensity);
+
+                    if (c.trueChar !== ' ') {
+                        displayChar  = c.trueChar;
+                        targetSize   = p.lerp(targetSize, scl * 0.75, intensity);
+                        targetAlpha  = p.lerp(targetAlpha, 255, intensity);
+
+                        // Language-aware reveal colour
+                        cR = p.lerp(cR, c.rR, intensity);
+                        cG = p.lerp(cG, c.rG, intensity);
+                        cB = p.lerp(cB, c.rB, intensity);
+
+                        // Trigger hint fade the first time a non-English row is uncovered
+                        if (c.lang !== 'en' && !hasDiscoveredMultilingual && intensity > 0.5) {
+                            hasDiscoveredMultilingual = true;
+                        }
+                    } else {
+                        // Spaces carve clean negative space around the revealed word
+                        targetSize  = p.lerp(targetSize, 0, intensity);
+                        targetAlpha = p.lerp(targetAlpha, 0, intensity);
+                    }
+                }
+            }
+
+            // ── C. Spring physics ─────────────────────────────────────
+            let forceX = (targetX - c.curX) * STIFFNESS;
+            c.vx += forceX; c.vx *= DAMPING; c.curX += c.vx;
+
+            let forceY = (targetY - c.curY) * STIFFNESS;
+            c.vy += forceY; c.vy *= DAMPING; c.curY += c.vy;
+
+            let forceSize = (targetSize - c.curSize) * STIFFNESS;
+            c.vSize += forceSize; c.vSize *= DAMPING; c.curSize += c.vSize;
+
+            // Colour + alpha lerp (smooth enough without springs)
+            c.curAlpha = p.lerp(c.curAlpha, targetAlpha, 0.2);
+            c.r = p.lerp(c.r, cR, 0.2);
+            c.g = p.lerp(c.g, cG, 0.2);
+            c.b = p.lerp(c.b, cB, 0.2);
+
+            // ── D. Render ─────────────────────────────────────────────
+            if (c.curSize > 0.5 && c.curAlpha > 1) {
+                p.fill(c.r, c.g, c.b, c.curAlpha);
+                p.textSize(Math.max(0.1, c.curSize));
+                p.text(displayChar, c.curX, c.curY);
+            }
+        }
+
+        // ── E. Discovery hint (ස · த · A) ────────────────────────────
+        // Quietly invites exploration; disappears once multilingual text is found.
+        if (hintOpacity > 0.5) {
+            if (hasDiscoveredMultilingual) {
+                hintOpacity = p.lerp(hintOpacity, 0, 0.04);
+            }
+            p.push();
+            p.textSize(10);
+            p.textAlign(p.RIGHT, p.BOTTOM);
+            p.fill(120, 130, 140, hintOpacity);
+            p.noStroke();
+            p.text('ස · த · A', p.width - 18, p.height - 18);
+            p.pop();
+        }
+
+        time += reducedMotion ? 0 : 0.003;
     };
 
     p.windowResized = () => {
-        // Prevent constant resizing on mobile when URL bar hides/shows
-        if (p.windowWidth !== canvasWidth) {
+        if (p.abs(p.windowWidth - canvasWidth) > 50) {
             p.resizeCanvas(p.windowWidth, p.windowHeight);
             canvasWidth = p.windowWidth;
+            initGrid();
         }
     };
-
-    // Particle Class
-    class Particle {
-        constructor() {
-            this.x = p.random(p.width);
-            this.y = p.random(p.height);
-            this.vx = p.random(-0.5, 0.5);
-            this.vy = p.random(-0.5, 0.5);
-            this.baseRadius = p.random(2, 4);
-        }
-
-        update() {
-            this.x += this.vx;
-            this.y += this.vy;
-
-            // Soft boundaries
-            if (this.x < -50) this.x = p.width + 50;
-            if (this.x > p.width + 50) this.x = -50;
-            if (this.y < -50) this.y = p.height + 50;
-            if (this.y > p.height + 50) this.y = -50;
-        }
-
-        reactToInteraction() {
-            // Handle both Mouse and Touch inputs
-            let inputX = p.touches.length > 0 ? p.touches[0].x : p.mouseX;
-            let inputY = p.touches.length > 0 ? p.touches[0].y : p.mouseY;
-
-            let d = p.dist(this.x, this.y, inputX, inputY);
-            if (d < interactionRadius && inputX > 0 && inputX < p.width && inputY > 0 && inputY < p.height) {
-                let force = p.map(d, 0, interactionRadius, 3, 0);
-                let angle = p.atan2(this.y - inputY, this.x - inputX);
-                this.x += p.cos(angle) * force;
-                this.y += p.sin(angle) * force;
-            }
-        }
-
-        display() {
-            p.noStroke();
-            p.fill(59, 130, 246, 150); // Accent blue with slight transparency
-            p.circle(this.x, this.y, this.baseRadius * 2);
-        }
-    }
 };
 
-// Initialize the P5 instance only if the container exists
 if (document.getElementById('p5-hero-canvas')) {
     new p5(sketch);
 }
+});
