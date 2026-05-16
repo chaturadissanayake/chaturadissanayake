@@ -65,6 +65,15 @@ img { display: block; width: 100%; height: 100%; object-fit: cover; }
 a { color: inherit; text-decoration: none; }
 button { border: none; background: none; font-family: var(--sans); cursor: pointer; }
 
+.skip-link {
+    position: absolute; top: -100%; left: var(--space-4);
+    background: var(--ink); color: var(--white);
+    padding: var(--space-2) var(--space-4); border-radius: var(--radius);
+    font-size: 0.875rem; z-index: 99999;
+    transition: top 0.2s;
+}
+.skip-link:focus { top: var(--space-4); }
+
 /* ─── GLOBAL ICON SIZING ───────────────────────────────────────────── */
 svg.lucide { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
 .btn-primary svg.lucide, .btn-ghost svg.lucide, .show-more-btn svg.lucide, .form-submit svg.lucide { width: 1.2em; height: 1.2em; margin-left: 6px; }
@@ -123,6 +132,12 @@ svg.lucide { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; 
     white-space: nowrap;
 }
 .nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
+.main-header:not(.scrolled) .nav-cta {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity var(--dur-med), visibility var(--dur-med);
+}
 
 .hamburger-btn { display: none; flex-direction: column; gap: 5px; width: 28px; padding: 4px; }
 .hamburger-btn span {
@@ -168,9 +183,9 @@ body.modal-open .main-header { background: transparent !important; backdrop-filt
 .mobile-menu-footer a:hover { color: var(--white); }
 
 /* ─── SECTION COMMON ───────────────────────────────────────────────── */
-section[id] {
-    scroll-margin-top: 96px; /* Offsets for the fixed header */
-}
+:root { --nav-h: 72px; }
+section[id] { scroll-margin-top: var(--nav-h); }
+.main-header { height: var(--nav-h); }
 
 .section-eyebrow {
     font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.14em;
@@ -234,8 +249,14 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 
 /* Interactive P5 Data Background */
 .interactive-data-bg {
-    position: absolute; inset: 0; pointer-events: auto; z-index: 0; overflow: hidden;
+    position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
     background: linear-gradient(135deg, var(--surface) 0%, #e8edf3 100%);
+}
+/* Re-enable pointer events on the canvas itself so hover/touch lens works,
+   but allow passive scroll to bubble through on mobile */
+.interactive-data-bg canvas {
+    pointer-events: auto;
+    touch-action: pan-y; /* lets vertical scroll pass through to the page */
 }
 .interactive-data-bg canvas {
     display: block; opacity: 0; animation: canvasFadeIn 2s ease-out forwards;
@@ -346,6 +367,15 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 .filter-group {
     display: flex; gap: var(--space-2); flex-wrap: nowrap;
     overflow-x: auto; scrollbar-width: none; padding-bottom: 2px;
+    position: relative;
+}
+.filter-group::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 32px;
+    background: linear-gradient(to left, var(--surface), transparent);
+    pointer-events: none;
 }
 .filter-group::-webkit-scrollbar { display: none; }
 .filter-pill {
@@ -359,12 +389,14 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 
 .view-toggles { display: flex; gap: var(--space-1); flex-shrink: 0; }
 .view-btn {
-    width: 34px; height: 34px; border-radius: var(--radius);
-    display: flex; align-items: center; justify-content: center;
+    height: 34px; padding: 0 10px; border-radius: var(--radius);
+    display: inline-flex; align-items: center; justify-content: center; gap: 4px;
     color: var(--ink-muted); transition: all var(--dur-fast);
 }
 .view-btn:hover { background: var(--surface-2); color: var(--ink); }
 .view-btn.active { background: var(--ink); color: var(--white); }
+.view-btn-label { font-size: 0.6875rem; font-family: var(--mono); letter-spacing: 0.06em; }
+@media (max-width: 640px) { .view-btn-label { display: none; } }
 
 /* Grid / List layouts */
 .projects-wrapper.grid-mode, .extended-work.grid-mode, .lab-grid {
@@ -398,7 +430,12 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     position: relative; width: 100%; aspect-ratio: 4/3;
     overflow: hidden; background: var(--surface-2); flex-shrink: 0;
 }
-.card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.65s var(--ease-out); }
+.card-image img { 
+    width: 100%; height: 100%; object-fit: cover; 
+    opacity: 0;
+    transition: opacity 0.4s ease, transform 0.65s var(--ease-out); 
+}
+.card-image img.loaded { opacity: 1; }
 .project-card:hover .card-image img,
 .lab-card:hover .card-image img,
 .insight-card:hover .card-image img,
@@ -503,22 +540,21 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 .viz-header-mobile .carousel-controls { flex-shrink: 0; display: flex; gap: var(--space-2); margin-bottom: 6px; }
 .carousel-btn {
     width: 44px; height: 44px; border-radius: 50%; background: var(--white);
-    border: 1px solid var(--surface-3); display: flex; align-items: center;
-    justify-content: center; transition: all var(--dur-fast); color: var(--ink); cursor: pointer;
+    border: 1px solid var(--surface-3); box-shadow: var(--shadow-sm);
+    display: flex; align-items: center; justify-content: center; 
+    transition: all var(--dur-fast); color: var(--ink); cursor: pointer;
 }
-.carousel-btn:hover { background: var(--ink); border-color: var(--ink); color: var(--white); }
-.viz-section .carousel-btn {
-    background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); color: var(--white);
+.carousel-btn:hover { 
+    background: var(--ink); border-color: var(--ink); 
+    color: var(--white); transform: translateY(-2px); box-shadow: var(--shadow-md);
 }
-.viz-section .carousel-btn:hover {
-    background: var(--white); border-color: var(--white); color: var(--ink);
-}
+/* Removed the .viz-section overrides so the arrows are visible on the new white background */
 
 .viz-carousel-viewport { overflow: hidden; position: relative; margin-top: var(--space-4); }
 .viz-carousel-viewport::after {
     content: ''; position: absolute; top: 0; right: 0; bottom: var(--space-8);
     width: 80px; pointer-events: none; z-index: 5;
-    background: linear-gradient(to left, var(--ink) 0%, transparent 100%);
+    background: linear-gradient(to left, var(--surface-2) 0%, rgba(255,255,255,0) 100%);
 }
 .viz-carousel-track {
     display: flex; gap: var(--space-5); scroll-behavior: smooth; overflow-x: auto;
@@ -670,14 +706,14 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 }
 .viz-dot {
     width: 6px; height: 6px; border-radius: 50%;
-    background: rgba(255,255,255,0.2); border: none;
+    background: rgba(26,68,128,0.15); border: none;
     padding: 0; transition: all 0.3s var(--ease-out); cursor: pointer;
     flex-shrink: 0;
 }
 .viz-dot.active {
-    background: var(--white); width: 20px; border-radius: 3px;
+    background: var(--accent); width: 20px; border-radius: 3px;
 }
-.viz-dot:hover:not(.active) { background: rgba(255,255,255,0.45); }
+.viz-dot:hover:not(.active) { background: rgba(26,68,128,0.35); }
 
 /* ─── EVOLUTION ────────────────────────────────────────────────────── */
 .evolution-section { padding: var(--space-24) 0; background: var(--white); }
