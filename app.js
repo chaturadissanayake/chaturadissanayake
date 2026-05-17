@@ -5,10 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── 2. REMOVE LOADING STATE ───────────────────────────────────────────
     const removeLoadingState = () => {
         document.body.classList.remove('loading');
-        document.querySelectorAll('.card-image img').forEach(img => {
-            if (img.complete) img.classList.add('loaded');
-            else img.addEventListener('load', () => img.classList.add('loaded'));
-        });
     };
     if (document.readyState === 'complete') {
         removeLoadingState();
@@ -74,9 +70,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 mobileToggle.classList.remove('is-active');
                 mobileToggle.setAttribute('aria-expanded', 'false');
                 document.body.classList.remove('modal-open');
+                document.body.style.overflow = '';
                 mobileToggle.focus();
             })
         );
+        // Safety valve: if the user somehow scrolls while menu is open (e.g. two-finger
+        // scroll on some Android versions), close the menu so the page isn't locked
+        let menuScrollTimer;
+        window.addEventListener('scroll', () => {
+            if (!mobileMenu.classList.contains('is-active')) return;
+            clearTimeout(menuScrollTimer);
+            menuScrollTimer = setTimeout(() => {
+                mobileMenu.classList.remove('is-active');
+                mobileToggle.classList.remove('is-active');
+                mobileToggle.setAttribute('aria-expanded', 'false');
+                document.body.classList.remove('modal-open');
+            }, 80);
+        }, { passive: true });
     }
 
     document.addEventListener('keydown', e => {
@@ -123,11 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const matches = currentFilter === 'all' || cat.split(' ').includes(currentFilter);
             if (matches) {
                 card.style.display = '';
-                // If card was already revealed by the IntersectionObserver, restore visible state
-                if (card.dataset.revealed === 'true') {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0)';
-                }
+                // Cards in the already-visible section retain their rendered state
                 count++;
             } else {
                 card.style.display = 'none';
@@ -258,15 +264,27 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     document.querySelectorAll('.project-trigger').forEach(card => {
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', 'View case study: ' + (card.getAttribute('data-title') || 'Project'));
         card.addEventListener('click', e => {
             if (e.target.closest('.card-direct-link')) return;
             openModal(card);
+        });
+        card.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openModal(card);
+            }
         });
     });
 
     closeProjectBtn?.addEventListener('click', closeModal);
     projectModal?.addEventListener('click', e => {
         if (e.target === projectModal) closeModal();
+    });
+    document.querySelector('.modal-panel')?.addEventListener('click', e => {
+        e.stopPropagation();
     });
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape' && projectModal?.classList.contains('active')) closeModal();
@@ -319,14 +337,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ── LIGHTBOX KEYBOARD NAVIGATION ───────────────────────────────────────
-    const lightboxModal = document.getElementById('lightbox-modal');
+    // ── LIGHTBOX ──────────────────────────────────────────────────────────
+    const lightboxModal  = document.getElementById('lightbox-modal');
+    const lightboxImg    = document.getElementById('lightbox-image');
+    const lightboxClose  = lightboxModal?.querySelector('.lightbox-close');
+    const vizTriggers    = Array.from(document.querySelectorAll('.viz-lightbox-trigger'));
+    let lightboxIdx      = 0;
+
+    const openLightboxAt = (idx) => {
+        if (!lightboxModal || !vizTriggers[idx]) return;
+        lightboxIdx = idx;
+        const src = vizTriggers[idx].querySelector('.viz-main-img');
+        if (src && lightboxImg) {
+            lightboxImg.src = src.src;
+            lightboxImg.alt = src.alt || '';
+        }
+        lightboxModal.style.display = 'flex';
+        lightboxClose?.focus();
+    };
+
+    const closeLightbox = () => {
+        if (lightboxModal) lightboxModal.style.display = 'none';
+        if (lightboxImg)   { lightboxImg.src = ''; lightboxImg.alt = ''; }
+    };
+
+    vizTriggers.forEach((item, idx) => {
+        item.addEventListener('click', () => openLightboxAt(idx));
+    });
+
+    lightboxClose?.addEventListener('click', closeLightbox);
+    lightboxModal?.addEventListener('click', e => {
+        if (e.target === lightboxModal) closeLightbox();
+    });
+
     document.addEventListener('keydown', e => {
-        if (!lightboxModal || !lightboxModal.classList.contains('is-active') && lightboxModal.style.display !== 'flex') return;
-        // Logic will require your explicit 'openNextViz(direction)' function implementation. 
-        // Example integration:
-        // if (e.key === 'ArrowRight') openNextViz(1);
-        // if (e.key === 'ArrowLeft')  openNextViz(-1);
+        if (!lightboxModal || lightboxModal.style.display !== 'flex') return;
+        if (e.key === 'Escape')     { closeLightbox(); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); openLightboxAt((lightboxIdx + 1) % vizTriggers.length); }
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); openLightboxAt((lightboxIdx - 1 + vizTriggers.length) % vizTriggers.length); }
     });
 
 // ── 18. P5.JS THE MULTILINGUAL SEMANTIC LENS ──────────────────────────
@@ -529,3 +577,24 @@ if (document.getElementById('p5-hero-canvas')) {
     new p5(sketch);
 }
 });
+
+// ── READ MORE TOGGLE ──────────────────────────────────────────────────
+    const aboutReadMoreBtn = document.getElementById('about-read-more');
+    const aboutExtraText = document.getElementById('about-extra-text');
+
+    if (aboutReadMoreBtn && aboutExtraText) {
+        aboutReadMoreBtn.addEventListener('click', () => {
+            const isExpanded = aboutReadMoreBtn.getAttribute('aria-expanded') === 'true';
+            
+            if (isExpanded) {
+                aboutExtraText.classList.remove('is-expanded');
+                aboutReadMoreBtn.setAttribute('aria-expanded', 'false');
+                aboutReadMoreBtn.innerHTML = 'Read more <i data-lucide="chevron-down" aria-hidden="true"></i>';
+            } else {
+                aboutExtraText.classList.add('is-expanded');
+                aboutReadMoreBtn.setAttribute('aria-expanded', 'true');
+                aboutReadMoreBtn.innerHTML = 'Show less <i data-lucide="chevron-up" aria-hidden="true"></i>';
+            }
+            lucide.createIcons({ root: aboutReadMoreBtn.parentElement });
+        });
+    }
