@@ -4,21 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatura Dissanayake | Communications Specialist</title>
-    <meta name="description" content="Chatura Dissanayake - Freelance communications specialist in data visualisation. I help organisations connect with the people who need their work.">
+    <meta name="description" content="Chatura Dissanayake, Freelance communications specialist in data visualisation. I help organisations connect with the people who need their work.">
     
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://chaturadissanayake.github.io/">
     <meta property="og:title" content="Chatura Dissanayake | Communications Specialist">
-    <meta property="og:description" content="I help organisations connect with the people who need their work — through data visualisation, reports, and communication design.">
+    <meta property="og:description" content="I help organisations connect with the people who need their work, through data visualisation, reports, and communication design.">
     <meta property="og:image" content="https://chaturadissanayake.github.io/Assets/Social_Preview.jpg">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Chatura Dissanayake | Communications Specialist">
+    <meta name="twitter:description" content="I help organisations connect with the people who need their work, through data visualisation, reports, and communication design.">
+    <meta name="twitter:image" content="https://chaturadissanayake.github.io/Assets/Social_Preview.jpg">
+    <link rel="canonical" href="https://chaturadissanayake.github.io/">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Noto+Sans+Sinhala:wght@400&family=Noto+Sans+Tamil:wght@400&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js" defer></script>
     <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/lucide@0.292.0"></script>
+    <script src="https://unpkg.com/lucide@0.292.0" defer></script>
     
     <style>
         @media (max-width: 640px) { #back-to-top { display: none !important; } }
@@ -31,11 +35,11 @@
     <link rel="icon" type="image/png" sizes="32x32" href="Assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="Assets/favicon-16x16.png">
     <link rel="manifest" href="Assets/site.webmanifest">
-    <link rel="alternate" type="application/rss+xml" title="Chatura Dissanayake - Insights RSS Feed" href="rss.xml">
+    <link rel="alternate" type="application/rss+xml" title="Chatura Dissanayake, Insights RSS Feed" href="rss.xml">
 
 </head>
 <body class="loading">
-<a href="#projects" class="skip-link">Skip to main content</a>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="scroll-progress-bar" id="scroll-progress" aria-hidden="true"></div>
 
 <header class="main-header" id="main-header">
@@ -79,7 +83,7 @@
     </div>
 </div>
 
-<main>
+<main id="main-content">
 
 <section class="hero-section text-center" id="hero">
     <div id="p5-hero-canvas" class="interactive-data-bg" aria-hidden="true"></div>
@@ -94,9 +98,9 @@
                 <em class="hero-line reveal-up" style="--d:260ms">understood.</em>
             </h1>
             <p class="hero-body-centered reveal-up" style="--d:360ms">
-                I help organisations connect with the people who need their work — through data visualisation, reports, and communication design.
+                I help organisations connect with the people who need their work, through data visualisation, reports, and communication design.
             </p>
-            <div class="hero-cta-group reveal-up" style="--d:440ms; display: flex; flex-direction: column; align-items: center; gap: 24px; margin-top: 24px; margin-bottom: 48px;">
+            <div class="hero-cta-group reveal-up" style="--d:440ms">
                 <a href="#contact" class="btn-primary">Start a conversation</a>
                 <a href="#projects" class="scroll-link-custom" aria-label="Explore Case Studies">
                     <span class="scroll-text">Explore Case Studies</span>
@@ -118,20 +122,20 @@
                 <h2 class="section-title">Projects</h2>
             </div>
             <div class="projects-controls-right">
-                <div class="filter-group" role="group" aria-label="Filter projects">
-                    <button type="button" class="filter-pill active" data-filter="all">All</button>
-                    <button type="button" class="filter-pill" data-filter="data-story">Data Stories</button>
-                    <button type="button" class="filter-pill" data-filter="visual">Visual Reports</button>
-                    <button type="button" class="filter-pill" data-filter="interactive">Interactive</button>
+                <div class="filter-group-wrapper">
+                    <div class="filter-group" role="group" aria-label="Filter projects">
+                        <button type="button" class="filter-pill active" data-filter="all">All</button>
+                        <button type="button" class="filter-pill" data-filter="data-story">Data Stories</button>
+                        <button type="button" class="filter-pill" data-filter="visual">Visual Reports</button>
+                        <button type="button" class="filter-pill" data-filter="interactive">Interactive</button>
+                    </div>
                 </div>
                 <div class="view-toggles">
                     <button type="button" class="view-btn active" id="grid-view-btn" aria-label="Grid view" title="Grid view">
                         <i data-lucide="layout-grid" aria-hidden="true" style="width:16px;height:16px;"></i>
-                        <span class="view-btn-label">Grid</span>
                     </button>
                     <button type="button" class="view-btn" id="list-view-btn" aria-label="List view" title="List view">
                         <i data-lucide="list" aria-hidden="true" style="width:16px;height:16px;"></i>
-                        <span class="view-btn-label">List</span>
                     </button>
                 </div>
             </div>
@@ -141,9 +145,9 @@
 
             <article class="project-card project-trigger" data-category="data-story personal"
                 data-title="Ditwah Cyclone 2025: Disaster Narrative"
-                data-challenge="When Cyclone Ditwah hit, the early official figures were drastically wrong. Reporting put the affected population at under a million. The real number was closer to 2.3 million. I wanted to make that gap impossible to ignore — not through opinion, but through the data itself."
-                data-role="I went straight to the source: UN OCHA, UNICEF, and the World Bank. No secondary reporting, no press releases. The design had to match the weight of what the numbers were saying — so I kept it stripped back. Stark type, minimal interaction, and one central visualisation that didn't let you look away."
-                data-outcome="The piece corrected the public record and held. 2.3 million people affected — triple the official estimate. It's become one of those references that gets cited when people need a credible source for the scale of what happened."
+                data-challenge="When Cyclone Ditwah hit, the early official figures were drastically wrong. Reporting put the affected population at under a million. The real number was closer to 2.3 million. I wanted to make that gap impossible to ignore, not through opinion, but through the data itself."
+                data-role="I went straight to the source: UN OCHA, UNICEF, and the World Bank. No secondary reporting, no press releases. The design had to match the weight of what the numbers were saying, so I kept it stripped back. Stark type, minimal interaction, and one central visualisation that didn't let you look away."
+                data-outcome="The piece corrected the public record and held. 2.3 million people affected, triple the official estimate. It's become one of those references that gets cited when people need a credible source for the scale of what happened."
                 data-link="https://chaturadissanayake.github.io/cycloneditwah/" data-status="View Full Story" data-tags="Data Story,Crisis Communication">
                 <div class="card-inner">
                     <div class="card-image">
@@ -159,7 +163,7 @@
                         </div>
                         <div class="card-title-wrap">
                             <h3 class="card-title">Ditwah Cyclone 2025: Disaster Narrative</h3>
-                            <p class="card-desc">The official figures were wrong. This data story put the real number on record — 2.3 million people affected, triple the early estimates.</p>
+                            <p class="card-desc">The official figures were wrong. This data story put the real number on record, 2.3 million people affected, triple the early estimates.</p>
                         </div>
                         <div class="card-tags"><span>Data Story</span><span>Crisis Comms</span></div>
                     </div>
@@ -168,9 +172,9 @@
 
             <article class="project-card project-trigger" data-category="visual client"
                 data-title="UN Sri Lanka 2024 Annual Results"
-                data-challenge="Eight UN agencies were each producing their own numbers for Sri Lanka. None of it was talking to each other. Donors, policymakers, and the public were seeing fragments — not the full picture of what the UN was actually doing in the country."
-                data-role="I came in to pull it together. That meant building a visual system that could hold data from eight different organisations without losing coherence — and writing it in a way that made sense to someone who wasn't already immersed in the work. I stayed close to UN brand standards while making the layouts actually readable."
-                data-outcome="The report became the official national UN synthesis for 2024. Over 4,000 stakeholders received it, including the Prime Minister. More than the distribution, what mattered was that people could actually use it — it gave the UN a single, honest account of its work in Sri Lanka."
+                data-challenge="Eight UN agencies were each producing their own numbers for Sri Lanka. None of it was talking to each other. Donors, policymakers, and the public were seeing fragments, not the full picture of what the UN was actually doing in the country."
+                data-role="I came in to pull it together. That meant building a visual system that could hold data from eight different organisations without losing coherence, and writing it in a way that made sense to someone who wasn't already immersed in the work. I stayed close to UN brand standards while making the layouts actually readable."
+                data-outcome="The report became the official national UN synthesis for 2024. Over 4,000 stakeholders received it, including the Prime Minister. More than the distribution, what mattered was that people could actually use it, it gave the UN a single, honest account of its work in Sri Lanka."
                 data-link="https://srilanka.un.org/en/293540-un-sri-lanka-2024-annual-results-report" data-status="View Full Report" data-tags="UN Reporting,Info Design">
                 <div class="card-inner">
                     <div class="card-image">
@@ -196,8 +200,8 @@
             <article class="project-card project-trigger" data-category="visual client"
                 data-title="UN Sri Lanka SDG Fund 2024 Results"
                 data-challenge="The SDG Fund runs across multiple programmes, each with its own goals, metrics, and language. The challenge was presenting all of that to donors and government partners in a way that felt like one conversation, not a catalogue."
-                data-role="I designed the full information architecture and visual system — from how the programmes were structured to how the data was shown on each page. The aim was to make SDG indicators feel real to someone who didn't spend their days working with them."
-                data-outcome="The publication gave the SDG Fund a way to bring its outcomes to life for people who hold the decision-making power. That relationship between the data and the people reading it — that's what the design was built around."
+                data-role="I designed the full information architecture and visual system, from how the programmes were structured to how the data was shown on each page. The aim was to make SDG indicators feel real to someone who didn't spend their days working with them."
+                data-outcome="The publication gave the SDG Fund a way to bring its outcomes to life for people who hold the decision-making power. That relationship between the data and the people reading it, that's what the design was built around."
                 data-link="https://srilanka.un.org" data-status="Report in Final Review" data-tags="SDG Reporting,Data Vis">
                 <div class="card-inner">
                     <div class="card-image">
@@ -213,7 +217,7 @@
                         </div>
                         <div class="card-title-wrap">
                             <h3 class="card-title">UN Sri Lanka SDG Fund 2024 Results</h3>
-                            <p class="card-desc">Making SDG programme results legible to the people who fund and decide on them — a visual report built around the relationship between data and its audience.</p>
+                            <p class="card-desc">Making SDG programme results legible to the people who fund and decide on them, a visual report built around the relationship between data and its audience.</p>
                         </div>
                         <div class="card-tags"><span>SDG Reporting</span><span>Data Vis</span></div>
                     </div>
@@ -222,9 +226,9 @@
 
             <article class="project-card project-trigger" data-category="data-story personal"
                 data-title="The Shadow War: Drug Crisis"
-                data-challenge="Sri Lanka's drug policy debate was being drowned in jargon, politics, and statistics that nobody outside the sector could parse. I wanted to make it accessible to someone who had no background in policy — because those people's opinions matter too."
+                data-challenge="Sri Lanka's drug policy debate was being drowned in jargon, politics, and statistics that nobody outside the sector could parse. I wanted to make it accessible to someone who had no background in policy, because those people's opinions matter too."
                 data-role="I built the whole thing from scratch: the narrative structure, the visual language, the data pipeline, and the final scrollytelling experience. Every design decision came back to one question: will someone who knows nothing about this still be able to follow it?"
-                data-outcome="A digital environment that lets people walk through the data themselves and reach their own conclusions. Not a lecture — an experience. One that treats the audience as capable of handling the complexity, just on their own terms."
+                data-outcome="A digital environment that lets people walk through the data themselves and reach their own conclusions. Not a lecture, an experience. One that treats the audience as capable of handling the complexity, just on their own terms."
                 data-link="https://chaturadissanayake.github.io/sri-lanka-drug-crisis-website/" data-status="View Full Case Study" data-tags="Scrollytelling,Public Health">
                 <div class="card-inner">
                     <div class="card-image">
@@ -249,9 +253,9 @@
 
             <article class="project-card project-trigger" data-category="interactive personal"
                 data-title="Voter Education Web Game"
-                data-challenge="Civic education about elections almost always fails the people who need it most — young voters, first-timers, anyone who finds the official materials dry or confusing. A pamphlet telling people how democracy works isn't enough. People learn by doing."
-                data-role="I'm building a browser-based game that teaches voters how elections actually work — the logic of constituency systems, how to evaluate candidates, what democratic choice looks like in practice. Scenario-based, accessible, and built with AI-assisted development."
-                data-outcome="Still in active development. The aim is to distribute it through schools and civil society organisations — putting it where people already are, rather than expecting them to come looking."
+                data-challenge="Civic education about elections almost always fails the people who need it most, young voters, first-timers, anyone who finds the official materials dry or confusing. A pamphlet telling people how democracy works isn't enough. People learn by doing."
+                data-role="I'm building a browser-based game that teaches voters how elections actually work, the logic of constituency systems, how to evaluate candidates, what democratic choice looks like in practice. Scenario-based, accessible, and built with AI-assisted development."
+                data-outcome="Still in active development. The aim is to distribute it through schools and civil society organisations, putting it where people already are, rather than expecting them to come looking."
                 data-link="#" data-status="Active Development" data-tags="Civic Tech,Interactive Design">
                 <div class="card-inner">
                     <div class="card-image">
@@ -267,7 +271,7 @@
                         </div>
                         <div class="card-title-wrap">
                             <h3 class="card-title">Voter Education Web Game</h3>
-                            <p class="card-desc">A browser-based game that teaches first-time voters how elections actually work — because a pamphlet isn't enough.</p>
+                            <p class="card-desc">A browser-based game that teaches first-time voters how elections actually work, because a pamphlet isn't enough.</p>
                         </div>
                         <div class="card-tags"><span>Civic Tech</span><span>Interactive Design</span></div>
                     </div>
@@ -276,9 +280,9 @@
 
             <article class="project-card project-trigger" data-category="interactive client"
                 data-title="Embracy Financial Management Platform"
-                data-challenge="Financial tools tend to promise simplicity and deliver the opposite. The real problem wasn't the features — it was that users kept leaving before they saw value. I was brought in to find where the relationship between user and product was breaking down."
-                data-role="I started with research: user interviews, journey mapping, looking at where people were dropping off and why. From there I built high-fidelity wireframes and a redesigned onboarding flow focused on one thing — getting people to their first useful moment faster."
-                data-outcome="Drop-off rates fell by 30%. Internal production time was cut in half. The redesign became the foundation for the platform's ongoing development — which is the outcome that matters most. Not a one-off fix, but a better starting point."
+                data-challenge="Financial tools tend to promise simplicity and deliver the opposite. The real problem wasn't the features, it was that users kept leaving before they saw value. I was brought in to find where the relationship between user and product was breaking down."
+                data-role="I started with research: user interviews, journey mapping, looking at where people were dropping off and why. From there I built high-fidelity wireframes and a redesigned onboarding flow focused on one thing, getting people to their first useful moment faster."
+                data-outcome="Drop-off rates fell by 30%. Internal production time was cut in half. The redesign became the foundation for the platform's ongoing development, which is the outcome that matters most. Not a one-off fix, but a better starting point."
                 data-link="https://drive.google.com/drive/folders/1Ria6BG5ML2PYXCr3Hx-n5H9PNIjra5Zf" data-status="View Full Case Study" data-tags="UX Research,UI Design">
                 <div class="card-inner">
                     <div class="card-image">
@@ -294,7 +298,7 @@
                         </div>
                         <div class="card-title-wrap">
                             <h3 class="card-title">Embracy Financial Management Platform</h3>
-                            <p class="card-desc">Finding where users were leaving — and redesigning the onboarding so they didn't. Drop-off down 30%, production time halved.</p>
+                            <p class="card-desc">Finding where users were leaving, and redesigning the onboarding so they didn't. Drop-off down 30%, production time halved.</p>
                         </div>
                         <div class="card-tags"><span>UX Research</span><span>UI Design</span></div>
                     </div>
@@ -319,9 +323,14 @@
             <div class="about-right">
                 <div class="about-philosophy">
                     <h3>How I work</h3>
-                    <p>I'm a freelance communications specialist working in the data visualisation field. What that means in practice is that I spend a lot of time thinking about relationships — between organisations and the people they're trying to reach, between data and the person who needs to act on it.</p>
-                    <p>Good communication isn't about making things look nice. It's about making sure the right message lands with the right person. Sometimes that's a policy report for government partners. Sometimes it's an interactive story for a general audience who've never read a policy brief in their life. The work changes; the question stays the same: who needs to understand this, and what do they actually need to see?</p>
-                    <p>I've worked with Verité Research, the UN Resident Coordinator's Office, and the Department of National Planning. Now I work independently, taking on projects where I think I can make a real difference to how the work reaches people.</p>
+                    <p>I'm a freelance communications specialist working in the data visualisation field. What that means in practice is that I spend a lot of time thinking about relationships, between organisations and the people they're trying to reach, between data and the person who needs to act on it.</p>
+                    <div class="text-collapse-content" id="about-extra-text">
+                        <p>Good communication isn't about making things look nice. It's about making sure the right message lands with the right person. Sometimes that's a policy report for government partners. Sometimes it's an interactive story for a general audience who've never read a policy brief in their life. The work changes; the question stays the same: who needs to understand this, and what do they actually need to see?</p>
+                        <p>I've worked with Verité Research, the UN Resident Coordinator's Office, and the Department of National Planning. Now I work independently, taking on projects where I think I can make a real difference to how the work reaches people.</p>
+                    </div>
+                    <button type="button" class="inline-text-btn" id="about-read-more" aria-expanded="false" aria-controls="about-extra-text">
+                        Read more <i data-lucide="chevron-down" aria-hidden="true"></i>
+                    </button>
                 </div>
 
                 <div class="about-capabilities">
@@ -343,7 +352,7 @@
                     <h3>Experience</h3>
                     <div class="exp-list">
                         <div class="exp-item">
-                            <span class="exp-period">2025 – Present</span>
+                            <span class="exp-period">2025, Present</span>
                             <div class="exp-detail">
                                 <strong>Freelance Communications Specialist</strong>
                                 <span>Independent</span>
@@ -353,18 +362,18 @@
                             <span class="exp-period">Jun 2025</span>
                             <div class="exp-detail">
                                 <strong>Communications Design Consultant</strong>
-                                <span>Govt. of Sri Lanka - Dept. of National Planning</span>
+                                <span>Govt. of Sri Lanka, Dept. of National Planning</span>
                             </div>
                         </div>
                         <div class="exp-item">
-                            <span class="exp-period">Mar – Jun 2025</span>
+                            <span class="exp-period">Mar, Jun 2025</span>
                             <div class="exp-detail">
                                 <strong>UN National Volunteer Specialist</strong>
                                 <span>United Nations, Sri Lanka</span>
                             </div>
                         </div>
                         <div class="exp-item">
-                            <span class="exp-period">2022 – 2024</span>
+                            <span class="exp-period">2022, 2024</span>
                             <div class="exp-detail">
                                 <strong>Senior Communications Designer</strong>
                                 <span>Verité Research, Colombo</span>
@@ -391,39 +400,87 @@
 
 <section class="services-section section-fade-in" id="services">
     <div class="container">
-        <div class="section-header-row">
-            <div class="header-text-block">
+
+        <div class="services-top">
+            <div class="services-header-content">
                 <p class="section-eyebrow">What I Do</p>
                 <h2 class="section-title">Services</h2>
-                <p class="section-header-desc">I work with research organisations, policy bodies, and institutions that need to communicate complex work to real people. Scope and pricing on request.</p>
+                <p class="services-intro-text">I work with research organisations, policy bodies, and institutions that need to communicate complex work to real people. Scope and pricing on request.</p>
+                <a href="Assets/Services_Guide.pdf" target="_blank" rel="noopener" class="btn-primary">
+                    Download Services Guide <i data-lucide="file-text" aria-hidden="true" style="width:14px;height:14px;margin-left:6px;"></i>
+                </a>
             </div>
-            <a href="Assets/Services_Guide.pdf" target="_blank" rel="noopener" class="services-pdf-link">
-                Download Services Guide <i data-lucide="file-text" aria-hidden="true" style="width:14px;height:14px;margin-left:6px;"></i>
+        </div>
+
+        <div class="services-list">
+
+            <div class="service-row">
+                <div class="service-row-num">01</div>
+                <div class="service-row-body">
+                    <h3 class="service-row-title">Data Visualisation &amp; Infographics</h3>
+                    <p class="service-row-desc">Turning research data into something people can actually engage with, from single infographics to full visual systems for publications and reports.</p>
+                    <ul class="service-deliverables">
+                        <li>Static &amp; animated infographics</li>
+                        <li>Data visualisation systems for publications</li>
+                        <li>Dashboard and chart design</li>
+                        <li>Visual language for complex datasets</li>
+                    </ul>
+                </div>
+                <div class="service-row-tools">
+                    <span>Illustrator</span>
+                    <span>Figma</span>
+                    <span>Tableau</span>
+                    <span>Flourish</span>
+                    <span>P5.js</span>
+                </div>
+            </div>
+
+            <div class="service-row">
+                <div class="service-row-num">02</div>
+                <div class="service-row-body">
+                    <h3 class="service-row-title">Report &amp; Publication Design</h3>
+                    <p class="service-row-desc">Annual reports, policy briefs, and institutional publications designed with the reader in mind, not just the person commissioning the work.</p>
+                    <ul class="service-deliverables">
+                        <li>Annual &amp; results reports</li>
+                        <li>Policy briefs &amp; thematic papers</li>
+                        <li>Brand-compliant institutional layouts</li>
+                        <li>Print and digital formats</li>
+                    </ul>
+                </div>
+                <div class="service-row-tools">
+                    <span>InDesign</span>
+                    <span>Illustrator</span>
+                    <span>Figma</span>
+                </div>
+            </div>
+
+            <div class="service-row">
+                <div class="service-row-num">03</div>
+                <div class="service-row-body">
+                    <h3 class="service-row-title">Interactive Data Stories</h3>
+                    <p class="service-row-desc">Scrollytelling experiences and data-driven web features for stories that need to be lived, not just read. Built from scratch, for real audiences.</p>
+                    <ul class="service-deliverables">
+                        <li>Scrollytelling web features</li>
+                        <li>Interactive data narratives</li>
+                        <li>Public-facing data dashboards</li>
+                        <li>Responsive, accessible builds</li>
+                    </ul>
+                </div>
+                <div class="service-row-tools">
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                    <span>Webflow</span>
+                </div>
+            </div>
+
+        </div><div class="services-footer-bar">
+            <p>Available for new projects from July 2026.</p>
+            <a href="#contact" class="btn-primary">
+                Start a conversation <i data-lucide="arrow-right" aria-hidden="true"></i>
             </a>
         </div>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-num">01</div>
-                <h3 class="service-title">Data Visualisation &amp; Infographics</h3>
-                <p class="service-desc">Turning research data into something people can actually engage with — from single infographics to full visual systems for publications and reports.</p>
-                <div class="service-tools">Illustrator · Figma · Tableau · Flourish · P5.js</div>
-            </div>
-            <div class="service-card">
-                <div class="service-num">02</div>
-                <h3 class="service-title">Report &amp; Publication Design</h3>
-                <p class="service-desc">Annual reports, policy briefs, and institutional publications designed with the reader in mind — not just the person commissioning the work.</p>
-                <div class="service-tools">InDesign · Illustrator · Figma</div>
-            </div>
-            <div class="service-card">
-                <div class="service-num">03</div>
-                <h3 class="service-title">Interactive Data Stories</h3>
-                <p class="service-desc">Scrollytelling experiences and data-driven web features for stories that need to be lived, not just read. Built from scratch, for real audiences.</p>
-                <div class="service-tools">HTML · CSS · JavaScript · Webflow</div>
-            </div>
-        </div>
-        <div class="services-note">
-            <p>Available for new projects from July 2026. <a href="#contact">Get in touch →</a></p>
-        </div>
+
     </div>
 </section>
 
@@ -433,7 +490,7 @@
             <div class="header-text-block">
                 <p class="section-eyebrow">Writing</p>
                 <h2 class="section-title">Insights</h2>
-                <p class="section-header-desc">Notes on the decisions behind the work — what I tried, what didn't hold, and why things ended up the way they did.</p>
+                <p class="section-header-desc">Notes on the decisions behind the work, what I tried, what didn't hold, and why things ended up the way they did.</p>
             </div>
         </div>
         <div class="insights-grid" id="insights-container">
@@ -454,9 +511,20 @@
                 </div>
             </article>
 
-            <article class="insight-placeholder" style="min-height: 120px;">
-                <div class="placeholder-inner">
-                    <span class="placeholder-label">— Next piece in progress</span>
+            <article class="insight-upcoming">
+                <div class="insight-upcoming-inner">
+                    <div class="insight-upcoming-top">
+                        <span class="insight-upcoming-dot" aria-hidden="true"></span>
+                        <span class="insight-upcoming-label">In Progress</span>
+                    </div>
+                    <div class="insight-upcoming-content">
+                        <h3 class="insight-upcoming-title">The next piece is being written.</h3>
+                        <p class="insight-upcoming-body">Notes on the decisions behind the work, what I tried, what didn't hold, and why things ended up the way they did. New writing appears here when it's ready.</p>
+                    </div>
+                    <a href="rss.xml" class="insight-upcoming-rss" target="_blank" rel="noopener" aria-label="Subscribe via RSS">
+                        <i data-lucide="rss" aria-hidden="true" style="width:13px;height:13px;"></i>
+                        <span>Get notified via RSS</span>
+                    </a>
                 </div>
             </article>
 
@@ -486,7 +554,7 @@
                     </div>
                     <div class="viz-text-content">
                         <span class="lab-tag-label">2025</span>
-                        <h3 class="viz-title">Sri Lanka Government Budget - Incomes &amp; Expenditures</h3>
+                        <h3 class="viz-title">Sri Lanka Government Budget, Incomes &amp; Expenditures</h3>
                         <p class="viz-desc">Where the money comes from, and where it goes. The Sri Lankan government budget made legible in one view.</p>
                     </div>
                 </article>
@@ -511,7 +579,7 @@
                     <div class="viz-text-content">
                         <span class="lab-tag-label">Civic Data</span>
                         <h3 class="viz-title">338 Acts of Change</h3>
-                        <p class="viz-desc">338 initiatives that shaped Sri Lanka in 2024. Each dot is one effort to strengthen communities or inform policy — visualised as a spiral.</p>
+                        <p class="viz-desc">338 initiatives that shaped Sri Lanka in 2024. Each dot is one effort to strengthen communities or inform policy, visualised as a spiral.</p>
                     </div>
                 </article>
                 <article class="viz-item viz-lightbox-trigger card-interactive">
@@ -533,7 +601,7 @@
                         <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
-                        <span class="lab-tag-label">2018–2023</span>
+                        <span class="lab-tag-label">2018, 2023</span>
                         <h3 class="viz-title">Drug-Related Arrests vs. Treatment Cases</h3>
                         <p class="viz-desc">Arrests climbing. Treatment access flat. The widening gap between punishment and care, in one chart.</p>
                     </div>
@@ -545,9 +613,9 @@
                         <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
-                        <span class="lab-tag-label">2018–2023</span>
+                        <span class="lab-tag-label">2018, 2023</span>
                         <h3 class="viz-title">Drug-Related Arrests by Substance</h3>
-                        <p class="viz-desc">Heroin, cannabis, methamphetamines — all rising. The breakdown behind Sri Lanka's drug enforcement picture.</p>
+                        <p class="viz-desc">Heroin, cannabis, methamphetamines, all rising. The breakdown behind Sri Lanka's drug enforcement picture.</p>
                     </div>
                 </article>
                 <article class="viz-item viz-lightbox-trigger card-interactive">
@@ -557,7 +625,7 @@
                         <div class="card-overlay"><span class="card-open-label">Expand <i data-lucide="maximize" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
-                        <span class="lab-tag-label">2018–2025</span>
+                        <span class="lab-tag-label">2018, 2025</span>
                         <h3 class="viz-title">Drug Control Under Sri Lanka's Presidents</h3>
                         <p class="viz-desc">Arrests have climbed across every presidency. Record cannabis and heroin seizures under Gotabaya Rajapaksa.</p>
                     </div>
@@ -571,7 +639,7 @@
                     <div class="viz-text-content">
                         <span class="lab-tag-label">2024</span>
                         <h3 class="viz-title">Provincial Drug Case Outcomes</h3>
-                        <p class="viz-desc">Case flow by province — and what it reveals about a system still built around punishment more than rehabilitation.</p>
+                        <p class="viz-desc">Case flow by province, and what it reveals about a system still built around punishment more than rehabilitation.</p>
                     </div>
                 </article>
                 <article class="viz-item viz-lightbox-trigger card-interactive">
@@ -583,7 +651,7 @@
                     <div class="viz-text-content">
                         <span class="lab-tag-label">2022–2023</span>
                         <h3 class="viz-title">Who Provides Rehabilitation in Sri Lanka</h3>
-                        <p class="viz-desc">NDDCB Centres handle more than half of all rehabilitation cases. A look at who's doing the work — and who isn't.</p>
+                        <p class="viz-desc">NDDCB Centres handle more than half of all rehabilitation cases. A look at who's doing the work, and who isn't.</p>
                     </div>
                 </article>
             </div>
@@ -608,8 +676,9 @@
             <div class="contact-left">
                 <p class="section-eyebrow">Get In Touch</p>
                 <h2 class="contact-headline">You don't need<br>a perfect brief.</h2>
-                <p class="contact-body">If you're working through a data challenge, an upcoming report, or just want to think out loud about how your organisation communicates — I'm open to that conversation. The best projects I've worked on started with a vague problem, not a finished spec.</p>
+                <p class="contact-body">If you're working through a data challenge, an upcoming report, or just want to think out loud about how your organisation communicates, I'm open to that conversation. The best projects I've worked on started with a vague problem, not a finished spec.</p>
                 <a href="mailto:consultchatura@gmail.com" class="contact-email">
+                    <i data-lucide="mail" aria-hidden="true"></i>
                     <span>consultchatura@gmail.com</span>
                 </a>
             </div>
@@ -619,11 +688,11 @@
                     <div class="form-row">
                         <div class="form-group">
                             <label for="contact-name">Name</label>
-                            <input type="text" id="contact-name" name="name" placeholder="Your name" autocomplete="name" required>
+                            <input type="text" id="contact-name" name="name" placeholder="Your name" autocomplete="name" required aria-required="true">
                         </div>
                         <div class="form-group">
                             <label for="contact-email">Email</label>
-                            <input type="email" id="contact-email" name="email" placeholder="your@email.com" autocomplete="email" required>
+                            <input type="email" id="contact-email" name="email" placeholder="your@email.com" autocomplete="email" required aria-required="true">
                         </div>
                     </div>
                     <div class="form-group">
@@ -632,7 +701,7 @@
                     </div>
                     <div class="form-group">
                         <label for="contact-message">Message</label>
-                        <textarea id="contact-message" name="message" rows="5" placeholder="What are you working on?" required></textarea>
+                        <textarea id="contact-message" name="message" rows="5" placeholder="What are you working on?" required aria-required="true"></textarea>
                     </div>
                     <button type="submit" class="form-submit" id="form-submit-btn">
                         Send Message <i data-lucide="arrow-right" aria-hidden="true"></i>
@@ -660,7 +729,6 @@
                 <a href="#contact">Contact Me</a>
                 <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
                 <a href="https://github.com/chaturadissanayake"      target="_blank" rel="noopener">GitHub</a>
-                <a href="https://consultchatura.medium.com"          target="_blank" rel="noopener">Medium</a>
             </div>
             <div class="footer-col">
                 <h5>Writing</h5>
@@ -676,7 +744,7 @@
             <div class="footer-divider"></div>
             <div class="footer-bottom-bar">
                 <div class="footer-copyright">
-                    <span class="footer-brand-name">Chatura Dissanayake</span> © 2022 - 2026 All Rights Reserved.
+                    <span class="footer-brand-name">Chatura Dissanayake</span> © 2022, 2026 All Rights Reserved.
                 </div>
                 <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top">
                     <i data-lucide="arrow-up" aria-hidden="true"></i>
