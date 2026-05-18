@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
         removeLoadingState();
     } else {
         window.addEventListener('load', removeLoadingState);
-        setTimeout(removeLoadingState, 2000);
+        setTimeout(removeLoadingState, 400);
     }
 
     // ── 3. SCROLL PROGRESS BAR ───────────────────────────────────────────
@@ -106,19 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
     document.querySelectorAll('.section-fade-in').forEach(s => observer.observe(s));
 
-    // ── 9. VIEW TOGGLE (Grid / List) ─────────────────────────────────────
-    const gridBtn  = document.getElementById('grid-view-btn');
-    const listBtn  = document.getElementById('list-view-btn');
+    // ── 9. VIEW TOGGLE (Removed per UX Hick's Law) ───────────────────────
     const projWrap = document.getElementById('projects-container');
-
-    const setView = mode => {
-        const isGrid = mode === 'grid';
-        gridBtn?.classList.toggle('active', isGrid);
-        listBtn?.classList.toggle('active', !isGrid);
-        if (projWrap) projWrap.className = `projects-wrapper ${isGrid ? 'grid' : 'list'}-mode`;
-    };
-    gridBtn?.addEventListener('click', () => setView('grid'));
-    listBtn?.addEventListener('click', () => setView('list'));
 
     // ── 10. PROJECT FILTERING ─────────────────────────────────────────────
     const filterBtns   = document.querySelectorAll('.filter-pill');
@@ -191,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── 12. PROJECT DETAIL MODAL ──────────────────────────────────────────
     const projectModal    = document.getElementById('project-detail-modal');
     const closeProjectBtn = document.getElementById('close-project-modal');
+    let lastFocusedElement = null; // Stores what was clicked so we can return focus
 
     const focusableSelectors = 'a, button, [tabindex]:not([tabindex="-1"])';
     const trapFocus = e => {
@@ -204,6 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const openModal = card => {
+        lastFocusedElement = document.activeElement; // Save focus
         const titleText = card.getAttribute('data-title') || card.querySelector('h3')?.textContent || 'Project';
         document.getElementById('pm-title').textContent = titleText;
         document.getElementById('pm-challenge').textContent = card.getAttribute('data-challenge')  || '—';
@@ -219,8 +210,8 @@ document.addEventListener('DOMContentLoaded', () => {
         link.innerHTML = `${status} <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i>`;
         lucide.createIcons({ nameAttr: 'data-lucide', root: link });
 
-        if (status === 'Report in Final Review') {
-            link.textContent = 'Report in Final Review';
+        if (status === 'Report in Final Review' || status === 'Active Development') {
+            link.textContent = status;
             link.removeAttribute('href');
             link.style.opacity = '0.45';
             link.style.pointerEvents = 'none';
@@ -261,6 +252,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('modal-open');
         projectModal.removeEventListener('keydown', trapFocus);
         history.pushState(null, '', '#projects');
+        if (lastFocusedElement) lastFocusedElement.focus(); // Restore focus
     };
 
     document.querySelectorAll('.project-trigger').forEach(card => {
@@ -312,10 +304,10 @@ document.addEventListener('DOMContentLoaded', () => {
             vizTrack.scrollBy({ left: -scrollAmt(), behavior: 'smooth' })
         );
 
-        // ── 13B. CAROUSEL DOTS ────────────────────────────────────────────
-        const vizDots = document.querySelectorAll('.viz-dot');
-        if (vizDots.length) {
-            const syncDots = () => {
+        // ── 13B. CAROUSEL COUNTER ─────────────────────────────────────────
+        const vizCounter = document.getElementById('viz-counter');
+        if (vizCounter) {
+            const syncCounter = () => {
                 const items = vizTrack.querySelectorAll('.viz-item');
                 if (!items.length) return;
                 const itemW = items[0].offsetWidth + 20;
@@ -323,17 +315,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     Math.round(vizTrack.scrollLeft / itemW),
                     items.length - 1
                 );
-                vizDots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+                vizCounter.textContent = `${activeIdx + 1} / ${items.length}`;
             };
-            vizTrack.addEventListener('scroll', syncDots, { passive: true });
-            vizDots.forEach((dot, i) => {
-                dot.addEventListener('click', () => {
-                    const items = vizTrack.querySelectorAll('.viz-item');
-                    if (items[i]) {
-                        vizTrack.scrollTo({ left: items[i].offsetLeft, behavior: 'smooth' });
-                    }
-                });
-            });
+            vizTrack.addEventListener('scroll', syncCounter, { passive: true });
+            syncCounter();
         }
     }
 
@@ -341,11 +326,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxModal  = document.getElementById('lightbox-modal');
     const lightboxImg    = document.getElementById('lightbox-image');
     const lightboxClose  = lightboxModal?.querySelector('.lightbox-close');
+    const lightboxPrev   = document.getElementById('lightbox-prev');
+    const lightboxNext   = document.getElementById('lightbox-next');
     const vizTriggers    = Array.from(document.querySelectorAll('.viz-lightbox-trigger'));
     let lightboxIdx      = 0;
 
     const openLightboxAt = (idx) => {
         if (!lightboxModal || !vizTriggers[idx]) return;
+        if (lightboxModal.style.display !== 'flex') lastFocusedElement = document.activeElement;
         lightboxIdx = idx;
         const src = vizTriggers[idx].querySelector('.viz-main-img');
         if (src && lightboxImg) {
@@ -359,6 +347,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeLightbox = () => {
         if (lightboxModal) lightboxModal.style.display = 'none';
         if (lightboxImg)   { lightboxImg.src = ''; lightboxImg.alt = ''; }
+        if (lastFocusedElement) lastFocusedElement.focus();
     };
 
     vizTriggers.forEach((item, idx) => {
@@ -366,6 +355,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     lightboxClose?.addEventListener('click', closeLightbox);
+    lightboxPrev?.addEventListener('click', (e) => { e.stopPropagation(); openLightboxAt((lightboxIdx - 1 + vizTriggers.length) % vizTriggers.length); });
+    lightboxNext?.addEventListener('click', (e) => { e.stopPropagation(); openLightboxAt((lightboxIdx + 1) % vizTriggers.length); });
+    
     lightboxModal?.addEventListener('click', e => {
         if (e.target === lightboxModal) closeLightbox();
     });
@@ -557,7 +549,7 @@ const vocabRows = [
             p.textAlign(p.RIGHT, p.BOTTOM);
             p.fill(120, 130, 140, hintOpacity);
             p.noStroke();
-            p.text('ස · த · A', p.width - 18, p.height - 18);
+            p.text('ස · த · A — Hover to explore', p.width - 18, p.height - 18);
             p.pop();
         }
 
@@ -577,24 +569,3 @@ if (document.getElementById('p5-hero-canvas')) {
     new p5(sketch);
 }
 });
-
-// ── READ MORE TOGGLE ──────────────────────────────────────────────────
-    const aboutReadMoreBtn = document.getElementById('about-read-more');
-    const aboutExtraText = document.getElementById('about-extra-text');
-
-    if (aboutReadMoreBtn && aboutExtraText) {
-        aboutReadMoreBtn.addEventListener('click', () => {
-            const isExpanded = aboutReadMoreBtn.getAttribute('aria-expanded') === 'true';
-            
-            if (isExpanded) {
-                aboutExtraText.classList.remove('is-expanded');
-                aboutReadMoreBtn.setAttribute('aria-expanded', 'false');
-                aboutReadMoreBtn.innerHTML = 'Read more <i data-lucide="chevron-down" aria-hidden="true"></i>';
-            } else {
-                aboutExtraText.classList.add('is-expanded');
-                aboutReadMoreBtn.setAttribute('aria-expanded', 'true');
-                aboutReadMoreBtn.innerHTML = 'Show less <i data-lucide="chevron-up" aria-hidden="true"></i>';
-            }
-            lucide.createIcons({ root: aboutReadMoreBtn.parentElement });
-        });
-    }
