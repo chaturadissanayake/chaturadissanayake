@@ -1,113 +1,92 @@
 [
   {
     "id": "ceylon-harvest",
-    "category": "visual client",
+    "category": "Brand Identity",
     "title": "Ceylon Harvest Co.",
     "challenge": "The challenge was to introduce a product rooted in a 3,000-year-old agricultural tradition to premium Western markets without falling into the trap of generic tourism visual clichés. I had to bridge the gap between ancient historical authority and the expectations of modern, high-end commerce.",
     "role": "I developed a visual identity centered on a rigorous botanical seal and a sophisticated typographic system. My work focused on balancing the weight of historical legacy with the clean utility required by trade buyers. This system prioritized authenticity and traceability over aesthetic ornamentation.",
     "outcome": "The final result is a quietly confident visual identity that avoids common stereotypes, proving absolute authenticity to high-end trade buyers. It successfully translates a deep cultural heritage into a modern, shelf-ready brand, establishing immediate trust and credibility in competitive markets.",
     "link": "projects/ceylon-harvest/index.html",
     "status": "View Case Study",
-    "tags": [
-      "Brand Identity",
-      "Premium Export"
-    ],
-    "thumbnail": "projects/ceylon-harvest/assets/Ceylon_Thumb.png",
+    "tags": ["Brand Identity", "Consumer Brands"],
+    "thumbnail": "projects/ceylon-harvest/assets/Ceylon_Thumb.webp",
     "date": "ACTIVE"
   },
   {
     "id": "ditwah-cyclone",
-    "category": "data-story personal",
+    "category": "Data Storytelling",
     "title": "Ditwah Cyclone 2025: Disaster Narrative",
     "challenge": "When Cyclone Ditwah hit, the early official figures were drastically wrong. Reporting put the affected population at under a million. The real number was closer to 2.3 million. I wanted to make that gap impossible to ignore, not through opinion, but through the data itself.",
     "role": "I went straight to the source: UN OCHA, UNICEF, and the World Bank. No secondary reporting, no press releases. The design had to match the weight of what the numbers were saying, so I kept it stripped back. Stark type, minimal interaction, and one central visualisation that didn't let you look away.",
     "outcome": "The piece corrected the public record and held. 2.3 million people affected, triple the official estimate. It's become one of those references that gets cited when people need a credible source for the scale of what happened.",
     "link": "https://chaturadissanayake.github.io/cycloneditwah/",
     "status": "View Full Story",
-    "tags": [
-      "Data Story",
-      "Crisis Comms"
-    ],
+    "tags": ["Data Storytelling", "Data Visualisation", "Humanitarian Response"],
     "thumbnail": "projects/ditwah-cyclone/assets/Ditwah_Thumb.png",
     "date": "MAR 2026"
   },
   {
     "id": "un-annual-results",
-    "category": "visual client",
+    "category": "Information Design",
     "title": "UN Sri Lanka 2024 Annual Results",
     "challenge": "Eight UN agencies were each producing their own numbers for Sri Lanka. None of it was talking to each other. Donors, policymakers, and the public were seeing fragments, not the full picture of what the UN was actually doing in the country.",
     "role": "I came in to pull it together. That meant building a visual system that could hold data from eight different organisations without losing coherence, and writing it in a way that made sense to someone who wasn't already immersed in the work. I stayed close to UN brand standards while making the layouts actually readable.",
     "outcome": "The report became the official national UN synthesis for 2024. Over 4,000 stakeholders received it, including the Prime Minister. More than the distribution, what mattered was that people could actually use it; it gave the UN a single, honest account of its work in Sri Lanka.",
     "link": "https://srilanka.un.org/en/293540-un-sri-lanka-2024-annual-results-report",
     "status": "View Full Report",
-    "tags": [
-      "UN Reporting",
-      "Info Design"
-    ],
+    "tags": ["Information Design", "Publications", "International Development"],
     "thumbnail": "projects/un-annual-results/assets/UNAnnualResults_Thumb.png",
     "date": "APR 2025"
   },
   {
     "id": "un-sdg-fund",
-    "category": "visual client",
+    "category": "Data Visualisation",
     "title": "UN Sri Lanka SDG Fund 2024 Results",
     "challenge": "The SDG Fund runs across multiple programmes, each with its own goals, metrics, and language. The challenge was presenting all of that to donors and government partners in a way that felt like one conversation, not a catalogue.",
     "role": "I designed the full information architecture and visual system, from how the programmes were structured to how the data was shown on each page. The aim was to make SDG indicators feel real to someone who didn't spend their days working with them.",
     "outcome": "The publication gave the SDG Fund a way to bring its outcomes to life for people who hold the decision-making power. That relationship between the data and the people reading it: that's what the design was built around.",
     "link": "https://srilanka.un.org",
     "status": "Report in Final Review",
-    "tags": [
-      "SDG Reporting",
-      "Data Vis"
-    ],
+    "tags": ["Data Visualisation", "Information Design", "International Development"],
     "thumbnail": "projects/un-sdg-fund/assets/UNSDGFund_Thumb.png",
     "date": "MAY 2025"
   },
   {
     "id": "drug-crisis",
-    "category": "data-story personal",
+    "category": "Scrollytelling",
     "title": "The Shadow War: Drug Crisis",
     "challenge": "Sri Lanka's drug policy debate was being drowned in jargon, politics, and statistics that nobody outside the sector could parse. I wanted to make it accessible to someone who had no background in policy, because those people's opinions matter too.",
     "role": "I built the whole thing from scratch: the narrative structure, the visual language, the data pipeline, and the final scrollytelling experience. Every design decision came back to one question: will someone who knows nothing about this still be able to follow it?",
     "outcome": "A digital environment that lets people walk through the data themselves and reach their own conclusions. Not a lecture, an experience. One that treats the audience as capable of handling the complexity, just on their own terms.",
     "link": "https://chaturadissanayake.github.io/sri-lanka-drug-crisis-website/",
     "status": "View Full Case Study",
-    "tags": [
-      "Scrollytelling",
-      "Public Health"
-    ],
+    "tags": ["Data Storytelling", "Scrollytelling", "Public Health"],
     "thumbnail": "projects/drug-crisis/assets/DrugCrisis_Thumb.png",
     "date": "OCT 2025"
   },
   {
     "id": "voter-education",
-    "category": "interactive personal",
+    "category": "Interactive Design",
     "title": "Voter Education Web Game",
     "challenge": "Civic education about elections almost always fails the people who need it most: young voters, first-timers, anyone who finds the official materials dry or confusing. A pamphlet telling people how democracy works isn't enough. People learn by doing.",
     "role": "I'm building a browser-based game that teaches voters how elections actually work: the logic of constituency systems, how to evaluate candidates, what democratic choice looks like in practice. Scenario-based, accessible, and built with AI-assisted development.",
     "outcome": "Still in active development. The aim is to distribute it through schools and civil society organisations, putting it where people already are, rather than expecting them to come looking.",
     "link": "#",
     "status": "Active Development",
-    "tags": [
-      "Civic Tech",
-      "Interactive Design"
-    ],
+    "tags": ["Interactive Design", "Civic & Public"],
     "thumbnail": "projects/voter-education/assets/VoterEducation_Thumb.png",
     "date": "ACTIVE"
   },
   {
     "id": "embracy-platform",
-    "category": "interactive client",
+    "category": "UX Research & Design",
     "title": "Embracy Financial Management Platform",
     "challenge": "Financial tools tend to promise simplicity and deliver the opposite. The real problem wasn't the features; it was that users kept leaving before they saw value. I was brought in to find where the relationship between user and product was breaking down.",
     "role": "I started with research: user interviews, journey mapping, looking at where people were dropping off and why. From there I built high-fidelity wireframes and a redesigned onboarding flow focused on one thing: getting people to their first useful moment faster.",
     "outcome": "Drop-off rates fell by 30%. Internal production time was cut in half. The redesign became the foundation for the platform's ongoing development, which is the outcome that matters most. Not a one-off fix, but a better starting point.",
     "link": "https://drive.google.com/drive/folders/1Ria6BG5ML2PYXCr3Hx-n5H9PNIjra5Zf",
     "status": "View Full Case Study",
-    "tags": [
-      "UX Research",
-      "UI Design"
-    ],
+    "tags": ["UX Research & Design", "Interactive Design", "Financial Services"],
     "thumbnail": "projects/embracy-platform/assets/EmbracyPlatform_Thumb.png",
     "date": "FEB 2025"
   }

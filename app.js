@@ -438,223 +438,262 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape')     { closeLightbox(); }
         if (e.key === 'ArrowRight') { e.preventDefault(); openLightboxAt((lightboxIdx + 1) % vizTriggers.length); }
         if (e.key === 'ArrowLeft')  { e.preventDefault(); openLightboxAt((lightboxIdx - 1 + vizTriggers.length) % vizTriggers.length); }
-    // ── HERO WORD CYCLE ───────────────────────────────────────────────────
-    const heroCycleWord = document.getElementById('hero-cycle-word');
-    if (heroCycleWord) {
-        const heroWords = ['understood', 'designed', 'visualised', 'readable', 'navigated', 'decoded'];
-        let heroWordIdx = 0;
-        const cycleHeroWord = () => {
-            heroCycleWord.classList.add('hero-word-exit');
-            setTimeout(() => {
-                heroWordIdx = (heroWordIdx + 1) % heroWords.length;
-                heroCycleWord.textContent = heroWords[heroWordIdx];
-                heroCycleWord.classList.remove('hero-word-exit');
-                heroCycleWord.classList.add('hero-word-enter');
-                setTimeout(() => heroCycleWord.classList.remove('hero-word-enter'), 500);
-            }, 320);
+    });
+
+    // ── HERO ALTERNATING SLOT CYCLE (CSS Grid Version) ────────────────────
+    const cyclers = document.querySelectorAll('.hero-cycler');
+    if (cyclers.length === 2) {
+        const slot1Words = cyclers[0].querySelectorAll('.hero-emp-1');
+        const slot2Words = cyclers[1].querySelectorAll('.hero-emp-2');
+        
+        let s1Idx = 0;
+        let s2Idx = 0;
+        let toggleSlot = true;
+        
+        const cycleSlots = () => {
+            if (toggleSlot) {
+                const current = slot1Words[s1Idx];
+                s1Idx = (s1Idx + 1) % slot1Words.length;
+                const next = slot1Words[s1Idx];
+                
+                current.classList.remove('active');
+                current.classList.add('exit');
+                next.classList.remove('exit');
+                next.classList.add('active');
+            } else {
+                const current = slot2Words[s2Idx];
+                s2Idx = (s2Idx + 1) % slot2Words.length;
+                const next = slot2Words[s2Idx];
+                
+                current.classList.remove('active');
+                current.classList.add('exit');
+                next.classList.remove('exit');
+                next.classList.add('active');
+            }
+            toggleSlot = !toggleSlot;
         };
-        setInterval(cycleHeroWord, 2800);
+        
+        setInterval(cycleSlots, 2500);
     }
 
 });
 
-// ── 18. P5.JS THE MULTILINGUAL SEMANTIC LENS ──────────────────────────
-// A Pentagram-level generative typographic piece.
-// Spring physics snap chaotic multilingual noise into structured personal data.
-// Easter egg: hover to uncover Chatura Dissanayake's story in three scripts.
+// ── 18. VANILLA TYPOGRAPHIC SEMANTIC ENGINE ──────────────────────────
+// High-performance vanilla HTML5 Canvas implementation replacing p5.js overhead.
+// Manages precise spatial interactions, cross-device touch/mouse telemetry,
+// high-DPI pixel buffers, and localized multilingual typography systems.
 
-const sketch = (p) => {
+const initHeroCanvas = () => {
+    const container = document.getElementById('p5-hero-canvas');
+    if (!container) return;
+
+    container.innerHTML = '';
+    const canvas = document.createElement('canvas');
+    container.appendChild(canvas);
+    const ctx = canvas.getContext('2d', { alpha: true });
+
     let cells = [];
-    let cols, rows, scl;
-    let canvasWidth = window.innerWidth;
+    let cols = 0, rows = 0, scl = 34;
+    let width = window.innerWidth;
+    let height = window.innerHeight;
     let time = 0;
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Physics — high-tension springs for tactile "snap and settle"
     const STIFFNESS = 0.25;
-    const DAMPING   = 0.70;
+    const DAMPING = 0.70;
 
-    // ── Ambient noise character pools (all three scripts) ─────────────
-const sinhala = ['අ','ආ','ඇ','ඈ','ඉ','ඊ','උ','ඌ','එ','ඒ','ඔ','ඕ','ක','ග','ච','ජ','ට','ඩ','ත','ද','න','ප','බ','ම','ය','ර','ල','ව','ස','හ','ළ','ෆ'];
-const tamil   = ['அ','ஆ','இ','ஈ','உ','ஊ','எ','ஏ','ஐ','ஒ','ஓ','க','ச','ஞ','ட','ண','த','ந','ப','ம','ய','ர','ல','வ','ழ','ள','ற','ன'];
-    const latin   = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1'];
-    const allChars = [].concat(sinhala, tamil, latin);
-
-    // ── Easter egg vocabulary ─────────────────────────────────────────
-    // Rows cycle EN → SI → TA. Hovering the lens peels back the noise
-    // to reveal structured personal data about Chatura in three languages.
-    //
-    //  lang:'en'  →  professional pillars       (Policy Blue   #1A4480)
-    //  lang:'si'  →  Sinhala personal data      (Warm Amber    #BE8214)
-    //  lang:'ta'  →  Tamil personal data        (Deep Crimson  #A0284A)
-    //
-const vocabRows = [
-    { text: "C L A R I T Y          ", lang:'en', rR:26,  rG:68,  rB:128 },
-    { text: "ච  ත  ර               ", lang:'si', rR:190, rG:130, rB:20  },
-    { text: "ச  த  ர               ", lang:'ta', rR:160, rG:40,  rB:74  },
-    { text: "N A R R A T I V E      ", lang:'en', rR:26,  rG:68,  rB:128 },
-    { text: "ල  ක                   ", lang:'si', rR:190, rG:130, rB:20  },
-    { text: "இ  ல  க               ", lang:'ta', rR:160, rG:40,  rB:74  },
-    { text: "E V I D E N C E        ", lang:'en', rR:26,  rG:68,  rB:128 },
-    { text: "ද  ත                   ", lang:'si', rR:190, rG:130, rB:20  },
-    { text: "த  ர  வ               ", lang:'ta', rR:160, rG:40,  rB:74  },
-    { text: "S Y S T E M S          ", lang:'en', rR:26,  rG:68,  rB:128 },
-    { text: "ස  ත  ය               ", lang:'si', rR:190, rG:130, rB:20  },
-    { text: "உ  ண  ம               ", lang:'ta', rR:160, rG:40,  rB:74  },
-    { text: "I M P A C T            ", lang:'en', rR:26,  rG:68,  rB:128 },
-    { text: "ක  ථ                   ", lang:'si', rR:190, rG:130, rB:20  },
-    { text: "க  த                   ", lang:'ta', rR:160, rG:40,  rB:74  },
-    { text: "S T R U C T U R E      ", lang:'en', rR:26,  rG:68,  rB:128 },
-    { text: "ප  හ  ද  ල            ", lang:'si', rR:190, rG:130, rB:20  },
-    { text: "த  ள  வ               ", lang:'ta', rR:160, rG:40,  rB:74  },
-];
-
-    // Discovery hint — fades to 0 the moment non-English text is first revealed
+    let mX = -1000, mY = -1000;
+    let isInteracting = false;
     let hintOpacity = 40;
     let hasDiscoveredMultilingual = false;
 
-    p.setup = () => {
-        let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
-        canvas.parent('p5-hero-canvas');
-        p.textAlign(p.CENTER, p.CENTER);
-        // system-ui ensures correct Sinhala + Tamil glyph rendering
-        p.textFont("'Noto Sans Sinhala', 'Noto Sans Tamil', 'Inter', system-ui, sans-serif");
-        initGrid();
-    };
+    const sinhala = ['අ','ආ','ඇ','ඈ','ඉ','ඊ','උ','ඌ','එ','ඒ','ඔ','ඕ','ක','ග','ච','ජ','ට','ඩ','ත','ද','න','ප','බ','ම','ය','ර','ල','ව','ස','හ','ළ','ෆ'];
+    const tamil = ['அ','ஆ','இ','ஈ','உ','ஊ','எ','ஏ','ஐ','ஒ','ஓ','க','ச','ஞ','ட','ண','த','ந','ப','ம','ய','ர','ல','வ','ழ','ள','ற','ன'];
+    const latin = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1'];
+    const allChars = sinhala.concat(tamil, latin);
 
-    function initGrid() {
+    const vocabRows = [
+        { text: "C L A R I T Y   C L A R I T Y   C L A R I T Y   ", lang: 'en', rR: 56, rG: 189, rB: 248 },
+        { text: "ච ත ර   ච ත ර   ච ත ර   ච ත ර   ච ත ර   ච ත ර   ", lang: 'si', rR: 244, rG: 114, rB: 182 },
+        { text: "ச த ர   ச த ர   ச த ர   ச த ர   ச த ர   ச த ர   ", lang: 'ta', rR: 245, rG: 158, rB: 11 },
+        { text: "N A R R A T I V E   N A R R A T I V E           ", lang: 'en', rR: 56, rG: 189, rB: 248 },
+        { text: "ල ක   ල ක   ල ක   ල ක   ල ක   ල ක   ල ක   ල ක   ", lang: 'si', rR: 244, rG: 114, rB: 182 },
+        { text: "இ ล க   இ ล க   இ ล க   இ ล க   இ ล க   இ ล க   ", lang: 'ta', rR: 245, rG: 158, rB: 11 },
+        { text: "E V I D E N C E   E V I D E N C E               ", lang: 'en', rR: 56, rG: 189, rB: 248 },
+        { text: "ද ත   ද ත   ද ත   ද ත   ද ත   ද ත   ද ත   ද ත   ", lang: 'si', rR: 244, rG: 114, rB: 182 },
+        { text: "த ர வ   த ர வ   த ர வ   த ர வ   த ர வ   த ர வ   ", lang: 'ta', rR: 245, rG: 158, rB: 11 },
+        { text: "S Y S T E M S   S Y S T E M S   S Y S T E M S   ", lang: 'en', rR: 56, rG: 189, rB: 248 },
+        { text: "ස ත ය   ස ත ය   ස ත ය   ස ත ය   ස ත ය   ස ත ය   ", lang: 'si', rR: 244, rG: 114, rB: 182 },
+        { text: "உ ண ම   உ ண ම   உ ண ම   உ ண ම   உ ண ම   உ ண ම   ", lang: 'ta', rR: 245, rG: 158, rB: 11 },
+        { text: "I M P A C T   I M P A C T   I M P A C T         ", lang: 'en', rR: 56, rG: 189, rB: 248 },
+        { text: "ක ථ   ක ථ   ක ථ   ක ථ   ක ථ   ක ථ   ක ථ   ක ථ   ", lang: 'si', rR: 244, rG: 114, rB: 182 },
+        { text: "க த   க த   க த   க த   க த   க த   க த   க த   ", lang: 'ta', rR: 245, rG: 158, rB: 11 },
+        { text: "S T R U C T U R E   S T R U C T U R E           ", lang: 'en', rR: 56, rG: 189, rB: 248 },
+        { text: "ප හ ද ල   ප හ ද ල   ප හ ද ල   ප හ ද ල           ", lang: 'si', rR: 244, rG: 114, rB: 182 },
+        { text: "த ள வ   த ள வ   த ள வ   த ள வ   த ள வ   த ள வ   ", lang: 'ta', rR: 245, rG: 158, rB: 11 }
+    ];
+
+    const initGrid = () => {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        scl = width < 768 ? 26 : 34;
+        
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = width * dpr;
+        canvas.height = height * dpr;
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+
+        cols = Math.floor(width / scl) + 2;
+        rows = Math.floor(height / scl) + 2;
         cells = [];
-        scl = p.windowWidth < 768 ? 26 : 34;
-        cols = p.floor(p.width / scl) + 2;
-        rows = p.floor(p.height / scl) + 2;
 
         for (let y = 0; y < rows; y++) {
-            let row = vocabRows[y % vocabRows.length];
+            const row = vocabRows[y % vocabRows.length];
             for (let x = 0; x < cols; x++) {
-                let trueChar = row.text.charAt(x % row.text.length);
+                const trueChar = row.text.charAt(x % row.text.length);
                 cells.push({
-                    baseX: x * scl,   baseY: y * scl,
-                    trueChar,
+                    baseX: x * scl,
+                    baseY: y * scl,
+                    trueChar: trueChar,
                     lang: row.lang,
                     rR: row.rR, rG: row.rG, rB: row.rB,
-                    randomOffset: p.random(1000),
-                    curX: x * scl,    curY: y * scl,
+                    randomOffset: Math.random() * 1000,
+                    curX: x * scl,
+                    curY: y * scl,
                     vx: 0, vy: 0,
-                    curSize: 4,       vSize: 0,
+                    curSize: 4, vSize: 0,
                     curAlpha: 0,
-                    r: 120, g: 130,   b: 140
+                    r: 120, g: 130, b: 140
                 });
             }
         }
-    }
+    };
 
-    p.draw = () => {
-        p.clear();
-
-        let isTouch    = p.touches.length > 0;
-        let mX         = isTouch ? p.touches[0].x : p.mouseX;
-        let mY         = isTouch ? p.touches[0].y : p.mouseY;
-        let interacting = isTouch || (p.mouseX > 0 && p.mouseX < p.width && p.mouseY > 0 && p.mouseY < p.height);
-        let radius      = p.windowWidth < 768 ? 130 : 220;
+    const updateAndRender = () => {
+        ctx.clearRect(0, 0, width, height);
+        const radius = width < 768 ? 130 : 220;
 
         for (let i = 0; i < cells.length; i++) {
-            let c = cells[i];
+            const c = cells[i];
 
-            // ── A. Ambient: chaotic multilingual noise ────────────────
-            let noiseVal = p.noise(c.baseX * 0.004 + time, c.baseY * 0.004);
-            let driftX   = reducedMotion ? 0 : p.map(noiseVal, 0, 1, -scl * 1.5, scl * 1.5);
-            let driftY   = reducedMotion ? 0 : p.map(p.noise(c.baseX * 0.004, c.baseY * 0.004 + time), 0, 1, -scl * 1.5, scl * 1.5);
+            const nwX = (c.baseX * 0.004) + time;
+            const nwY = (c.baseY * 0.004) + time;
+            const noiseVal1 = (Math.sin(nwX * 2.0) + Math.cos(nwY * 1.5) + Math.sin(time * 0.5)) / 3.0 + 0.5;
+            const noiseVal2 = (Math.cos(nwX * 1.2) + Math.sin(nwY * 2.2) + Math.cos(time * 0.7)) / 3.0 + 0.5;
 
-            let targetX     = c.baseX + driftX;
-            let targetY     = c.baseY + driftY;
-            let targetSize  = scl * 0.35;
-            let targetAlpha = 25;
-            let displayChar = allChars[p.floor(p.noise(c.randomOffset + time * 2) * allChars.length)];
-            let cR = 140, cG = 150, cB = 160;
+            const driftX = reducedMotion ? 0 : (noiseVal1 - 0.5) * scl * 3.0;
+            const driftY = reducedMotion ? 0 : (noiseVal2 - 0.5) * scl * 3.0;
 
-            // ── B. Lens: reveal structured personal data ──────────────
-            if (interacting) {
-                let d = p.dist(c.baseX, c.baseY, mX, mY);
+            let targetX = c.baseX + driftX;
+            let targetY = c.baseY + driftY;
+            let targetSize = scl * 0.35;
+            let targetAlpha = 85;
+
+            const charIdx = Math.floor(((Math.sin(c.randomOffset + time * 2.0) + 1.0) * 0.5) * allChars.length);
+            let displayChar = allChars[charIdx % allChars.length];
+            let cR = 74, cG = 85, cB = 104;
+
+            if (isInteracting) {
+                const dx = c.baseX - mX;
+                const dy = c.baseY - mY;
+                const d = Math.sqrt(dx * dx + dy * dy);
+
                 if (d < radius) {
-                    let intensity = p.pow(p.map(d, 0, radius, 1, 0), 1.5);
+                    const intensity = Math.pow(Math.max(0, 1 - (d / radius)), 1.5);
 
-                    targetX = p.lerp(targetX, c.baseX, intensity);
-                    targetY = p.lerp(targetY, c.baseY, intensity);
+                    targetX = targetX + (c.baseX - targetX) * intensity;
+                    targetY = targetY + (c.baseY - targetY) * intensity;
 
                     if (c.trueChar !== ' ') {
-                        displayChar  = c.trueChar;
-                        targetSize   = p.lerp(targetSize, scl * 0.75, intensity);
-                        targetAlpha  = p.lerp(targetAlpha, 255, intensity);
+                        displayChar = c.trueChar;
+                        targetSize = targetSize + (scl * 0.75 - targetSize) * intensity;
+                        targetAlpha = targetAlpha + (255 - targetAlpha) * intensity;
 
-                        // Language-aware reveal colour
-                        cR = p.lerp(cR, c.rR, intensity);
-                        cG = p.lerp(cG, c.rG, intensity);
-                        cB = p.lerp(cB, c.rB, intensity);
+                        cR = cR + (c.rR - cR) * intensity;
+                        cG = cG + (c.rG - cG) * intensity;
+                        cB = cB + (c.rB - cB) * intensity;
 
-                        // Trigger hint fade the first time a non-English row is uncovered
                         if (c.lang !== 'en' && !hasDiscoveredMultilingual && intensity > 0.5) {
                             hasDiscoveredMultilingual = true;
                         }
                     } else {
-                        // Spaces carve clean negative space around the revealed word
-                        targetSize  = p.lerp(targetSize, 0, intensity);
-                        targetAlpha = p.lerp(targetAlpha, 0, intensity);
+                        targetSize = targetSize + (0 - targetSize) * intensity;
+                        targetAlpha = targetAlpha + (0 - targetAlpha) * intensity;
                     }
                 }
             }
 
-            // ── C. Spring physics ─────────────────────────────────────
-            let forceX = (targetX - c.curX) * STIFFNESS;
-            c.vx += forceX; c.vx *= DAMPING; c.curX += c.vx;
+            const forceX = (targetX - c.curX) * STIFFNESS;
+            c.vx = (c.vx + forceX) * DAMPING;
+            c.curX += c.vx;
 
-            let forceY = (targetY - c.curY) * STIFFNESS;
-            c.vy += forceY; c.vy *= DAMPING; c.curY += c.vy;
+            const forceY = (targetY - c.curY) * STIFFNESS;
+            c.vy = (c.vy + forceY) * DAMPING;
+            c.curY += c.vy;
 
-            let forceSize = (targetSize - c.curSize) * STIFFNESS;
-            c.vSize += forceSize; c.vSize *= DAMPING; c.curSize += c.vSize;
+            const forceSize = (targetSize - c.curSize) * STIFFNESS;
+            c.vSize = (c.vSize + forceSize) * DAMPING;
+            c.curSize += c.vSize;
 
-            // Colour + alpha lerp (smooth enough without springs)
-            c.curAlpha = p.lerp(c.curAlpha, targetAlpha, 0.2);
-            c.r = p.lerp(c.r, cR, 0.2);
-            c.g = p.lerp(c.g, cG, 0.2);
-            c.b = p.lerp(c.b, cB, 0.2);
+            c.curAlpha += (targetAlpha - c.curAlpha) * 0.2;
+            c.r += (cR - c.r) * 0.2;
+            c.g += (cG - c.g) * 0.2;
+            c.b += (cB - c.b) * 0.2;
 
-            // ── D. Render ─────────────────────────────────────────────
             if (c.curSize > 0.5 && c.curAlpha > 1) {
-                p.fill(c.r, c.g, c.b, c.curAlpha);
-                p.textSize(Math.max(0.1, c.curSize));
-                p.text(displayChar, c.curX, c.curY);
+                ctx.fillStyle = `rgba(${Math.floor(c.r)}, ${Math.floor(c.g)}, ${Math.floor(c.b)}, ${c.curAlpha / 255})`;
+                ctx.font = `${Math.max(0.1, c.curSize)}px 'Noto Sans Sinhala', 'Noto Sans Tamil', 'Inter', system-ui, sans-serif`;
+                ctx.fillText(displayChar, c.curX, c.curY);
             }
         }
 
-        // ── E. Discovery hint (ස · த · A) ────────────────────────────
-        // Quietly invites exploration; disappears once multilingual text is found.
         if (hintOpacity > 0.5) {
-            if (hasDiscoveredMultilingual) {
-                hintOpacity = p.lerp(hintOpacity, 0, 0.04);
-            }
-            p.push();
-            p.textSize(10);
-            p.textAlign(p.RIGHT, p.BOTTOM);
-            p.fill(120, 130, 140, hintOpacity);
-            p.noStroke();
-            p.text('ස · த · A — Hover to explore', p.width - 18, p.height - 18);
-            p.pop();
+            if (hasDiscoveredMultilingual) hintOpacity += (0 - hintOpacity) * 0.04;
+            ctx.fillStyle = `rgba(120, 130, 140, ${hintOpacity / 100})`;
+            ctx.font = "10px 'Inter', system-ui, sans-serif";
+            ctx.textAlign = 'right';
+            ctx.fillText('ස · த · A — Hover to explore', width - 18, height - 18);
         }
 
         time += reducedMotion ? 0 : 0.003;
+        requestAnimationFrame(updateAndRender);
     };
 
-    p.windowResized = () => {
-        if (p.abs(p.windowWidth - canvasWidth) > 50) {
-            p.resizeCanvas(p.windowWidth, p.windowHeight);
-            canvasWidth = p.windowWidth;
-            initGrid();
-        }
+    const trackInteraction = (clientX, clientY) => {
+        const rect = canvas.getBoundingClientRect();
+        mX = clientX - rect.left;
+        mY = clientY - rect.top;
+        isInteracting = true;
     };
+
+    window.addEventListener('mousemove', (e) => trackInteraction(e.clientX, e.clientY), { passive: true });
+    window.addEventListener('mouseleave', () => isInteracting = false, { passive: true });
+    
+    window.addEventListener('touchstart', (e) => {
+        if (e.touches.length > 0) trackInteraction(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+    
+    window.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) trackInteraction(e.touches[0].clientX, e.touches[0].clientY);
+    }, { passive: true });
+    
+    window.addEventListener('touchend', () => isInteracting = false, { passive: true });
+
+    let resizeDebounce;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeDebounce);
+        resizeDebounce = setTimeout(() => {
+            if (Math.abs(window.innerWidth - width) > 50) initGrid();
+        }, 150);
+    }, { passive: true });
+
+    initGrid();
+    requestAnimationFrame(updateAndRender);
 };
 
-if (document.getElementById('p5-hero-canvas')) {
-    new p5(sketch);
-}
-});
+initHeroCanvas();

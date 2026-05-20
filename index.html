@@ -20,7 +20,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&family=Noto+Sans+Sinhala:wght@400&family=Noto+Sans+Tamil:wght@400&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js" defer></script>
+    
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@0.292.0" defer></script>
     
@@ -85,28 +85,53 @@
 
 <main id="main-content">
 
-<section class="hero-section text-center" id="hero">
-    <div id="p5-hero-canvas" class="interactive-data-bg" aria-hidden="true"></div>
-    <div class="container-narrow hero-container-centered">
+<section class="hero-section" id="hero">
+    <div class="hero-directional-gradient" aria-hidden="true"></div>
+    
+    <div class="hero-container">
         <div class="hero-content">
+            
             <div class="hero-label reveal-up" style="--d:0ms">
                 Communications &amp; Data Visualisation
             </div>
-            <h1 class="hero-title-massive">
-                <span class="hero-line reveal-up" style="--d:60ms">I make</span><br>
-                <span class="hero-line reveal-up" style="--d:160ms">complex information</span><br>
-                <em class="hero-line reveal-up" style="--d:260ms" id="hero-cycle-word">understood.</em>
-            </h1>
-            <p class="hero-body-centered reveal-up" style="--d:360ms">
-                I help organisations connect with the people who need their work, through data visualisation, reports, and communication design.
-            </p>
-            <div class="hero-cta-group reveal-up" style="--d:440ms">
+            
+            <div class="hero-text-wrapper">
+                <h1 class="hero-title-massive">
+                    <span class="hero-line reveal-up" style="--d:60ms;">
+                        <span>I design&nbsp;</span>
+                        <span class="hero-cycler">
+                            <strong class="hero-emp-1 active">visual systems</strong>
+                            <strong class="hero-emp-1">brand identities</strong>
+                            <strong class="hero-emp-1">data narratives</strong>
+                            <strong class="hero-emp-1">digital experiences</strong>
+                            <strong class="hero-emp-1">editorial layouts</strong>
+                        </span>
+                    </span>
+                    <span class="hero-line reveal-up" style="--d:140ms;">
+                        <span>that make your work&nbsp;</span>
+                        <span class="hero-cycler">
+                            <em class="hero-emp-2 active">understood.</em>
+                            <em class="hero-emp-2">unforgettable.</em>
+                            <em class="hero-emp-2">impossible to ignore.</em>
+                            <em class="hero-emp-2">truly connect.</em>
+                            <em class="hero-emp-2">drive action.</em>
+                        </span>
+                    </span>
+                </h1>
+            </div>
+            
+            <div class="hero-cta-group reveal-up" style="--d:300ms">
                 <a href="#contact" class="btn-primary">Start a conversation</a>
-                <a href="#projects" class="scroll-link-custom" aria-label="Explore Case Studies" style="margin-top: 1rem;">
+                
+                <a href="#projects" class="scroll-link-custom" aria-label="Explore Case Studies">
                     <span class="scroll-text">Explore Case Studies</span>
-                    <i data-lucide="chevron-down" aria-hidden="true" style="width:24px;height:24px;margin-top:8px;color:var(--ink-muted);"></i>
+                    <div class="scroll-indicator-complex">
+                        <div class="scroll-line"></div>
+                        <div class="scroll-dot"></div>
+                    </div>
                 </a>
             </div>
+
         </div>
     </div>
 </section>
@@ -122,7 +147,7 @@
                 <div class="filter-group-wrapper">
                     <div class="filter-group" role="group" aria-label="Filter projects">
                         <button type="button" class="filter-pill active" data-filter="all">All Work</button>
-                        <button type="button" class="filter-pill" data-filter="client">Client</button>
+                        <button type="button" class="filter-pill" data-filter="Brand Identity">Brand Identity</button>
                         <button type="button" class="filter-pill" data-filter="personal">Personal</button>
                         <button type="button" class="filter-pill" data-filter="visual">Visual</button>
                         <button type="button" class="filter-pill" data-filter="data-story">Data Stories</button>
@@ -145,7 +170,7 @@
                 <p class="section-eyebrow">About</p>
                 <h2 class="section-title">A bit<br>about me</h2>
                 <div class="about-image-frame">
-                    <img src="assets/Chatura.webp" alt="Chatura Dissanayake" loading="lazy">
+                    <img src="assets/Chatura.png" alt="Chatura Dissanayake" loading="lazy">
                 </div>
             </div>
             <div class="about-right">
@@ -494,7 +519,7 @@
                 <p class="section-eyebrow">Get In Touch</p>
                 <h2 class="contact-headline">You don't need<br>a perfect brief.</h2>
                 <p class="contact-body">If you're working through a data challenge, an upcoming report, or just want to think out loud about how your organisation communicates, I'm open to that conversation. The best projects I've worked on started with a vague problem, not a finished spec.</p>
-                <p class="contact-body" style="font-weight: 500; color: var(--ink);"><em>Note: I am currently booking new projects starting from July 2026. Let's start the conversation now.</em></p>
+                <p class="contact-body" style="font-weight: 500; color: var(--ink);">Note: I am currently booking new projects starting from July 2026. Let's start the conversation now.</p>
                 <a href="mailto:consultchatura@gmail.com" class="contact-email">
                     <i data-lucide="mail" aria-hidden="true"></i>
                     <span>consultchatura@gmail.com</span>

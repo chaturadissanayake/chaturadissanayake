@@ -263,101 +263,157 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 }
 .extended-work.show ~ .show-more-row .btn-icon-wrap { transform: rotate(180deg); }
 
-/* ─── HERO ──────────────────────────────────────────────────────────── */
+/* ─── HERO ARCHITECTURE & LAYOUT ────────────────────────────────────── */
+
 .hero-section {
-    min-height: 100dvh; display: flex; align-items: center; justify-content: center;
-    background: var(--surface); padding-top: 80px; position: relative; overflow: hidden;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    padding-top: var(--nav-h, 80px);
+    overflow: hidden;
 }
 
-/* Interactive P5 Data Background */
+/* ─── HERO BACKGROUND ELEMENTS ─────────────────────────────────────── */
+.hero-directional-gradient {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background: linear-gradient(135deg, var(--surface) 0%, #e6eef4 50%, var(--surface) 100%);
+    background-size: 200% 200%;
+    animation: slowGradient 25s ease-in-out infinite;
+}
+
+@keyframes slowGradient {
+    0%   { background-position: 0% 0%; }
+    50%  { background-position: 100% 100%; }
+    100% { background-position: 0% 0%; }
+}
+
 .interactive-data-bg {
-    position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
-    background: linear-gradient(135deg, var(--surface) 0%, #e8edf3 100%);
+    position: absolute; 
+    inset: 0; 
+    z-index: 0; 
+    pointer-events: none;
+    overflow: hidden;
 }
-/* Re-enable pointer events on the canvas itself so hover/touch lens works,
-   but allow passive scroll to bubble through on mobile */
+
 .interactive-data-bg canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
     pointer-events: auto;
-    touch-action: pan-y; /* lets vertical scroll pass through to the page */
+    touch-action: pan-y; 
+    opacity: 0; 
+    animation: canvasFadeIn 1s ease-out 0.2s forwards; 
 }
-.interactive-data-bg canvas {
-    display: block; opacity: 0; animation: canvasFadeIn 2s ease-out 1.5s forwards;
-}
+
 @keyframes canvasFadeIn {
     to { opacity: 1; }
 }
-/* Ensure the text and buttons sit cleanly above the canvas */
-.hero-container-centered { pointer-events: none; }
-.hero-container-centered a, .hero-container-centered button { pointer-events: auto; }
 
-@keyframes float {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(100px, 50px) scale(1.1); }
+/* ─── FOREGROUND CONTENT STRUCTURE ─────────────────────────────────── */
+.hero-container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: var(--max-w);
+    padding: 0 var(--space-8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none; /* Let clicks pass through to canvas */
 }
 
-.hero-container-centered {
-    display: flex; flex-direction: column; align-items: center; text-align: center;
-    padding-top: var(--space-12); padding-bottom: var(--space-12); width: 100%; position: relative; z-index: 1;
+/* Enable clicks explicitly on interactive elements */
+.hero-container a, .hero-container button {
+    pointer-events: auto;
 }
-.hero-content { display: flex; flex-direction: column; align-items: center; width: 100%; }
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the label and CTA group */
+    width: 100%;
+}
+
 .hero-label {
-    font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-6);
-}
-.hero-title-massive {
-    font-family: var(--serif); font-size: clamp(3.5rem, 8.5vw, 7rem);
-    font-weight: 400; line-height: 1.03; letter-spacing: -0.035em;
-    color: var(--ink); margin-bottom: var(--space-6);
-}
-.hero-title-massive em { 
-    font-style: italic; 
+    font-family: var(--mono); 
+    font-size: 0.6875rem; 
+    letter-spacing: 0.14em;
+    text-transform: uppercase; 
     color: var(--accent); 
-    letter-spacing: -0.01em; 
-    padding-right: 0.05em; 
-}
-.hero-body-centered {
-    font-size: 1.1rem; line-height: 1.65; color: var(--ink-soft);
-    max-width: 560px; margin-bottom: var(--space-2); font-weight: 300;
-}
-.hero-tagline {
-    font-family: var(--serif); font-style: italic;
-    font-size: 1.125rem; color: var(--ink-muted);
-    margin-bottom: var(--space-8) !important;
-}
-.hero-line { display: inline-block; }
-.hero-belief {
-    font-family: var(--serif); font-style: italic;
-    font-size: 1.0625rem; color: var(--ink-muted);
-    max-width: 440px; line-height: 1.65;
-    margin-top: var(--space-4); margin-bottom: var(--space-2);
-}
-.hero-cta-group {
-    display: flex; flex-direction: column; align-items: center;
-    gap: var(--space-6); margin-top: var(--space-6); margin-bottom: clamp(2rem, 6vh, 4rem);
+    margin-bottom: var(--space-6);
+    text-align: center;
 }
 
-.minimal-scroll-action {
-    margin-top: var(--space-4); margin-bottom: var(--space-12);
-    display: flex; justify-content: center;
+/* ─── HERO TEXT ARCHITECTURE (Jitter-Free) ─────────────────────────── */
+.hero-text-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: fit-content;
+    margin: 0 auto var(--space-8);
 }
+
+.hero-title-massive {
+    font-family: var(--serif); 
+    font-size: clamp(2rem, 5.5vw, 4.5rem);
+    font-weight: 400; 
+    line-height: 1.15; 
+    letter-spacing: -0.02em;
+    color: var(--ink); 
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.hero-line { 
+    display: flex;
+    align-items: baseline;
+    flex-wrap: nowrap;
+}
+
+.hero-cycler {
+    display: inline-grid;
+    align-items: baseline;
+    justify-items: start;
+}
+
+/* ─── CALL TO ACTION GROUP ─────────────────────────────────────────── */
+.hero-cta-group {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    gap: var(--space-8); 
+    margin-top: var(--space-2);
+}
+
 .scroll-link-custom {
     display: flex; flex-direction: column; align-items: center; gap: var(--space-3);
     text-decoration: none; outline: none;
 }
+
 .scroll-text {
     font-size: 0.625rem; font-weight: 600; letter-spacing: 0.18em;
     text-transform: uppercase; font-family: var(--mono); color: var(--ink-muted);
     transition: color var(--dur-fast);
 }
+
 .scroll-indicator-complex {
     position: relative; width: 1px; height: 50px;
     display: flex; justify-content: center;
 }
+
 .scroll-line {
     position: absolute; top: 0; left: 0; width: 1px; height: 100%;
     background: linear-gradient(to bottom, rgba(26,68,128,0.4), transparent);
     transition: background 0.3s ease;
 }
+
 .scroll-dot {
     position: absolute; top: 0; left: -2px; width: 5px; height: 5px;
     background-color: var(--accent); border-radius: 50%;
@@ -374,36 +430,72 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 .scroll-link-custom:hover .scroll-text { color: var(--ink); }
 .scroll-link-custom:hover .scroll-line { background: var(--accent); }
 
-.hero-stats-centered {
-    display: flex; align-items: center; justify-content: center;
-    gap: var(--space-10); flex-wrap: wrap;
-}
-.stat { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.stat-num {
-    font-family: var(--serif); font-size: 2.25rem; font-weight: 400;
-    color: var(--ink); line-height: 1;
-}
-.stat-label {
-    font-size: 0.6875rem; font-family: var(--mono); text-transform: uppercase;
-    letter-spacing: 0.09em; color: var(--ink-muted); margin-top: var(--space-2);
-}
-.stat-divider { width: 1px; height: 44px; background: var(--surface-3); }
-
-/* ─── HERO WORD CYCLE ───────────────────────────────────────────────── */
-#hero-cycle-word {
-    display: inline-block;
-    transition: opacity 0.32s ease, transform 0.32s var(--ease-out);
-}
-#hero-cycle-word.hero-word-exit {
+/* ─── HERO DUAL EMPHASIS & ANIMATION PHYSICS ───────────────────────── */
+.hero-emp-1, .hero-emp-2 {
+    grid-area: 1 / 1;
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(12px);
+    transition: opacity 0.5s ease, transform 0.5s var(--ease-out);
+    pointer-events: none;
 }
-@keyframes heroWordEnter {
-    from { opacity: 0; transform: translateY(-14px); }
-    to   { opacity: 1; transform: translateY(0); }
+
+.hero-emp-1.active, .hero-emp-2.active {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
-#hero-cycle-word.hero-word-enter {
-    animation: heroWordEnter 0.48s var(--ease-out) forwards;
+
+.hero-emp-1.exit, .hero-emp-2.exit {
+    opacity: 0;
+    transform: translateY(-12px);
+}
+
+.hero-emp-1 {
+    color: var(--accent-warm);
+    font-weight: 500;
+    font-style: normal;
+    letter-spacing: -0.01em;
+}
+
+.hero-emp-2 {
+    background: linear-gradient(135deg, #e11d48, #ea580c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: italic;
+    font-weight: 400;
+    padding-right: 0.1em;
+}
+
+/* ─── MOBILE RESPONSIVE ALIGNMENT ──────────────────────────────────── */
+@media (max-width: 768px) {
+    .hero-content {
+        align-items: flex-start;
+    }
+    
+    .hero-label {
+        text-align: left;
+    }
+    
+    .hero-text-wrapper {
+        max-width: 100%;
+        margin: 0 0 var(--space-8) 0;
+        width: 100%;
+    }
+    
+    .hero-title-massive {
+        font-size: clamp(2.2rem, 8vw, 3rem);
+    }
+    
+    .hero-line {
+        display: inline;
+        white-space: normal;
+    }
+    
+    .hero-cta-group {
+        width: 100%;
+        align-items: flex-start;
+    }
 }
 
 /* ─── PROJECTS ──────────────────────────────────────────────────────── */
@@ -1327,7 +1419,7 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 /* Mid-tablet (860px) — nav collapses, major layout shifts */
 @media (max-width: 860px) {
     :root { --space-24: 4.5rem; --space-20: 3.5rem; }
-    .hero-title-massive { font-size: clamp(3rem, 10vw, 4.75rem); }
+    .hero-title-massive { font-size: clamp(2.25rem, 8vw, 4.75rem); }
     .desktop-nav, .nav-cta { display: none; }
     .hamburger-btn { display: flex; }
 
@@ -1468,7 +1560,7 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 /* Very small phones (480px) */
 @media (max-width: 480px) {
     .hero-actions-centered { flex-direction: column; align-items: stretch; width: 100%; }
-    .hero-title-massive { font-size: clamp(2.5rem, 10vw, 3.5rem); line-height: 1.05; }
+    .hero-title-massive { font-size: clamp(1.85rem, 8vw, 2.5rem); line-height: 1.05; }
     .nav-inner { padding: var(--space-3) var(--space-4); }
     .hero-belief { font-size: 0.9375rem; }
     .hero-belief br { display: none; }
