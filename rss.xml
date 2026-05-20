@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+    <title>Chatura Dissanayake | Insights</title>
+    <link>https://chaturadissanayake.github.io/</link>
+    <description>Process notes and decisions behind information design, data storytelling, and policy reports.</description>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 17 May 2026 12:00:00 GMT</lastBuildDate>
+    <atom:link href="https://chaturadissanayake.github.io/rss.xml" rel="self" type="application/rss+xml" />
+
+    <item>
+        <title>I Built a Data Story About Cyclone Ditwah. Here's Every Decision I Made and Why.</title>
+        <link>https://consultchatura.medium.com/i-built-a-data-story-about-cyclone-ditwah-heres-every-decision-i-made-and-why-c9c19c89398f</link>
+        <guid isPermaLink="true">https://consultchatura.medium.com/i-built-a-data-story-about-cyclone-ditwah-heres-every-decision-i-made-and-why-c9c19c89398f</guid>
+        <description>Behind the making of "How a Single Storm Broke Sri Lanka" - six iterations of a teardrop, a hero image that changed twice, and why restraint at the end is a design choice.</description>
+        <pubDate>Mon, 16 Mar 2026 09:00:00 GMT</pubDate>
+    </item>
+
+</channel>
+</rss>

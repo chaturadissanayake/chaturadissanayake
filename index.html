@@ -95,7 +95,7 @@
             <h1 class="hero-title-massive">
                 <span class="hero-line reveal-up" style="--d:60ms">I make</span><br>
                 <span class="hero-line reveal-up" style="--d:160ms">complex information</span><br>
-                <em class="hero-line reveal-up" style="--d:260ms">understood.</em>
+                <em class="hero-line reveal-up" style="--d:260ms" id="hero-cycle-word">understood.</em>
             </h1>
             <p class="hero-body-centered reveal-up" style="--d:360ms">
                 I help organisations connect with the people who need their work, through data visualisation, reports, and communication design.
@@ -121,9 +121,11 @@
             <div class="projects-controls-right" style="width: 100%;">
                 <div class="filter-group-wrapper">
                     <div class="filter-group" role="group" aria-label="Filter projects">
-                        <button type="button" class="filter-pill active" data-filter="all">All</button>
+                        <button type="button" class="filter-pill active" data-filter="all">All Work</button>
+                        <button type="button" class="filter-pill" data-filter="client">Client</button>
+                        <button type="button" class="filter-pill" data-filter="personal">Personal</button>
+                        <button type="button" class="filter-pill" data-filter="visual">Visual</button>
                         <button type="button" class="filter-pill" data-filter="data-story">Data Stories</button>
-                        <button type="button" class="filter-pill" data-filter="visual">Visual Reports</button>
                         <button type="button" class="filter-pill" data-filter="interactive">Interactive</button>
                     </div>
                 </div>
@@ -131,170 +133,7 @@
         </div>
 
         <div class="projects-wrapper grid-mode" id="projects-container">
-
-            <article class="project-card project-trigger" data-category="data-story personal"
-                data-title="Ditwah Cyclone 2025: Disaster Narrative"
-                data-challenge="When Cyclone Ditwah hit, the early official figures were drastically wrong. Reporting put the affected population at under a million. The real number was closer to 2.3 million. I wanted to make that gap impossible to ignore, not through opinion, but through the data itself."
-                data-role="I went straight to the source: UN OCHA, UNICEF, and the World Bank. No secondary reporting, no press releases. The design had to match the weight of what the numbers were saying, so I kept it stripped back. Stark type, minimal interaction, and one central visualisation that didn't let you look away."
-                data-outcome="The piece corrected the public record and held. 2.3 million people affected, triple the official estimate. It's become one of those references that gets cited when people need a credible source for the scale of what happened."
-                data-link="https://chaturadissanayake.github.io/cycloneditwah/" data-status="View Full Story" data-tags="Data Story,Crisis Communication">
-                <div class="card-inner">
-                    <div class="card-image">
-                        <img src="Assets/Project_1_Image.png" alt="Ditwah Cyclone 2025: Disaster Narrative" loading="lazy">
-                        <div class="card-overlay">
-                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-meta">
-                            <span class="card-cat">Crisis Communication</span>
-                            <span class="card-date">MAR 2026</span>
-                        </div>
-                        <div class="card-title-wrap">
-                            <h3 class="card-title">Ditwah Cyclone 2025: Disaster Narrative</h3>
-                            <p class="card-desc">The official figures were wrong. This data story put the real number on record: 2.3 million people affected, triple the early estimates.</p>
-                        </div>
-                        <div class="card-tags"><span>Data Story</span><span>Crisis Comms</span></div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project-card project-trigger" data-category="visual client"
-                data-title="UN Sri Lanka 2024 Annual Results"
-                data-challenge="Eight UN agencies were each producing their own numbers for Sri Lanka. None of it was talking to each other. Donors, policymakers, and the public were seeing fragments, not the full picture of what the UN was actually doing in the country."
-                data-role="I came in to pull it together. That meant building a visual system that could hold data from eight different organisations without losing coherence, and writing it in a way that made sense to someone who wasn't already immersed in the work. I stayed close to UN brand standards while making the layouts actually readable."
-                data-outcome="The report became the official national UN synthesis for 2024. Over 4,000 stakeholders received it, including the Prime Minister. More than the distribution, what mattered was that people could actually use it; it gave the UN a single, honest account of its work in Sri Lanka."
-                data-link="https://srilanka.un.org/en/293540-un-sri-lanka-2024-annual-results-report" data-status="View Full Report" data-tags="UN Reporting,Info Design">
-                <div class="card-inner">
-                    <div class="card-image">
-                        <img src="Assets/Project_2_Image.png" alt="UN Sri Lanka 2024 Annual Results" loading="lazy">
-                        <div class="card-overlay">
-                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-meta">
-                            <span class="card-cat">Institutional Reporting</span>
-                            <span class="card-date">APR 2025</span>
-                        </div>
-                        <div class="card-title-wrap">
-                            <h3 class="card-title">UN Sri Lanka 2024 Annual Results</h3>
-                            <p class="card-desc">Eight agencies, one coherent story. I brought the UN's scattered impact data together into a national report that 4,000+ stakeholders could actually read and use.</p>
-                        </div>
-                        <div class="card-tags"><span>UN Reporting</span><span>Info Design</span></div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project-card project-trigger" data-category="visual client"
-                data-title="UN Sri Lanka SDG Fund 2024 Results"
-                data-challenge="The SDG Fund runs across multiple programmes, each with its own goals, metrics, and language. The challenge was presenting all of that to donors and government partners in a way that felt like one conversation, not a catalogue."
-                data-role="I designed the full information architecture and visual system, from how the programmes were structured to how the data was shown on each page. The aim was to make SDG indicators feel real to someone who didn't spend their days working with them."
-                data-outcome="The publication gave the SDG Fund a way to bring its outcomes to life for people who hold the decision-making power. That relationship between the data and the people reading it: that's what the design was built around."
-                data-link="https://srilanka.un.org" data-status="Report in Final Review" data-tags="SDG Reporting,Data Vis">
-                <div class="card-inner">
-                    <div class="card-image">
-                        <img src="Assets/Project_3_Image.png" alt="UN Sri Lanka SDG Fund 2024 Results" loading="lazy">
-                        <div class="card-overlay">
-                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-meta">
-                            <span class="card-cat">SDG Reporting</span>
-                            <span class="card-date">MAY 2025</span>
-                        </div>
-                        <div class="card-title-wrap">
-                            <h3 class="card-title">UN Sri Lanka SDG Fund 2024 Results</h3>
-                            <p class="card-desc">Making SDG programme results legible to the people who fund and decide on them: a visual report built around the relationship between data and its audience.</p>
-                        </div>
-                        <div class="card-tags"><span>SDG Reporting</span><span>Data Vis</span></div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project-card project-trigger" data-category="data-story personal"
-                data-title="The Shadow War: Drug Crisis"
-                data-challenge="Sri Lanka's drug policy debate was being drowned in jargon, politics, and statistics that nobody outside the sector could parse. I wanted to make it accessible to someone who had no background in policy, because those people's opinions matter too."
-                data-role="I built the whole thing from scratch: the narrative structure, the visual language, the data pipeline, and the final scrollytelling experience. Every design decision came back to one question: will someone who knows nothing about this still be able to follow it?"
-                data-outcome="A digital environment that lets people walk through the data themselves and reach their own conclusions. Not a lecture, an experience. One that treats the audience as capable of handling the complexity, just on their own terms."
-                data-link="https://chaturadissanayake.github.io/sri-lanka-drug-crisis-website/" data-status="View Full Case Study" data-tags="Scrollytelling,Public Health">
-                <div class="card-inner">
-                    <div class="card-image">
-                        <img src="Assets/Project_4_Image.png" alt="The Shadow War: Drug Crisis" loading="lazy">
-                        <div class="card-overlay">
-                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-meta">
-                            <span class="card-cat">Interactive Design</span>
-                            <span class="card-date">OCT 2025</span>
-                        </div>
-                        <div class="card-title-wrap">
-                            <h3 class="card-title">The Shadow War: Drug Crisis</h3>
-                            <p class="card-desc">Sri Lanka's drug policy data, made navigable for people who don't work in policy. A scrollytelling experience built from scratch, for a general audience.</p>
-                        </div>
-                        <div class="card-tags"><span>Scrollytelling</span><span>Public Health</span></div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project-card project-trigger" data-category="interactive personal"
-                data-title="Voter Education Web Game"
-                data-challenge="Civic education about elections almost always fails the people who need it most: young voters, first-timers, anyone who finds the official materials dry or confusing. A pamphlet telling people how democracy works isn't enough. People learn by doing."
-                data-role="I'm building a browser-based game that teaches voters how elections actually work: the logic of constituency systems, how to evaluate candidates, what democratic choice looks like in practice. Scenario-based, accessible, and built with AI-assisted development."
-                data-outcome="Still in active development. The aim is to distribute it through schools and civil society organisations, putting it where people already are, rather than expecting them to come looking."
-                data-link="#" data-status="Active Development" data-tags="Civic Tech,Interactive Design">
-                <div class="card-inner">
-                    <div class="card-image">
-                        <img src="Assets/Project_9_Image.png" alt="Voter Education Web Game" loading="lazy">
-                        <div class="card-overlay">
-                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-meta">
-                            <span class="card-cat">Civic Technology</span>
-                            <span class="card-date">ACTIVE</span>
-                        </div>
-                        <div class="card-title-wrap">
-                            <h3 class="card-title">Voter Education Web Game</h3>
-                            <p class="card-desc">A browser-based game that teaches first-time voters how elections actually work, because a pamphlet isn't enough.</p>
-                        </div>
-                        <div class="card-tags"><span>Civic Tech</span><span>Interactive Design</span></div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project-card project-trigger" data-category="interactive client"
-                data-title="Embracy Financial Management Platform"
-                data-challenge="Financial tools tend to promise simplicity and deliver the opposite. The real problem wasn't the features; it was that users kept leaving before they saw value. I was brought in to find where the relationship between user and product was breaking down."
-                data-role="I started with research: user interviews, journey mapping, looking at where people were dropping off and why. From there I built high-fidelity wireframes and a redesigned onboarding flow focused on one thing: getting people to their first useful moment faster."
-                data-outcome="Drop-off rates fell by 30%. Internal production time was cut in half. The redesign became the foundation for the platform's ongoing development, which is the outcome that matters most. Not a one-off fix, but a better starting point."
-                data-link="https://drive.google.com/drive/folders/1Ria6BG5ML2PYXCr3Hx-n5H9PNIjra5Zf" data-status="View Full Case Study" data-tags="UX Research,UI Design">
-                <div class="card-inner">
-                    <div class="card-image">
-                        <img src="Assets/Project_6_Image.png" alt="Embracy Financial Management Platform" loading="lazy">
-                        <div class="card-overlay">
-                            <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="card-meta">
-                            <span class="card-cat">UX Research</span>
-                            <span class="card-date">FEB 2025</span>
-                        </div>
-                        <div class="card-title-wrap">
-                            <h3 class="card-title">Embracy Financial Management Platform</h3>
-                            <p class="card-desc">Finding where users were leaving, and redesigning the onboarding so they didn't. Drop-off down 30%, production time halved.</p>
-                        </div>
-                        <div class="card-tags"><span>UX Research</span><span>UI Design</span></div>
-                    </div>
-                </div>
-            </article>
-
-        </div><div id="no-projects-msg" class="empty-msg" style="display:none">No matching projects found.</div>
+            </div><div id="no-projects-msg" class="empty-msg" style="display:none">No matching projects found.</div>
 
     </div>
 </section>
@@ -483,7 +322,7 @@
             <article class="insight-card card-interactive">
                 <a href="https://consultchatura.medium.com/i-built-a-data-story-about-cyclone-ditwah-heres-every-decision-i-made-and-why-c9c19c89398f" target="_blank" rel="noopener" class="card-hitbox" aria-label="Read I Built a Data Story About Cyclone Ditwah"></a>
                 <div class="card-image">
-                    <img src="Assets/Project_1_Image.png" alt="Behind the making of the Cyclone Ditwah data story" loading="lazy">
+                    <img src="Assets/Insight_Thumb.png.png" alt="Behind the making of the Cyclone Ditwah data story" loading="lazy">
                     <div class="insight-category-badge" style="display:flex; align-items:center; gap:4px;">Process <i data-lucide="external-link" aria-hidden="true" style="width:10px;height:10px;"></i></div>
                     <div class="card-overlay">
                         <span class="card-open-label">Read on Medium <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
@@ -720,9 +559,6 @@
             </div>
         </div>
         <div class="footer-bottom-container">
-            <div style="text-align: center; margin-bottom: var(--space-8); color: rgba(255,255,255,0.7); font-size: 1.1rem; font-family: var(--serif); font-style: italic;">
-                Thanks for stopping by. Let's build something great together.
-            </div>
             <div class="footer-divider"></div>
             <div class="footer-bottom-bar">
                 <div class="footer-copyright">

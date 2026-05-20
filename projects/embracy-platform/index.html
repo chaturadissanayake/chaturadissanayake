@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ceylon Harvest Co. | Chatura Dissanayake</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../style.css">
+    <script src="https://unpkg.com/lucide@0.292.0" defer></script>
+    
+    <style>
+        /* Project-Specific Layout CSS, updated to use your global CSS variables */
+        .site-wrapper {
+            max-width: var(--max-w);
+            margin: 0 auto;
+            padding: calc(var(--nav-h) + var(--space-12)) var(--space-8) var(--space-24);
+        }
+
+        .project-header h1 {
+            font-family: var(--serif);
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            color: var(--ink);
+            margin-bottom: var(--space-4);
+        }
+        
+        .project-header .subtitle {
+            font-family: var(--sans);
+            font-size: 1.125rem;
+            color: var(--ink-soft);
+            max-width: 800px;
+            line-height: 1.6;
+            margin-bottom: var(--space-10);
+        }
+
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1fr minmax(320px, 420px);
+            column-gap: var(--space-12);
+            align-items: start; /* Prevents columns from stretching to equal height */
+        }
+
+        
+
+        .controls-row {
+            margin-bottom: var(--space-8);
+            align-items: center;
+        }
+
+        .tags-col {
+            display: flex;
+            gap: var(--space-2);
+            flex-wrap: wrap;
+        }
+        .tag {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--ink-muted);
+            border: 1px solid var(--surface-3);
+            padding: 6px 12px;
+            background: var(--surface-2);
+            border-radius: var(--radius);
+        }
+
+        .about-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            background: var(--surface);
+            border: 1px solid var(--surface-3);
+            border-radius: 100px;
+            padding: 8px 16px;
+            font-family: var(--sans);
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--ink);
+            cursor: pointer;
+            transition: all var(--dur-fast);
+        }
+        .about-btn span {
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+        .about-btn:hover {
+            background: var(--surface-3);
+        }
+
+        .media-col {
+            flex: 1 1 0;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-5);
+        }
+
+        /* ── Sidebar wrap: animates the collapse so images breathe out ── */
+        .sidebar-wrap {
+            flex: 0 0 auto;
+            width: min(420px, 38vw);
+            transition: width 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .sidebar-wrap.is-collapsing {
+            overflow: hidden;
+        }
+        .sidebar-wrap.is-collapsed {
+            width: 0;
+        }
+
+        .media-item {
+            position: relative;
+            width: 100%;
+            background: var(--surface-3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+        }
+        
+        .media-item.landscape { aspect-ratio: 16/9; }
+        .media-item.portrait { aspect-ratio: 4/3; }
+
+        .unmute-badge {
+            position: absolute;
+            top: var(--space-4);
+            right: var(--space-4);
+            background: rgba(10, 15, 23, 0.7);
+            backdrop-filter: blur(4px);
+            color: var(--white);
+            font-family: var(--sans);
+            font-size: 0.75rem;
+            padding: 6px 12px;
+            border-radius: 100px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .text-col {
+            position: sticky;
+            top: calc(var(--nav-h) + var(--space-8));
+            min-width: 320px; /* prevents content squeeze during the collapse animation */
+            transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .text-col.is-exiting {
+            opacity: 0;
+            transform: translateX(40px) scale(0.97);
+        }
+        @keyframes sidebarEnter {
+            from { opacity: 0; transform: translateX(30px) scale(0.98); }
+            to   { opacity: 1; transform: translateX(0) scale(1); }
+        }
+        .text-col.is-entering {
+            animation: sidebarEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .text-col p {
+            font-size: 0.9375rem;
+            line-height: 1.75;
+            color: var(--ink-soft);
+            margin-bottom: var(--space-6);
+        }
+        
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-6);
+            margin-top: var(--space-12);
+            padding-top: var(--space-8);
+            border-top: 1px solid var(--surface-3);
+        }
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .meta-item.full-width { grid-column: 1 / -1; }
+        .meta-label {
+            font-family: var(--mono);
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+        }
+        .meta-value {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--ink);
+            line-height: 1.4;
+        }
+
+        .pull-quote {
+            font-family: var(--sans);
+            font-size: clamp(1.5rem, 2.5vw, 1.85rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1.35;
+            color: var(--ink);
+            margin: var(--space-6) 0;
+            padding-right: var(--space-6);
+        }
+
+        @media (max-width: 900px) {
+            /* 1. BREAK THE DESKTOP GRID - Force Flexbox */
+            .layout-grid {
+                display: flex !important;
+                flex-direction: column;
+                gap: var(--space-8);
+            }
+
+            /* 2. Stack Text ABOVE Images */
+            .layout-grid:not(.controls-row) {
+                flex-direction: column-reverse;
+            }
+
+            /* 3. Hide the desktop toggle button entirely */
+            .btn-col {
+                display: none !important;
+            }
+
+            /* 4. Release all animation constraints on the sidebar wrapper */
+            .sidebar-wrap {
+                width: 100% !important;
+                max-width: 100% !important;
+                overflow: visible !important;
+                transition: none !important;
+                display: block !important; 
+            }
+
+            /* 5. Mobile Reading Layout (creates an article intro section) */
+            .text-col {
+                position: relative !important;
+                top: 0 !important;
+                min-width: 100% !important;
+                opacity: 1 !important;
+                transform: none !important;
+                padding-bottom: var(--space-8);
+                border-bottom: 1px solid var(--surface-3);
+                margin-bottom: var(--space-2);
+            }
+
+            /* 6. Optimize typography for small screens */
+            .text-col p {
+                font-size: 1rem; 
+                line-height: 1.65;
+            }
+
+            .controls-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-5);
+            }
+            
+            .meta-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: var(--space-5);
+            }
+        }
+    </style>
+</head>
+<body class="loading">
+
+<header class="main-header scrolled" id="main-header">
+    <div class="nav-inner">
+        <a href="../../index.html" class="nav-logo" aria-label="Chatura Dissanayake Home">
+            <span class="logo-mark">
+                <img src="../../Assets/Logo.png" alt="Chatura Dissanayake Logo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            </span>
+            <span class="logo-full">Chatura Dissanayake</span>
+        </a>
+        <nav class="desktop-nav" role="navigation" aria-label="Primary">
+            <a href="../../index.html#projects"       class="nav-link">Work</a>
+            <a href="../../index.html#about"          class="nav-link">About</a>
+            <a href="../../index.html#services"       class="nav-link">Services</a>
+            <a href="../../index.html#insights"       class="nav-link">Writing</a>
+            <a href="../../index.html#visualisations" class="nav-link">Data Narratives</a>
+        </nav>
+        <div class="nav-actions">
+            <a href="../../index.html#contact" class="nav-cta">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
+            <button type="button" class="hamburger-btn" id="mobile-nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav-menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <nav class="mobile-nav-links">
+        <a href="../../index.html#projects"       class="mobile-link">Work</a>
+        <a href="../../index.html#about"          class="mobile-link">About</a>
+        <a href="../../index.html#services"       class="mobile-link">Services</a>
+        <a href="../../index.html#insights"       class="mobile-link">Writing</a>
+        <a href="../../index.html#visualisations" class="mobile-link">Data Narratives</a>
+        <a href="../../index.html#contact"        class="mobile-link mobile-cta">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
+    </nav>
+    <div class="mobile-menu-footer">
+        <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/chaturadissanayake"      target="_blank" rel="noopener">GitHub</a>
+        <a href="https://consultchatura.medium.com"          target="_blank" rel="noopener">Medium</a>
+        <a href="../../rss.xml" target="_blank" rel="noopener">RSS</a>
+    </div>
+</div>
+
+<main>
+    <div class="site-wrapper">
+        <header class="project-header">
+            <h1>Ceylon Harvest Co.</h1>
+            <p class="subtitle">A 3,000-year-old tradition, presented with modern premium confidence.</p>
+        </header>
+
+        <div class="layout-grid controls-row">
+            <div class="tags-col">
+                <span class="tag">Brand Identity</span>
+                <span class="tag">Premium Export</span>
+                <span class="tag">Heritage &amp; Culture</span>
+            </div>
+            <div class="btn-col">
+                <button class="about-btn" id="toggleBtn" onclick="toggleSidebar()">
+                    About the project <span>×</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="layout-grid">
+            
+            <div class="media-col">
+                <div class="media-item" style="aspect-ratio: 792/612;">
+                    <img src="assets/01_Brand_Pattern.png" alt="Ceylon Harvest Co. Seamless Brand Pattern">
+                </div>
+
+                <div class="media-item" style="aspect-ratio: 792/612;">
+                    <img src="assets/02_Primary_Seal.png" alt="Ceylon Harvest Co. Primary Botanical Seal">
+                </div>
+
+                <div class="pull-quote">
+                    "We speak with quiet confidence. Our language is precise, factual, and grounded in expertise—never ornamental, never borrowed from the tourism playbook."
+                </div>
+
+                <div class="media-item" style="aspect-ratio: 792/612;">
+                    <img src="assets/03_Mark_Anatomy.png" alt="Anatomy of the Botanical Mark detailing trace ingredients">
+                </div>
+
+                <div class="media-item" style="aspect-ratio: 792/612;">
+                    <img src="assets/04_Secondary_Lockups.png" alt="High-contrast monochrome applications">
+                </div>
+            </div>
+
+            <div class="sidebar-wrap" id="sidebarWrap">
+            <div class="text-col" id="sidebarBody">
+                <p>Ceylon Harvest Co. is a premium Sri Lankan export brand. The objective is to present Ceylon cinnamon, black pepper, traditional herbs, and natural Sri Lankan products, traceable to source, verified for quality, built for global markets.</p>
+                <p>The target audience consists of Western consumers and trade buyers who care about origin, quality, and authenticity. They distrust generic. They pay for real. Therefore, the brand must feel ancient and trustworthy. We speak with quiet confidence. Our language is precise, factual, and grounded in expertise—never ornamental, never borrowed from the tourism playbook.</p>
+                <p>The initial visual exploration utilized solar motifs to signify growth and the tropical climate of origin. While visually striking, the sun icon inadvertently edged toward aesthetics commonly associated with the tourism sector. To truly capture a quiet, unwavering heritage authority, the visual identity required a more grounded, source-driven approach.</p>
+                <p>The botanical seal communicates transparency, traceability, and absolute authenticity. Every element within the brand seal is a real product, traceable to a real place of origin. There is no decorative filler—the complexity of the mark is earned by the breadth of what Sri Lankan soil genuinely produces.</p>
+                <p>Our typographic system balances the weight of a 3,000-year-old tradition with the functional, minimalist requirements of modern global commerce. Baskerville Old Face serves as our primary typeface, grounding the brand in history. This is paired with Poppins, a geometric sans-serif that brings modern utility.</p>
+
+                <div class="meta-grid">
+                    <div class="meta-item">
+                        <div class="meta-label">Client</div>
+                        <div class="meta-value">Ceylon Harvest Co.</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Office</div>
+                        <div class="meta-value">Homebased</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Sector</div>
+                        <div class="meta-value">Brand Identity</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Project Team</div>
+                        <div class="meta-value">Chatura Dissanayake</div>
+                    </div>
+                    <div class="meta-item full-width">
+                        <div class="meta-label">Discipline</div>
+                        <div class="meta-value">Branding</div>
+                    </div>
+                    <div class="meta-item full-width">
+                        <div class="meta-label">Collaborators</div>
+                        <div class="meta-value">None</div>
+                    </div>
+                </div>
+            </div>
+            </div><!-- /.sidebar-wrap -->
+
+        </div>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h5>Navigate</h5>
+                <a href="../../index.html#projects">Work</a>
+                <a href="../../index.html#about">About</a>
+                <a href="../../index.html#services">Services</a>
+                <a href="../../index.html#insights">Writing</a>
+                <a href="../../index.html#visualisations">Data Narratives</a>
+            </div>
+            <div class="footer-col">
+                <h5>Connect</h5>
+                <a href="../../index.html#contact">Contact Me</a>
+                <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/chaturadissanayake"      target="_blank" rel="noopener">GitHub</a>
+            </div>
+            <div class="footer-col">
+                <h5>On Medium</h5>
+                <a href="https://consultchatura.medium.com" target="_blank" rel="noopener">Medium</a>
+                <a href="../../rss.xml" target="_blank" rel="noopener">RSS Feed</a>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <a href="../../privacy.html">Privacy Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom-container">
+            <div class="footer-divider"></div>
+            <div class="footer-bottom-bar">
+                <div class="footer-copyright">
+                    <span class="footer-brand-name">Chatura Dissanayake</span> © 2022 - 2026 All Rights Reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="../../app.js"></script>
+<script>
+    // Initialize icons for the project page
+    document.addEventListener('DOMContentLoaded', () => {
+        lucide.createIcons();
+        document.body.classList.remove('loading');
+    });
+
+    function toggleSidebar() {
+        const wrap = document.getElementById('sidebarWrap');
+        const body = document.getElementById('sidebarBody');
+        const btn  = document.getElementById('toggleBtn');
+        const span = btn.querySelector('span');
+        const isOpen = !wrap.classList.contains('is-collapsed');
+
+        if (isOpen) {
+            // Step 1: text slides out (350ms)
+            body.classList.add('is-exiting');
+            span.textContent = '+';
+            // Step 2: once text is invisible, collapse the sidebar shell
+            // so the images expand into the freed space
+            setTimeout(() => {
+                wrap.classList.add('is-collapsing'); // enables overflow: hidden
+                wrap.classList.add('is-collapsed');  // width → 0 (triggers flex reflow)
+            }, 360);
+        } else {
+            // Step 1: expand the shell first
+            wrap.classList.remove('is-collapsed');
+            setTimeout(() => {
+                wrap.classList.remove('is-collapsing');
+            }, 650);
+            // Step 2: slide text back in after shell has opened a little
+            setTimeout(() => {
+                body.classList.remove('is-exiting');
+                requestAnimationFrame(() => {
+                    body.classList.add('is-entering');
+                    setTimeout(() => body.classList.remove('is-entering'), 500);
+                });
+            }, 80);
+            span.textContent = '×';
+        }
+    }
+</script>
+</body>
+</html>
