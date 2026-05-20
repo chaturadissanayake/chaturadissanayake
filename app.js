@@ -109,18 +109,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── 9. VIEW TOGGLE (Removed per UX Hick's Law) ───────────────────────
     // (Feature removed)
 
-    // ── 10. DYNAMIC PROJECTS & FILTERING ──────────────────────────────────
-    const filterBtns   = document.querySelectorAll('.filter-pill');
-    const projWrap     = document.getElementById('projects-container');
-    const noProjMsg    = document.getElementById('no-projects-msg');
-    let currentFilter  = 'all';
-    let allProjCards   = []; // Populated after fetch
+    // ── 12B. FETCH JSON, BUILD CARDS & DYNAMIC FILTERS ────────────────────
+    const projWrap = document.getElementById('projects-container');
+    const noProjMsg = document.getElementById('no-projects-msg');
+    const filterGroup = document.getElementById('dynamic-filter-group');
+    let currentFilter = 'all';
+    let allProjCards = [];
 
     const applyProjectFilter = () => {
         let count = 0;
         allProjCards.forEach(card => {
-            const cat     = card.getAttribute('data-category') || '';
-            const matches = currentFilter === 'all' || cat.split(' ').includes(currentFilter);
+            const cat = card.getAttribute('data-category') || '';
+            // Exact match based on the JSON category
+            const matches = currentFilter === 'all' || cat === currentFilter;
+            
             if (matches) {
                 card.style.display = '';
                 count++;
@@ -131,14 +133,108 @@ document.addEventListener('DOMContentLoaded', () => {
         if (noProjMsg) noProjMsg.style.display = count === 0 ? 'block' : 'none';
     };
 
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            currentFilter = btn.getAttribute('data-filter');
+    const initProjects = async () => {
+        if (!projWrap) return;
+        try {
+            const res = await fetch('data/projects.json');
+            const projects = await res.json();
+            
+            projWrap.innerHTML = ''; 
+            const categories = new Set(); // To collect unique categories
+            
+            projects.forEach(proj => {
+                if (proj.category) categories.add(proj.category);
+                
+                const tagsHTML = proj.tags.map(tag => `<span>${tag}</span>`).join('');
+                const descSnippet = proj.challenge.length > 120 
+                    ? proj.challenge.substring(0, 120) + '...' 
+                    : proj.challenge;
+
+                const cardHTML = `
+                    <article class="project-card project-trigger" 
+                        data-category="${proj.category}"
+                        data-title="${proj.title}"
+                        data-challenge="${proj.challenge}"
+                        data-role="${proj.role}"
+                        data-outcome="${proj.outcome}"
+                        data-link="${proj.link}" 
+                        data-status="${proj.status}" 
+                        data-tags="${proj.tags.join(',')}">
+                        <div class="card-inner">
+                            <div class="card-image">
+                                <img src="${proj.thumbnail}" alt="${proj.title}" loading="lazy">
+                                <div class="card-overlay">
+                                    <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-meta">
+                                    <span class="card-cat">${proj.tags[0]}</span>
+                                    <span class="card-date">${proj.date}</span>
+                                </div>
+                                <div class="card-title-wrap">
+                                    <h3 class="card-title">${proj.title}</h3>
+                                    <p class="card-desc">${descSnippet}</p>
+                                </div>
+                                <div class="card-tags">${tagsHTML}</div>
+                            </div>
+                        </div>
+                    </article>
+                `;
+                projWrap.insertAdjacentHTML('beforeend', cardHTML);
+            });
+
+            allProjCards = document.querySelectorAll('.project-card.project-trigger');
+            
+            // Build Dynamic Filters
+            if (filterGroup) {
+                let filterHTML = `<button type="button" class="filter-pill active" data-filter="all">All Work</button>`;
+                categories.forEach(cat => {
+                    filterHTML += `<button type="button" class="filter-pill" data-filter="${cat}">${cat}</button>`;
+                });
+                filterGroup.innerHTML = filterHTML;
+
+                const filterBtns = document.querySelectorAll('.filter-pill');
+                filterBtns.forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        filterBtns.forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        currentFilter = btn.getAttribute('data-filter');
+                        applyProjectFilter();
+                    });
+                });
+            }
+
+            lucide.createIcons({ root: projWrap });
+
+            allProjCards.forEach(card => {
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('role', 'button');
+                card.setAttribute('aria-label', 'View case study: ' + (card.getAttribute('data-title') || 'Project'));
+                card.addEventListener('click', e => {
+                    if (e.target.closest('.card-direct-link')) return;
+                    openModal(card);
+                });
+                card.addEventListener('keydown', e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openModal(card);
+                    }
+                });
+            });
+            
             applyProjectFilter();
-        });
-    });
+
+        } catch (error) {
+            console.error('Failed to load projects:', error);
+            if (noProjMsg) {
+                noProjMsg.textContent = 'Unable to load projects at this time.';
+                noProjMsg.style.display = 'block';
+            }
+        }
+    };
+    
+    initProjects();
 
     // ── 11A. CONTACT FORM FEEDBACK ────────────────────────────────────────
     const contactForm   = document.getElementById('contact-form');
@@ -267,92 +363,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape' && projectModal?.classList.contains('active')) closeModal();
     });
 
-    // ── 12B. FETCH JSON AND BUILD CARDS ───────────────────────────────────
-    const initProjects = async () => {
-        if (!projWrap) return;
-        try {
-            const res = await fetch('data/projects.json');
-            const projects = await res.json();
-            
-            projWrap.innerHTML = ''; 
-            
-            projects.forEach(proj => {
-                const tagsHTML = proj.tags.map(tag => `<span>${tag}</span>`).join('');
-                
-                // Truncate the challenge description for the card preview
-                const descSnippet = proj.challenge.length > 120 
-                    ? proj.challenge.substring(0, 120) + '...' 
-                    : proj.challenge;
-
-                const cardHTML = `
-                    <article class="project-card project-trigger" 
-                        data-category="${proj.category}"
-                        data-title="${proj.title}"
-                        data-challenge="${proj.challenge}"
-                        data-role="${proj.role}"
-                        data-outcome="${proj.outcome}"
-                        data-link="${proj.link}" 
-                        data-status="${proj.status}" 
-                        data-tags="${proj.tags.join(',')}">
-                        <div class="card-inner">
-                            <div class="card-image">
-                                <img src="${proj.thumbnail}" alt="${proj.title}" loading="lazy">
-                                <div class="card-overlay">
-                                    <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="card-meta">
-                                    <span class="card-cat">${proj.tags[0]}</span>
-                                    <span class="card-date">${proj.date}</span>
-                                </div>
-                                <div class="card-title-wrap">
-                                    <h3 class="card-title">${proj.title}</h3>
-                                    <p class="card-desc">${descSnippet}</p>
-                                </div>
-                                <div class="card-tags">${tagsHTML}</div>
-                            </div>
-                        </div>
-                    </article>
-                `;
-                projWrap.insertAdjacentHTML('beforeend', cardHTML);
-            });
-
-            // Update variables now that the DOM has cards
-            allProjCards = document.querySelectorAll('.project-card.project-trigger');
-            lucide.createIcons({ root: projWrap }); // Render the arrows
-
-            // Attach the click event that opens the modal
-            allProjCards.forEach(card => {
-                card.setAttribute('tabindex', '0');
-                card.setAttribute('role', 'button');
-                card.setAttribute('aria-label', 'View case study: ' + (card.getAttribute('data-title') || 'Project'));
-                card.addEventListener('click', e => {
-                    if (e.target.closest('.card-direct-link')) return;
-                    openModal(card);
-                });
-                card.addEventListener('keydown', e => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        openModal(card);
-                    }
-                });
-            });
-            
-            // Run initial filter so cards display correctly
-            applyProjectFilter();
-
-        } catch (error) {
-            console.error('Failed to load projects:', error);
-            if (noProjMsg) {
-                noProjMsg.textContent = 'Unable to load projects at this time.';
-                noProjMsg.style.display = 'block';
-            }
-        }
-    };
-    
-    initProjects(); // Start the process
-
     // ── 13. VISUALISATIONS CAROUSEL ───────────────────────────────────────
     const vizTrack = document.querySelector('.viz-carousel-track');
     if (vizTrack) {
@@ -456,6 +466,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(cycleHeroWord, 2800);
     }
 
+<<<<<<< Updated upstream
 });
 
 // ── 18. P5.JS THE MULTILINGUAL SEMANTIC LENS ──────────────────────────
@@ -657,4 +668,6 @@ const vocabRows = [
 if (document.getElementById('p5-hero-canvas')) {
     new p5(sketch);
 }
+=======
+>>>>>>> Stashed changes
 });

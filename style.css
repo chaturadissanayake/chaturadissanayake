@@ -269,6 +269,7 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     background: var(--surface); padding-top: 80px; position: relative; overflow: hidden;
 }
 
+<<<<<<< Updated upstream
 /* Interactive P5 Data Background */
 .interactive-data-bg {
     position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
@@ -285,6 +286,54 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 }
 @keyframes canvasFadeIn {
     to { opacity: 1; }
+=======
+/* ─── HYPER-BLURRED MESH GRADIENT ─────────────────────────────────── */
+.hero-mesh-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.85; 
+}
+
+.mesh-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    animation: orbFloat 20s infinite alternate ease-in-out;
+    will-change: transform;
+}
+
+.orb-1 {
+    width: 60vw; height: 60vw;
+    max-width: 800px; max-height: 800px;
+    background: rgba(26, 68, 128, 0.08); /* Deep Policy Blue */
+    top: -20%; left: -10%;
+}
+
+.orb-2 {
+    width: 50vw; height: 50vw;
+    max-width: 700px; max-height: 700px;
+    background: rgba(234, 88, 12, 0.06); /* Warm Rust/Amber */
+    bottom: -20%; right: -10%;
+    animation-delay: -5s;
+}
+
+.orb-3 {
+    width: 45vw; height: 45vw;
+    max-width: 600px; max-height: 600px;
+    background: rgba(244, 114, 182, 0.05); /* Soft floral pink hint */
+    top: 20%; left: 30%;
+    animation-delay: -10s;
+}
+
+@keyframes orbFloat {
+    0% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(3vw, -4vh) scale(1.05); }
+    66% { transform: translate(-3vw, 2vh) scale(0.95); }
+    100% { transform: translate(0, 0) scale(1); }
+>>>>>>> Stashed changes
 }
 /* Ensure the text and buttons sit cleanly above the canvas */
 .hero-container-centered { pointer-events: none; }
@@ -299,12 +348,32 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     display: flex; flex-direction: column; align-items: center; text-align: center;
     padding-top: var(--space-12); padding-bottom: var(--space-12); width: 100%; position: relative; z-index: 1;
 }
+<<<<<<< Updated upstream
 .hero-content { display: flex; flex-direction: column; align-items: center; width: 100%; }
 .hero-label {
     font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.14em;
     text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-6);
+=======
+
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Left aligns everything naturally */
+    width: 100%;
+}
+
+.hero-label {
+    font-family: var(--mono); 
+    font-size: 0.6875rem; 
+    letter-spacing: 0.14em;
+    text-transform: uppercase; 
+    color: var(--accent); 
+    margin-bottom: var(--space-6);
+    text-align: left;
+>>>>>>> Stashed changes
 }
 .hero-title-massive {
+<<<<<<< Updated upstream
     font-family: var(--serif); font-size: clamp(3.5rem, 8.5vw, 7rem);
     font-weight: 400; line-height: 1.03; letter-spacing: -0.035em;
     color: var(--ink); margin-bottom: var(--space-6);
@@ -314,6 +383,31 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     color: var(--accent); 
     letter-spacing: -0.01em; 
     padding-right: 0.05em; 
+=======
+    font-family: var(--serif); 
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    font-weight: 400; 
+    line-height: 1.25; 
+    letter-spacing: -0.02em;
+    color: var(--ink); 
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+    text-align: left;
+    width: 100%;
+}
+
+.hero-line { 
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap; /* Allows natural wrapping without breaking layout */
+    gap: 0.35em; /* Perfect spacing between static and cycling words */
+}
+
+.hero-static {
+    white-space: nowrap; /* Keeps static phrases together */
+>>>>>>> Stashed changes
 }
 .hero-body-centered {
     font-size: 1.1rem; line-height: 1.65; color: var(--ink-soft);
@@ -332,8 +426,19 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     margin-top: var(--space-4); margin-bottom: var(--space-2);
 }
 .hero-cta-group {
+<<<<<<< Updated upstream
     display: flex; flex-direction: column; align-items: center;
     gap: var(--space-6); margin-top: var(--space-6); margin-bottom: clamp(2rem, 6vh, 4rem);
+=======
+    display: flex; 
+    flex-direction: row; 
+    align-items: center;
+    justify-content: flex-start;
+    gap: var(--space-8); 
+    margin-top: var(--space-4);
+    width: 100%;
+    flex-wrap: wrap;
+>>>>>>> Stashed changes
 }
 
 .minimal-scroll-action {
@@ -341,7 +446,7 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     display: flex; justify-content: center;
 }
 .scroll-link-custom {
-    display: flex; flex-direction: column; align-items: center; gap: var(--space-3);
+    display: flex; flex-direction: row; align-items: center; gap: var(--space-4);
     text-decoration: none; outline: none;
 }
 .scroll-text {
@@ -350,25 +455,25 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     transition: color var(--dur-fast);
 }
 .scroll-indicator-complex {
-    position: relative; width: 1px; height: 50px;
-    display: flex; justify-content: center;
+    position: relative; width: 50px; height: 1px;
+    display: flex; align-items: center;
 }
 .scroll-line {
-    position: absolute; top: 0; left: 0; width: 1px; height: 100%;
-    background: linear-gradient(to bottom, rgba(26,68,128,0.4), transparent);
+    position: absolute; top: 0; left: 0; width: 100%; height: 1px;
+    background: linear-gradient(to right, rgba(26,68,128,0.4), transparent);
     transition: background 0.3s ease;
 }
 .scroll-dot {
-    position: absolute; top: 0; left: -2px; width: 5px; height: 5px;
+    position: absolute; top: -2px; left: 0; width: 5px; height: 5px;
     background-color: var(--accent); border-radius: 50%;
     animation: scrollScan 2s cubic-bezier(0.6, 0.05, 0.28, 0.91) infinite;
 }
 
 @keyframes scrollScan {
-    0% { transform: translateY(0) scale(1); opacity: 0; }
+    0% { transform: translateX(0) scale(1); opacity: 0; }
     20% { opacity: 1; }
-    80% { transform: translateY(45px) scale(0.4); opacity: 0; }
-    100% { transform: translateY(50px); opacity: 0; }
+    80% { transform: translateX(45px) scale(0.4); opacity: 0; }
+    100% { transform: translateX(50px); opacity: 0; }
 }
 
 .scroll-link-custom:hover .scroll-text { color: var(--ink); }
@@ -402,8 +507,57 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     from { opacity: 0; transform: translateY(-14px); }
     to   { opacity: 1; transform: translateY(0); }
 }
+<<<<<<< Updated upstream
 #hero-cycle-word.hero-word-enter {
     animation: heroWordEnter 0.48s var(--ease-out) forwards;
+=======
+
+.hero-emp-1.exit, .hero-emp-2.exit {
+    opacity: 0;
+    transform: translateY(-12px);
+}
+
+.hero-emp-1 {
+    color: var(--accent); /* Grounded Policy Blue */
+    font-weight: 400;
+    font-style: italic; /* Editorial flair */
+    letter-spacing: -0.01em;
+}
+
+.hero-emp-2 {
+    background: linear-gradient(135deg, #b45309, #ea580c); /* Mature Amber/Rust gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-style: italic;
+    font-weight: 400;
+    padding-right: 0.1em;
+}
+
+/* ─── MOBILE RESPONSIVE ALIGNMENT ──────────────────────────────────── */
+@media (max-width: 768px) {
+    .hero-text-wrapper {
+        max-width: 100%;
+        margin: 0 0 var(--space-8) 0;
+        width: 100%;
+    }
+    
+    .hero-title-massive {
+        font-size: clamp(2rem, 8vw, 2.75rem);
+        gap: 0.3em;
+    }
+    
+    .hero-line {
+        /* Flex wrap handles the natural line breaks gracefully now */
+        white-space: normal;
+    }
+    
+    .hero-cta-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--space-6);
+    }
+>>>>>>> Stashed changes
 }
 
 /* ─── PROJECTS ──────────────────────────────────────────────────────── */
@@ -1130,6 +1284,44 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     padding-bottom: 1px;
 }
 
+.availability-alert {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    background: var(--accent-dim);
+    border: 1px solid rgba(26, 68, 128, 0.15);
+    padding: 12px var(--space-4);
+    border-radius: var(--radius);
+    margin-bottom: var(--space-6);
+}
+
+.availability-alert-text {
+    font-size: 0.875rem;
+    color: var(--ink);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.availability-alert-text strong {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    flex-shrink: 0;
+    animation: statusPulse 2s infinite;
+}
+
+@keyframes statusPulse {
+    0% { box-shadow: 0 0 0 0 rgba(26, 68, 128, 0.4); }
+    70% { box-shadow: 0 0 0 6px rgba(26, 68, 128, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(26, 68, 128, 0); }
+}
+
 .contact-form {
     background: var(--surface); border-radius: var(--radius-xl); padding: var(--space-8);
     box-shadow: var(--shadow-sm); border: 1px solid var(--surface-3);
@@ -1627,7 +1819,7 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
         transform: none;
         transition: opacity 0.4s ease var(--d);
     }
-    .active-badge, .scroll-dot, .insight-upcoming-dot, .interactive-data-bg canvas {
+    .active-badge, .scroll-dot, .insight-upcoming-dot, .status-dot {
         animation: none !important;
         box-shadow: none !important;
     }
@@ -1640,7 +1832,7 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     .scroll-dot {
         animation: none;
         opacity: 1;
-        transform: translateY(25px);
+        transform: translateX(25px); /* Matches new horizontal layout */
     }
     .hero-line::after {
         animation: none;
