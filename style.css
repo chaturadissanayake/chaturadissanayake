@@ -389,6 +389,23 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 }
 .stat-divider { width: 1px; height: 44px; background: var(--surface-3); }
 
+/* ─── HERO WORD CYCLE ───────────────────────────────────────────────── */
+#hero-cycle-word {
+    display: inline-block;
+    transition: opacity 0.32s ease, transform 0.32s var(--ease-out);
+}
+#hero-cycle-word.hero-word-exit {
+    opacity: 0;
+    transform: translateY(10px);
+}
+@keyframes heroWordEnter {
+    from { opacity: 0; transform: translateY(-14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+#hero-cycle-word.hero-word-enter {
+    animation: heroWordEnter 0.48s var(--ease-out) forwards;
+}
+
 /* ─── PROJECTS ──────────────────────────────────────────────────────── */
 .projects-section { padding: var(--space-24) 0; background: var(--surface); }
 .projects-controls-right { display: flex; align-items: center; gap: var(--space-4); flex-wrap: nowrap; }

@@ -107,13 +107,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.section-fade-in').forEach(s => observer.observe(s));
 
     // ── 9. VIEW TOGGLE (Removed per UX Hick's Law) ───────────────────────
-    const projWrap = document.getElementById('projects-container');
+    // (Feature removed)
 
-    // ── 10. PROJECT FILTERING ─────────────────────────────────────────────
+    // ── 10. DYNAMIC PROJECTS & FILTERING ──────────────────────────────────
     const filterBtns   = document.querySelectorAll('.filter-pill');
-    const allProjCards = document.querySelectorAll('.project-card.project-trigger');
+    const projWrap     = document.getElementById('projects-container');
     const noProjMsg    = document.getElementById('no-projects-msg');
     let currentFilter  = 'all';
+    let allProjCards   = []; // Populated after fetch
 
     const applyProjectFilter = () => {
         let count = 0;
@@ -122,7 +123,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const matches = currentFilter === 'all' || cat.split(' ').includes(currentFilter);
             if (matches) {
                 card.style.display = '';
-                // Cards in the already-visible section retain their rendered state
                 count++;
             } else {
                 card.style.display = 'none';
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── 12. PROJECT DETAIL MODAL ──────────────────────────────────────────
     const projectModal    = document.getElementById('project-detail-modal');
     const closeProjectBtn = document.getElementById('close-project-modal');
-    let lastFocusedElement = null; // Stores what was clicked so we can return focus
+    let lastFocusedElement = null;
 
     const focusableSelectors = 'a, button, [tabindex]:not([tabindex="-1"])';
     const trapFocus = e => {
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const openModal = card => {
-        lastFocusedElement = document.activeElement; // Save focus
+        lastFocusedElement = document.activeElement;
         const titleText = card.getAttribute('data-title') || card.querySelector('h3')?.textContent || 'Project';
         document.getElementById('pm-title').textContent = titleText;
         document.getElementById('pm-challenge').textContent = card.getAttribute('data-challenge')  || '—';
@@ -218,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
             link.style.display = 'inline-flex';
         } else if (href && href !== '#') {
             link.href = href;
+            link.target = href.startsWith('http') ? '_blank' : '_self';
             link.style.display = 'inline-flex';
             link.style.opacity = '1';
             link.style.pointerEvents = 'auto';
@@ -252,24 +253,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('modal-open');
         projectModal.removeEventListener('keydown', trapFocus);
         history.pushState(null, '', '#projects');
-        if (lastFocusedElement) lastFocusedElement.focus(); // Restore focus
+        if (lastFocusedElement) lastFocusedElement.focus();
     };
-
-    document.querySelectorAll('.project-trigger').forEach(card => {
-        card.setAttribute('tabindex', '0');
-        card.setAttribute('role', 'button');
-        card.setAttribute('aria-label', 'View case study: ' + (card.getAttribute('data-title') || 'Project'));
-        card.addEventListener('click', e => {
-            if (e.target.closest('.card-direct-link')) return;
-            openModal(card);
-        });
-        card.addEventListener('keydown', e => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                openModal(card);
-            }
-        });
-    });
 
     closeProjectBtn?.addEventListener('click', closeModal);
     projectModal?.addEventListener('click', e => {
@@ -281,6 +266,92 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape' && projectModal?.classList.contains('active')) closeModal();
     });
+
+    // ── 12B. FETCH JSON AND BUILD CARDS ───────────────────────────────────
+    const initProjects = async () => {
+        if (!projWrap) return;
+        try {
+            const res = await fetch('data/projects.json');
+            const projects = await res.json();
+            
+            projWrap.innerHTML = ''; 
+            
+            projects.forEach(proj => {
+                const tagsHTML = proj.tags.map(tag => `<span>${tag}</span>`).join('');
+                
+                // Truncate the challenge description for the card preview
+                const descSnippet = proj.challenge.length > 120 
+                    ? proj.challenge.substring(0, 120) + '...' 
+                    : proj.challenge;
+
+                const cardHTML = `
+                    <article class="project-card project-trigger" 
+                        data-category="${proj.category}"
+                        data-title="${proj.title}"
+                        data-challenge="${proj.challenge}"
+                        data-role="${proj.role}"
+                        data-outcome="${proj.outcome}"
+                        data-link="${proj.link}" 
+                        data-status="${proj.status}" 
+                        data-tags="${proj.tags.join(',')}">
+                        <div class="card-inner">
+                            <div class="card-image">
+                                <img src="${proj.thumbnail}" alt="${proj.title}" loading="lazy">
+                                <div class="card-overlay">
+                                    <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-meta">
+                                    <span class="card-cat">${proj.tags[0]}</span>
+                                    <span class="card-date">${proj.date}</span>
+                                </div>
+                                <div class="card-title-wrap">
+                                    <h3 class="card-title">${proj.title}</h3>
+                                    <p class="card-desc">${descSnippet}</p>
+                                </div>
+                                <div class="card-tags">${tagsHTML}</div>
+                            </div>
+                        </div>
+                    </article>
+                `;
+                projWrap.insertAdjacentHTML('beforeend', cardHTML);
+            });
+
+            // Update variables now that the DOM has cards
+            allProjCards = document.querySelectorAll('.project-card.project-trigger');
+            lucide.createIcons({ root: projWrap }); // Render the arrows
+
+            // Attach the click event that opens the modal
+            allProjCards.forEach(card => {
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('role', 'button');
+                card.setAttribute('aria-label', 'View case study: ' + (card.getAttribute('data-title') || 'Project'));
+                card.addEventListener('click', e => {
+                    if (e.target.closest('.card-direct-link')) return;
+                    openModal(card);
+                });
+                card.addEventListener('keydown', e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openModal(card);
+                    }
+                });
+            });
+            
+            // Run initial filter so cards display correctly
+            applyProjectFilter();
+
+        } catch (error) {
+            console.error('Failed to load projects:', error);
+            if (noProjMsg) {
+                noProjMsg.textContent = 'Unable to load projects at this time.';
+                noProjMsg.style.display = 'block';
+            }
+        }
+    };
+    
+    initProjects(); // Start the process
 
     // ── 13. VISUALISATIONS CAROUSEL ───────────────────────────────────────
     const vizTrack = document.querySelector('.viz-carousel-track');
@@ -367,7 +438,25 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape')     { closeLightbox(); }
         if (e.key === 'ArrowRight') { e.preventDefault(); openLightboxAt((lightboxIdx + 1) % vizTriggers.length); }
         if (e.key === 'ArrowLeft')  { e.preventDefault(); openLightboxAt((lightboxIdx - 1 + vizTriggers.length) % vizTriggers.length); }
-    });
+    // ── HERO WORD CYCLE ───────────────────────────────────────────────────
+    const heroCycleWord = document.getElementById('hero-cycle-word');
+    if (heroCycleWord) {
+        const heroWords = ['understood', 'designed', 'visualised', 'readable', 'navigated', 'decoded'];
+        let heroWordIdx = 0;
+        const cycleHeroWord = () => {
+            heroCycleWord.classList.add('hero-word-exit');
+            setTimeout(() => {
+                heroWordIdx = (heroWordIdx + 1) % heroWords.length;
+                heroCycleWord.textContent = heroWords[heroWordIdx];
+                heroCycleWord.classList.remove('hero-word-exit');
+                heroCycleWord.classList.add('hero-word-enter');
+                setTimeout(() => heroCycleWord.classList.remove('hero-word-enter'), 500);
+            }, 320);
+        };
+        setInterval(cycleHeroWord, 2800);
+    }
+
+});
 
 // ── 18. P5.JS THE MULTILINGUAL SEMANTIC LENS ──────────────────────────
 // A Pentagram-level generative typographic piece.
