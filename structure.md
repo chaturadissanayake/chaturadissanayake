@@ -6,7 +6,7 @@ chaturadissanayake.github.io/
 ├── privacy.html
 ├── rss.xml
 │
-├── /Assets/                   (Global images: logos, hero bg)
+├── /assets/                   (Global images: logos, hero bg)
 │   ├── Logo.png
 │   ├── Project_1_Image.png    (Keep thumbnails here)
 │   └── ...

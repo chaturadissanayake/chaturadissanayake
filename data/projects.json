@@ -12,7 +12,7 @@
       "Brand Identity",
       "Premium Export"
     ],
-    "thumbnail": "projects/ceylon-harvest/Assets/AssetsCeylon_Thumb.png",
+    "thumbnail": "projects/ceylon-harvest/assets/Ceylon_Thumb.png",
     "date": "JUN 2026"
   },
   {
@@ -28,7 +28,7 @@
       "Data Story",
       "Crisis Comms"
     ],
-    "thumbnail": "projects/ditwah-cyclone/Assets/AssetsDitwah_Thumb.png",
+    "thumbnail": "projects/ditwah-cyclone/assets/Ditwah_Thumb.png",
     "date": "MAR 2026"
   },
   {
@@ -44,7 +44,7 @@
       "UN Reporting",
       "Info Design"
     ],
-    "thumbnail": "projects/un-annual-results/Assets/AssetsUNAnnualResults_Thumb.png",
+    "thumbnail": "projects/un-annual-results/assets/UNAnnualResults_Thumb.png",
     "date": "APR 2025"
   },
   {
@@ -60,7 +60,7 @@
       "SDG Reporting",
       "Data Vis"
     ],
-    "thumbnail": "projects/un-sdg-fund/Assets/AssetsUNSDGFund_Thumb.png",
+    "thumbnail": "projects/un-sdg-fund/assets/UNSDGFund_Thumb.png",
     "date": "MAY 2025"
   },
   {
@@ -76,7 +76,7 @@
       "Scrollytelling",
       "Public Health"
     ],
-    "thumbnail": "projects/drug-crisis/Assets/AssetsDrugCrisis_Thumb.png",
+    "thumbnail": "projects/drug-crisis/assets/DrugCrisis_Thumb.png",
     "date": "OCT 2025"
   },
   {
@@ -92,7 +92,7 @@
       "Civic Tech",
       "Interactive Design"
     ],
-    "thumbnail": "projects/voter-education/Assets/AssetsVoterEducation_Thumb.png",
+    "thumbnail": "projects/voter-education/assets/VoterEducation_Thumb.png",
     "date": "ACTIVE"
   },
   {
@@ -108,7 +108,7 @@
       "UX Research",
       "UI Design"
     ],
-    "thumbnail": "projects/embracy-platform/Assets/AssetsEmbracyPlatform_Thumb.png",
+    "thumbnail": "projects/embracy-platform/assets/EmbracyPlatform_Thumb.png",
     "date": "FEB 2025"
   }
 ]
