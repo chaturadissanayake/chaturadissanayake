@@ -49,11 +49,7 @@
   },
   {
     "id": "un-sdg-fund",
-<<<<<<< Updated upstream
     "category": "visual client",
-=======
-    "category": "Information Design",
->>>>>>> Stashed changes
     "title": "UN Sri Lanka SDG Fund 2024 Results",
     "challenge": "The SDG Fund runs across multiple programmes, each with its own goals, metrics, and language. The challenge was presenting all of that to donors and government partners in a way that felt like one conversation, not a catalogue.",
     "role": "I designed the full information architecture and visual system, from how the programmes were structured to how the data was shown on each page. The aim was to make SDG indicators feel real to someone who didn't spend their days working with them.",
@@ -69,25 +65,17 @@
   },
   {
     "id": "drug-crisis",
-<<<<<<< Updated upstream
     "category": "data-story personal",
-=======
-    "category": "Data Storytelling",
->>>>>>> Stashed changes
     "title": "The Shadow War: Drug Crisis",
     "challenge": "Sri Lanka's drug policy debate was being drowned in jargon, politics, and statistics that nobody outside the sector could parse. I wanted to make it accessible to someone who had no background in policy, because those people's opinions matter too.",
-    "role": "I built the whole thing from scratch: the narrative structure, the visual language, the data pipeline, and the final Data Storytelling experience. Every design decision came back to one question: will someone who knows nothing about this still be able to follow it?",
+    "role": "I built the whole thing from scratch: the narrative structure, the visual language, the data pipeline, and the final scrollytelling experience. Every design decision came back to one question: will someone who knows nothing about this still be able to follow it?",
     "outcome": "A digital environment that lets people walk through the data themselves and reach their own conclusions. Not a lecture, an experience. One that treats the audience as capable of handling the complexity, just on their own terms.",
     "link": "https://chaturadissanayake.github.io/sri-lanka-drug-crisis-website/",
     "status": "View Full Case Study",
-<<<<<<< Updated upstream
     "tags": [
       "Scrollytelling",
       "Public Health"
     ],
-=======
-    "tags": ["Data Storytelling", "Data Storytelling", "Public Health"],
->>>>>>> Stashed changes
     "thumbnail": "projects/drug-crisis/assets/DrugCrisis_Thumb.png",
     "date": "OCT 2025"
   },
