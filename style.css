@@ -269,24 +269,6 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     background: var(--surface); padding-top: 80px; position: relative; overflow: hidden;
 }
 
-<<<<<<< Updated upstream
-/* Interactive P5 Data Background */
-.interactive-data-bg {
-    position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
-    background: linear-gradient(135deg, var(--surface) 0%, #e8edf3 100%);
-}
-/* Re-enable pointer events on the canvas itself so hover/touch lens works,
-   but allow passive scroll to bubble through on mobile */
-.interactive-data-bg canvas {
-    pointer-events: auto;
-    touch-action: pan-y; /* lets vertical scroll pass through to the page */
-}
-.interactive-data-bg canvas {
-    display: block; opacity: 0; animation: canvasFadeIn 2s ease-out 1.5s forwards;
-}
-@keyframes canvasFadeIn {
-    to { opacity: 1; }
-=======
 /* ─── HYPER-BLURRED MESH GRADIENT ─────────────────────────────────── */
 .hero-mesh-wrapper {
     position: absolute;
@@ -333,32 +315,26 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     33% { transform: translate(3vw, -4vh) scale(1.05); }
     66% { transform: translate(-3vw, 2vh) scale(0.95); }
     100% { transform: translate(0, 0) scale(1); }
->>>>>>> Stashed changes
-}
-/* Ensure the text and buttons sit cleanly above the canvas */
-.hero-container-centered { pointer-events: none; }
-.hero-container-centered a, .hero-container-centered button { pointer-events: auto; }
-
-@keyframes float {
-    0% { transform: translate(0, 0) scale(1); }
-    100% { transform: translate(100px, 50px) scale(1.1); }
 }
 
-.hero-container-centered {
-    display: flex; flex-direction: column; align-items: center; text-align: center;
-    padding-top: var(--space-12); padding-bottom: var(--space-12); width: 100%; position: relative; z-index: 1;
+.hero-container {
+    display: flex; flex-direction: column; align-items: flex-start;
+    padding-top: var(--space-12); padding-bottom: var(--space-12); 
+    width: 100%; max-width: var(--max-w); margin: 0 auto; 
+    padding-left: var(--space-8); padding-right: var(--space-8);
+    position: relative; z-index: 1;
 }
-<<<<<<< Updated upstream
-.hero-content { display: flex; flex-direction: column; align-items: center; width: 100%; }
-.hero-label {
-    font-family: var(--mono); font-size: 0.6875rem; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--accent); margin-bottom: var(--space-6);
-=======
+
+@media (max-width: 640px) {
+    .hero-container {
+        padding-left: var(--space-6); padding-right: var(--space-6);
+    }
+}
 
 .hero-content {
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Left aligns everything naturally */
+    align-items: flex-start;
     width: 100%;
 }
 
@@ -370,147 +346,87 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     color: var(--accent); 
     margin-bottom: var(--space-6);
     text-align: left;
->>>>>>> Stashed changes
 }
+
+.hero-text-wrapper {
+    width: 100%;
+}
+
 .hero-title-massive {
-<<<<<<< Updated upstream
-    font-family: var(--serif); font-size: clamp(3.5rem, 8.5vw, 7rem);
-    font-weight: 400; line-height: 1.03; letter-spacing: -0.035em;
-    color: var(--ink); margin-bottom: var(--space-6);
-}
-.hero-title-massive em { 
-    font-style: italic; 
-    color: var(--accent); 
-    letter-spacing: -0.01em; 
-    padding-right: 0.05em; 
-=======
     font-family: var(--serif); 
     font-size: clamp(2.2rem, 5vw, 4.5rem);
     font-weight: 400; 
-    line-height: 1.25; 
+    line-height: 1.15; /* Tighter line height so text stacks cleanly */
     letter-spacing: -0.02em;
     color: var(--ink); 
     margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.2em;
+    display: block; /* Kills the flexbox bugs */
     text-align: left;
     width: 100%;
 }
 
 .hero-line { 
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap; /* Allows natural wrapping without breaking layout */
-    gap: 0.35em; /* Perfect spacing between static and cycling words */
+    display: block; /* Forces natural line breaks */
+    margin-bottom: 0.1em;
 }
 
 .hero-static {
-    white-space: nowrap; /* Keeps static phrases together */
->>>>>>> Stashed changes
+    display: inline; /* Lets the browser handle spacing natively */
+    margin-right: 0.15em;
 }
-.hero-body-centered {
-    font-size: 1.1rem; line-height: 1.65; color: var(--ink-soft);
-    max-width: 560px; margin-bottom: var(--space-2); font-weight: 300;
-}
-.hero-tagline {
-    font-family: var(--serif); font-style: italic;
-    font-size: 1.125rem; color: var(--ink-muted);
-    margin-bottom: var(--space-8) !important;
-}
-.hero-line { display: inline-block; }
-.hero-belief {
-    font-family: var(--serif); font-style: italic;
-    font-size: 1.0625rem; color: var(--ink-muted);
-    max-width: 440px; line-height: 1.65;
-    margin-top: var(--space-4); margin-bottom: var(--space-2);
-}
+
 .hero-cta-group {
-<<<<<<< Updated upstream
-    display: flex; flex-direction: column; align-items: center;
-    gap: var(--space-6); margin-top: var(--space-6); margin-bottom: clamp(2rem, 6vh, 4rem);
-=======
     display: flex; 
     flex-direction: row; 
     align-items: center;
     justify-content: flex-start;
-    gap: var(--space-8); 
-    margin-top: var(--space-4);
+    gap: var(--space-6); /* Tighter grouping per Gestalt Law of Proximity */
+    margin-top: var(--space-8);
     width: 100%;
     flex-wrap: wrap;
->>>>>>> Stashed changes
 }
 
-.minimal-scroll-action {
-    margin-top: var(--space-4); margin-bottom: var(--space-12);
-    display: flex; justify-content: center;
-}
 .scroll-link-custom {
-    display: flex; flex-direction: row; align-items: center; gap: var(--space-4);
+    display: flex; flex-direction: row; align-items: center; gap: 6px;
     text-decoration: none; outline: none;
+    padding: var(--space-2) 0; /* Increase touch target area for Fitts's Law */
+}
+.scroll-link-custom i {
+    margin-top: 0 !important; 
+    transition: transform 0.3s var(--ease-out);
+}
+.scroll-link-custom:hover i {
+    transform: translateY(3px); /* Subtle hover bounce */
 }
 .scroll-text {
     font-size: 0.625rem; font-weight: 600; letter-spacing: 0.18em;
     text-transform: uppercase; font-family: var(--mono); color: var(--ink-muted);
     transition: color var(--dur-fast);
 }
-.scroll-indicator-complex {
-    position: relative; width: 50px; height: 1px;
-    display: flex; align-items: center;
-}
-.scroll-line {
-    position: absolute; top: 0; left: 0; width: 100%; height: 1px;
-    background: linear-gradient(to right, rgba(26,68,128,0.4), transparent);
-    transition: background 0.3s ease;
-}
-.scroll-dot {
-    position: absolute; top: -2px; left: 0; width: 5px; height: 5px;
-    background-color: var(--accent); border-radius: 50%;
-    animation: scrollScan 2s cubic-bezier(0.6, 0.05, 0.28, 0.91) infinite;
-}
-
-@keyframes scrollScan {
-    0% { transform: translateX(0) scale(1); opacity: 0; }
-    20% { opacity: 1; }
-    80% { transform: translateX(45px) scale(0.4); opacity: 0; }
-    100% { transform: translateX(50px); opacity: 0; }
-}
-
 .scroll-link-custom:hover .scroll-text { color: var(--ink); }
-.scroll-link-custom:hover .scroll-line { background: var(--accent); }
-
-.hero-stats-centered {
-    display: flex; align-items: center; justify-content: center;
-    gap: var(--space-10); flex-wrap: wrap;
-}
-.stat { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.stat-num {
-    font-family: var(--serif); font-size: 2.25rem; font-weight: 400;
-    color: var(--ink); line-height: 1;
-}
-.stat-label {
-    font-size: 0.6875rem; font-family: var(--mono); text-transform: uppercase;
-    letter-spacing: 0.09em; color: var(--ink-muted); margin-top: var(--space-2);
-}
-.stat-divider { width: 1px; height: 44px; background: var(--surface-3); }
 
 /* ─── HERO WORD CYCLE ───────────────────────────────────────────────── */
-#hero-cycle-word {
-    display: inline-block;
-    transition: opacity 0.32s ease, transform 0.32s var(--ease-out);
+.hero-cycler {
+    display: inline-grid;
+    align-items: baseline;
+    justify-items: start;
+    vertical-align: baseline;
+    white-space: nowrap;
 }
-#hero-cycle-word.hero-word-exit {
+
+.hero-emp-1, .hero-emp-2 {
+    grid-area: 1 / 1; /* Stacks all words exactly on top of each other */
     opacity: 0;
-    transform: translateY(10px);
+    pointer-events: none;
+    transform: translateY(12px);
+    transition: opacity 0.4s ease, transform 0.4s var(--ease-out);
 }
-@keyframes heroWordEnter {
-    from { opacity: 0; transform: translateY(-14px); }
-    to   { opacity: 1; transform: translateY(0); }
+
+.hero-emp-1.active, .hero-emp-2.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
 }
-<<<<<<< Updated upstream
-#hero-cycle-word.hero-word-enter {
-    animation: heroWordEnter 0.48s var(--ease-out) forwards;
-=======
 
 .hero-emp-1.exit, .hero-emp-2.exit {
     opacity: 0;
@@ -518,14 +434,14 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 }
 
 .hero-emp-1 {
-    color: var(--accent); /* Grounded Policy Blue */
+    color: var(--accent); 
     font-weight: 400;
-    font-style: italic; /* Editorial flair */
+    font-style: italic; 
     letter-spacing: -0.01em;
 }
 
 .hero-emp-2 {
-    background: linear-gradient(135deg, #b45309, #ea580c); /* Mature Amber/Rust gradient */
+    background: linear-gradient(135deg, #b45309, #ea580c); 
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -543,13 +459,12 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     }
     
     .hero-title-massive {
-        font-size: clamp(2rem, 8vw, 2.75rem);
-        gap: 0.3em;
+        font-size: clamp(2.1rem, 8vw, 2.75rem);
     }
-    
-    .hero-line {
-        /* Flex wrap handles the natural line breaks gracefully now */
-        white-space: normal;
+
+    .hero-static {
+        display: block; /* Drops cyclers to a new line on mobile */
+        margin-bottom: 0.1em;
     }
     
     .hero-cta-group {
@@ -557,7 +472,6 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
         align-items: flex-start;
         gap: var(--space-6);
     }
->>>>>>> Stashed changes
 }
 
 /* ─── PROJECTS ──────────────────────────────────────────────────────── */
@@ -1267,19 +1181,15 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 }
 .contact-body { font-size: 0.9375rem; color: var(--ink-muted); line-height: 1.75; margin-bottom: var(--space-8); }
 .contact-email {
-    display: inline-flex; align-items: center; gap: var(--space-2);
-    font-size: 0.9375rem; font-weight: 500;
+    display: inline-flex; align-items: center;
+    font-size: 1.0625rem; /* Increased font size by ~2px */
+    font-weight: 500;
     color: var(--ink); text-decoration: underline; text-decoration-color: var(--surface-3);
     text-underline-offset: 4px;
     transition: text-decoration-color var(--dur-fast), color var(--dur-fast);
     margin-bottom: var(--space-6);
 }
-.contact-email svg {
-    transition: transform var(--dur-fast) var(--ease-out);
-    flex-shrink: 0;
-}
 .contact-email:hover { color: var(--accent); text-decoration-color: var(--accent); }
-.contact-email:hover svg { transform: translateX(3px); }
 .contact-email span {
     padding-bottom: 1px;
 }

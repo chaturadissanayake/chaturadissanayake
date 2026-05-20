@@ -13,11 +13,16 @@
     <script src="https://unpkg.com/lucide@0.292.0" defer></script>
     
     <style>
-        /* Project-Specific Layout CSS, updated to use your global CSS variables */
+        /* CRITICAL FIX FOR STICKY SCROLL */
+        html, body, main, .site-wrapper {
+            overflow-x: clip !important;
+            overflow-y: visible !important;
+        }
+
         .site-wrapper {
             max-width: var(--max-w);
             margin: 0 auto;
-            padding: calc(var(--nav-h) + var(--space-12)) var(--space-8) var(--space-24);
+            padding: calc(var(--nav-h, 80px) + var(--space-8, 32px)) var(--space-8, 32px) var(--space-24, 96px);
         }
 
         .project-header h1 {
@@ -27,7 +32,7 @@
             letter-spacing: -0.02em;
             line-height: 1.1;
             color: var(--ink);
-            margin-bottom: var(--space-4);
+            margin-bottom: var(--space-4, 16px);
         }
         
         .project-header .subtitle {
@@ -36,46 +41,41 @@
             color: var(--ink-soft);
             max-width: 800px;
             line-height: 1.6;
-            margin-bottom: var(--space-10);
+            margin-bottom: var(--space-8, 32px);
         }
 
-        .layout-grid {
-            display: grid;
-            grid-template-columns: 1fr minmax(320px, 420px);
-            column-gap: var(--space-12);
-            align-items: start; /* Prevents columns from stretching to equal height */
-        }
-
-        
-
+        /* Top Controls Row */
         .controls-row {
-            margin-bottom: var(--space-8);
+            display: flex;
+            justify-content: space-between;
             align-items: center;
+            margin-bottom: var(--space-8, 32px);
+            padding-bottom: var(--space-4, 16px);
+            border-bottom: 1px solid var(--surface-3, #e5e5e5);
         }
 
         .tags-col {
             display: flex;
-            gap: var(--space-2);
+            gap: var(--space-2, 8px);
             flex-wrap: wrap;
         }
+        
         .tag {
-            font-family: var(--mono);
-            font-size: 0.6875rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
+            font-family: var(--sans);
+            font-size: 0.75rem;
             color: var(--ink-muted);
-            border: 1px solid var(--surface-3);
-            padding: 6px 12px;
-            background: var(--surface-2);
-            border-radius: var(--radius);
+            background: var(--surface-2, #f5f5f5);
+            padding: 4px 10px;
+            border-radius: 4px;
         }
 
+        /* Pill Toggle Button */
         .about-btn {
             display: inline-flex;
             align-items: center;
-            gap: var(--space-2);
-            background: var(--surface);
-            border: 1px solid var(--surface-3);
+            gap: 8px;
+            background: var(--surface, #ffffff);
+            border: 1px solid var(--surface-3, #e5e5e5);
             border-radius: 100px;
             padding: 8px 16px;
             font-family: var(--sans);
@@ -83,193 +83,270 @@
             font-weight: 500;
             color: var(--ink);
             cursor: pointer;
-            transition: all var(--dur-fast);
+            transition: all var(--dur-fast, 0.2s);
         }
-        .about-btn span {
-            font-size: 1.2rem;
-            line-height: 1;
-        }
+        
         .about-btn:hover {
-            background: var(--surface-3);
+            background: var(--surface-2, #f5f5f5);
+        }
+        
+        .about-btn .icon {
+            font-size: 1.2rem;
+            line-height: 0.8;
+            font-weight: 400;
         }
 
+        /* Layout Grid */
+        .layout-grid {
+            display: flex;
+            /* CRITICAL: stretch forces the sidebar wrap to be exactly as tall as the image column, creating the track for the sticky element */
+            align-items: stretch; 
+            gap: var(--space-12, 48px);
+            position: relative;
+        }
+
+        /* ── Media Column (Editorial Grid) ── */
         .media-col {
-            flex: 1 1 0;
+            flex: 1;
             min-width: 0;
             display: flex;
             flex-direction: column;
-            gap: var(--space-5);
+            gap: var(--space-6, 24px);
         }
 
-        /* ── Sidebar wrap: animates the collapse so images breathe out ── */
-        .sidebar-wrap {
-            flex: 0 0 auto;
-            width: min(420px, 38vw);
-            transition: width 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .sidebar-wrap.is-collapsing {
-            overflow: hidden;
-        }
-        .sidebar-wrap.is-collapsed {
-            width: 0;
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-6, 24px);
+            width: 100%;
+            align-items: start;
         }
 
         .media-item {
-            position: relative;
-            width: 100%;
-            background: var(--surface-3);
+            background: #f8f8f8;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: var(--radius-lg);
-            overflow: hidden;
+            border-radius: 4px;
+            width: 100%;
+        }
+
+        .media-item.full-width {
+            grid-column: 1 / -1;
         }
         
-        .media-item.landscape { aspect-ratio: 16/9; }
-        .media-item.portrait { aspect-ratio: 4/3; }
-
-        .unmute-badge {
-            position: absolute;
-            top: var(--space-4);
-            right: var(--space-4);
-            background: rgba(10, 15, 23, 0.7);
-            backdrop-filter: blur(4px);
-            color: var(--white);
-            font-family: var(--sans);
-            font-size: 0.75rem;
-            padding: 6px 12px;
-            border-radius: 100px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        .media-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            border-radius: 4px;
         }
 
-        .text-col {
+        .standard-quote {
+            font-family: var(--serif);
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 400;
+            color: var(--ink);
+            grid-column: 1 / -1;
+            margin: var(--space-10, 40px) 0;
+            line-height: 1.3;
+            max-width: 95%;
+        }
+
+        /* ── Flawless Sticky Sidebar Architecture ── */
+        
+        .sidebar-wrap {
+            width: 400px;
+            flex-shrink: 0;
+            /* This acts as the physical track. It stretches to the bottom of the grid. */
+            position: relative; 
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), margin-left 0.4s ease;
+        }
+        
+        .sidebar-wrap.is-collapsed {
+            width: 0;
+            margin-left: calc(var(--space-12, 48px) * -1); 
+        }
+
+        .text-col-inner {
+            /* This is the element that actually sticks */
             position: sticky;
-            top: calc(var(--nav-h) + var(--space-8));
-            min-width: 320px; /* prevents content squeeze during the collapse animation */
-            transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .text-col.is-exiting {
-            opacity: 0;
-            transform: translateX(40px) scale(0.97);
-        }
-        @keyframes sidebarEnter {
-            from { opacity: 0; transform: translateX(30px) scale(0.98); }
-            to   { opacity: 1; transform: translateX(0) scale(1); }
-        }
-        .text-col.is-entering {
-            animation: sidebarEnter 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            top: calc(var(--nav-h, 80px) + var(--space-6, 24px));
+            height: max-content; 
+            max-height: calc(100vh - var(--nav-h, 80px) - var(--space-8, 32px));
+            
+            width: 400px; /* Fixed width stops text from squashing */
+            padding-right: var(--space-4, 16px);
+            opacity: 1;
+            overflow-y: auto;
+            scrollbar-width: none;
+            transition: opacity 0.3s ease;
         }
 
-        .text-col p {
+        .text-col-inner::-webkit-scrollbar { 
+            display: none; 
+        }
+
+        .sidebar-wrap.is-collapsed .text-col-inner {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Typography inside Sidebar */
+        .project-description p {
+            font-family: var(--sans);
             font-size: 0.9375rem;
-            line-height: 1.75;
-            color: var(--ink-soft);
-            margin-bottom: var(--space-6);
+            line-height: 1.65;
+            color: var(--ink);
+            margin-bottom: var(--space-5, 20px);
+        }
+
+        .project-description p:first-child {
+            margin-top: -6px; /* Optical alignment with the top edge of the first image */
+        }
+
+        .meta-section {
+            margin-top: var(--space-10, 40px);
+            border-top: 1px solid var(--surface-3, #e5e5e5);
+            padding-top: var(--space-8, 32px);
         }
         
         .meta-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: var(--space-6);
-            margin-top: var(--space-12);
-            padding-top: var(--space-8);
-            border-top: 1px solid var(--surface-3);
+            gap: var(--space-6, 24px);
         }
+        
         .meta-item {
             display: flex;
             flex-direction: column;
             gap: 4px;
         }
-        .meta-item.full-width { grid-column: 1 / -1; }
+        
         .meta-label {
-            font-family: var(--mono);
-            font-size: 0.6875rem;
+            font-family: var(--sans);
+            font-size: 0.75rem;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--accent);
+            letter-spacing: 0.05em;
+            color: var(--ink-muted);
         }
+        
         .meta-value {
+            font-family: var(--sans);
             font-size: 0.875rem;
             font-weight: 500;
             color: var(--ink);
-            line-height: 1.4;
+            line-height: 1.3;
         }
 
-        .pull-quote {
+        /* ── Next Project Section ── */
+        .next-project-section {
+            margin-top: var(--space-24, 96px);
+            padding-top: var(--space-12, 48px);
+            border-top: 1px solid var(--surface-3, #e5e5e5);
+        }
+
+        .next-project-inner {
+            margin-bottom: var(--space-8, 32px);
+        }
+
+        .next-label {
             font-family: var(--sans);
-            font-size: clamp(1.5rem, 2.5vw, 1.85rem);
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            line-height: 1.35;
-            color: var(--ink);
-            margin: var(--space-6) 0;
-            padding-right: var(--space-6);
+            font-size: 0.875rem;
+            color: var(--ink-soft);
+            margin-bottom: var(--space-6, 24px);
         }
 
+        .next-title {
+            font-family: var(--sans);
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 400;
+            color: var(--ink);
+            margin-bottom: var(--space-4, 16px);
+            letter-spacing: -0.02em;
+        }
+
+        .next-desc {
+            font-family: var(--sans);
+            font-size: 1.125rem;
+            color: var(--ink);
+            margin-bottom: var(--space-6, 24px);
+            max-width: 600px;
+        }
+
+        /* ── Mobile Layout Specifics ── */
         @media (max-width: 900px) {
-            /* 1. BREAK THE DESKTOP GRID - Force Flexbox */
+
+            .controls-row .btn-wrapper {
+                display: none; 
+            }
+
             .layout-grid {
+                display: block; 
+            }
+
+            .media-grid {
+                grid-template-columns: 1fr; /* Stack images natively on phone */
+            }
+
+            /* Floating Button for Mobile */
+            .btn-wrapper-mobile {
                 display: flex !important;
-                flex-direction: column;
-                gap: var(--space-8);
+                position: fixed;
+                bottom: 32px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 80 !important; 
+                transition: opacity 0.3s ease, transform 0.3s ease;
             }
 
-            /* 2. Stack Text ABOVE Images */
-            .layout-grid:not(.controls-row) {
-                flex-direction: column-reverse;
+            .btn-wrapper-mobile .about-btn {
+                box-shadow: 0 4px 16px rgba(0,0,0,0.15);
             }
 
-            /* 3. Hide the desktop toggle button entirely */
-            .btn-col {
-                display: none !important;
-            }
-
-            /* 4. Release all animation constraints on the sidebar wrapper */
+            /* Sidebar transforms into Full Overlay Modal */
             .sidebar-wrap {
-                width: 100% !important;
-                max-width: 100% !important;
-                overflow: visible !important;
-                transition: none !important;
-                display: block !important; 
-            }
-
-            /* 5. Mobile Reading Layout (creates an article intro section) */
-            .text-col {
-                position: relative !important;
+                position: fixed !important;
                 top: 0 !important;
-                min-width: 100% !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
+                max-height: none !important;
+                margin-left: 0 !important;
+                background-color: var(--surface, #ffffff) !important;
+                z-index: 70 !important; 
+                opacity: 0;
+                pointer-events: none;
+                transform: translateY(20px);
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+
+            .sidebar-wrap.is-open-mobile {
                 opacity: 1 !important;
-                transform: none !important;
-                padding-bottom: var(--space-8);
-                border-bottom: 1px solid var(--surface-3);
-                margin-bottom: var(--space-2);
+                pointer-events: auto !important;
+                transform: translateY(0) !important;
             }
 
-            /* 6. Optimize typography for small screens */
-            .text-col p {
-                font-size: 1rem; 
-                line-height: 1.65;
+            .text-col-inner {
+                width: 100% !important;
+                height: 100vh !important;
+                max-height: none !important;
+                padding: 100px 24px 120px 24px !important; /* Prevents text from crashing into the logo */
             }
+        }
 
-            .controls-row {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: var(--space-5);
-            }
-            
-            .meta-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: var(--space-5);
-            }
+        /* Hide mobile wrapper on desktop */
+        .btn-wrapper-mobile {
+            display: none;
         }
     </style>
 </head>
 <body class="loading">
 
-<header class="main-header scrolled" id="main-header">
+<header class="main-header scrolled" id="main-header" style="z-index: 1000 !important;">
     <div class="nav-inner">
         <a href="../../index.html" class="nav-logo" aria-label="Chatura Dissanayake Home">
             <span class="logo-mark">
@@ -293,7 +370,7 @@
     </div>
 </header>
 
-<div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+<div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation" style="z-index: 999 !important;">
     <nav class="mobile-nav-links">
         <a href="../../index.html#projects"       class="mobile-link">Work</a>
         <a href="../../index.html#about"          class="mobile-link">About</a>
@@ -312,90 +389,145 @@
 
 <main>
     <div class="site-wrapper">
+        
         <header class="project-header">
             <h1>Ceylon Harvest Co.</h1>
             <p class="subtitle">A 3,000-year-old tradition, presented with modern premium confidence.</p>
         </header>
 
-        <div class="layout-grid controls-row">
+        <div class="controls-row">
             <div class="tags-col">
                 <span class="tag">Brand Identity</span>
                 <span class="tag">Premium Export</span>
                 <span class="tag">Heritage &amp; Culture</span>
             </div>
-            <div class="btn-col">
-                <button class="about-btn" id="toggleBtn" onclick="toggleSidebar()">
-                    About the project <span>×</span>
+            <div class="btn-wrapper">
+                <button class="about-btn" onclick="toggleSidebar()">
+                    <span>About the project</span> <span class="icon toggle-icon">×</span>
                 </button>
             </div>
         </div>
 
-        <div class="layout-grid">
+        <div class="layout-grid" id="mainLayout">
             
             <div class="media-col">
-                <div class="media-item" style="aspect-ratio: 792/612;">
-                    <img src="assets/01_Brand_Pattern.png" alt="Ceylon Harvest Co. Seamless Brand Pattern">
-                </div>
+                <div class="media-grid">
+                    
+                    <div class="media-item full-width">
+                        <img src="assets/01_Hero_Cover.webp" alt="Ceylon Harvest Co. Hero Brand Identity">
+                    </div>
 
-                <div class="media-item" style="aspect-ratio: 792/612;">
-                    <img src="assets/02_Primary_Seal.png" alt="Ceylon Harvest Co. Primary Botanical Seal">
-                </div>
+                    <div class="media-item">
+                        <img src="assets/02_Mark_Anatomy.webp" alt="Anatomy of the Botanical Mark detailing trace ingredients">
+                    </div>
+                    <div class="media-item">
+                        <img src="assets/05_Modular_Elements.webp" alt="Modular botanical marks and sun motifs">
+                    </div>
 
-                <div class="pull-quote">
-                    "We speak with quiet confidence. Our language is precise, factual, and grounded in expertise—never ornamental, never borrowed from the tourism playbook."
-                </div>
+                    <div class="standard-quote">
+                        "We speak with quiet confidence. Our language is precise, factual, and grounded in expertise—never ornamental, never borrowed from the tourism playbook."
+                    </div>
 
-                <div class="media-item" style="aspect-ratio: 792/612;">
-                    <img src="assets/03_Mark_Anatomy.png" alt="Anatomy of the Botanical Mark detailing trace ingredients">
-                </div>
+                    <div class="media-item">
+                        <img src="assets/06_Isolated_Botanical_Marks.webp" alt="Isolated botanical marks for categorizing product lines">
+                    </div>
+                    <div class="media-item">
+                        <img src="assets/03_Brand_Pattern.webp" alt="Ceylon Harvest Co. Seamless Brand Pattern">
+                    </div>
 
-                <div class="media-item" style="aspect-ratio: 792/612;">
-                    <img src="assets/04_Secondary_Lockups.png" alt="High-contrast monochrome applications">
+                    <div class="media-item full-width">
+                        <img src="assets/04_Secondary_Lockups.webp" alt="Secondary horizontal lockups">
+                    </div>
+
+                    <div class="media-item">
+                        <img src="assets/08_Typographic_Hierarchy.webp" alt="Typographic Hierarchy showcasing Baskerville and Poppins">
+                    </div>
+                    <div class="media-item">
+                        <img src="assets/09_Color_Palette.webp" alt="Extracted from the Earth color palette">
+                    </div>
+
+                    <div class="media-item">
+                        <img src="assets/07_Inverse_Seals.webp" alt="High-contrast monochrome applications">
+                    </div>
+                    <div class="media-item">
+                        <img src="assets/10_Final_Emblem.webp" alt="Live Long Rich final brand seals">
+                    </div>
+
                 </div>
             </div>
 
             <div class="sidebar-wrap" id="sidebarWrap">
-            <div class="text-col" id="sidebarBody">
-                <p>Ceylon Harvest Co. is a premium Sri Lankan export brand. The objective is to present Ceylon cinnamon, black pepper, traditional herbs, and natural Sri Lankan products, traceable to source, verified for quality, built for global markets.</p>
-                <p>The target audience consists of Western consumers and trade buyers who care about origin, quality, and authenticity. They distrust generic. They pay for real. Therefore, the brand must feel ancient and trustworthy. We speak with quiet confidence. Our language is precise, factual, and grounded in expertise—never ornamental, never borrowed from the tourism playbook.</p>
-                <p>The initial visual exploration utilized solar motifs to signify growth and the tropical climate of origin. While visually striking, the sun icon inadvertently edged toward aesthetics commonly associated with the tourism sector. To truly capture a quiet, unwavering heritage authority, the visual identity required a more grounded, source-driven approach.</p>
-                <p>The botanical seal communicates transparency, traceability, and absolute authenticity. Every element within the brand seal is a real product, traceable to a real place of origin. There is no decorative filler—the complexity of the mark is earned by the breadth of what Sri Lankan soil genuinely produces.</p>
-                <p>Our typographic system balances the weight of a 3,000-year-old tradition with the functional, minimalist requirements of modern global commerce. Baskerville Old Face serves as our primary typeface, grounding the brand in history. This is paired with Poppins, a geometric sans-serif that brings modern utility.</p>
+                <div class="text-col-inner">
+                    
+                    <div class="project-description">
+                        <p>Ceylon Harvest Co. is a premium Sri Lankan export brand. The objective is to present Ceylon cinnamon, black pepper, traditional herbs, and natural Sri Lankan products, traceable to source, verified for quality, built for global markets.</p>
+                        
+                        <p>The target audience consists of Western consumers and trade buyers who care about origin, quality, and authenticity. They distrust generic. They pay for real. Therefore, the brand must feel ancient and trustworthy. We speak with quiet confidence. Our language is precise, factual, and grounded in expertise—never ornamental, never borrowed from the tourism playbook.</p>
+                        
+                        <p>The initial visual exploration utilized solar motifs to signify growth and the tropical climate of origin. While visually striking, the sun icon inadvertently edged toward aesthetics commonly associated with the tourism sector. To truly capture a quiet, unwavering heritage authority, the visual identity required a more grounded, source-driven approach.</p>
+                        
+                        <p>The botanical seal communicates transparency, traceability, and absolute authenticity. Every element within the brand seal is a real product, traceable to a real place of origin. There is no decorative filler—the complexity of the mark is earned by the breadth of what Sri Lankan soil genuinely produces.</p>
+                        
+                        <p>Our typographic system balances the weight of a 3,000-year-old tradition with the functional, minimalist requirements of modern global commerce. Baskerville Old Face serves as our primary typeface, grounding the brand in history. This is paired with Poppins, a geometric sans-serif that brings modern utility.</p>
+                    </div>
 
-                <div class="meta-grid">
-                    <div class="meta-item">
-                        <div class="meta-label">Client</div>
-                        <div class="meta-value">Ceylon Harvest Co.</div>
+                    <div class="meta-section">
+                        <div class="meta-grid">
+                            <div class="meta-item">
+                                <div class="meta-label">Client</div>
+                                <div class="meta-value">Ceylon Harvest Co.</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Office</div>
+                                <div class="meta-value">Homebased</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Sector</div>
+                                <div class="meta-value">Brand Identity</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Discipline</div>
+                                <div class="meta-value">Branding & Strategy</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Project team</div>
+                                <div class="meta-value">Chatura Dissanayake</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Collaborators</div>
+                                <div class="meta-value">None</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Office</div>
-                        <div class="meta-value">Homebased</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Sector</div>
-                        <div class="meta-value">Brand Identity</div>
-                    </div>
-                    <div class="meta-item">
-                        <div class="meta-label">Project Team</div>
-                        <div class="meta-value">Chatura Dissanayake</div>
-                    </div>
-                    <div class="meta-item full-width">
-                        <div class="meta-label">Discipline</div>
-                        <div class="meta-value">Branding</div>
-                    </div>
-                    <div class="meta-item full-width">
-                        <div class="meta-label">Collaborators</div>
-                        <div class="meta-value">None</div>
-                    </div>
+
                 </div>
             </div>
-            </div><!-- /.sidebar-wrap -->
 
         </div>
+
+        <section class="next-project-section" id="nextProjectTarget">
+            <div class="next-project-inner">
+                <div class="next-label">Next Project</div>
+                <h2 class="next-title">Ily's Garden</h2>
+                <p class="next-desc">A virtual flower delivery website and digital postcard platform.</p>
+                <div class="tags-col">
+                    <span class="tag">Web Design</span>
+                    <span class="tag">UI/UX</span>
+                    <span class="tag">Development</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="btn-wrapper-mobile" id="mobileFloatBtn">
+            <button class="about-btn" onclick="toggleSidebar()">
+                <span>About the project</span> <span class="icon toggle-icon">+</span>
+            </button>
+        </div>
+
     </div>
 </main>
 
-<footer class="site-footer">
+<footer class="site-footer" id="siteFooter">
     <div class="container">
         <div class="footer-grid">
             <div class="footer-col">
@@ -435,44 +567,50 @@
 
 <script src="../../app.js"></script>
 <script>
-    // Initialize icons for the project page
     document.addEventListener('DOMContentLoaded', () => {
-        lucide.createIcons();
+        if(window.lucide) lucide.createIcons();
         document.body.classList.remove('loading');
+
+        // Observer tied to the "Next Project" section to hide the mobile button gracefully
+        const floatBtn = document.getElementById('mobileFloatBtn');
+        const triggerSection = document.getElementById('nextProjectTarget');
+        
+        if(floatBtn && triggerSection) {
+            const observer = new IntersectionObserver((entries) => {
+                if(entries[0].isIntersecting) {
+                    // Next project area is visible, hide the button
+                    floatBtn.style.opacity = '0';
+                    floatBtn.style.pointerEvents = 'none';
+                    floatBtn.style.transform = 'translate(-50%, 20px)';
+                } else {
+                    // Scrolling back up into the gallery, show the button
+                    floatBtn.style.opacity = '1';
+                    floatBtn.style.pointerEvents = 'auto';
+                    floatBtn.style.transform = 'translate(-50%, 0)';
+                }
+            }, { rootMargin: '100px' }); // Triggers just before the next project section fully hits the viewport
+            
+            observer.observe(triggerSection);
+        }
     });
 
     function toggleSidebar() {
         const wrap = document.getElementById('sidebarWrap');
-        const body = document.getElementById('sidebarBody');
-        const btn  = document.getElementById('toggleBtn');
-        const span = btn.querySelector('span');
-        const isOpen = !wrap.classList.contains('is-collapsed');
-
-        if (isOpen) {
-            // Step 1: text slides out (350ms)
-            body.classList.add('is-exiting');
-            span.textContent = '+';
-            // Step 2: once text is invisible, collapse the sidebar shell
-            // so the images expand into the freed space
-            setTimeout(() => {
-                wrap.classList.add('is-collapsing'); // enables overflow: hidden
-                wrap.classList.add('is-collapsed');  // width → 0 (triggers flex reflow)
-            }, 360);
+        const isDesktop = window.innerWidth > 900;
+        
+        const icons = document.querySelectorAll('.toggle-icon');
+        
+        if (isDesktop) {
+            wrap.classList.toggle('is-collapsed');
+            const isNowOpen = !wrap.classList.contains('is-collapsed');
+            icons.forEach(icon => icon.textContent = isNowOpen ? '×' : '+');
+            
         } else {
-            // Step 1: expand the shell first
-            wrap.classList.remove('is-collapsed');
-            setTimeout(() => {
-                wrap.classList.remove('is-collapsing');
-            }, 650);
-            // Step 2: slide text back in after shell has opened a little
-            setTimeout(() => {
-                body.classList.remove('is-exiting');
-                requestAnimationFrame(() => {
-                    body.classList.add('is-entering');
-                    setTimeout(() => body.classList.remove('is-entering'), 500);
-                });
-            }, 80);
-            span.textContent = '×';
+            wrap.classList.toggle('is-open-mobile');
+            const isNowOpen = wrap.classList.contains('is-open-mobile');
+            icons.forEach(icon => icon.textContent = isNowOpen ? '×' : '+');
+            
+            document.body.style.overflow = isNowOpen ? 'hidden' : '';
         }
     }
 </script>

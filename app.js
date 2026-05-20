@@ -448,226 +448,39 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape')     { closeLightbox(); }
         if (e.key === 'ArrowRight') { e.preventDefault(); openLightboxAt((lightboxIdx + 1) % vizTriggers.length); }
         if (e.key === 'ArrowLeft')  { e.preventDefault(); openLightboxAt((lightboxIdx - 1 + vizTriggers.length) % vizTriggers.length); }
+    });
+
     // ── HERO WORD CYCLE ───────────────────────────────────────────────────
-    const heroCycleWord = document.getElementById('hero-cycle-word');
-    if (heroCycleWord) {
-        const heroWords = ['understood', 'designed', 'visualised', 'readable', 'navigated', 'decoded'];
-        let heroWordIdx = 0;
-        const cycleHeroWord = () => {
-            heroCycleWord.classList.add('hero-word-exit');
-            setTimeout(() => {
-                heroWordIdx = (heroWordIdx + 1) % heroWords.length;
-                heroCycleWord.textContent = heroWords[heroWordIdx];
-                heroCycleWord.classList.remove('hero-word-exit');
-                heroCycleWord.classList.add('hero-word-enter');
-                setTimeout(() => heroCycleWord.classList.remove('hero-word-enter'), 500);
-            }, 320);
+    const cyclers = document.querySelectorAll('.hero-cycler');
+    if (cyclers.length > 0) {
+        let activeIdx1 = 0;
+        let activeIdx2 = 0;
+        let cycleFirst = true; // Flag to alternate animations
+        const emp1 = cyclers[0].querySelectorAll('.hero-emp-1');
+        const emp2 = cyclers[1] ? cyclers[1].querySelectorAll('.hero-emp-2') : [];
+
+        const cycleWords = () => {
+            if (cycleFirst && emp1.length > 0) {
+                emp1[activeIdx1].classList.remove('active');
+                emp1[activeIdx1].classList.add('exit');
+                const prev1 = activeIdx1;
+                setTimeout(() => emp1[prev1].classList.remove('exit'), 400);
+                
+                activeIdx1 = (activeIdx1 + 1) % emp1.length;
+                emp1[activeIdx1].classList.add('active');
+            } else if (!cycleFirst && emp2.length > 0) {
+                emp2[activeIdx2].classList.remove('active');
+                emp2[activeIdx2].classList.add('exit');
+                const prev2 = activeIdx2;
+                setTimeout(() => emp2[prev2].classList.remove('exit'), 400);
+                
+                activeIdx2 = (activeIdx2 + 1) % emp2.length;
+                emp2[activeIdx2].classList.add('active');
+            }
+            cycleFirst = !cycleFirst; // Toggle the flag for the next cycle
         };
-        setInterval(cycleHeroWord, 2800);
+        
+        // Speed up the interval since only one phrase changes at a time
+        setInterval(cycleWords, 2000);
     }
-
-<<<<<<< Updated upstream
-});
-
-// ── 18. P5.JS THE MULTILINGUAL SEMANTIC LENS ──────────────────────────
-// A Pentagram-level generative typographic piece.
-// Spring physics snap chaotic multilingual noise into structured personal data.
-// Easter egg: hover to uncover Chatura Dissanayake's story in three scripts.
-
-const sketch = (p) => {
-    let cells = [];
-    let cols, rows, scl;
-    let canvasWidth = window.innerWidth;
-    let time = 0;
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    // Physics — high-tension springs for tactile "snap and settle"
-    const STIFFNESS = 0.25;
-    const DAMPING   = 0.70;
-
-    // ── Ambient noise character pools (all three scripts) ─────────────
-const sinhala = ['අ','ආ','ඇ','ඈ','ඉ','ඊ','උ','ඌ','එ','ඒ','ඔ','ඕ','ක','ග','ච','ජ','ට','ඩ','ත','ද','න','ප','බ','ම','ය','ර','ල','ව','ස','හ','ළ','ෆ'];
-const tamil   = ['அ','ஆ','இ','ஈ','உ','ஊ','எ','ஏ','ஐ','ஒ','ஓ','க','ச','ஞ','ட','ண','த','ந','ப','ம','ய','ர','ல','வ','ழ','ள','ற','ன'];
-    const latin   = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','0','1'];
-    const allChars = [].concat(sinhala, tamil, latin);
-
-    // ── Easter egg vocabulary ─────────────────────────────────────────
-    // Rows cycle EN → SI → TA. Hovering the lens peels back the noise
-    // to reveal structured personal data about Chatura in three languages.
-    //
-    //  lang:'en'  →  professional pillars       (Policy Blue   #1A4480)
-    //  lang:'si'  →  Sinhala personal data      (Warm Amber    #BE8214)
-    //  lang:'ta'  →  Tamil personal data        (Deep Crimson  #A0284A)
-    //
-const vocabRows = [
-    { text: "C L A R I T Y          ", lang:'en', rR:26,  rG:68,  rB:128 },
-    { text: "ච  ත  ර               ", lang:'si', rR:190, rG:130, rB:20  },
-    { text: "ச  த  ர               ", lang:'ta', rR:160, rG:40,  rB:74  },
-    { text: "N A R R A T I V E      ", lang:'en', rR:26,  rG:68,  rB:128 },
-    { text: "ල  ක                   ", lang:'si', rR:190, rG:130, rB:20  },
-    { text: "இ  ல  க               ", lang:'ta', rR:160, rG:40,  rB:74  },
-    { text: "E V I D E N C E        ", lang:'en', rR:26,  rG:68,  rB:128 },
-    { text: "ද  ත                   ", lang:'si', rR:190, rG:130, rB:20  },
-    { text: "த  ர  வ               ", lang:'ta', rR:160, rG:40,  rB:74  },
-    { text: "S Y S T E M S          ", lang:'en', rR:26,  rG:68,  rB:128 },
-    { text: "ස  ත  ය               ", lang:'si', rR:190, rG:130, rB:20  },
-    { text: "உ  ண  ம               ", lang:'ta', rR:160, rG:40,  rB:74  },
-    { text: "I M P A C T            ", lang:'en', rR:26,  rG:68,  rB:128 },
-    { text: "ක  ථ                   ", lang:'si', rR:190, rG:130, rB:20  },
-    { text: "க  த                   ", lang:'ta', rR:160, rG:40,  rB:74  },
-    { text: "S T R U C T U R E      ", lang:'en', rR:26,  rG:68,  rB:128 },
-    { text: "ප  හ  ද  ල            ", lang:'si', rR:190, rG:130, rB:20  },
-    { text: "த  ள  வ               ", lang:'ta', rR:160, rG:40,  rB:74  },
-];
-
-    // Discovery hint — fades to 0 the moment non-English text is first revealed
-    let hintOpacity = 40;
-    let hasDiscoveredMultilingual = false;
-
-    p.setup = () => {
-        let canvas = p.createCanvas(p.windowWidth, p.windowHeight);
-        canvas.parent('p5-hero-canvas');
-        p.textAlign(p.CENTER, p.CENTER);
-        // system-ui ensures correct Sinhala + Tamil glyph rendering
-        p.textFont("'Noto Sans Sinhala', 'Noto Sans Tamil', 'Inter', system-ui, sans-serif");
-        initGrid();
-    };
-
-    function initGrid() {
-        cells = [];
-        scl = p.windowWidth < 768 ? 26 : 34;
-        cols = p.floor(p.width / scl) + 2;
-        rows = p.floor(p.height / scl) + 2;
-
-        for (let y = 0; y < rows; y++) {
-            let row = vocabRows[y % vocabRows.length];
-            for (let x = 0; x < cols; x++) {
-                let trueChar = row.text.charAt(x % row.text.length);
-                cells.push({
-                    baseX: x * scl,   baseY: y * scl,
-                    trueChar,
-                    lang: row.lang,
-                    rR: row.rR, rG: row.rG, rB: row.rB,
-                    randomOffset: p.random(1000),
-                    curX: x * scl,    curY: y * scl,
-                    vx: 0, vy: 0,
-                    curSize: 4,       vSize: 0,
-                    curAlpha: 0,
-                    r: 120, g: 130,   b: 140
-                });
-            }
-        }
-    }
-
-    p.draw = () => {
-        p.clear();
-
-        let isTouch    = p.touches.length > 0;
-        let mX         = isTouch ? p.touches[0].x : p.mouseX;
-        let mY         = isTouch ? p.touches[0].y : p.mouseY;
-        let interacting = isTouch || (p.mouseX > 0 && p.mouseX < p.width && p.mouseY > 0 && p.mouseY < p.height);
-        let radius      = p.windowWidth < 768 ? 130 : 220;
-
-        for (let i = 0; i < cells.length; i++) {
-            let c = cells[i];
-
-            // ── A. Ambient: chaotic multilingual noise ────────────────
-            let noiseVal = p.noise(c.baseX * 0.004 + time, c.baseY * 0.004);
-            let driftX   = reducedMotion ? 0 : p.map(noiseVal, 0, 1, -scl * 1.5, scl * 1.5);
-            let driftY   = reducedMotion ? 0 : p.map(p.noise(c.baseX * 0.004, c.baseY * 0.004 + time), 0, 1, -scl * 1.5, scl * 1.5);
-
-            let targetX     = c.baseX + driftX;
-            let targetY     = c.baseY + driftY;
-            let targetSize  = scl * 0.35;
-            let targetAlpha = 25;
-            let displayChar = allChars[p.floor(p.noise(c.randomOffset + time * 2) * allChars.length)];
-            let cR = 140, cG = 150, cB = 160;
-
-            // ── B. Lens: reveal structured personal data ──────────────
-            if (interacting) {
-                let d = p.dist(c.baseX, c.baseY, mX, mY);
-                if (d < radius) {
-                    let intensity = p.pow(p.map(d, 0, radius, 1, 0), 1.5);
-
-                    targetX = p.lerp(targetX, c.baseX, intensity);
-                    targetY = p.lerp(targetY, c.baseY, intensity);
-
-                    if (c.trueChar !== ' ') {
-                        displayChar  = c.trueChar;
-                        targetSize   = p.lerp(targetSize, scl * 0.75, intensity);
-                        targetAlpha  = p.lerp(targetAlpha, 255, intensity);
-
-                        // Language-aware reveal colour
-                        cR = p.lerp(cR, c.rR, intensity);
-                        cG = p.lerp(cG, c.rG, intensity);
-                        cB = p.lerp(cB, c.rB, intensity);
-
-                        // Trigger hint fade the first time a non-English row is uncovered
-                        if (c.lang !== 'en' && !hasDiscoveredMultilingual && intensity > 0.5) {
-                            hasDiscoveredMultilingual = true;
-                        }
-                    } else {
-                        // Spaces carve clean negative space around the revealed word
-                        targetSize  = p.lerp(targetSize, 0, intensity);
-                        targetAlpha = p.lerp(targetAlpha, 0, intensity);
-                    }
-                }
-            }
-
-            // ── C. Spring physics ─────────────────────────────────────
-            let forceX = (targetX - c.curX) * STIFFNESS;
-            c.vx += forceX; c.vx *= DAMPING; c.curX += c.vx;
-
-            let forceY = (targetY - c.curY) * STIFFNESS;
-            c.vy += forceY; c.vy *= DAMPING; c.curY += c.vy;
-
-            let forceSize = (targetSize - c.curSize) * STIFFNESS;
-            c.vSize += forceSize; c.vSize *= DAMPING; c.curSize += c.vSize;
-
-            // Colour + alpha lerp (smooth enough without springs)
-            c.curAlpha = p.lerp(c.curAlpha, targetAlpha, 0.2);
-            c.r = p.lerp(c.r, cR, 0.2);
-            c.g = p.lerp(c.g, cG, 0.2);
-            c.b = p.lerp(c.b, cB, 0.2);
-
-            // ── D. Render ─────────────────────────────────────────────
-            if (c.curSize > 0.5 && c.curAlpha > 1) {
-                p.fill(c.r, c.g, c.b, c.curAlpha);
-                p.textSize(Math.max(0.1, c.curSize));
-                p.text(displayChar, c.curX, c.curY);
-            }
-        }
-
-        // ── E. Discovery hint (ස · த · A) ────────────────────────────
-        // Quietly invites exploration; disappears once multilingual text is found.
-        if (hintOpacity > 0.5) {
-            if (hasDiscoveredMultilingual) {
-                hintOpacity = p.lerp(hintOpacity, 0, 0.04);
-            }
-            p.push();
-            p.textSize(10);
-            p.textAlign(p.RIGHT, p.BOTTOM);
-            p.fill(120, 130, 140, hintOpacity);
-            p.noStroke();
-            p.text('ස · த · A — Hover to explore', p.width - 18, p.height - 18);
-            p.pop();
-        }
-
-        time += reducedMotion ? 0 : 0.003;
-    };
-
-    p.windowResized = () => {
-        if (p.abs(p.windowWidth - canvasWidth) > 50) {
-            p.resizeCanvas(p.windowWidth, p.windowHeight);
-            canvasWidth = p.windowWidth;
-            initGrid();
-        }
-    };
-};
-
-if (document.getElementById('p5-hero-canvas')) {
-    new p5(sketch);
-}
-=======
->>>>>>> Stashed changes
 });
