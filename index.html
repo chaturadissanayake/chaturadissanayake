@@ -7,15 +7,15 @@
     <meta name="description" content="Chatura Dissanayake, Freelance communications specialist in data visualisation. I help organisations connect with the people who need their work.">
     
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://chaturadissanayake.github.io/">
+    <meta property="og:url" content="https://chaturadissanayake.vercel.app/">
     <meta property="og:title" content="Chatura Dissanayake | Communications Specialist">
     <meta property="og:description" content="I help organisations connect with the people who need their work, through data visualisation, reports, and communication design.">
-    <meta property="og:image" content="https://chaturadissanayake.github.io/assets/Social_Preview.jpg">
+    <meta property="og:image" content="https://chaturadissanayake.vercel.app/assets/Social_Preview.jpg">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Chatura Dissanayake | Communications Specialist">
     <meta name="twitter:description" content="I help organisations connect with the people who need their work, through data visualisation, reports, and communication design.">
-    <meta name="twitter:image" content="https://chaturadissanayake.github.io/assets/Social_Preview.jpg">
-    <link rel="canonical" href="https://chaturadissanayake.github.io/">
+    <meta name="twitter:image" content="https://chaturadissanayake.vercel.app/assets/Social_Preview.jpg">
+    <link rel="canonical" href="https://chaturadissanayake.vercel.app/">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,9 +23,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@0.292.0" defer></script>
     
-    <style>
-        @media (max-width: 640px) { #back-to-top { display: none !important; } }
-    </style>
+    
     <noscript>
         <style>body.loading { overflow: auto; }</style>
     </noscript>
@@ -44,10 +42,7 @@
 <header class="main-header" id="main-header">
     <div class="nav-inner">
         <a href="#hero" class="nav-logo" aria-label="Chatura Dissanayake Home">
-            <span class="logo-mark">
-                <img src="assets/Logo.png" alt="Chatura Dissanayake Logo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
-            </span>
-            <span class="logo-full">Chatura Dissanayake</span>
+            <span class="brand-wordmark">Chatura Dissanayake</span>
         </a>
         <nav class="desktop-nav" role="navigation" aria-label="Primary">
             <a href="#projects"       class="nav-link" data-section="projects">Work</a>
@@ -72,7 +67,7 @@
         <a href="#services"       class="mobile-link">Services</a>
         <a href="#insights"       class="mobile-link">Writing</a>
         <a href="#visualisations" class="mobile-link">Data Narratives</a>
-        <a href="#contact"        class="mobile-link mobile-cta">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
+        <a href="#contact"        class="mobile-link mobile-cta">Hire me</i></a>
     </nav>
     <div class="mobile-menu-footer">
         <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
@@ -98,7 +93,7 @@
             <div class="hero-label reveal-up" style="--d:0ms">
                 Communications &amp; Data Visualisation
             </div>
-<div class="hero-text-wrapper">
+            <div class="hero-text-wrapper">
                 <h1 class="hero-title-massive">
                     <div class="hero-line reveal-up" style="--d:60ms;">
                         <span class="hero-static">I design </span>
@@ -114,13 +109,7 @@
                         <span class="hero-static">that make your work</span>
                     </div>
                     <div class="hero-line reveal-up" style="--d:220ms;">
-                        <span class="hero-cycler">
-                            <em class="hero-emp-2 active">understood.</em>
-                            <em class="hero-emp-2">unforgettable.</em>
-                            <em class="hero-emp-2">impossible to ignore.</em>
-                            <em class="hero-emp-2">truly connect.</em>
-                            <em class="hero-emp-2">drive action.</em>
-                        </span>
+                        <em class="hero-static" style="font-style: italic; color: var(--ink-muted);">unforgettable.</em>
                     </div>
                 </h1>
             </div>
@@ -151,7 +140,10 @@
 
         <div class="projects-wrapper grid-mode" id="projects-container">
             </div><div id="no-projects-msg" class="empty-msg" style="display:none">No matching projects found.</div>
-
+            
+        <div style="text-align: center; margin-top: var(--space-8);">
+            <button id="expand-projects-btn" class="show-more-btn" style="display: none;">View all work <i data-lucide="arrow-down" aria-hidden="true"></i></button>
+        </div>
     </div>
 </section>
 
@@ -178,15 +170,15 @@
 
                 <div class="about-capabilities">
                     <div class="cap-block">
-                        <h5>Information Design</h5>
+                        <h5><i data-lucide="pen-tool" aria-hidden="true" style="width:14px;height:14px;margin-right:6px;"></i> Information Design</h5>
                         <div>Data Storytelling · Visual Identity · Information Architecture · Scrollytelling</div>
                     </div>
                     <div class="cap-block">
-                        <h5>Research &amp; Strategy</h5>
+                        <h5><i data-lucide="search" aria-hidden="true" style="width:14px;height:14px;margin-right:6px;"></i> Research &amp; Strategy</h5>
                         <div>Policy Translation · UX Research · Audience Analysis · Data Pipeline Design</div>
                     </div>
                     <div class="cap-block">
-                        <h5>Digital Production</h5>
+                        <h5><i data-lucide="code" aria-hidden="true" style="width:14px;height:14px;margin-right:6px;"></i> Digital Production</h5>
                         <div>Interactive Web Development · Rapid Prototyping · Publication Layout</div>
                     </div>
                 </div>
@@ -249,7 +241,7 @@
                 <p class="section-eyebrow">What I Do</p>
                 <h2 class="section-title">Services</h2>
                 <p class="services-intro-text">I work with research organisations, policy bodies, and institutions that need to communicate complex work to real people. Scope and pricing on request.</p>
-                <a href="assets/Services_Guide.pdf" target="_blank" rel="noopener" class="btn-primary">
+                <a href="assets/Services_Guide.pdf" target="_blank" rel="noopener" class="show-more-btn" style="margin-top: var(--space-2);">
                     Download Services Guide <i data-lucide="file-text" aria-hidden="true" style="width:14px;height:14px;margin-left:6px;"></i>
                 </a>
             </div>
@@ -268,13 +260,13 @@
                         <li>Dashboard and chart design</li>
                         <li>Visual language for complex datasets</li>
                     </ul>
-                </div>
-                <div class="service-row-tools">
-                    <span>Illustrator</span>
-                    <span>Figma</span>
-                    <span>Tableau</span>
-                    <span>Flourish</span>
-                    <span>P5.js</span>
+                    <div class="service-row-tools">
+                        <span>Illustrator</span>
+                        <span>Figma</span>
+                        <span>Tableau</span>
+                        <span>Flourish</span>
+                        <span>P5.js</span>
+                    </div>
                 </div>
             </div>
 
@@ -289,18 +281,18 @@
                         <li>Brand-compliant institutional layouts</li>
                         <li>Print and digital formats</li>
                     </ul>
-                </div>
-                <div class="service-row-tools">
-                    <span>InDesign</span>
-                    <span>Illustrator</span>
-                    <span>Figma</span>
+                    <div class="service-row-tools">
+                        <span>InDesign</span>
+                        <span>Illustrator</span>
+                        <span>Figma</span>
+                    </div>
                 </div>
             </div>
 
             <div class="service-row">
                 <div class="service-row-num">03</div>
                 <div class="service-row-body">
-                    <h3 class="service-row-title">Interactive Data Stories</h3>
+                    <h3 class="service-row-title">Interactive Data Stories <span class="most-requested-badge">Most Requested</span></h3>
                     <p class="service-row-desc">Scrollytelling experiences and data-driven web features for stories that need to be lived, not just read. Built from scratch, for real audiences.</p>
                     <ul class="service-deliverables">
                         <li>Scrollytelling web features</li>
@@ -308,21 +300,17 @@
                         <li>Public-facing data dashboards</li>
                         <li>Responsive, accessible builds</li>
                     </ul>
-                </div>
-                <div class="service-row-tools">
-                    <span>HTML</span>
-                    <span>CSS</span>
-                    <span>JavaScript</span>
-                    <span>Webflow</span>
+                    <div class="service-row-tools">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                        <span>Webflow</span>
+                    </div>
                 </div>
             </div>
 
-        </div><div class="services-footer-bar">
-            <a href="#contact" class="btn-primary">
-                Let's talk <i data-lucide="arrow-right" aria-hidden="true"></i>
-            </a>
         </div>
-
+        
     </div>
 </section>
 
@@ -357,15 +345,15 @@
                 <div class="insight-upcoming-inner">
                     <div class="insight-upcoming-top">
                         <span class="insight-upcoming-dot" aria-hidden="true"></span>
-                        <span class="insight-upcoming-label">In Progress</span>
+                        <span class="insight-upcoming-label">Coming Soon</span>
                     </div>
                     <div class="insight-upcoming-content">
-                        <h3 class="insight-upcoming-title">The next piece is being written.</h3>
-                        <p class="insight-upcoming-body">Notes on the decisions behind the work, what I tried, what didn't hold, and why things ended up the way they did. New writing appears here when it's ready.</p>
+                        <h3 class="insight-upcoming-title">Next: On designing for policy audiences who don't read</h3>
+                        <p class="insight-upcoming-body">How to structure complex reports so key takeaways survive the skim. A breakdown of visual hierarchies, scannability, and respecting the reader's time.</p>
                     </div>
                     <a href="rss.xml" class="insight-upcoming-rss" target="_blank" rel="noopener" aria-label="Subscribe via RSS">
                         <i data-lucide="rss" aria-hidden="true" style="width:13px;height:13px;"></i>
-                        <span>Get notified via RSS</span>
+                        <span>Get notified when it drops</span>
                     </a>
                 </div>
             </article>
@@ -511,10 +499,7 @@
                 <p class="section-eyebrow">Get In Touch</p>
                 <h2 class="contact-headline">You don't need<br>a perfect brief.</h2>
                 <p class="contact-body">If you're working through a data challenge, an upcoming report, or just want to think out loud about how your organisation communicates, I'm open to that conversation. The best projects I've worked on started with a vague problem, not a finished spec.</p>
-<div class="availability-alert">
-                    <span class="status-dot" aria-hidden="true"></span>
-                    <p class="availability-alert-text">Currently booking new projects for <strong>July 2026</strong>. Let's start the conversation early.</p>
-                </div>
+<p class="availability-note">Currently booking from <strong>July 2026</strong> — start the conversation early.</p>
                 <a href="mailto:consultchatura@gmail.com" class="contact-email">
                     <span>consultchatura@gmail.com</span>
                 </a>
@@ -558,22 +543,16 @@
                 <a href="#projects">Work</a>
                 <a href="#about">About</a>
                 <a href="#services">Services</a>
-                <a href="#insights">Writing</a>
                 <a href="#visualisations">Data Narratives</a>
+                <a href="#insights">Writing</a>
             </div>
             <div class="footer-col">
-                <h5>Connect</h5>
+                <h5>Connect & Legal</h5>
                 <a href="#contact">Contact Me</a>
                 <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
                 <a href="https://github.com/chaturadissanayake"      target="_blank" rel="noopener">GitHub</a>
-            </div>
-            <div class="footer-col">
-                <h5>On Medium</h5>
-                <a href="https://consultchatura.medium.com" target="_blank" rel="noopener">Medium</a>
+                <a href="https://consultchatura.medium.com"          target="_blank" rel="noopener">Medium</a>
                 <a href="rss.xml" target="_blank" rel="noopener">RSS Feed</a>
-            </div>
-            <div class="footer-col">
-                <h5>Legal</h5>
                 <a href="privacy.html">Privacy Policy</a>
             </div>
         </div>
@@ -581,7 +560,7 @@
             <div class="footer-divider"></div>
             <div class="footer-bottom-bar">
                 <div class="footer-copyright">
-                    <span class="footer-brand-name">Chatura Dissanayake</span> © 2022 - 2026 All Rights Reserved.
+                    © 2022 - 2026 All Rights Reserved.
                 </div>
                 <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top">
                     <i data-lucide="arrow-up" aria-hidden="true"></i>

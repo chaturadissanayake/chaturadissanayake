@@ -19,10 +19,10 @@
     "challenge": "When Cyclone Ditwah hit, the early official figures were drastically wrong. Reporting put the affected population at under a million. The real number was closer to 2.3 million. I wanted to make that gap impossible to ignore, not through opinion, but through the data itself.",
     "role": "I went straight to the source: UN OCHA, UNICEF, and the World Bank. No secondary reporting, no press releases. The design had to match the weight of what the numbers were saying, so I kept it stripped back. Stark type, minimal interaction, and one central visualisation that didn't let you look away.",
     "outcome": "The piece corrected the public record and held. 2.3 million people affected, triple the official estimate. It's become one of those references that gets cited when people need a credible source for the scale of what happened.",
-    "link": "https://chaturadissanayake.github.io/cycloneditwah/",
+    "link": "https://chaturadissanayake.vercel.app/cycloneditwah/",
     "status": "View Full Story",
     "tags": ["Data Storytelling", "Information Design"],
-    "thumbnail": "projects/ditwah-cyclone/assets/Ditwah_Thumb.png",
+    "thumbnail": "projects/ditwah-cyclone/assets/Ditwah_Thumb.webp",
     "date": "MAR 2026"
   },
   {
@@ -58,7 +58,7 @@
     "challenge": "Sri Lanka's drug policy debate was being drowned in jargon, politics, and statistics that nobody outside the sector could parse. I wanted to make it accessible to someone who had no background in policy, because those people's opinions matter too.",
     "role": "I built the whole thing from scratch: the narrative structure, the visual language, the data pipeline, and the final Data Storytelling experience. Every design decision came back to one question: will someone who knows nothing about this still be able to follow it?",
     "outcome": "A digital environment that lets people walk through the data themselves and reach their own conclusions. Not a lecture, an experience. One that treats the audience as capable of handling the complexity, just on their own terms.",
-    "link": "https://chaturadissanayake.github.io/sri-lanka-drug-crisis-website/",
+    "link": "https://chaturadissanayake.vercel.app/sri-lanka-drug-crisis-website/",
     "status": "View Full Case Study",
     "tags": ["Data Storytelling", "Public Health"],
     "thumbnail": "projects/drug-crisis/assets/DrugCrisis_Thumb.png",

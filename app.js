@@ -65,13 +65,26 @@ document.addEventListener('DOMContentLoaded', () => {
     if (mobileToggle) {
         mobileToggle.addEventListener('click', toggleMobileMenu);
         document.querySelectorAll('.mobile-link, .mobile-cta').forEach(l =>
-            l.addEventListener('click', () => {
+            l.addEventListener('click', (e) => {
                 mobileMenu.classList.remove('is-active');
                 mobileToggle.classList.remove('is-active');
                 mobileToggle.setAttribute('aria-expanded', 'false');
                 document.body.classList.remove('modal-open');
                 document.body.style.overflow = '';
-                mobileToggle.focus();
+                
+                const href = l.getAttribute('href');
+                if (href && href.includes('#')) {
+                    const targetId = href.substring(href.indexOf('#') + 1);
+                    const targetEl = document.getElementById(targetId);
+                    if (targetEl) {
+                        e.preventDefault();
+                        // Slight delay ensures the menu closes before scrolling begins
+                        setTimeout(() => {
+                            targetEl.scrollIntoView({ behavior: 'smooth' });
+                            history.pushState(null, '', href);
+                        }, 50);
+                    }
+                }
             })
         );
         // Safety valve: if the user somehow scrolls while menu is open (e.g. two-finger
@@ -118,20 +131,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const applyProjectFilter = () => {
         let count = 0;
+        let visibleCount = 0;
+        const isMobile = window.innerWidth <= 640;
+        const expandBtn = document.getElementById('expand-projects-btn');
+        const isExpanded = expandBtn ? expandBtn.classList.contains('expanded') : false;
+
         allProjCards.forEach(card => {
             const cat = card.getAttribute('data-category') || '';
-            // Exact match based on the JSON category
             const matches = currentFilter === 'all' || cat === currentFilter;
             
+            card.classList.remove('mobile-hidden');
+
             if (matches) {
-                card.style.display = '';
                 count++;
+                if (isMobile && !isExpanded && currentFilter === 'all' && count > 3) {
+                    card.classList.add('mobile-hidden');
+                } else {
+                    card.style.display = '';
+                    visibleCount++;
+                }
             } else {
                 card.style.display = 'none';
             }
         });
         if (noProjMsg) noProjMsg.style.display = count === 0 ? 'block' : 'none';
+        
+        if (expandBtn) {
+            if (isMobile && currentFilter === 'all' && count > 3) {
+                expandBtn.style.display = isExpanded ? 'none' : 'inline-flex';
+            } else {
+                expandBtn.style.display = 'none';
+            }
+        }
     };
+
+    window.addEventListener('resize', () => {
+        applyProjectFilter();
+    });
 
     const initProjects = async () => {
         if (!projWrap) return;
@@ -222,6 +258,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 });
             });
+            
+            const expandBtn = document.getElementById('expand-projects-btn');
+            if (expandBtn) {
+                expandBtn.addEventListener('click', () => {
+                    expandBtn.classList.add('expanded');
+                    applyProjectFilter();
+                });
+            }
             
             applyProjectFilter();
 
@@ -454,13 +498,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const cyclers = document.querySelectorAll('.hero-cycler');
     if (cyclers.length > 0) {
         let activeIdx1 = 0;
-        let activeIdx2 = 0;
-        let cycleFirst = true; // Flag to alternate animations
         const emp1 = cyclers[0].querySelectorAll('.hero-emp-1');
-        const emp2 = cyclers[1] ? cyclers[1].querySelectorAll('.hero-emp-2') : [];
 
         const cycleWords = () => {
-            if (cycleFirst && emp1.length > 0) {
+            if (emp1.length > 0) {
                 emp1[activeIdx1].classList.remove('active');
                 emp1[activeIdx1].classList.add('exit');
                 const prev1 = activeIdx1;
@@ -468,19 +509,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 activeIdx1 = (activeIdx1 + 1) % emp1.length;
                 emp1[activeIdx1].classList.add('active');
-            } else if (!cycleFirst && emp2.length > 0) {
-                emp2[activeIdx2].classList.remove('active');
-                emp2[activeIdx2].classList.add('exit');
-                const prev2 = activeIdx2;
-                setTimeout(() => emp2[prev2].classList.remove('exit'), 400);
-                
-                activeIdx2 = (activeIdx2 + 1) % emp2.length;
-                emp2[activeIdx2].classList.add('active');
             }
-            cycleFirst = !cycleFirst; // Toggle the flag for the next cycle
         };
         
-        // Speed up the interval since only one phrase changes at a time
-        setInterval(cycleWords, 2000);
+        setInterval(cycleWords, 2500);
     }
 });

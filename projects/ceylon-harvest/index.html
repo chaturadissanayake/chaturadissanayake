@@ -69,31 +69,33 @@
             border-radius: 4px;
         }
 
-        /* Pill Toggle Button */
+        /* Pill Toggle Button — chip style, not CTA */
         .about-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
             background: var(--surface, #ffffff);
             border: 1px solid var(--surface-3, #e5e5e5);
             border-radius: 100px;
-            padding: 8px 16px;
+            padding: 5px 12px 5px 14px;
+            min-height: unset;
+            min-width: unset;
             font-family: var(--sans);
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--ink);
+            font-size: 0.8125rem;
+            font-weight: 400;
+            color: var(--ink-soft, #555);
             cursor: pointer;
-            transition: all var(--dur-fast, 0.2s);
+            transition: background var(--dur-fast, 0.2s), border-color var(--dur-fast, 0.2s);
         }
         
         .about-btn:hover {
             background: var(--surface-2, #f5f5f5);
         }
         
-        .about-btn .icon {
-            font-size: 1.2rem;
-            line-height: 0.8;
-            font-weight: 400;
+        .about-btn .toggle-icon {
+            font-size: 1.1rem;
+            line-height: 1;
+            font-weight: 300;
         }
 
         /* Layout Grid */
@@ -159,9 +161,9 @@
         .sidebar-wrap {
             width: 400px;
             flex-shrink: 0;
-            /* This acts as the physical track. It stretches to the bottom of the grid. */
-            position: relative; 
-            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), margin-left 0.4s ease;
+            overflow: clip; /* clips text bleed during width collapse; doesn't break sticky */
+            position: relative;
+            transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), margin-left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
         .sidebar-wrap.is-collapsed {
@@ -349,20 +351,17 @@
 <header class="main-header scrolled" id="main-header" style="z-index: 1000 !important;">
     <div class="nav-inner">
         <a href="../../index.html" class="nav-logo" aria-label="Chatura Dissanayake Home">
-            <span class="logo-mark">
-                <img src="../../assets/Logo.png" alt="Chatura Dissanayake Logo" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
-            </span>
-            <span class="logo-full">Chatura Dissanayake</span>
+            <span class="brand-wordmark">Chatura Dissanayake</span>
         </a>
         <nav class="desktop-nav" role="navigation" aria-label="Primary">
             <a href="../../index.html#projects"       class="nav-link">Work</a>
             <a href="../../index.html#about"          class="nav-link">About</a>
             <a href="../../index.html#services"       class="nav-link">Services</a>
-            <a href="../../index.html#assets"       class="nav-link">Writing</a>
+            <a href="../../index.html#insights"     class="nav-link">Writing</a>
             <a href="../../index.html#visualisations" class="nav-link">Data Narratives</a>
         </nav>
         <div class="nav-actions">
-            <a href="../../index.html#contact" class="nav-cta">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
+            <a href="../../index.html#contact" class="nav-cta">Let's talk &rarr;</a>
             <button type="button" class="hamburger-btn" id="mobile-nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav-menu">
                 <span></span><span></span><span></span>
             </button>
@@ -375,9 +374,9 @@
         <a href="../../index.html#projects"       class="mobile-link">Work</a>
         <a href="../../index.html#about"          class="mobile-link">About</a>
         <a href="../../index.html#services"       class="mobile-link">Services</a>
-        <a href="../../index.html#assets"       class="mobile-link">Writing</a>
+        <a href="../../index.html#insights"     class="mobile-link">Writing</a>
         <a href="../../index.html#visualisations" class="mobile-link">Data Narratives</a>
-        <a href="../../index.html#contact"        class="mobile-link mobile-cta">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
+        <a href="../../index.html#contact"        class="mobile-link mobile-cta">Let's talk &rarr;</a>
     </nav>
     <div class="mobile-menu-footer">
         <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
@@ -398,12 +397,16 @@
         <div class="controls-row">
             <div class="tags-col">
                 <span class="tag">Brand Identity</span>
-                <span class="tag">Premium Export</span>
                 <span class="tag">Heritage &amp; Culture</span>
             </div>
             <div class="btn-wrapper">
-                <button class="about-btn" onclick="toggleSidebar()">
-                    <span>About the project</span> <span class="icon toggle-icon">×</span>
+                <button class="about-btn"
+                        id="sidebar-toggle-desktop"
+                        aria-expanded="true"
+                        aria-controls="sidebarWrap"
+                        onclick="toggleSidebar()">
+                    <span class="btn-label">About the project</span>
+                    <span class="toggle-icon" aria-hidden="true">×</span>
                 </button>
             </div>
         </div>
@@ -414,43 +417,70 @@
                 <div class="media-grid">
                     
                     <div class="media-item full-width">
-                        <img src="assets/01_Hero_Cover.webp" alt="Ceylon Harvest Co. Hero Brand Identity">
+                        <img src="assets/01_Hero_Cover.webp"
+                             alt="Ceylon Harvest Co. Hero Brand Identity"
+                             loading="eager"
+                             fetchpriority="high"
+                             width="1200"
+                             height="800">
                     </div>
 
                     <div class="media-item">
-                        <img src="assets/02_Mark_Anatomy.webp" alt="Anatomy of the Botanical Mark detailing trace ingredients">
+                        <img src="assets/02_Mark_Anatomy.webp"
+                             alt="Anatomy of the Botanical Mark detailing trace ingredients"
+                             loading="lazy"
+                             width="600"
+                             height="600">
                     </div>
                     <div class="media-item">
-                        <img src="assets/05_Modular_Elements.webp" alt="Modular botanical marks and sun motifs">
+                        <img src="assets/05_Modular_Elements.webp"
+                             alt="Modular botanical marks and sun motifs"
+                             loading="lazy"
+                             width="600"
+                             height="600">
                     </div>
 
                     <div class="standard-quote">
-                        "We speak with quiet confidence. Our language is precise, factual, and grounded in expertise—never ornamental, never borrowed from the tourism playbook."
+                        &ldquo;We speak with quiet confidence. Our language is precise, factual, and grounded in expertise&mdash;never ornamental, never borrowed from the tourism playbook.&rdquo;
                     </div>
 
                     <div class="media-item">
-                        <img src="assets/06_Isolated_Botanical_Marks.webp" alt="Isolated botanical marks for categorizing product lines">
+                        <img src="assets/06_Isolated_Botanical_Marks.webp"
+                             alt="Isolated botanical marks for categorizing product lines"
+                             loading="lazy" width="600" height="600">
                     </div>
                     <div class="media-item">
-                        <img src="assets/03_Brand_Pattern.webp" alt="Ceylon Harvest Co. Seamless Brand Pattern">
+                        <img src="assets/03_Brand_Pattern.webp"
+                             alt="Ceylon Harvest Co. Seamless Brand Pattern"
+                             loading="lazy" width="600" height="600">
                     </div>
 
                     <div class="media-item full-width">
-                        <img src="assets/04_Secondary_Lockups.webp" alt="Secondary horizontal lockups">
+                        <img src="assets/04_Secondary_Lockups.webp"
+                             alt="Secondary horizontal lockups"
+                             loading="lazy" width="1200" height="600">
                     </div>
 
                     <div class="media-item">
-                        <img src="assets/08_Typographic_Hierarchy.webp" alt="Typographic Hierarchy showcasing Baskerville and Poppins">
+                        <img src="assets/08_Typographic_Hierarchy.webp"
+                             alt="Typographic Hierarchy showcasing Baskerville and Poppins"
+                             loading="lazy" width="600" height="600">
                     </div>
                     <div class="media-item">
-                        <img src="assets/09_Color_Palette.webp" alt="Extracted from the Earth color palette">
+                        <img src="assets/09_Color_Palette.webp"
+                             alt="Extracted from the Earth color palette"
+                             loading="lazy" width="600" height="600">
                     </div>
 
                     <div class="media-item">
-                        <img src="assets/07_Inverse_Seals.webp" alt="High-contrast monochrome applications">
+                        <img src="assets/07_Inverse_Seals.webp"
+                             alt="High-contrast monochrome applications"
+                             loading="lazy" width="600" height="600">
                     </div>
                     <div class="media-item">
-                        <img src="assets/10_Final_Emblem.webp" alt="Live Long Rich final brand seals">
+                        <img src="assets/10_Final_Emblem.webp"
+                             alt="Live Long Rich final brand seals"
+                             loading="lazy" width="600" height="600">
                     </div>
 
                 </div>
@@ -505,61 +535,63 @@
 
         </div>
 
-        <section class="next-project-section" id="nextProjectTarget">
-            <div class="next-project-inner">
-                <div class="next-label">Next Project</div>
-                <h2 class="next-title">Ily's Garden</h2>
-                <p class="next-desc">A virtual flower delivery website and digital postcard platform.</p>
-                <div class="tags-col">
-                    <span class="tag">Web Design</span>
-                    <span class="tag">UI/UX</span>
-                    <span class="tag">Development</span>
-                </div>
-            </div>
-        </section>
+<section class="next-project-section" id="nextProjectTarget">
+    <a href="../ilys-garden/index.html" class="next-project-inner next-project-link" aria-label="View next project: Ily's Garden">
+        <div class="next-label">Next Project</div>
+        <h2 class="next-title">Ily's Garden</h2>
+        <p class="next-desc">A virtual flower delivery website and digital postcard platform.</p>
+        <div class="tags-col">
+            <span class="tag">Web Design</span>
+            <span class="tag">UI/UX</span>
+            <span class="tag">Development</span>
+        </div>
+    </a>
+</section>
 
         <div class="btn-wrapper-mobile" id="mobileFloatBtn">
-            <button class="about-btn" onclick="toggleSidebar()">
-                <span>About the project</span> <span class="icon toggle-icon">+</span>
+            <button class="about-btn"
+                    id="sidebar-toggle-mobile"
+                    aria-expanded="false"
+                    aria-controls="sidebarWrap"
+                    onclick="toggleSidebar()">
+                <span class="btn-label">About the project</span>
+                <span class="toggle-icon" aria-hidden="true">+</span>
             </button>
         </div>
 
     </div>
 </main>
 
-<footer class="site-footer" id="siteFooter">
+<footer class="site-footer">
     <div class="container">
         <div class="footer-grid">
             <div class="footer-col">
                 <h5>Navigate</h5>
-                <a href="../../index.html#projects">Work</a>
-                <a href="../../index.html#about">About</a>
-                <a href="../../index.html#services">Services</a>
-                <a href="../../index.html#assets">Writing</a>
-                <a href="../../index.html#visualisations">Data Narratives</a>
+                <a href="#projects">Work</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#visualisations">Data Narratives</a>
+                <a href="#insights">Writing</a>
             </div>
             <div class="footer-col">
-                <h5>Connect</h5>
-                <a href="../../index.html#contact">Contact Me</a>
+                <h5>Connect & Legal</h5>
+                <a href="#contact">Contact Me</a>
                 <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
                 <a href="https://github.com/chaturadissanayake"      target="_blank" rel="noopener">GitHub</a>
-            </div>
-            <div class="footer-col">
-                <h5>On Medium</h5>
-                <a href="https://consultchatura.medium.com" target="_blank" rel="noopener">Medium</a>
-                <a href="../../rss.xml" target="_blank" rel="noopener">RSS Feed</a>
-            </div>
-            <div class="footer-col">
-                <h5>Legal</h5>
-                <a href="../../privacy.html">Privacy Policy</a>
+                <a href="https://consultchatura.medium.com"          target="_blank" rel="noopener">Medium</a>
+                <a href="rss.xml" target="_blank" rel="noopener">RSS Feed</a>
+                <a href="privacy.html">Privacy Policy</a>
             </div>
         </div>
         <div class="footer-bottom-container">
             <div class="footer-divider"></div>
             <div class="footer-bottom-bar">
                 <div class="footer-copyright">
-                    <span class="footer-brand-name">Chatura Dissanayake</span> © 2022 - 2026 All Rights Reserved.
+                    © 2022 - 2026 All Rights Reserved.
                 </div>
+                <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top">
+                    <i data-lucide="arrow-up" aria-hidden="true"></i>
+                </button>
             </div>
         </div>
     </div>
