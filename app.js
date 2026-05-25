@@ -23,11 +23,27 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     window.addEventListener('scroll', updateProgress, { passive: true });
 
-    // ── 5. STICKY HEADER ─────────────────────────────────────────────────
+    // ── 5. STICKY HEADER & FLOATING BTT ──────────────────────────────────
     const header = document.getElementById('main-header');
+    const floatBtt = document.getElementById('floating-back-to-top');
+    
     window.addEventListener('scroll', () => {
         if (header) header.classList.toggle('scrolled', window.scrollY > 40);
+        
+        if (floatBtt) {
+            if (window.scrollY > 400) {
+                floatBtt.classList.add('is-visible');
+                floatBtt.removeAttribute('tabindex');
+            } else {
+                floatBtt.classList.remove('is-visible');
+                floatBtt.setAttribute('tabindex', '-1');
+            }
+        }
     }, { passive: true });
+
+    floatBtt?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
     // ── 6. ACTIVE NAV HIGHLIGHTING ───────────────────────────────────────
     const sections  = document.querySelectorAll('section[id]');
@@ -171,20 +187,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const initProjects = async () => {
         if (!projWrap) return;
+        
+        const loadingIndicator = document.getElementById('loading-indicator');
+        if (loadingIndicator) loadingIndicator.style.display = 'block';
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000); // 8-second timeout
+
         try {
-            const res = await fetch('data/projects.json');
+            const res = await fetch('data/projects.json', { signal: controller.signal });
+            clearTimeout(timeoutId);
             const projects = await res.json();
             
+            if (loadingIndicator) loadingIndicator.style.display = 'none';
             projWrap.innerHTML = ''; 
             const categories = new Set(); // To collect unique categories
             
             projects.forEach(proj => {
                 if (proj.category) categories.add(proj.category);
                 
-                const tagsHTML = proj.tags.map(tag => `<span>${tag}</span>`).join('');
-                const descSnippet = proj.challenge.length > 120 
-                    ? proj.challenge.substring(0, 120) + '...' 
-                    : proj.challenge;
+                const safeTags = proj.tags || [];
+                const tagsHTML = safeTags.map(tag => `<span>${tag}</span>`).join('');
+                
+                const safeChallenge = proj.challenge || '';
+                const descSnippet = safeChallenge.length > 120 
+                    ? safeChallenge.substring(0, 120) + '...' 
+                    : safeChallenge;
 
                 const cardHTML = `
                     <article class="project-card project-trigger" 
@@ -271,9 +299,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Failed to load projects:', error);
+            
+            const loadingIndicator = document.getElementById('loading-indicator');
+            if (loadingIndicator) loadingIndicator.style.display = 'none';
+            projWrap.innerHTML = ''; // Clear skeletons on error
+            
             if (noProjMsg) {
-                noProjMsg.textContent = 'Unable to load projects at this time.';
+                noProjMsg.innerHTML = `
+                    <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                        <p style="color: var(--ink-muted); font-size: 0.9375rem;">Couldn't load projects. Check your connection and try again.</p>
+                        <button onclick="window.location.reload()" class="btn-primary" style="margin-top: 8px;">Retry <i data-lucide="refresh-cw" aria-hidden="true"></i></button>
+                    </div>
+                `;
                 noProjMsg.style.display = 'block';
+                lucide.createIcons({ root: noProjMsg });
             }
         }
     };
@@ -300,14 +339,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: { 'Accept': 'application/json' }
                 });
                 if (res.ok) {
-                    formStatus.textContent = 'Message sent - I\'ll be in touch soon.';
-                    formStatus.classList.add('success');
-                    contactForm.reset();
+                    contactForm.innerHTML = '<div class="form-status success" style="font-size: 1.125rem; font-weight: 500; text-align: center; padding: 2rem; color: var(--ink);">Message sent. I\'ll be in touch soon.</div>';
                 } else {
                     throw new Error('server');
                 }
             } catch {
-                formStatus.textContent = 'Something went wrong. Email me directly at consultchatura@gmail.com';
+                formStatus.textContent = 'Message not sent — something went wrong. Try again or email directly at consultchatura@gmail.com';
                 formStatus.classList.add('error');
             } finally {
                 formSubmitBtn.disabled = false;
@@ -429,6 +466,11 @@ document.addEventListener('DOMContentLoaded', () => {
             vizTrack.scrollBy({ left: -scrollAmt(), behavior: 'smooth' })
         );
 
+        vizTrack.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') vizTrack.scrollBy({ left: scrollAmt(), behavior: 'smooth' });
+            if (e.key === 'ArrowLeft')  vizTrack.scrollBy({ left: -scrollAmt(), behavior: 'smooth' });
+        });
+
         // ── 13B. CAROUSEL COUNTER ─────────────────────────────────────────
         const vizCounter = document.getElementById('viz-counter');
         if (vizCounter) {
@@ -512,6 +554,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
         
-        setInterval(cycleWords, 2500);
+        setInterval(cycleWords, 3500);
     }
 });
