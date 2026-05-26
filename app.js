@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ── 1. INITIALIZE ICONS ──────────────────────────────────────────────
-    lucide.createIcons();
+    if (window.lucide) {
+        lucide.createIcons();
+    }
 
     // ── 2. REMOVE LOADING STATE ───────────────────────────────────────────
     const removeLoadingState = () => {
@@ -135,9 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
     document.querySelectorAll('.section-fade-in').forEach(s => observer.observe(s));
 
-    // ── 9. VIEW TOGGLE (Removed per UX Hick's Law) ───────────────────────
-    // (Feature removed)
-
     // ── 12B. FETCH JSON, BUILD CARDS & DYNAMIC FILTERS ────────────────────
     const projWrap = document.getElementById('projects-container');
     const noProjMsg = document.getElementById('no-projects-msg');
@@ -223,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         data-outcome="${proj.outcome}"
                         data-link="${proj.link}" 
                         data-status="${proj.status}" 
-                        data-tags="${proj.tags.join(',')}">
+                        data-tags="${safeTags.join(',')}">
                         <div class="card-inner">
                             <div class="card-image">
                                 <img src="${proj.thumbnail}" alt="${proj.title}" loading="lazy">
@@ -250,6 +249,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
             allProjCards = document.querySelectorAll('.project-card.project-trigger');
             
+            // Smooth image reveal for grid skeletons (Bulletproof fallback)
+            projWrap.querySelectorAll('.card-image img').forEach(img => {
+                const handleLoad = () => {
+                    img.classList.add('img-loaded');
+                    const parent = img.closest('.card-image');
+                    if (parent) parent.classList.add('shimmer-complete');
+                };
+                
+                // If already cached, reveal immediately. Otherwise, wait for load.
+                if (img.complete && img.naturalHeight !== 0) {
+                    handleLoad();
+                } else {
+                    img.addEventListener('load', handleLoad);
+                    img.addEventListener('error', handleLoad); // prevents infinite shimmer on broken files
+                }
+            });
+            
             // Build Dynamic Filters
             if (filterGroup) {
                 let filterHTML = `<button type="button" class="filter-pill active" data-filter="all">All Work</button>`;
@@ -269,7 +285,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            lucide.createIcons({ root: projWrap });
+            if (window.lucide) {
+                lucide.createIcons({ root: projWrap });
+            }
 
             allProjCards.forEach(card => {
                 card.setAttribute('tabindex', '0');
@@ -312,7 +330,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
                 noProjMsg.style.display = 'block';
-                lucide.createIcons({ root: noProjMsg });
+                if (window.lucide) {
+                    lucide.createIcons({ root: noProjMsg });
+                }
             }
         }
     };
@@ -349,7 +369,9 @@ document.addEventListener('DOMContentLoaded', () => {
             } finally {
                 formSubmitBtn.disabled = false;
                 formSubmitBtn.innerHTML = 'Send Message <i data-lucide="arrow-right" aria-hidden="true"></i>';
-                lucide.createIcons({ nameAttr: 'data-lucide', root: formSubmitBtn });
+                if (window.lucide) {
+                    lucide.createIcons({ nameAttr: 'data-lucide', root: formSubmitBtn });
+                }
             }
         });
     }
@@ -385,7 +407,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const status = card.getAttribute('data-status') || 'View Project';
 
         link.innerHTML = `${status} <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i>`;
-        lucide.createIcons({ nameAttr: 'data-lucide', root: link });
+        
+        if (window.lucide) {
+            lucide.createIcons({ nameAttr: 'data-lucide', root: link });
+        }
 
         if (status === 'Report in Final Review' || status === 'Active Development') {
             link.textContent = status;

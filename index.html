@@ -23,9 +23,12 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/lucide@0.292.0" defer></script>
     
-    
     <noscript>
-        <style>body.loading { overflow: auto; }</style>
+        <style>
+            body.loading { overflow: auto; }
+            .reveal-up { opacity: 1 !important; transform: none !important; }
+            .card-image img, .media-item img { opacity: 1 !important; }
+        </style>
     </noscript>
 
     <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
@@ -138,12 +141,46 @@
         </div>
 
         <div class="projects-wrapper grid-mode" id="projects-container">
-            <div class="skeleton-card"></div>
-            <div class="skeleton-card"></div>
-            <div class="skeleton-card"></div>
-            <div class="skeleton-card"></div>
-            <div class="skeleton-card"></div>
-            <div class="skeleton-card"></div>
+            <div class="skeleton-card">
+                <div class="skeleton-image skeleton-shimmer"></div>
+                <div class="skeleton-body">
+                    <div class="skeleton-meta skeleton-shimmer"></div>
+                    <div class="skeleton-title skeleton-shimmer"></div>
+                    <div class="skeleton-desc skeleton-shimmer"></div>
+                    <div class="skeleton-desc short skeleton-shimmer"></div>
+                    <div class="skeleton-tags">
+                        <div class="skeleton-pill skeleton-shimmer"></div>
+                        <div class="skeleton-pill skeleton-shimmer"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="skeleton-card">
+                <div class="skeleton-image skeleton-shimmer"></div>
+                <div class="skeleton-body">
+                    <div class="skeleton-meta skeleton-shimmer"></div>
+                    <div class="skeleton-title skeleton-shimmer" style="width: 85%;"></div>
+                    <div class="skeleton-desc skeleton-shimmer"></div>
+                    <div class="skeleton-desc short skeleton-shimmer" style="width: 40%;"></div>
+                    <div class="skeleton-tags">
+                        <div class="skeleton-pill skeleton-shimmer"></div>
+                        <div class="skeleton-pill skeleton-shimmer" style="width: 40px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="skeleton-card">
+                <div class="skeleton-image skeleton-shimmer"></div>
+                <div class="skeleton-body">
+                    <div class="skeleton-meta skeleton-shimmer"></div>
+                    <div class="skeleton-title skeleton-shimmer" style="width: 60%;"></div>
+                    <div class="skeleton-desc skeleton-shimmer"></div>
+                    <div class="skeleton-desc short skeleton-shimmer" style="width: 70%;"></div>
+                    <div class="skeleton-tags">
+                        <div class="skeleton-pill skeleton-shimmer"></div>
+                        <div class="skeleton-pill skeleton-shimmer"></div>
+                        <div class="skeleton-pill skeleton-shimmer" style="width: 50px;"></div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="loading-indicator" style="text-align: center; color: var(--ink-muted); font-size: 0.875rem; margin-top: var(--space-4); display: none;">Loading projects...</div>
         <div id="no-projects-msg" class="empty-msg" style="display:none">No matching projects found.</div>
@@ -341,7 +378,7 @@
             <article class="insight-card card-interactive">
                 <a href="https://consultchatura.medium.com/i-built-a-data-story-about-cyclone-ditwah-heres-every-decision-i-made-and-why-c9c19c89398f" target="_blank" rel="noopener" class="card-hitbox" aria-label="Read I Built a Data Story About Cyclone Ditwah"></a>
                 <div class="card-image">
-                    <img src="assets/InsightCycloneDitwah_Thumb.png" alt="Behind the making of the Cyclone Ditwah data story" loading="lazy">
+                    <img src="assets/InsightCycloneDitwah_Thumb.png" alt="Behind the making of the Cyclone Ditwah data story" loading="lazy" onload="this.classList.add('img-loaded'); this.parentElement.classList.add('shimmer-complete');" onerror="this.classList.add('img-loaded'); this.parentElement.classList.add('shimmer-complete');">
                     <div class="insight-category-badge" style="display:flex; align-items:center; gap:4px;">Process <i data-lucide="external-link" aria-hidden="true" style="width:10px;height:10px;"></i></div>
                     <div class="card-overlay">
                         <span class="card-open-label">Read on Medium <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>

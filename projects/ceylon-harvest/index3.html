@@ -633,18 +633,12 @@
         if(window.lucide) lucide.createIcons();
         document.body.classList.remove('loading');
 
-        // Smooth image reveal for skeletons (Bulletproof fallback)
+        // Smooth image reveal for skeletons
         document.querySelectorAll('.media-item img').forEach(img => {
-            const handleLoad = () => {
+            if (img.complete) {
                 img.classList.add('is-loaded');
-                if (img.parentElement) img.parentElement.classList.add('shimmer-complete');
-            };
-            
-            if (img.complete && img.naturalHeight !== 0) {
-                handleLoad();
             } else {
-                img.addEventListener('load', handleLoad);
-                img.addEventListener('error', handleLoad);
+                img.addEventListener('load', () => img.classList.add('is-loaded'));
             }
         });
 
