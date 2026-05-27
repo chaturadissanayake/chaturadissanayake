@@ -131,21 +131,11 @@
 
         .media-item {
             background: #f8f8f8;
-            background: linear-gradient(110deg, #f8f8f8 8%, #e2e8f0 18%, #f8f8f8 33%);
-            background-size: 200% 100%;
-            animation: shimmer-sweep 1.5s linear infinite;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 4px;
             width: 100%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        @keyframes shimmer-sweep {
-            0% { background-position-x: 200%; }
-            100% { background-position-x: -200%; }
         }
 
         .media-item.full-width {
@@ -158,14 +148,6 @@
             display: block;
             object-fit: cover;
             border-radius: 4px;
-            position: relative;
-            z-index: 1;
-            opacity: 0; 
-            transition: opacity 0.5s ease;
-        }
-        
-        .media-item img.is-loaded {
-            opacity: 1;
         }
 
         .standard-quote {
@@ -528,6 +510,7 @@
                         <div class="meta-grid">
                             <div class="meta-item">
                                 <div class="meta-label">Client</div>
+                                <div class="meta-value">Yohan Udahawaththa</div>
                                 <div class="meta-value">Ceylon Harvest Co.</div>
                             </div>
                             <div class="meta-item">
@@ -632,21 +615,6 @@
     document.addEventListener('DOMContentLoaded', () => {
         if(window.lucide) lucide.createIcons();
         document.body.classList.remove('loading');
-
-        // Smooth image reveal for skeletons (Bulletproof fallback)
-        document.querySelectorAll('.media-item img').forEach(img => {
-            const handleLoad = () => {
-                img.classList.add('is-loaded');
-                if (img.parentElement) img.parentElement.classList.add('shimmer-complete');
-            };
-            
-            if (img.complete && img.naturalHeight !== 0) {
-                handleLoad();
-            } else {
-                img.addEventListener('load', handleLoad);
-                img.addEventListener('error', handleLoad);
-            }
-        });
 
         // Observer tied to the "Next Project" section to hide the mobile button gracefully
         const floatBtn = document.getElementById('mobileFloatBtn');

@@ -6,11 +6,11 @@
     "challenge": "The challenge was to introduce a product rooted in a 3,000-year-old agricultural tradition to premium Western markets without falling into the trap of generic tourism visual clichés. I had to bridge the gap between ancient historical authority and the expectations of modern, high-end commerce.",
     "role": "I developed a visual identity centered on a rigorous botanical seal and a sophisticated typographic system. My work focused on balancing the weight of historical legacy with the clean utility required by trade buyers. This system prioritized authenticity and traceability over aesthetic ornamentation.",
     "outcome": "The final result is a quietly confident visual identity that avoids common stereotypes, proving absolute authenticity to high-end trade buyers. It successfully translates a deep cultural heritage into a modern, shelf-ready brand, establishing immediate trust and credibility in competitive markets.",
-    "link": "projects/ceylon-harvest/index.html",
+    "link": "projects/ceylon-harvest/ceylon-harvest.html",
     "status": "View Case Study",
     "tags": ["Brand Identity", "Consumer Brands"],
     "thumbnail": "projects/ceylon-harvest/assets/Ceylon_Thumb.webp",
-    "date": "ACTIVE"
+    "date": "MAY 2026"
   },
   {
     "id": "ditwah-cyclone",
@@ -19,7 +19,7 @@
     "challenge": "When Cyclone Ditwah hit, the early official figures were drastically wrong. Reporting put the affected population at under a million. The real number was closer to 2.3 million. I wanted to make that gap impossible to ignore, not through opinion, but through the data itself.",
     "role": "I went straight to the source: UN OCHA, UNICEF, and the World Bank. No secondary reporting, no press releases. The design had to match the weight of what the numbers were saying, so I kept it stripped back. Stark type, minimal interaction, and one central visualisation that didn't let you look away.",
     "outcome": "The piece corrected the public record and held. 2.3 million people affected, triple the official estimate. It's become one of those references that gets cited when people need a credible source for the scale of what happened.",
-    "link": "https://chaturadissanayake.vercel.app/cycloneditwah/",
+    "link": "https://cycloneditwah.vercel.app/",
     "status": "View Full Story",
     "tags": ["Data Storytelling", "Information Design"],
     "thumbnail": "projects/ditwah-cyclone/assets/Ditwah_Thumb.webp",
@@ -45,8 +45,8 @@
     "challenge": "The SDG Fund runs across multiple programmes, each with its own goals, metrics, and language. The challenge was presenting all of that to donors and government partners in a way that felt like one conversation, not a catalogue.",
     "role": "I designed the full information architecture and visual system, from how the programmes were structured to how the data was shown on each page. The aim was to make SDG indicators feel real to someone who didn't spend their days working with them.",
     "outcome": "The publication gave the SDG Fund a way to bring its outcomes to life for people who hold the decision-making power. That relationship between the data and the people reading it: that's what the design was built around.",
-    "link": "https://srilanka.un.org",
-    "status": "Report in Final Review",
+    "link": "https://srilanka.un.org/en/295650-un-sri-lanka-sdg-fund-2024-results-report",
+    "status": "View Full Report",
     "tags": ["Information Design", "International Development"],
     "thumbnail": "projects/un-sdg-fund/assets/UNSDGFund_Thumb.png",
     "date": "MAY 2025"

@@ -151,16 +151,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const expandBtn = document.getElementById('expand-projects-btn');
         const isExpanded = expandBtn ? expandBtn.classList.contains('expanded') : false;
 
+        const maxCards = isMobile ? 3 : 6;
+
         allProjCards.forEach(card => {
             const cat = card.getAttribute('data-category') || '';
             const matches = currentFilter === 'all' || cat === currentFilter;
             
-            card.classList.remove('mobile-hidden');
+            card.classList.remove('mobile-hidden'); // clean up old class if present
+            card.classList.remove('capped-hidden');
 
             if (matches) {
                 count++;
-                if (isMobile && !isExpanded && currentFilter === 'all' && count > 3) {
-                    card.classList.add('mobile-hidden');
+                if (!isExpanded && currentFilter === 'all' && count > maxCards) {
+                    card.classList.add('capped-hidden');
                 } else {
                     card.style.display = '';
                     visibleCount++;
@@ -172,7 +175,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (noProjMsg) noProjMsg.style.display = count === 0 ? 'block' : 'none';
         
         if (expandBtn) {
-            if (isMobile && currentFilter === 'all' && count > 3) {
+            if (currentFilter === 'all' && count > maxCards) {
                 expandBtn.style.display = isExpanded ? 'none' : 'inline-flex';
             } else {
                 expandBtn.style.display = 'none';
@@ -180,15 +183,35 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    let resizeTimer;
     window.addEventListener('resize', () => {
-        applyProjectFilter();
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(applyProjectFilter, 150);
     });
 
     const initProjects = async () => {
         if (!projWrap) return;
         
         const loadingIndicator = document.getElementById('loading-indicator');
-        if (loadingIndicator) loadingIndicator.style.display = 'block';
+        if (loadingIndicator) loadingIndicator.style.display = 'none';
+
+        // Render 6 skeleton cards immediately so the grid never looks empty
+        const skeletonHTML = Array.from({ length: 6 }, () => `
+            <div class="skeleton-card" aria-hidden="true">
+                <div class="skeleton-image skeleton-shimmer"></div>
+                <div class="skeleton-body">
+                    <div class="skeleton-meta skeleton-shimmer"></div>
+                    <div class="skeleton-title skeleton-shimmer"></div>
+                    <div class="skeleton-desc skeleton-shimmer"></div>
+                    <div class="skeleton-desc short skeleton-shimmer"></div>
+                    <div class="skeleton-tags">
+                        <div class="skeleton-pill skeleton-shimmer"></div>
+                        <div class="skeleton-pill skeleton-shimmer"></div>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        projWrap.innerHTML = skeletonHTML;
 
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 8000); // 8-second timeout
@@ -196,9 +219,19 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const res = await fetch('data/projects.json', { signal: controller.signal });
             clearTimeout(timeoutId);
+            if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const projects = await res.json();
             
-            if (loadingIndicator) loadingIndicator.style.display = 'none';
+            // Sort projects dynamically: projects without a valid link are treated as ongoing and float to the back
+            projects.sort((a, b) => {
+                const aIsOngoing = !a.link || a.link === '#';
+                const bIsOngoing = !b.link || b.link === '#';
+                
+                if (aIsOngoing && !bIsOngoing) return 1;
+                if (!aIsOngoing && bIsOngoing) return -1;
+                return 0; // Maintain JSON order for all completed projects
+            });
+
             projWrap.innerHTML = ''; 
             const categories = new Set(); // To collect unique categories
             
@@ -232,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             </div>
                             <div class="card-body">
                                 <div class="card-meta">
-                                    <span class="card-cat">${proj.tags[0]}</span>
+                                    <span class="card-cat">${safeTags[0] || ''}</span>
                                     <span class="card-date">${proj.date}</span>
                                 </div>
                                 <div class="card-title-wrap">
@@ -324,8 +357,8 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (noProjMsg) {
                 noProjMsg.innerHTML = `
-                    <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;">
-                        <p style="color: var(--ink-muted); font-size: 0.9375rem;">Couldn't load projects. Check your connection and try again.</p>
+                    <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: var(--space-12);">
+                        <p style="color: var(--ink-muted); font-size: 0.9375rem; line-height: 1.7;">Couldn't load projects.<br>Check your connection and try again.</p>
                         <button onclick="window.location.reload()" class="btn-primary" style="margin-top: 8px;">Retry <i data-lucide="refresh-cw" aria-hidden="true"></i></button>
                     </div>
                 `;
@@ -367,10 +400,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 formStatus.textContent = 'Message not sent — something went wrong. Try again or email directly at consultchatura@gmail.com';
                 formStatus.classList.add('error');
             } finally {
-                formSubmitBtn.disabled = false;
-                formSubmitBtn.innerHTML = 'Send Message <i data-lucide="arrow-right" aria-hidden="true"></i>';
-                if (window.lucide) {
-                    lucide.createIcons({ nameAttr: 'data-lucide', root: formSubmitBtn });
+                if (document.contains(formSubmitBtn)) {
+                    formSubmitBtn.disabled = false;
+                    formSubmitBtn.innerHTML = 'Send message <i data-lucide="send" aria-hidden="true"></i>';
+                    if (window.lucide) {
+                        lucide.createIcons({ nameAttr: 'data-lucide', root: formSubmitBtn });
+                    }
                 }
             }
         });
@@ -412,19 +447,22 @@ document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons({ nameAttr: 'data-lucide', root: link });
         }
 
-        if (status === 'Report in Final Review' || status === 'Active Development') {
-            link.textContent = status;
-            link.removeAttribute('href');
-            link.style.opacity = '0.45';
-            link.style.pointerEvents = 'none';
-            link.style.display = 'inline-flex';
-        } else if (href && href !== '#') {
+        if (href && href !== '#') {
+            // Project has a link in JSON -> It is done and clickable
             link.href = href;
             link.target = href.startsWith('http') ? '_blank' : '_self';
             link.style.display = 'inline-flex';
             link.style.opacity = '1';
             link.style.pointerEvents = 'auto';
+        } else if (status && status !== 'View Project') {
+            // No link, but has a status (Ongoing/Review) -> Disabled button
+            link.textContent = status;
+            link.removeAttribute('href');
+            link.style.opacity = '0.45';
+            link.style.pointerEvents = 'none';
+            link.style.display = 'inline-flex';
         } else {
+            // Fallback if no link and no status
             link.removeAttribute('href');
             link.style.display = 'none';
         }
@@ -459,10 +497,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     closeProjectBtn?.addEventListener('click', closeModal);
-    projectModal?.addEventListener('click', e => {
+    projectModal?.addEventListener('mousedown', e => {
         if (e.target === projectModal) closeModal();
     });
-    document.querySelector('.modal-panel')?.addEventListener('click', e => {
+    document.querySelector('.modal-panel')?.addEventListener('mousedown', e => {
         e.stopPropagation();
     });
     document.addEventListener('keydown', e => {
@@ -479,7 +517,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const scrollAmt = () => {
             const item = vizTrack.querySelector('.viz-item');
             if (!item) return Math.min(420, window.innerWidth * 0.72);
-            const itemW = item.offsetWidth + 24;
+            const itemW = item.offsetWidth + 20;
             const viewportW = vizTrack.parentElement?.offsetWidth || window.innerWidth;
             const visibleCount = Math.max(1, Math.floor(viewportW / itemW));
             return itemW * visibleCount;
@@ -567,6 +605,11 @@ document.addEventListener('DOMContentLoaded', () => {
         let activeIdx1 = 0;
         const emp1 = cyclers[0].querySelectorAll('.hero-emp-1');
 
+        // Set the first word visible immediately — prevents blank hero on load
+        if (emp1.length > 0) {
+            emp1[0].classList.add('active');
+        }
+
         const cycleWords = () => {
             if (emp1.length > 0) {
                 emp1[activeIdx1].classList.remove('active');
@@ -578,7 +621,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 emp1[activeIdx1].classList.add('active');
             }
         };
-        
-        setInterval(cycleWords, 3500);
+
+        // Respect the user's motion preference — don't cycle if they've asked for reduced motion
+        const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        if (!motionQuery.matches) {
+            setInterval(cycleWords, 3500);
+        }
+        // If reduced motion, the first word stays visible via the active class set above
     }
 });
