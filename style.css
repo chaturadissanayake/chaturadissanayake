@@ -2040,3 +2040,4 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     .legal-content { padding: var(--space-8) var(--space-5); }
     .legal-content h1 { font-size: 2rem; }
 }
+

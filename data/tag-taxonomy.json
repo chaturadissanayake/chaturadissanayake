@@ -1,0 +1,41 @@
+{
+  "taxonomy": {
+    "set_1_industry_sector": [
+      "Arts & Culture",
+      "Civic & Public",
+      "Climate & Sustainability",
+      "Consumer Brands",
+      "Education",
+      "Entertainment",
+      "Fashion & Beauty",
+      "Finance",
+      "Food & Drink",
+      "Health",
+      "Hospitality & Travel",
+      "Manufacturing & Industrials",
+      "Non-profits",
+      "Professional Services",
+      "Publishing",
+      "Real Estate",
+      "Technology",
+      "Transport"
+    ],
+    "set_2_discipline_type": [
+      "Books",
+      "Brand Identity",
+      "Brand Strategy",
+      "Campaigns",
+      "Data Driven Experiences",
+      "Digital Experiences",
+      "Exhibitions",
+      "Industrial/Product Design",
+      "Motion Graphics & Film",
+      "Naming",
+      "Packaging",
+      "Publications",
+      "Signage & Environmental Graphics",
+      "Typefaces",
+      "Verbal Identity"
+    ]
+  }
+}
