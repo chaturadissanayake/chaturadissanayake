@@ -260,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         data-tags="${safeTags.join(',')}">
                         <div class="card-inner">
                             <div class="card-image">
-                                <img src="${proj.thumbnail}" alt="${proj.title}" loading="lazy" width="800" height="600">
+                                <img src="${proj.thumbnail}" alt="${proj.title}" width="800" height="600">
                                 <div class="card-overlay">
                                     <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                                 </div>

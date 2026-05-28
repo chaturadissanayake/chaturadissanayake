@@ -2053,6 +2053,19 @@ html, body, main, .site-wrapper {
     overflow-y: visible !important;
 }
 
+/* OVERRIDE: Lock background scrolling on mobile when menus are open.
+   This catches both the main nav (.modal-open) and the inline JS 
+   from the project sidebar (style="overflow: hidden").
+*/
+body.modal-open, 
+body.modal-open main, 
+body.modal-open .site-wrapper,
+body[style*="overflow: hidden"], 
+body[style*="overflow: hidden"] main, 
+body[style*="overflow: hidden"] .site-wrapper {
+    overflow: hidden !important;
+}
+
 .site-wrapper {
     max-width: var(--max-w);
     margin: 0 auto;
@@ -2300,37 +2313,56 @@ html, body, main, .site-wrapper {
 
 /* ── Next Project Section ── */
 .next-project-section {
-    margin-top: var(--space-24, 96px);
-    padding-top: var(--space-12, 48px);
+    margin-top: clamp(3rem, 8vw, var(--space-24, 96px));
+    padding-top: clamp(2rem, 6vw, var(--space-12, 48px));
     border-top: 1px solid var(--surface-3, #e5e5e5);
 }
 
 .next-project-inner {
+    display: block;
     margin-bottom: var(--space-8, 32px);
+    transition: transform 0.3s var(--ease-out);
+    text-decoration: none;
+    outline: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .next-project-inner:hover {
+        transform: translateX(12px);
+    }
+    .next-project-inner:hover .next-title {
+        color: var(--accent);
+    }
 }
 
 .next-label {
-    font-family: var(--sans);
-    font-size: 0.875rem;
-    color: var(--ink-soft);
-    margin-bottom: var(--space-6, 24px);
+    font-family: var(--mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-3, 12px);
+    display: block;
 }
 
 .next-title {
-    font-family: var(--sans);
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-family: var(--serif);
+    font-size: clamp(2rem, 8vw, 3.5rem);
     font-weight: 400;
     color: var(--ink);
-    margin-bottom: var(--space-4, 16px);
-    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin-bottom: var(--space-3, 12px);
+    letter-spacing: -0.025em;
+    transition: color 0.3s var(--ease-out);
 }
 
 .next-desc {
     font-family: var(--sans);
-    font-size: 1.125rem;
-    color: var(--ink);
-    margin-bottom: var(--space-6, 24px);
-    max-width: 600px;
+    font-size: clamp(0.875rem, 2.5vw, 1rem);
+    line-height: 1.65;
+    color: var(--ink-muted);
+    margin-bottom: var(--space-5, 20px);
+    max-width: 640px;
 }
 
 /* ── Mobile & Tablet Layout Specifics ── */
@@ -2372,7 +2404,7 @@ html, body, main, .site-wrapper {
         right: 0 !important;
         bottom: 0 !important;
         width: 100vw !important;
-        height: 100vh !important;
+        height: 100dvh !important; /* Updated for Android/Redmi compatibility */
         max-height: none !important;
         margin-left: 0 !important;
         background-color: var(--surface, #ffffff) !important;
@@ -2391,13 +2423,32 @@ html, body, main, .site-wrapper {
 
     .text-col-inner {
         width: 100% !important;
-        height: 100vh !important;
+        height: 100dvh !important; /* Updated for Android/Redmi compatibility */
         max-height: none !important;
-        padding: 100px 24px 120px 24px !important; /* Prevents text from crashing into the logo */
+        padding: 100px 24px 120px 24px !important; 
     }
 }
 
 /* Hide mobile wrapper on desktop */
 .btn-wrapper-mobile {
     display: none;
+}
+
+/* CRITICAL FIX FOR STICKY SCROLL */
+html, body, main, .site-wrapper {
+    overflow-x: clip !important;
+    overflow-y: visible !important;
+}
+
+/* OVERRIDE: Lock background scrolling on mobile when menus are open.
+   This catches both the main nav (.modal-open) and the inline JS 
+   from the project sidebar (style="overflow: hidden").
+*/
+body.modal-open, 
+body.modal-open main, 
+body.modal-open .site-wrapper,
+body[style*="overflow: hidden"], 
+body[style*="overflow: hidden"] main, 
+body[style*="overflow: hidden"] .site-wrapper {
+    overflow: hidden !important;
 }
