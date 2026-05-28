@@ -9,7 +9,7 @@
     "link": "projects/ceylon-harvest/ceylon-harvest.html",
     "status": "View Case Study",
     "tags": ["Consumer Brands", "Brand Identity"],
-    "thumbnail": "projects/ceylon-harvest/assets/Ceylon_Thumb.webp",
+    "thumbnail": "projects/ceylon-harvest/assets/01_Hero_Cover.webp",
     "date": "MAY 2026"
   },
   {
@@ -58,7 +58,7 @@
     "challenge": "Sri Lanka's drug policy debate was being drowned in jargon, politics, and statistics that nobody outside the sector could parse. I wanted to make it accessible to someone who had no background in policy, because those people's opinions matter too.",
     "role": "I built the whole thing from scratch: the narrative structure, the visual language, the data pipeline, and the final Data Storytelling experience. Every design decision came back to one question: will someone who knows nothing about this still be able to follow it?",
     "outcome": "A digital environment that lets people walk through the data themselves and reach their own conclusions. Not a lecture, an experience. One that treats the audience as capable of handling the complexity, just on their own terms.",
-    "link": "https://chaturadissanayake.vercel.app/sri-lanka-drug-crisis-website/",
+    "link": "https://chaturadissanayake.github.io/sri-lanka-drug-crisis-website/",
     "status": "View Full Case Study",
     "tags": ["Health", "Data Driven Experiences"],
     "thumbnail": "projects/drug-crisis/assets/DrugCrisis_Thumb.png",
@@ -90,43 +90,35 @@
     "thumbnail": "projects/embracy-platform/assets/EmbracyPlatform_Thumb.png",
     "date": "FEB 2025"
   },
-  {
-    "id": "verite-research",
-    "category": "Campaigns",
-    "title": "Verité Research Communications",
-    "challenge": "Disseminating over 150 research outputs to policymakers and national media.",
-    "role": "Senior Communications Designer",
-    "outcome": "Research Dissemination Strategy",
-    "link": "projects/verite-research/index.html",
-    "status": "View Project",
-    "tags": ["Civic & Public", "Campaigns"],
-    "thumbnail": "assets/verite_research.jpg",
-    "date": "2022 - 2024"
-  },
-  {
-    "id": "digital-channel",
-    "category": "Motion Graphics & Film",
-    "title": "Digital Channel Management",
-    "challenge": "Producing engaging video content focusing on pop culture, news, and entertainment.",
-    "role": "Producer & Editor",
-    "outcome": "Ongoing Content Strategy",
-    "link": "",
-    "status": "Ongoing",
-    "tags": ["Entertainment", "Motion Graphics & Film"],
-    "thumbnail": "assets/project_entertainment.jpg",
-    "date": "2025 - Present"
-  },
-  {
-    "id": "vizsprint",
-    "category": "Motion Graphics & Film",
-    "title": "VizSprint",
-    "challenge": "Creating dynamic data visualization videos and chart races for complex datasets.",
-    "role": "Data Storyteller",
-    "outcome": "Ongoing Series",
-    "link": "",
-    "status": "Ongoing",
-    "tags": ["Civic & Public", "Motion Graphics & Film"],
-    "thumbnail": "assets/project_vizsprint.jpg",
-    "date": "2025 - Present"
-  }
+{
+  "id": "mood-of-the-nation",
+  "category": "Data Driven Experiences",
+  "title": "Mood of the Nation",
+  "challenge": "Verité Research is tasked with disseminating over 150 research outputs to policymakers and national media. During the 2022 economic crisis, the specific challenge was ensuring that complex socio-political data - like the collapse of government approval and economic confidence - was immediately accessible to a diverse, trilingual public.",
+  "role": "As a Senior Communications Designer, I designed the data infographics for the nationally syndicated Mood of the Nation survey across all three official languages: English, Sinhala, and Tamil. I translated stark, defining statistics into authoritative visual narratives built for simultaneous distribution across national television, print, and digital platforms.",
+  "outcome": "The visual strategy ensured these critical findings reached every segment of Sri Lanka's media landscape simultaneously. The June 2022 edition successfully captured the country at a historic breaking point, turning raw data into an unignorable part of the national conversation.",
+  "link": "projects/mood-of-the-nation/mood-of-the-nation.html",
+  "status": "View Case Study",
+  "tags": [
+    "Civic & Public",
+    "Data Driven Experiences"
+  ],
+  "thumbnail": "projects/mood-of-the-nation/assets/MOTN_Thumb.webp",
+  "date": "JUN 2022"
+},
+{
+    "title": "Practical Solutions for Inclusive Growth",
+    "category": "Civic & Public",
+    "date": "JUL 2024",
+    "thumbnail": "projects/practical-solutions-for-inclusive-growth/assets/Practical_Solutions_Thumb.webp",
+    "link": "projects/practical-solutions-for-inclusive-growth/practical-solutions-for-inclusive-growth.html",
+    "status": "View Case Study",
+    "challenge": "A public lecture hosted by Verité Research focusing on the critical policy shifts required to resume sustainable economic growth in Sri Lanka following the 2022 crisis. The core message highlighted that the fundamental issue crippling the nation's economic sectors is a severe lack of accountability.",
+    "role": "I was responsible for designing the visual identity and communication materials for the event, ensuring the urgency and clarity of the policy recommendations were reflected across all physical and digital touchpoints.",
+    "outcome": "A cohesive event branding system that helped outline five key pillars for reform: liberalizing trade, reforming agricultural acts, targeting cash transfers, ensuring education accountability, and isolating foreign borrowing from geopolitics.",
+    "tags": [
+        "Civic & Public",
+        "Event Branding"
+    ]
+}
 ]

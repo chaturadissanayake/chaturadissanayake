@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         data-tags="${safeTags.join(',')}">
                         <div class="card-inner">
                             <div class="card-image">
-                                <img src="${proj.thumbnail}" alt="${proj.title}" loading="lazy" width="400" height="300">
+                                <img src="${proj.thumbnail}" alt="${proj.title}" loading="lazy" width="800" height="600">
                                 <div class="card-overlay">
                                     <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                                 </div>
@@ -628,5 +628,116 @@ document.addEventListener('DOMContentLoaded', () => {
             setInterval(cycleWords, 3500);
         }
         // If reduced motion, the first word stays visible via the active class set above
+    }
+
+    // ── PROJECT DETAIL PAGES (CASE STUDIES) ──────────────────────────────
+    const sidebarWrap = document.getElementById('sidebarWrap');
+    
+    if (sidebarWrap) {
+        // Expose globally so inline onclick="toggleSidebar()" works in the HTML
+        window.toggleSidebar = function() {
+            const isDesktop = window.innerWidth > 1024; // FIX: Aligned with new tablet CSS breakpoints
+            const icons = document.querySelectorAll('.toggle-icon');
+            
+            if (isDesktop) {
+                sidebarWrap.classList.toggle('is-collapsed');
+                const isNowOpen = !sidebarWrap.classList.contains('is-collapsed');
+                icons.forEach(icon => icon.textContent = isNowOpen ? '×' : '+');
+            } else {
+                sidebarWrap.classList.toggle('is-open-mobile');
+                const isNowOpen = sidebarWrap.classList.contains('is-open-mobile');
+                icons.forEach(icon => icon.textContent = isNowOpen ? '×' : '+');
+                document.body.style.overflow = isNowOpen ? 'hidden' : '';
+            }
+        };
+
+        const floatBtn = document.getElementById('mobileFloatBtn');
+        const triggerSection = document.getElementById('nextProjectTarget');
+        
+        if (floatBtn && triggerSection) {
+            const observer = new IntersectionObserver((entries) => {
+                if(entries[0].isIntersecting) {
+                    floatBtn.style.opacity = '0';
+                    floatBtn.style.pointerEvents = 'none';
+                    floatBtn.style.transform = 'translate(-50%, 20px)';
+                } else {
+                    floatBtn.style.opacity = '1';
+                    floatBtn.style.pointerEvents = 'auto';
+                    floatBtn.style.transform = 'translate(-50%, 0)';
+                }
+            }, { rootMargin: '100px' });
+            
+            observer.observe(triggerSection);
+        }
+
+        // ── SMART RANDOM NEXT PROJECT LOADER ──
+        if (triggerSection) {
+            const loadNextProject = async () => {
+                try {
+                    const res = await fetch('../../data/projects.json');
+                    if (!res.ok) throw new Error('Failed to load projects');
+                    const projects = await res.json();
+                    
+                    // 1. Identify the current project
+                    const currentProject = projects.find(p => p.link && p.link !== '#' && window.location.pathname.includes(p.link.replace('.html', '').replace('/index.html', '')));
+                    const currentLinkKey = currentProject ? currentProject.link : window.location.pathname;
+
+                    // 2. Add current project to session storage history
+                    let visited = JSON.parse(sessionStorage.getItem('viewedCaseStudies') || '[]');
+                    if (!visited.includes(currentLinkKey)) {
+                        visited.push(currentLinkKey);
+                        sessionStorage.setItem('viewedCaseStudies', JSON.stringify(visited));
+                    }
+
+                    // 3. Find valid projects (Has link, isn't current page)
+                    const potentialNext = projects.filter(p => 
+                        p.link && 
+                        p.link !== '#' && 
+                        p.link !== currentLinkKey &&
+                        !window.location.pathname.includes(p.link.replace('.html', '').replace('/index.html', ''))
+                    );
+
+                    // 4. UX Filter: Try to show a project they haven't visited yet
+                    let unvisited = potentialNext.filter(p => !visited.includes(p.link));
+                    
+                    // Fallback: If they have read everything, just pick from the valid list so it doesn't break
+                    let selectionPool = unvisited.length > 0 ? unvisited : potentialNext;
+
+                    if (selectionPool.length > 0) {
+                        // Pick a random project
+                        const randomProj = selectionPool[Math.floor(Math.random() * selectionPool.length)];
+                        
+                        // Ensure external links (like Cyclone Ditwah) format correctly and open in new tabs
+                        const isExternal = randomProj.link.startsWith('http');
+                        const finalHref = isExternal ? randomProj.link : `../../${randomProj.link}`;
+                        const externalAttr = isExternal ? `target="_blank" rel="noopener"` : '';
+
+                        // Generate the HTML for the tags
+                        const tagsHTML = (randomProj.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('');
+                        
+                        // Limit the description length
+                        let descSnippet = randomProj.challenge || '';
+                        if (descSnippet.length > 120) {
+                            descSnippet = descSnippet.substring(0, 120) + '...';
+                        }
+
+                        // Inject the structure
+                        triggerSection.innerHTML = `
+                            <a href="${finalHref}" ${externalAttr} class="next-project-inner next-project-link" aria-label="View next project: ${randomProj.title}">
+                                <div class="next-label">Next Project</div>
+                                <h2 class="next-title">${randomProj.title}</h2>
+                                <p class="next-desc">${descSnippet}</p>
+                                <div class="tags-col">
+                                    ${tagsHTML}
+                                </div>
+                            </a>
+                        `;
+                    }
+                } catch (error) {
+                    console.error('Error loading next project:', error);
+                }
+            };
+            loadNextProject();
+        }
     }
 });

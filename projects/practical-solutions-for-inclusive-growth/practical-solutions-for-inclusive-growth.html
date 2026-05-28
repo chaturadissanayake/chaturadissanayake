@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practical Solutions for Inclusive Growth | Chatura Dissanayake</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../../style.css">
+    <script src="https://unpkg.com/lucide@0.292.0" defer></script>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/favicon-16x16.png">
+    <link rel="manifest" href="../../assets/site.webmanifest">
+</head>
+<body class="loading">
+
+<header class="main-header scrolled" id="main-header" style="z-index: 1000 !important;">
+    <div class="nav-inner">
+        <a href="../../index.html" class="nav-logo" aria-label="Chatura Dissanayake Home">
+            <span class="brand-wordmark">Chatura Dissanayake</span>
+        </a>
+        <nav class="desktop-nav" role="navigation" aria-label="Primary">
+            <a href="../../index.html#projects"       class="nav-link">Work</a>
+            <a href="../../index.html#about"          class="nav-link">About</a>
+            <a href="../../index.html#services"       class="nav-link">Services</a>
+            <a href="../../index.html#insights"       class="nav-link">Writing</a>
+            <a href="../../index.html#visualisations" class="nav-link">Data Narratives</a>
+        </nav>
+        <div class="nav-actions">
+            <a href="../../index.html#contact" class="nav-cta">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
+            <button type="button" class="hamburger-btn" id="mobile-nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav-menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation" style="z-index: 999 !important;">
+    <nav class="mobile-nav-links">
+        <a href="../../index.html#projects"       class="mobile-link">Work</a>
+        <a href="../../index.html#about"          class="mobile-link">About</a>
+        <a href="../../index.html#services"       class="mobile-link">Services</a>
+        <a href="../../index.html#insights"       class="mobile-link">Writing</a>
+        <a href="../../index.html#visualisations" class="mobile-link">Data Narratives</a>
+        <a href="../../index.html#contact"        class="mobile-link mobile-cta">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
+    </nav>
+    <div class="mobile-menu-footer">
+        <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/chaturadissanayake"      target="_blank" rel="noopener">GitHub</a>
+        <a href="https://consultchatura.medium.com"          target="_blank" rel="noopener">Medium</a>
+        <a href="../../rss.xml" target="_blank" rel="noopener">RSS</a>
+    </div>
+</div>
+
+<main>
+    <div class="site-wrapper">
+        
+        <header class="project-header">
+            <h1>Practical Solutions for Inclusive Growth</h1>
+            <p class="subtitle">A framework for addressing the root causes of Sri Lanka's economic crisis through accountability and targeted reforms.</p>
+        </header>
+
+        <div class="controls-row">
+            <div class="tags-col">
+                <span class="tag">Civic & Public</span>
+                <span class="tag">Event Branding</span>
+            </div>
+            <div class="btn-wrapper">
+                <button class="about-btn"
+                        id="sidebar-toggle-desktop"
+                        aria-expanded="true"
+                        aria-controls="sidebarWrap"
+                        onclick="toggleSidebar()">
+                    <span class="btn-label">About the project</span>
+                    <span class="toggle-icon" aria-hidden="true">×</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="layout-grid" id="mainLayout">
+            
+            <div class="media-col">
+                <div class="media-grid">
+                    
+                    <!-- 1. Full width — Panel Setup (Audience Image) -->
+                    <div class="media-item full-width">
+                        <img src="assets/panel.webp"
+                             alt="Practical Solutions for Inclusive Growth - Panel Setup"
+                             loading="eager"
+                             fetchpriority="high"
+                             width="1200"
+                             height="800">
+                    </div>
+
+                    <!-- 2. Side-by-Side — Poster and YouTube Video (Forced 16:9 for perfect alignment) -->
+                    <div class="media-item" style="aspect-ratio: 16/9; overflow: hidden; border-radius: 4px; background: #e6e5e0;">
+                        <img src="assets/poster.webp"
+                             alt="Practical Solutions for Inclusive Growth - Poster Design"
+                             loading="lazy"
+                             style="width: 100%; height: 100%; object-fit: cover;">
+                    </div>
+
+                    <div class="media-item" style="aspect-ratio: 16/9; width: 100%; overflow: hidden; background: var(--ink); border-radius: 4px;">
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/71GRBRVIlPc" title="Practical Solutions for Inclusive Growth" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="border: none;"></iframe>
+                    </div>
+
+                    <!-- 3. Quote from the lecture -->
+                    <div class="standard-quote">
+                        &ldquo;How can a country that was doing so well end up in this kind of crisis? The answer to all of that is one word: accountability.&rdquo;
+                        <span class="quote-author">&mdash; Verité Research, July 2024</span>
+                    </div>
+
+                    <!-- 4. Full width — Hero Image -->
+                    <div class="media-item full-width">
+                        <img src="assets/fullwidth.webp"
+                             alt="Practical Solutions for Inclusive Growth - Event Hero"
+                             loading="lazy"
+                             width="1200"
+                             height="800">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="sidebar-wrap" id="sidebarWrap">
+                <div class="text-col-inner">
+                    
+                    <div class="project-description">
+                        <p><a href="https://youtu.be/71GRBRVIlPc?si=sFwXJxXMUdw77BCR" target="_blank" rel="noopener">Practical Solutions for Inclusive Growth</a> was a public lecture hosted by Verité Research, focusing on the critical policy shifts required to resume sustainable economic growth in Sri Lanka following the 2022 crisis.</p>
+                        
+                        <p>The core message of the event highlighted that the fundamental issue crippling Sri Lanka's economic sectors is a lack of accountability. Whether it is shielding domestic industries from global market competition, forcing farmers into low-yield paddy cultivation through outdated legislation, or providing untargeted energy subsidies that primarily benefit the wealthy, the absence of market and civic accountability has severely constrained the nation's potential.</p>
+                        
+                        <p>The proposed framework outlined five key pillars for reform: liberalizing trade to reintroduce market competition, reforming the Paddy Lands Act to give farmers economic autonomy, replacing corrosive energy subsidies with targeted cash transfers, ensuring education outcomes through teacher accountability, and separating foreign borrowing decisions from geopolitical pressures.</p>
+                        
+                        <p>I was responsible for designing the visual identity and communication materials for the event, ensuring that the urgency and clarity of these policy recommendations were reflected across all physical and digital touchpoints.</p>
+                    </div>
+
+                    <div class="meta-section">
+                        <div class="meta-grid">
+                            <div class="meta-item">
+                                <div class="meta-label">Client</div>
+                                <div class="meta-value">Verité Research</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Office</div>
+                                <div class="meta-value">Colombo</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Sector</div>
+                                <div class="meta-value">Civic & Public</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Discipline</div>
+                                <div class="meta-value">Event Branding</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Project team</div>
+                                <div class="meta-value">Chatura Dissanayake</div>
+                                <div class="meta-value">Thilina Gamage</div>
+                                <div class="meta-value">Rasanga Rathugamage</div>
+                                <div class="meta-value">Gihan Nicholas</div>
+                                <div class="meta-value">Kovida Gunasekara</div>
+                                <div class="meta-value">Uma Rajamantri</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Collaborators</div>
+                                <div class="meta-value">Bandaranaike Centre for International Studies</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+<section class="next-project-section" id="nextProjectTarget">
+    <!-- Dynamic Next Project injected via app.js -->
+</section>
+
+        <div class="btn-wrapper-mobile" id="mobileFloatBtn">
+            <button class="about-btn"
+                    id="sidebar-toggle-mobile"
+                    aria-expanded="false"
+                    aria-controls="sidebarWrap"
+                    onclick="toggleSidebar()">
+                <span class="btn-label">About the project</span>
+                <span class="toggle-icon" aria-hidden="true">+</span>
+            </button>
+        </div>
+
+    </div>
+</main>
+
+<button id="floating-back-to-top" class="floating-btt" aria-label="Back to top" tabindex="-1">
+    <i data-lucide="arrow-up" aria-hidden="true"></i>
+</button>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h5>Navigate</h5>
+                <a href="../../index.html#projects">Work</a>
+                <a href="../../index.html#about">About</a>
+                <a href="../../index.html#services">Services</a>
+                <a href="../../index.html#insights">Writing</a>
+                <a href="../../index.html#visualisations">Data Narratives</a>
+            </div>
+            <div class="footer-col">
+                <h5>Connect</h5>
+                <a href="../../index.html#contact">Contact Me</a>
+                <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/chaturadissanayake"      target="_blank" rel="noopener">GitHub</a>
+            </div>
+            <div class="footer-col">
+                <h5>On Medium</h5>
+                <a href="https://consultchatura.medium.com" target="_blank" rel="noopener">Medium</a>
+                <a href="../../rss.xml" target="_blank" rel="noopener">RSS Feed</a>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <a href="../../privacy.html">Privacy Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom-container">
+            <div class="footer-divider"></div>
+            <div class="footer-bottom-bar">
+                <div class="footer-copyright">
+                    © 2022 - 2026 All Rights Reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="../../app.js"></script>
+
+</body>
+</html>
