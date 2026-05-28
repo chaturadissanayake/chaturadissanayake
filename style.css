@@ -2454,68 +2454,44 @@ body[style*="overflow: hidden"] .site-wrapper {
 }
 
 /* ── Mobile & Tablet Layout Specifics ── */
-/* FIX: Trigger mobile sidebar behavior at 1024px (Tablets) so it doesn't crush the layout */
 @media (max-width: 1024px) {
-
-    .controls-row .btn-wrapper {
-        display: none; 
+    .controls-row .btn-wrapper { display: none; }
+    
+    /* 1. Stack the layout simply: Images on top, Text on bottom */
+    .layout-grid { 
+        display: flex; 
+        flex-direction: column; 
+        gap: var(--space-8); 
     }
-
-    .layout-grid {
-        display: block; 
+    
+    .media-grid { 
+        grid-template-columns: repeat(2, 1fr); 
     }
-
-    .media-grid {
-        grid-template-columns: repeat(2, 1fr); /* Keep 2-col on tablet for case studies */
+    
+    /* 2. Hide the mobile toggle button entirely */
+    .btn-wrapper-mobile { 
+        display: none !important; 
     }
-
-    /* Floating Button for Mobile */
-    .btn-wrapper-mobile {
-        display: flex !important;
-        position: fixed;
-        bottom: 32px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 80 !important; 
-        transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
-    .btn-wrapper-mobile .about-btn {
-        box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-    }
-
-    /* Sidebar transforms into Full Overlay Modal */
+    
+    /* 3. Reset the sidebar to flow naturally */
     .sidebar-wrap {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        bottom: 0 !important;
-        width: 100vw !important;
-        height: 100vh !important;
-        height: 100dvh !important; /* Updated for Android/Redmi compatibility */
-        max-height: none !important;
-        margin-left: 0 !important;
-        background-color: var(--surface, #ffffff) !important;
-        z-index: 70 !important; 
-        opacity: 0;
-        pointer-events: none;
-        transform: translateY(20px);
-        transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
-    .sidebar-wrap.is-open-mobile {
+        width: 100% !important;
+        max-width: 100% !important;
+        position: static !important;
         opacity: 1 !important;
         pointer-events: auto !important;
-        transform: translateY(0) !important;
+        transform: none !important;
+        margin-left: 0 !important;
+        height: auto !important;
     }
-
+    
     .text-col-inner {
+        position: static !important;
         width: 100% !important;
-        height: 100vh !important;
-        height: 100dvh !important; /* Updated for Android/Redmi compatibility */
+        height: auto !important;
         max-height: none !important;
-        padding: 100px 24px 120px 24px !important; 
+        padding: 0 !important; 
+        overflow-y: visible !important;
     }
 }
 
