@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // ── 1. INITIALIZE ICONS ──────────────────────────────────────────────
-    // Defer icon creation until fonts/styles are applied to avoid flash of unstyled icons
+
     const initIcons = (root) => {
         if (window.lucide) {
             lucide.createIcons({ root: root || document });
@@ -8,14 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     initIcons();
 
-    // ── 1B. IMAGE PROTECTION ─────────────────────────────────────────────
     document.addEventListener('contextmenu', e => {
         if (e.target.tagName === 'IMG') {
             e.preventDefault();
         }
     });
 
-    // ── 2. REMOVE LOADING STATE ───────────────────────────────────────────
     const removeLoadingState = () => {
         document.body.classList.remove('loading');
     };
@@ -26,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(removeLoadingState, 400);
     }
 
-    // ── 3. SCROLL PROGRESS BAR ───────────────────────────────────────────
     const progressBar = document.getElementById('scroll-progress');
     let isProgressTicking = false;
     const updateProgress = () => {
@@ -45,7 +41,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, { passive: true });
 
-    // ── 5. STICKY HEADER & FLOATING BTT ──────────────────────────────────
     const header = document.getElementById('main-header');
     const floatBtt = document.getElementById('floating-back-to-top');
     const headerForceScrolled = header?.classList.contains('scrolled') ?? false;
@@ -68,7 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // ── 6. ACTIVE NAV HIGHLIGHTING ───────────────────────────────────────
     const sections  = document.querySelectorAll('section[id]');
     const navLinks  = document.querySelectorAll('.nav-link[data-section]');
 
@@ -94,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
     activateNav();
 
-    // ── 7. MOBILE MENU ───────────────────────────────────────────────────
     const mobileToggle = document.getElementById('mobile-nav-toggle');
     const mobileMenu   = document.getElementById('mobile-nav-menu');
 
@@ -127,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     const targetEl = document.getElementById(targetId);
                     if (targetEl) {
                         e.preventDefault();
-                        // Slight delay ensures the menu closes before scrolling begins
+
                         setTimeout(() => {
                             targetEl.scrollIntoView({ behavior: 'smooth' });
                             history.pushState(null, '', href);
@@ -136,8 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
         );
-        // The aggressive scroll safety valve has been removed. 
-        // It was causing the mobile menu to immediately close due to automated viewport/address bar shifts on mobile browsers.
+
     }
 
     document.addEventListener('keydown', e => {
@@ -146,7 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ── 8. SCROLL REVEAL ANIMATIONS ──────────────────────────────────────
     const observer = new IntersectionObserver(entries => {
         entries.forEach(e => {
             if (e.isIntersecting) {
@@ -157,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
     document.querySelectorAll('.section-fade-in').forEach(s => observer.observe(s));
 
-    // ── 12B. FETCH JSON, BUILD CARDS & DYNAMIC FILTERS ────────────────────
     const projWrap = document.getElementById('projects-container');
     const noProjMsg = document.getElementById('no-projects-msg');
     const filterGroup = document.getElementById('dynamic-filter-group');
@@ -177,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const cat = card.getAttribute('data-category') || '';
             const matches = currentFilter === 'all' || cat === currentFilter;
             
-            card.classList.remove('mobile-hidden'); // clean up old class if present
+            card.classList.remove('mobile-hidden');
             card.classList.remove('capped-hidden');
 
             if (matches) {
@@ -215,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadingIndicator = document.getElementById('loading-indicator');
         if (loadingIndicator) loadingIndicator.style.display = 'none';
 
-        // Render 6 skeleton cards immediately so the grid never looks empty
         const skeletonHTML = Array.from({ length: 6 }, () => `
             <div class="skeleton-card" aria-hidden="true">
                 <div class="skeleton-image skeleton-shimmer"></div>
@@ -234,39 +223,33 @@ document.addEventListener('DOMContentLoaded', () => {
         projWrap.innerHTML = skeletonHTML;
 
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 8000); // 8-second timeout
+        const timeoutId = setTimeout(() => controller.abort(), 8000);
 
         try {
             const res = await fetch('/data/projects.json', { signal: controller.signal });
             clearTimeout(timeoutId);
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const projects = await res.json();
-            
-            // Sort projects dynamically: Active/Ongoing to the back, Newest completed to the front
+
             projects.sort((a, b) => {
                 const aIsOngoing = !a.link || a.link === '#';
                 const bIsOngoing = !b.link || b.link === '#';
-                
-                // 1. Force active/ongoing projects to the absolute bottom
+
                 if (aIsOngoing && !bIsOngoing) return 1;
                 if (!aIsOngoing && bIsOngoing) return -1;
-                
-                // 2. Sort the remaining completed projects by Date (Newest first)
-                // This reads the "date" field in your JSON (e.g., "JUL 2024")
+
                 const dateA = new Date(a.date);
                 const dateB = new Date(b.date);
-                
-                // If dates are valid formats, sort descending (newest first)
+
                 if (!isNaN(dateA) && !isNaN(dateB)) {
                     return dateB - dateA;
                 }
-                
-                // Fallback to original JSON order if the date string is unusual
+
                 return 0; 
             });
 
             projWrap.innerHTML = ''; 
-            const categories = new Set(); // To collect unique categories
+            const categories = new Set();
             
             projects.forEach(proj => {
                 if (proj.category) categories.add(proj.category);
@@ -314,25 +297,22 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             allProjCards = document.querySelectorAll('.project-card.project-trigger');
-            
-            // Smooth image reveal for grid skeletons (Bulletproof fallback)
+
             projWrap.querySelectorAll('.card-image img').forEach(img => {
                 const handleLoad = () => {
                     img.classList.add('img-loaded');
                     const parent = img.closest('.card-image');
                     if (parent) parent.classList.add('shimmer-complete');
                 };
-                
-                // If already cached, reveal immediately. Otherwise, wait for load.
+
                 if (img.complete && img.naturalHeight !== 0) {
                     handleLoad();
                 } else {
                     img.addEventListener('load', handleLoad);
-                    img.addEventListener('error', handleLoad); // prevents infinite shimmer on broken files
+                    img.addEventListener('error', handleLoad);
                 }
             });
-            
-            // Build Dynamic Filters
+
             if (filterGroup) {
                 let filterHTML = `<button type="button" class="filter-pill active" data-filter="all">All Work</button>`;
                 categories.forEach(cat => {
@@ -384,7 +364,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const loadingIndicator = document.getElementById('loading-indicator');
             if (loadingIndicator) loadingIndicator.style.display = 'none';
-            projWrap.innerHTML = ''; // Clear skeletons on error
+            projWrap.innerHTML = '';
             
             if (noProjMsg) {
                 noProjMsg.innerHTML = `
@@ -403,7 +383,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     initProjects();
 
-    // ── 11A. CONTACT FORM FEEDBACK ────────────────────────────────────────
     const contactForm   = document.getElementById('contact-form');
     const formStatus    = document.getElementById('form-status');
     const formSubmitBtn = document.getElementById('form-submit-btn');
@@ -442,7 +421,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ── 12. PROJECT DETAIL MODAL ──────────────────────────────────────────
     const projectModal    = document.getElementById('project-detail-modal');
     const closeProjectBtn = document.getElementById('close-project-modal');
     let lastFocusedElement = null;
@@ -466,7 +444,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('pm-role').textContent      = card.getAttribute('data-role')      || '—';
         document.getElementById('pm-outcome').textContent   = card.getAttribute('data-outcome')   || '—';
 
-        // Keep URL clean, but push a silent state so the Android back button works
         history.pushState({ modalOpen: true }, '', window.location.pathname + window.location.search);
 
         const link   = document.getElementById('pm-link');
@@ -480,21 +457,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (href && href !== '#') {
-            // Project has a link in JSON -> It is done and clickable
+
             link.href = href;
             link.target = href.startsWith('http') ? '_blank' : '_self';
             link.style.display = 'inline-flex';
             link.style.opacity = '1';
             link.style.pointerEvents = 'auto';
         } else if (status && status !== 'View Project') {
-            // No link, but has a status (Ongoing/Review) -> Disabled button
+
             link.textContent = status;
             link.removeAttribute('href');
             link.style.opacity = '0.45';
             link.style.pointerEvents = 'none';
             link.style.display = 'inline-flex';
         } else {
-            // Fallback if no link and no status
+
             link.removeAttribute('href');
             link.style.display = 'none';
         }
@@ -524,8 +501,7 @@ document.addEventListener('DOMContentLoaded', () => {
         projectModal?.classList.remove('active');
         document.body.classList.remove('modal-open');
         projectModal.removeEventListener('keydown', trapFocus);
-        
-        // Clean up browser history if modal was closed via 'X' or Escape
+
         if (isPopState !== true && history.state && history.state.modalOpen) {
             history.back();
         }
@@ -544,14 +520,12 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape' && projectModal?.classList.contains('active')) closeModal(false);
     });
 
-    // Support Android Back Button perfectly
     window.addEventListener('popstate', () => {
         if (projectModal?.classList.contains('active')) {
             closeModal(true);
         }
     });
 
-    // ── 13. VISUALISATIONS CAROUSEL ───────────────────────────────────────
     const vizTrack = document.querySelector('.viz-carousel-track');
     if (vizTrack) {
         const vizCount = document.querySelectorAll('.viz-item').length;
@@ -578,7 +552,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'ArrowLeft')  vizTrack.scrollBy({ left: -scrollAmt(), behavior: 'smooth' });
         });
 
-        // ── 13B. CAROUSEL COUNTER ─────────────────────────────────────────
         const vizCounter = document.getElementById('viz-counter');
         if (vizCounter) {
             const syncCounter = () => {
@@ -596,7 +569,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ── LIGHTBOX ──────────────────────────────────────────────────────────
     const lightboxModal  = document.getElementById('lightbox-modal');
     const lightboxImg    = document.getElementById('lightbox-image');
     const lightboxClose  = lightboxModal?.querySelector('.lightbox-close');
@@ -643,13 +615,11 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'ArrowLeft')  { e.preventDefault(); openLightboxAt((lightboxIdx - 1 + vizTriggers.length) % vizTriggers.length); }
     });
 
-    // ── HERO WORD CYCLE ───────────────────────────────────────────────────
     const cyclers = document.querySelectorAll('.hero-cycler');
     if (cyclers.length > 0) {
         let activeIdx1 = 0;
         const emp1 = cyclers[0].querySelectorAll('.hero-emp-1');
 
-        // Set the first word visible immediately — prevents blank hero on load
         if (emp1.length > 0) {
             emp1[0].classList.add('active');
         }
@@ -666,16 +636,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        // Respect the user's motion preference — don't cycle if they've asked for reduced motion
         const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
         if (!motionQuery.matches) {
             setInterval(cycleWords, 3500);
         }
-        // If reduced motion, the first word stays visible via the active class set above
+
     }
 
-    // ── CASE STUDY IMAGE LAZY REVEAL ─────────────────────────────────────
-    // Fade in case study media images as they load
     document.querySelectorAll('.media-item img').forEach(img => {
         const handleLoad = () => img.classList.add('img-loaded');
         if (img.complete && img.naturalHeight !== 0) {
@@ -686,11 +653,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ── PROJECT DETAIL PAGES (CASE STUDIES) ──────────────────────────────
     const sidebarWrap = document.getElementById('sidebarWrap');
     
     if (sidebarWrap) {
-        // Expose globally so inline onclick="toggleSidebar()" works in the HTML
+
         window.toggleSidebar = function() {
             const isDesktop = window.innerWidth > 1024;
             const icons = document.querySelectorAll('.toggle-icon');
@@ -708,7 +674,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 icons.forEach(icon => icon.textContent = isNowOpen ? '×' : '+');
                 if (mobileBtn) mobileBtn.setAttribute('aria-expanded', String(isNowOpen));
                 document.body.style.overflow = isNowOpen ? 'hidden' : '';
-                // Initialise any Lucide icons inside the sidebar on first open
+
                 if (isNowOpen) initIcons(sidebarWrap);
             }
         };
@@ -732,26 +698,22 @@ document.addEventListener('DOMContentLoaded', () => {
             observer.observe(triggerSection);
         }
 
-        // ── SMART RANDOM NEXT PROJECT LOADER ──
         if (triggerSection) {
             const loadNextProject = async () => {
                 try {
                     const res = await fetch('/data/projects.json');
                     if (!res.ok) throw new Error('Failed to load projects');
                     const projects = await res.json();
-                    
-                    // 1. Identify the current project
+
                     const currentProject = projects.find(p => p.link && p.link !== '#' && window.location.pathname.includes(p.link.replace('.html', '').replace('/index.html', '')));
                     const currentLinkKey = currentProject ? currentProject.link : window.location.pathname;
 
-                    // 2. Add current project to session storage history
                     let visited = JSON.parse(sessionStorage.getItem('viewedCaseStudies') || '[]');
                     if (!visited.includes(currentLinkKey)) {
                         visited.push(currentLinkKey);
                         sessionStorage.setItem('viewedCaseStudies', JSON.stringify(visited));
                     }
 
-                    // 3. Find valid projects (Has link, isn't current page)
                     const potentialNext = projects.filter(p => 
                         p.link && 
                         p.link !== '#' && 
@@ -759,36 +721,29 @@ document.addEventListener('DOMContentLoaded', () => {
                         !window.location.pathname.includes(p.link.replace('.html', '').replace('/index.html', ''))
                     );
 
-                    // 4. UX Filter: Try to show a project they haven't visited yet
                     let unvisited = potentialNext.filter(p => !visited.includes(p.link));
-                    
-                    // Fallback: If they have read everything, just pick from the valid list so it doesn't break
+
                     let selectionPool = unvisited.length > 0 ? unvisited : potentialNext;
 
                     if (selectionPool.length > 0) {
-                        // Pick a random project
+
                         const randomProj = selectionPool[Math.floor(Math.random() * selectionPool.length)];
-                        
-                        // Ensure external links format correctly. Internal links use an absolute root path.
+
                         const isExternal = randomProj.link.startsWith('http');
                         const finalHref = isExternal ? randomProj.link : `/${randomProj.link.replace(/^\//, '')}`;
                         const externalAttr = isExternal ? `target="_blank" rel="noopener"` : '';
 
-                        // Generate the HTML for the tags
                         const tagsHTML = (randomProj.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('');
-                        
-                        // Limit the description length
+
                         let descSnippet = randomProj.challenge || '';
                         if (descSnippet.length > 120) {
                             descSnippet = descSnippet.substring(0, 120) + '...';
                         }
-                        
-                        // Safely resolve image paths
+
                         const thumbSrc = randomProj.thumbnail.startsWith('http') 
                             ? randomProj.thumbnail 
                             : '/' + randomProj.thumbnail.replace(/^\//, '');
 
-                        // Inject the structure with the image block
                         triggerSection.innerHTML = `
                             <a href="${finalHref}" ${externalAttr} class="next-project-inner next-project-link" aria-label="View next project: ${randomProj.title}">
                                 <div class="next-label">Next Project</div>
@@ -811,7 +766,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // ── 15. EXTERNAL LINK WARNING ─────────────────────────────────────────
     document.querySelectorAll('a[href*="medium.com"]').forEach(link => {
         link.addEventListener('click', (e) => {
             const proceed = confirm("You are about to leave this site to read the full article on Medium. Do you want to continue?");
