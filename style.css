@@ -190,6 +190,7 @@ svg.lucide { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; 
     padding: 0; background: transparent !important; 
     border: none !important; outline: none; cursor: pointer;
     -webkit-appearance: none; /* Strips default iOS button borders */
+    appearance: none; /* Standard property for cross-browser compatibility */
 }
 
 .hamburger-btn span { 
