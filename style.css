@@ -2496,7 +2496,7 @@ body[style*="overflow: hidden"] .site-wrapper {
     width: 100%; 
     margin-top: var(--space-10);
     margin-bottom: calc(var(--space-24, 96px) * -1); 
-    height: clamp(140px, 20vh, 280px); /* Restored proper architectural height */
+    height: clamp(100px, 20vh, 100px); /* Restored proper architectural height */
     overflow: hidden;
     background: var(--ink);
     position: relative;
@@ -2507,7 +2507,7 @@ body[style*="overflow: hidden"] .site-wrapper {
     height: 100%;
     object-fit: cover;
     object-position: center;
-    filter: blur(40px); /* Heavy blur restored for frosted glass effect */
+    filter: blur(2px); /* Heavy blur restored for frosted glass effect */
     transform: scale(1.2); 
 }
 
