@@ -87,13 +87,14 @@ a { color: inherit; text-decoration: none; }
 button { border: none; background: none; font-family: var(--sans); cursor: pointer; }
 
 .skip-link {
-    position: absolute; top: -100%; left: var(--space-4);
+    position: absolute; top: 0; left: var(--space-4);
+    transform: translateY(-150%);
     background: var(--ink); color: var(--white);
     padding: var(--space-2) var(--space-4); border-radius: var(--radius);
     font-size: 0.875rem; z-index: 99999;
-    transition: top 0.2s;
+    transition: transform 0.2s;
 }
-.skip-link:focus { top: var(--space-4); }
+.skip-link:focus { transform: translateY(var(--space-4)); }
 
 /* ─── GLOBAL ICON SIZING ───────────────────────────────────────────── */
 svg.lucide { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
@@ -105,7 +106,8 @@ svg.lucide { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; 
 /* ─── SCROLL PROGRESS ─────────────────────────────────────── */
 .scroll-progress-bar {
     position: fixed; top: 0; left: 0; height: 2px; background: var(--accent);
-    width: 0%; z-index: 9999; transition: width 0.1s linear;
+    width: 100%; transform: scaleX(0); transform-origin: left;
+    z-index: 9999; transition: transform 0.1s linear;
 }
 
 /* ─── LAYOUT ───────────────────────────────────────────────────────── */
@@ -2513,7 +2515,7 @@ body[style*="overflow: hidden"] .site-wrapper {
     height: 100%;
     object-fit: cover;
     object-position: center;
-    filter: blur(3px); /* Heavy blur restored for frosted glass effect */
+    filter: blur(5px); /* Heavy blur restored for frosted glass effect */
     transform: scale(1.15); 
 }
 
@@ -2524,7 +2526,7 @@ body[style*="overflow: hidden"] .site-wrapper {
     inset: 0;
     pointer-events: none; /* Ensures the grain doesn't block you from clicking the link */
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.18; /* Adjust this number (e.g. 0.10 to 0.30) to make the grain softer or harsher */
+    opacity: 1; /* Adjust this number (e.g. 0.10 to 0.30) to make the grain softer or harsher */
     mix-blend-mode: overlay; /* Blends the grain naturally into the colors behind it */
     z-index: 2;
 }

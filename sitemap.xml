@@ -33,4 +33,20 @@
         <priority>0.8</priority>
     </url>
 
+    <!-- Project: Mood of the Nation -->
+    <url>
+        <loc>https://chaturadissanayake.vercel.app/projects/mood-of-the-nation/index.html</loc>
+        <lastmod>2026-05-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Project: Practical Solutions for Inclusive Growth -->
+    <url>
+        <loc>https://chaturadissanayake.vercel.app/projects/practical-solutions-for-inclusive-growth/index.html</loc>
+        <lastmod>2026-05-29</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
 </urlset>

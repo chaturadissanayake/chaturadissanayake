@@ -28,13 +28,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ── 3. SCROLL PROGRESS BAR ───────────────────────────────────────────
     const progressBar = document.getElementById('scroll-progress');
+    let isProgressTicking = false;
     const updateProgress = () => {
         const scrollTop  = window.scrollY;
         const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
-        const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-        if (progressBar) progressBar.style.width = pct + '%';
+        const pct = docHeight > 0 ? (scrollTop / docHeight) : 0;
+        if (progressBar) progressBar.style.transform = `scaleX(${pct})`;
     };
-    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('scroll', () => {
+        if (!isProgressTicking) {
+            window.requestAnimationFrame(() => {
+                updateProgress();
+                isProgressTicking = false;
+            });
+            isProgressTicking = true;
+        }
+    }, { passive: true });
 
     // ── 5. STICKY HEADER & FLOATING BTT ──────────────────────────────────
     const header = document.getElementById('main-header');
@@ -63,16 +72,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections  = document.querySelectorAll('section[id]');
     const navLinks  = document.querySelectorAll('.nav-link[data-section]');
 
+    let isNavTicking = false;
     const activateNav = () => {
         let current = '';
+        const scrollPos = window.scrollY;
         sections.forEach(s => {
-            if (window.scrollY >= s.offsetTop - 120) current = s.id;
+            if (scrollPos >= s.offsetTop - 120) current = s.id;
         });
         navLinks.forEach(l => {
             l.classList.toggle('active', l.getAttribute('data-section') === current);
         });
     };
-    window.addEventListener('scroll', activateNav, { passive: true });
+    window.addEventListener('scroll', () => {
+        if (!isNavTicking) {
+            window.requestAnimationFrame(() => {
+                activateNav();
+                isNavTicking = false;
+            });
+            isNavTicking = true;
+        }
+    }, { passive: true });
     activateNav();
 
     // ── 7. MOBILE MENU ───────────────────────────────────────────────────
