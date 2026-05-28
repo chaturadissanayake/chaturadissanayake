@@ -4,6 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     }
 
+    // ── 1B. IMAGE PROTECTION ─────────────────────────────────────────────
+    document.addEventListener('contextmenu', e => {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+        }
+    });
+
     // ── 2. REMOVE LOADING STATE ───────────────────────────────────────────
     const removeLoadingState = () => {
         document.body.classList.remove('loading');
