@@ -105,19 +105,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
         );
-        // Safety valve: if the user somehow scrolls while menu is open (e.g. two-finger
-        // scroll on some Android versions), close the menu so the page isn't locked
-        let menuScrollTimer;
-        window.addEventListener('scroll', () => {
-            if (!mobileMenu.classList.contains('is-active')) return;
-            clearTimeout(menuScrollTimer);
-            menuScrollTimer = setTimeout(() => {
-                mobileMenu.classList.remove('is-active');
-                mobileToggle.classList.remove('is-active');
-                mobileToggle.setAttribute('aria-expanded', 'false');
-                document.body.classList.remove('modal-open');
-            }, 80);
-        }, { passive: true });
+        // The aggressive scroll safety valve has been removed. 
+        // It was causing the mobile menu to immediately close due to automated viewport/address bar shifts on mobile browsers.
     }
 
     document.addEventListener('keydown', e => {
