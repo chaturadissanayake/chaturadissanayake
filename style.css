@@ -2127,7 +2127,10 @@ body[style*="overflow: hidden"] .site-wrapper {
 .site-wrapper {
     max-width: var(--max-w);
     margin: 0 auto;
-    padding: calc(var(--nav-h, 80px) + var(--space-8, 32px)) var(--space-8, 32px) var(--space-24, 96px);
+    padding-top: calc(var(--nav-h, 80px) + var(--space-8, 32px));
+    padding-right: var(--space-8, 32px);
+    padding-bottom: var(--space-24, 96px);
+    padding-left: var(--space-8, 32px);
 }
 
 .project-header h1 {
@@ -2416,61 +2419,38 @@ body[style*="overflow: hidden"] .site-wrapper {
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: var(--space-3, 12px);
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-}
-
-/* Arrow that slides in on hover */
-.next-project-inner::after {
-    content: "→";
-    display: inline-block;
-    font-family: var(--sans);
-    font-size: 1.5rem;
-    color: var(--ink-muted);
-    margin-top: var(--space-4);
-    opacity: 0;
-    transform: translateX(-8px);
-    transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out), color 0.3s;
-}
-
-@media (hover: hover) and (pointer: fine) {
-    .next-project-inner:hover::after {
-        opacity: 1;
-        transform: translateX(0);
-        color: var(--accent);
-    }
+    margin-bottom: var(--space-3);
 }
 
 .next-title {
     font-family: var(--serif);
-    font-size: clamp(1.75rem, 4.5vw, 3rem);
+    font-size: clamp(2rem, 5vw, 3.25rem); /* Matches standard section titles */
     font-weight: 400;
-    color: var(--ink);
-    line-height: 1.1;
-    margin-bottom: var(--space-3, 12px);
+    line-height: 1.08;
     letter-spacing: -0.025em;
+    color: var(--ink);
+    margin-bottom: var(--space-2);
     transition: color 0.3s var(--ease-out);
 }
 
 .next-desc {
     font-family: var(--sans);
-    font-size: clamp(0.875rem, 2vw, 1rem);
+    font-size: 0.9375rem; /* Matches standard section descriptions */
     line-height: 1.65;
     color: var(--ink-muted);
-    margin-bottom: var(--space-5, 20px);
-    max-width: 600px;
+    margin-bottom: var(--space-6);
+    max-width: 500px;
 }
 
 /* Mobile: scale down next-project section */
 @media (max-width: 640px) {
-    .next-title { font-size: clamp(1.5rem, 8vw, 2rem); }
     .next-project-section {
-        margin-top: clamp(2rem, 6vw, var(--space-16, 64px));
-        padding-top: clamp(1.5rem, 4vw, var(--space-8, 32px));
+        margin-top: var(--space-12);
+        padding-top: var(--space-8);
     }
-    .next-project-inner::after { display: none; }
+    .next-title { 
+        font-size: 2rem; 
+    }
 }
 
 /* ── Mobile & Tablet Layout Specifics ── */
@@ -2512,6 +2492,7 @@ body[style*="overflow: hidden"] .site-wrapper {
         right: 0 !important;
         bottom: 0 !important;
         width: 100vw !important;
+        height: 100vh !important;
         height: 100dvh !important; /* Updated for Android/Redmi compatibility */
         max-height: none !important;
         margin-left: 0 !important;
@@ -2531,6 +2512,7 @@ body[style*="overflow: hidden"] .site-wrapper {
 
     .text-col-inner {
         width: 100% !important;
+        height: 100vh !important;
         height: 100dvh !important; /* Updated for Android/Redmi compatibility */
         max-height: none !important;
         padding: 100px 24px 120px 24px !important; 
