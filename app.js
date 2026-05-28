@@ -39,9 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── 5. STICKY HEADER & FLOATING BTT ──────────────────────────────────
     const header = document.getElementById('main-header');
     const floatBtt = document.getElementById('floating-back-to-top');
+    const headerForceScrolled = header?.classList.contains('scrolled') ?? false;
     
     window.addEventListener('scroll', () => {
-        if (header) header.classList.toggle('scrolled', window.scrollY > 40);
+        if (header) header.classList.toggle('scrolled', window.scrollY > 40 || headerForceScrolled);
         
         if (floatBtt) {
             if (window.scrollY > 400) {
@@ -703,7 +704,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (triggerSection) {
             const loadNextProject = async () => {
                 try {
-                    const res = await fetch('../../data/projects.json');
+                    const res = await fetch('/data/projects.json');
                     if (!res.ok) throw new Error('Failed to load projects');
                     const projects = await res.json();
                     
