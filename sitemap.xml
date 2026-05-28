@@ -4,7 +4,7 @@
     <!-- Main Home Page -->
     <url>
         <loc>https://chaturadissanayake.vercel.app/</loc>
-        <lastmod>2026-05-27</lastmod>
+        <lastmod>2026-05-28</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -12,7 +12,7 @@
     <!-- Privacy Policy -->
     <url>
         <loc>https://chaturadissanayake.vercel.app/privacy.html</loc>
-        <lastmod>2026-05-17</lastmod>
+        <lastmod>2026-05-28</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
@@ -20,7 +20,7 @@
     <!-- Project: Ceylon Harvest Co. -->
     <url>
         <loc>https://chaturadissanayake.vercel.app/projects/ceylon-harvest/index.html</loc>
-        <lastmod>2026-05-27</lastmod>
+        <lastmod>2026-05-28</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -28,7 +28,7 @@
     <!-- Project: Ily's Garden -->
     <url>
         <loc>https://chaturadissanayake.vercel.app/projects/ilys-garden/index.html</loc>
-        <lastmod>2026-05-27</lastmod>
+        <lastmod>2026-05-28</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
