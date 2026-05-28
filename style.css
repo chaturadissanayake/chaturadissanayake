@@ -604,8 +604,6 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
 .filter-pill:hover { color: var(--ink); background: var(--surface-3); border-color: var(--surface-3); }
 .filter-pill.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
 
-
-
 /* Grid / List layouts */
 .projects-wrapper.grid-mode, .extended-work.grid-mode, .lab-grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5);
@@ -1583,6 +1581,12 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
         --nav-h: 64px; 
     }
     .hero-title-massive { font-size: clamp(2rem, 4.5vw, 3.5rem); }
+    /* Case study title: prevent oversized headings on 13" laptops */
+    .project-header h1 { font-size: clamp(2rem, 4vw, 3.5rem); }
+    /* Next project teaser: scale down the editorial big-link on laptop */
+    .next-title { font-size: clamp(1.5rem, 3.5vw, 2.5rem); }
+    /* Standard pull-quote in case studies */
+    .standard-quote { font-size: clamp(1.125rem, 2.5vw, 2rem); }
 }
 
 /* Tablet / small laptop (1024px) */
@@ -2166,6 +2170,7 @@ body[style*="overflow: hidden"] .site-wrapper {
     font-size: 0.75rem;
     color: var(--ink-muted);
     background: var(--surface-2, #f5f5f5);
+    border: 1px solid var(--surface-3);
     padding: 4px 10px;
     border-radius: 4px;
 }
@@ -2191,6 +2196,14 @@ body[style*="overflow: hidden"] .site-wrapper {
 
 .about-btn:hover {
     background: var(--surface-2, #f5f5f5);
+    border-color: var(--ink-muted);
+}
+.about-btn:active {
+    transform: scale(0.98);
+}
+.about-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
 }
 
 .about-btn .toggle-icon {
@@ -2244,6 +2257,17 @@ body[style*="overflow: hidden"] .site-wrapper {
     display: block;
     object-fit: cover;
     border-radius: 4px;
+    /* Smooth entrance for case study images */
+    opacity: 0;
+    transition: opacity 0.45s ease;
+}
+.media-item img.img-loaded,
+.media-item img[src=""] {
+    opacity: 1;
+}
+/* Fallback: show immediately if JS hasn't fired */
+.media-item img:not([src]) {
+    opacity: 1;
 }
 
 .standard-quote {
@@ -2393,12 +2417,35 @@ body[style*="overflow: hidden"] .site-wrapper {
     text-transform: uppercase;
     color: var(--accent);
     margin-bottom: var(--space-3, 12px);
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+/* Arrow that slides in on hover */
+.next-project-inner::after {
+    content: "→";
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: 1.5rem;
+    color: var(--ink-muted);
+    margin-top: var(--space-4);
+    opacity: 0;
+    transform: translateX(-8px);
+    transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out), color 0.3s;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .next-project-inner:hover::after {
+        opacity: 1;
+        transform: translateX(0);
+        color: var(--accent);
+    }
 }
 
 .next-title {
     font-family: var(--serif);
-    font-size: clamp(2rem, 8vw, 3.5rem);
+    font-size: clamp(1.75rem, 4.5vw, 3rem);
     font-weight: 400;
     color: var(--ink);
     line-height: 1.1;
@@ -2409,11 +2456,21 @@ body[style*="overflow: hidden"] .site-wrapper {
 
 .next-desc {
     font-family: var(--sans);
-    font-size: clamp(0.875rem, 2.5vw, 1rem);
+    font-size: clamp(0.875rem, 2vw, 1rem);
     line-height: 1.65;
     color: var(--ink-muted);
     margin-bottom: var(--space-5, 20px);
-    max-width: 640px;
+    max-width: 600px;
+}
+
+/* Mobile: scale down next-project section */
+@media (max-width: 640px) {
+    .next-title { font-size: clamp(1.5rem, 8vw, 2rem); }
+    .next-project-section {
+        margin-top: clamp(2rem, 6vw, var(--space-16, 64px));
+        padding-top: clamp(1.5rem, 4vw, var(--space-8, 32px));
+    }
+    .next-project-inner::after { display: none; }
 }
 
 /* ── Mobile & Tablet Layout Specifics ── */
@@ -2429,7 +2486,7 @@ body[style*="overflow: hidden"] .site-wrapper {
     }
 
     .media-grid {
-        grid-template-columns: 1fr; /* Stack images natively on tablet/phone */
+        grid-template-columns: repeat(2, 1fr); /* Keep 2-col on tablet for case studies */
     }
 
     /* Floating Button for Mobile */
@@ -2480,26 +2537,24 @@ body[style*="overflow: hidden"] .site-wrapper {
     }
 }
 
+/* Single-column images on small phones only */
+@media (max-width: 640px) {
+    .media-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Hide mobile wrapper on desktop */
 .btn-wrapper-mobile {
     display: none;
 }
 
-/* CRITICAL FIX FOR STICKY SCROLL */
-html, body, main, .site-wrapper {
-    overflow-x: clip !important;
-    overflow-y: visible !important;
-}
-
-/* OVERRIDE: Lock background scrolling on mobile when menus are open.
-   This catches both the main nav (.modal-open) and the inline JS 
-   from the project sidebar (style="overflow: hidden").
-*/
-body.modal-open, 
-body.modal-open main, 
-body.modal-open .site-wrapper,
-body[style*="overflow: hidden"], 
-body[style*="overflow: hidden"] main, 
-body[style*="overflow: hidden"] .site-wrapper {
-    overflow: hidden !important;
+/* Layout constraint for any screen ≤1440px wide — no font scaling here (see laptop rule below) */
+@media (max-width: 1440px) {
+    :root { 
+        --max-w: 1040px;
+        --space-24: 5rem; 
+        --space-16: 3.5rem; 
+    }
+    .hero-title-massive { font-size: clamp(2.5rem, 5vw, 4rem); }
 }

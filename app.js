@@ -1,8 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ── 1. INITIALIZE ICONS ──────────────────────────────────────────────
-    if (window.lucide) {
-        lucide.createIcons();
-    }
+    // Defer icon creation until fonts/styles are applied to avoid flash of unstyled icons
+    const initIcons = (root) => {
+        if (window.lucide) {
+            lucide.createIcons({ root: root || document });
+        }
+    };
+    initIcons();
 
     // ── 1B. IMAGE PROTECTION ─────────────────────────────────────────────
     document.addEventListener('contextmenu', e => {
@@ -327,9 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             }
 
-            if (window.lucide) {
-                lucide.createIcons({ root: projWrap });
-            }
+            initIcons(projWrap);
 
             allProjCards.forEach(card => {
                 card.setAttribute('tabindex', '0');
@@ -639,24 +641,42 @@ document.addEventListener('DOMContentLoaded', () => {
         // If reduced motion, the first word stays visible via the active class set above
     }
 
+    // ── CASE STUDY IMAGE LAZY REVEAL ─────────────────────────────────────
+    // Fade in case study media images as they load
+    document.querySelectorAll('.media-item img').forEach(img => {
+        const handleLoad = () => img.classList.add('img-loaded');
+        if (img.complete && img.naturalHeight !== 0) {
+            handleLoad();
+        } else {
+            img.addEventListener('load', handleLoad);
+            img.addEventListener('error', handleLoad);
+        }
+    });
+
     // ── PROJECT DETAIL PAGES (CASE STUDIES) ──────────────────────────────
     const sidebarWrap = document.getElementById('sidebarWrap');
     
     if (sidebarWrap) {
         // Expose globally so inline onclick="toggleSidebar()" works in the HTML
         window.toggleSidebar = function() {
-            const isDesktop = window.innerWidth > 1024; // FIX: Aligned with new tablet CSS breakpoints
+            const isDesktop = window.innerWidth > 1024;
             const icons = document.querySelectorAll('.toggle-icon');
-            
+            const desktopBtn  = document.getElementById('sidebar-toggle-desktop');
+            const mobileBtn   = document.getElementById('sidebar-toggle-mobile');
+
             if (isDesktop) {
                 sidebarWrap.classList.toggle('is-collapsed');
                 const isNowOpen = !sidebarWrap.classList.contains('is-collapsed');
                 icons.forEach(icon => icon.textContent = isNowOpen ? '×' : '+');
+                if (desktopBtn) desktopBtn.setAttribute('aria-expanded', String(isNowOpen));
             } else {
                 sidebarWrap.classList.toggle('is-open-mobile');
                 const isNowOpen = sidebarWrap.classList.contains('is-open-mobile');
                 icons.forEach(icon => icon.textContent = isNowOpen ? '×' : '+');
+                if (mobileBtn) mobileBtn.setAttribute('aria-expanded', String(isNowOpen));
                 document.body.style.overflow = isNowOpen ? 'hidden' : '';
+                // Initialise any Lucide icons inside the sidebar on first open
+                if (isNowOpen) initIcons(sidebarWrap);
             }
         };
 
