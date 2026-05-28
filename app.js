@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const timeoutId = setTimeout(() => controller.abort(), 8000); // 8-second timeout
 
         try {
-            const res = await fetch('data/projects.json', { signal: controller.signal });
+            const res = await fetch('/data/projects.json', { signal: controller.signal });
             clearTimeout(timeoutId);
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const projects = await res.json();
@@ -750,9 +750,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         // Pick a random project
                         const randomProj = selectionPool[Math.floor(Math.random() * selectionPool.length)];
                         
-                        // Ensure external links (like Cyclone Ditwah) format correctly and open in new tabs
+                        // Ensure external links format correctly. Internal links use an absolute root path.
                         const isExternal = randomProj.link.startsWith('http');
-                        const finalHref = isExternal ? randomProj.link : `../../${randomProj.link}`;
+                        const finalHref = isExternal ? randomProj.link : `/${randomProj.link.replace(/^\//, '')}`;
                         const externalAttr = isExternal ? `target="_blank" rel="noopener"` : '';
 
                         // Generate the HTML for the tags

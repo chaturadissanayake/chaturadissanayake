@@ -2320,17 +2320,6 @@ body[style*="overflow: hidden"] .site-wrapper {
     display: block;
     object-fit: cover;
     border-radius: 4px;
-    /* Smooth entrance for case study images */
-    opacity: 0;
-    transition: opacity 0.45s ease;
-}
-.media-item img.img-loaded,
-.media-item img[src=""] {
-    opacity: 1;
-}
-/* Fallback: show immediately if JS hasn't fired */
-.media-item img:not([src]) {
-    opacity: 1;
 }
 
 .standard-quote {
@@ -2507,10 +2496,10 @@ body[style*="overflow: hidden"] .site-wrapper {
     width: 100%; 
     margin-top: var(--space-10);
     margin-bottom: calc(var(--space-24, 96px) * -1); 
-    height: clamp(100px, 20vh, 100px);
+    height: clamp(140px, 20vh, 280px); /* Restored proper architectural height */
     overflow: hidden;
     background: var(--ink);
-    position: relative; /* Required to anchor the grain overlay */
+    position: relative;
 }
 
 .next-project-preview img {
@@ -2518,8 +2507,8 @@ body[style*="overflow: hidden"] .site-wrapper {
     height: 100%;
     object-fit: cover;
     object-position: center;
-    filter: blur(5px); 
-    transform: scale(1.15); 
+    filter: blur(40px); /* Heavy blur restored for frosted glass effect */
+    transform: scale(1.2); 
 }
 
 /* Generates a high-end, subtle film grain over the blur natively in the browser */
