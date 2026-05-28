@@ -187,8 +187,11 @@ svg.lucide { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; 
     display: none; flex-direction: column; gap: 6px; 
     width: 44px; height: 44px; min-width: 44px; min-height: 44px; 
     justify-content: center; align-items: center; 
-    padding: 0; background: transparent; border: none; cursor: pointer;
+    padding: 0; background: transparent !important; 
+    border: none !important; outline: none; cursor: pointer;
+    -webkit-appearance: none; /* Strips default iOS button borders */
 }
+
 .hamburger-btn span { 
     width: 24px !important; display: block !important; height: 2px !important; 
     background: var(--ink); border-radius: 2px; flex-shrink: 0;
@@ -691,8 +694,40 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
     width: 100%; height: 100%; object-fit: cover; 
     opacity: 0;
     transition: opacity 0.45s ease, transform 0.7s var(--ease-out), filter 0.7s ease; 
+    
+    /* Fallback: Hides the ugly default broken image icon and text */
+    color: transparent; 
+    font-size: 0; 
+    position: relative;
 }
 .card-image img.img-loaded { opacity: 1; }
+
+/* CSS Magic: These pseudo-elements ONLY render if the image path is broken/missing. 
+   The second you upload a real image, the browser hides these automatically. */
+.card-image img::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--surface-2); /* Matches your clean white card background */
+    z-index: 1;
+}
+.card-image img::after {
+    content: "Visuals in progress"; /* Clean, editorial placeholder text */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    background: var(--surface);
+    padding: 6px 12px;
+    border-radius: 100px;
+    border: 1px solid var(--surface-3);
+    z-index: 2;
+}
 
 /* Kills the animation once the image loads (Bulletproof JS fallback) */
 .card-image.shimmer-complete {
@@ -1211,6 +1246,16 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
 /* ─── ABOUT ────────────────────────────────────────────────────────── */
 .about-section { padding: var(--space-24) 0; background: var(--surface); }
 .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: clamp(3rem, 6vw, 5.5rem); align-items: start; }
+
+/* Make the left column sticky on desktop */
+@media (min-width: 1025px) {
+    .about-left {
+        position: sticky;
+        top: calc(var(--nav-h) + var(--space-12));
+        height: max-content;
+    }
+}
+
 .about-left .section-title { margin-bottom: var(--space-6); }
 .about-left .section-eyebrow { margin-bottom: var(--space-3); }
 .about-image-frame {
@@ -1504,7 +1549,7 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
     transition: all var(--dur-fast); cursor: pointer;
 }
 .modal-close:hover { background: var(--ink); border-color: var(--ink); color: var(--white); }
-.modal-inner { padding: 0 var(--space-8) var(--space-12); display: flex; flex-direction: column; flex: 1; }
+.modal-inner { padding: 0 var(--space-8) 0; display: flex; flex-direction: column; flex: 1; position: relative; }
 .modal-header { margin-bottom: var(--space-8); }
 .modal-header h2 {
     font-family: var(--serif); font-size: clamp(2rem, 5vw, 3.25rem); font-weight: 400;
@@ -1527,7 +1572,17 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
     text-transform: uppercase; color: var(--ink-soft);
 }
 .modal-section p { font-size: 0.9375rem; color: var(--ink-soft); line-height: 1.8; }
-.modal-footer-action { border-top: 1px solid var(--surface-3); padding-top: var(--space-5); margin-top: var(--space-6); padding-bottom: var(--space-8); }
+.modal-sections { padding-bottom: var(--space-6); } /* Adds breathing room above the sticky footer */
+.modal-footer-action { 
+    position: sticky;
+    bottom: 0;
+    background: var(--white);
+    border-top: 1px solid var(--surface-3); 
+    padding-top: var(--space-5); 
+    margin-top: auto; 
+    padding-bottom: var(--space-8); 
+    z-index: 20;
+}
 
 /* Lightbox */
 .lightbox-overlay {
@@ -1647,8 +1702,11 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
         --space-24: 3rem; --space-20: 2.25rem; --space-16: 1.75rem;
         --space-12: 1.5rem; --space-10: 1.25rem;
     }
-    .nav-inner { padding: var(--space-4) var(--space-5); }
-    .container, .container-narrow { padding: 0 var(--space-6); }
+    /* Force absolute alignment across all mobile containers */
+    .nav-inner, .container, .container-narrow, .hero-container, .site-wrapper { 
+        padding-left: var(--space-5) !important; 
+        padding-right: var(--space-5) !important; 
+    }
     
     /* Hero stats hidden on small phones only (we show on tablets above) */
     .hero-stats-centered { display: none; }
@@ -2106,10 +2164,11 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
    PROJECT DETAIL PAGES (CASE STUDIES)
 ═══════════════════════════════════════════════════════════════════════ */
 /* CRITICAL FIX FOR STICKY SCROLL */
-html, body, main, .site-wrapper {
+html, body, main {
     overflow-x: clip !important;
     overflow-y: visible !important;
 }
+/* Removed .site-wrapper from clipping so the 100vw ribbon can hit the edges */
 
 /* OVERRIDE: Lock background scrolling on mobile when menus are open.
    This catches both the main nav (.modal-open) and the inline JS 
@@ -2401,7 +2460,7 @@ body[style*="overflow: hidden"] .site-wrapper {
 
 .next-project-inner {
     display: block;
-    margin-bottom: var(--space-8, 32px);
+    margin-bottom: 0 !important; /* Eliminates the gap so the ribbon sits perfectly on the footer */
     transition: transform 0.3s var(--ease-out);
     text-decoration: none;
     outline: none;
@@ -2435,11 +2494,43 @@ body[style*="overflow: hidden"] .site-wrapper {
 
 .next-desc {
     font-family: var(--sans);
-    font-size: 0.9375rem; /* Matches standard section descriptions */
+    font-size: 0.9375rem;
     line-height: 1.65;
     color: var(--ink-muted);
     margin-bottom: var(--space-6);
     max-width: 500px;
+}
+
+/* ── Pentagram-Style Next Project Preview (Heavily Blurred Image + Grain) ── */
+.next-project-preview {
+    width: 100%; 
+    margin-top: var(--space-10);
+    margin-bottom: calc(var(--space-24, 96px) * -1); 
+    height: clamp(100px, 20vh, 100px);
+    overflow: hidden;
+    background: var(--ink);
+    position: relative; /* Required to anchor the grain overlay */
+}
+
+.next-project-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: blur(5px); 
+    transform: scale(1.15); 
+}
+
+/* Generates a high-end, subtle film grain over the blur natively in the browser */
+.next-project-preview::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none; /* Ensures the grain doesn't block you from clicking the link */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.18; /* Adjust this number (e.g. 0.10 to 0.30) to make the grain softer or harsher */
+    mix-blend-mode: overlay; /* Blends the grain naturally into the colors behind it */
+    z-index: 2;
 }
 
 /* Mobile: scale down next-project section */
@@ -2453,45 +2544,62 @@ body[style*="overflow: hidden"] .site-wrapper {
     }
 }
 
-/* ── Mobile & Tablet Layout Specifics ── */
+/* ── Mobile & Tablet Layout Specifics (Pentagram-Style Modal) ── */
 @media (max-width: 1024px) {
-    .controls-row .btn-wrapper { display: none; }
+    /* Hide the desktop button */
+    .controls-row .btn-wrapper { display: none !important; }
     
-    /* 1. Stack the layout simply: Images on top, Text on bottom */
-    .layout-grid { 
-        display: flex; 
-        flex-direction: column; 
-        gap: var(--space-8); 
+    .layout-grid { display: block; }
+    .media-grid { grid-template-columns: repeat(2, 1fr); }
+    
+    /* 1. Floating Pill Button (Sits above the modal) */
+    .btn-wrapper-mobile {
+        display: flex !important;
+        position: fixed;
+        bottom: 32px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 120 !important; 
+        transition: opacity 0.3s ease, transform 0.3s ease;
     }
     
-    .media-grid { 
-        grid-template-columns: repeat(2, 1fr); 
+    /* Restores your original light pill design with a subtle shadow */
+    .btn-wrapper-mobile .about-btn {
+        box-shadow: 0 4px 16px rgba(0,0,0,0.15); 
     }
     
-    /* 2. Hide the mobile toggle button entirely */
-    .btn-wrapper-mobile { 
-        display: none !important; 
-    }
-    
-    /* 3. Reset the sidebar to flow naturally */
+    /* 2. Slide-Up Full Screen Overlay */
     .sidebar-wrap {
-        width: 100% !important;
-        max-width: 100% !important;
-        position: static !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        transform: none !important;
-        margin-left: 0 !important;
-        height: auto !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        margin: 0 !important;
+        background-color: var(--surface-2, #ffffff) !important;
+        z-index: 100 !important; 
+        transform: translateY(100%);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        pointer-events: none;
+        max-width: none !important;
+    }
+    
+    .sidebar-wrap.is-open-mobile {
+        transform: translateY(0);
+        pointer-events: auto;
     }
     
     .text-col-inner {
         position: static !important;
         width: 100% !important;
-        height: auto !important;
+        height: 100vh !important;
+        height: 100dvh !important;
         max-height: none !important;
-        padding: 0 !important; 
-        overflow-y: visible !important;
+        padding: 100px 24px 120px 24px !important; 
+        overflow-y: auto !important;
     }
 }
 
@@ -2502,12 +2610,14 @@ body[style*="overflow: hidden"] .site-wrapper {
     }
 }
 
-/* Hide mobile wrapper on desktop */
-.btn-wrapper-mobile {
-    display: none;
+/* Hide mobile float button on desktop */
+@media (min-width: 1025px) {
+    .btn-wrapper-mobile {
+        display: none !important;
+    }
 }
 
-/* Layout constraint for any screen ≤1440px wide — no font scaling here (see laptop rule below) */
+/* Layout constraint for any screen ≤1440px wide */
 @media (max-width: 1440px) {
     :root { 
         --max-w: 1040px;

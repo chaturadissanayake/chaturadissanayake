@@ -13,7 +13,8 @@
       "Brand Identity"
     ],
     "thumbnail": "projects/ceylon-harvest/assets/01_Hero_Cover.webp",
-    "date": "MAY 2026"
+    "date": "MAY 2026",
+    "color": "#4A5D23"
   },
   {
     "id": "ditwah-cyclone",
@@ -29,7 +30,8 @@
       "Data Driven Experiences"
     ],
     "thumbnail": "projects/ditwah-cyclone/assets/Ditwah_Thumb.webp",
-    "date": "MAR 2026"
+    "date": "MAR 2026",
+    "color": "#0f172a"
   },
   {
     "id": "un-annual-results",
@@ -45,7 +47,8 @@
       "Publications"
     ],
     "thumbnail": "projects/un-annual-results/assets/UNAnnualResults_Thumb.png",
-    "date": "APR 2025"
+    "date": "APR 2025",
+    "color": "#005BBB"
   },
   {
     "id": "un-sdg-fund",
@@ -61,7 +64,8 @@
       "Publications"
     ],
     "thumbnail": "projects/un-sdg-fund/assets/UNSDGFund_Thumb.png",
-    "date": "MAY 2025"
+    "date": "MAY 2025",
+    "color": "#005BBB"
   },
   {
     "id": "drug-crisis",
@@ -77,7 +81,8 @@
       "Data Driven Experiences"
     ],
     "thumbnail": "projects/drug-crisis/assets/DrugCrisis_Thumb.png",
-    "date": "OCT 2025"
+    "date": "OCT 2025",
+    "color": "#1a1a1a"
   },
   {
     "id": "voter-education",
@@ -93,7 +98,8 @@
       "Digital Experiences"
     ],
     "thumbnail": "projects/voter-education/assets/VoterEducation_Thumb.png",
-    "date": "ACTIVE"
+    "date": "ACTIVE",
+    "color": "#ea580c"
   },
   {
     "id": "embracy-platform",
@@ -109,7 +115,8 @@
       "Digital Experiences"
     ],
     "thumbnail": "projects/embracy-platform/assets/EmbracyPlatform_Thumb.png",
-    "date": "FEB 2025"
+    "date": "FEB 2025",
+    "color": "#1a4480"
   },
   {
     "id": "mood-of-the-nation",
@@ -125,7 +132,8 @@
       "Data Driven Experiences"
     ],
     "thumbnail": "projects/mood-of-the-nation/assets/MOTN_Thumb.webp",
-    "date": "JUN 2022"
+    "date": "JUN 2022",
+    "color": "#7f1d1d"
   },
   {
     "title": "Practical Solutions for Inclusive Growth",
@@ -140,7 +148,8 @@
     "tags": [
       "Civic & Public",
       "Campaigns"
-    ]
+    ],
+    "color": "#b45309"
   },
   {
     "id": "ycli-field-assessment",
@@ -156,7 +165,8 @@
       "Publications"
     ],
     "thumbnail": "projects/ycli-field-assessment/assets/YCLI_Thumb.webp",
-    "date": "2021—2022"
+    "date": "2021—2022",
+    "color": "#0369a1"
   },
   {
     "id": "why-sri-lanka-pays-more",
@@ -172,7 +182,8 @@
       "Data Driven Experiences"
     ],
     "thumbnail": "projects/why-sri-lanka-pays-more/assets/WhySriLankaPaysMore_Thumb.webp",
-    "date": "ACTIVE"
+    "date": "ACTIVE",
+    "color": "#334155"
   },
   {
     "id": "salary-inflation-tracker",
@@ -188,6 +199,7 @@
       "Data Driven Experiences"
     ],
     "thumbnail": "projects/salary-inflation-tracker/assets/SalaryInflation_Thumb.webp",
-    "date": "MAR 2023"
+    "date": "MAR 2023",
+    "color": "#be123c"
   }
 ]

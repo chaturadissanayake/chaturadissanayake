@@ -447,7 +447,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('pm-role').textContent      = card.getAttribute('data-role')      || '—';
         document.getElementById('pm-outcome').textContent   = card.getAttribute('data-outcome')   || '—';
 
-        history.pushState(null, '', '#' + titleText.toLowerCase().replace(/\s+/g, '-'));
+        // Keep URL clean, but push a silent state so the Android back button works
+        history.pushState({ modalOpen: true }, '', window.location.pathname + window.location.search);
 
         const link   = document.getElementById('pm-link');
         const href   = card.getAttribute('data-link');
@@ -500,23 +501,35 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    const closeModal = () => {
+    const closeModal = (isPopState = false) => {
         projectModal?.classList.remove('active');
         document.body.classList.remove('modal-open');
         projectModal.removeEventListener('keydown', trapFocus);
-        history.pushState(null, '', '#projects');
+        
+        // Clean up browser history if modal was closed via 'X' or Escape
+        if (isPopState !== true && history.state && history.state.modalOpen) {
+            history.back();
+        }
+        
         if (lastFocusedElement) lastFocusedElement.focus();
     };
 
-    closeProjectBtn?.addEventListener('click', closeModal);
+    closeProjectBtn?.addEventListener('click', () => closeModal(false));
     projectModal?.addEventListener('mousedown', e => {
-        if (e.target === projectModal) closeModal();
+        if (e.target === projectModal) closeModal(false);
     });
     document.querySelector('.modal-panel')?.addEventListener('mousedown', e => {
         e.stopPropagation();
     });
     document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && projectModal?.classList.contains('active')) closeModal();
+        if (e.key === 'Escape' && projectModal?.classList.contains('active')) closeModal(false);
+    });
+
+    // Support Android Back Button perfectly
+    window.addEventListener('popstate', () => {
+        if (projectModal?.classList.contains('active')) {
+            closeModal(true);
+        }
     });
 
     // ── 13. VISUALISATIONS CAROUSEL ───────────────────────────────────────
@@ -750,8 +763,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (descSnippet.length > 120) {
                             descSnippet = descSnippet.substring(0, 120) + '...';
                         }
+                        
+                        // Safely resolve image paths
+                        const thumbSrc = randomProj.thumbnail.startsWith('http') 
+                            ? randomProj.thumbnail 
+                            : '/' + randomProj.thumbnail.replace(/^\//, '');
 
-                        // Inject the structure
+                        // Inject the structure with the image block
                         triggerSection.innerHTML = `
                             <a href="${finalHref}" ${externalAttr} class="next-project-inner next-project-link" aria-label="View next project: ${randomProj.title}">
                                 <div class="next-label">Next Project</div>
@@ -759,6 +777,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <p class="next-desc">${descSnippet}</p>
                                 <div class="tags-col">
                                     ${tagsHTML}
+                                </div>
+                                <div class="next-project-preview">
+                                    <img src="${thumbSrc}" alt="Preview of ${randomProj.title}" loading="lazy">
                                 </div>
                             </a>
                         `;
