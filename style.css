@@ -81,6 +81,7 @@ img {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
+    pointer-events: none; /* Bulletproof right-click protection */
 }
 a { color: inherit; text-decoration: none; }
 button { border: none; background: none; font-family: var(--sans); cursor: pointer; }
@@ -2320,6 +2321,11 @@ body[style*="overflow: hidden"] .site-wrapper {
     display: block;
     object-fit: cover;
     border-radius: 4px;
+    
+    /* Disables right-click, saving, and drag-to-desktop */
+    pointer-events: none !important; 
+    -webkit-user-drag: none !important; 
+    user-select: none !important;
 }
 
 .standard-quote {
@@ -2499,7 +2505,7 @@ body[style*="overflow: hidden"] .site-wrapper {
     height: clamp(100px, 20vh, 100px); /* Restored proper architectural height */
     overflow: hidden;
     background: var(--ink);
-    position: relative;
+    position: relative; /* Required to anchor the grain overlay */
 }
 
 .next-project-preview img {
@@ -2507,8 +2513,8 @@ body[style*="overflow: hidden"] .site-wrapper {
     height: 100%;
     object-fit: cover;
     object-position: center;
-    filter: blur(2px); /* Heavy blur restored for frosted glass effect */
-    transform: scale(1.2); 
+    filter: blur(3px); /* Heavy blur restored for frosted glass effect */
+    transform: scale(1.15); 
 }
 
 /* Generates a high-end, subtle film grain over the blur natively in the browser */
