@@ -59,20 +59,30 @@
 }
 
 /* ─── BASE ─────────────────────────────────────────────────────────── */
-html { font-size: 16px; overflow-x: hidden; width: 100%; }
+/* FIX: 100% instead of 16px — inherits from browser so user font-size preferences
+   (set for accessibility) are respected. Rem units throughout still work correctly. */
+html { font-size: 100%; overflow-x: hidden; width: 100%; }
 @media (prefers-reduced-motion: no-preference) {
     html { scroll-behavior: smooth; }
 }
 body {
     font-family: var(--sans); font-weight: 400; color: var(--ink);
     background: var(--surface); line-height: 1.65;
-    -webkit-font-smoothing: antialiased; overflow-x: hidden; width: 100%; position: relative;
+    -webkit-font-smoothing: antialiased;
+    /* FIX: overflow-x:hidden and width:100% already on html — not duplicated here */
+    position: relative;
 }
 body.loading, body.modal-open { overflow: hidden; overscroll-behavior: none; }
-body.modal-open { touch-action: none; }
+/* FIX: Removed touch-action:none from body.modal-open — it blocked all touch input
+   including scrolling inside modal panels on iOS. The modal-panel and lightbox-overlay
+   already use touch-action:pan-y + overscroll-behavior:contain, which is sufficient. */
 .mobile-menu, .modal-panel, .lightbox-overlay { touch-action: pan-y; overscroll-behavior: contain; }
 .hamburger-btn { touch-action: manipulation; }
-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+img { display: block; width: 100%; height: auto; object-fit: cover; }
+/* Explicit height:100% only where a container constrains height */
+.card-image img,
+.logo-mark img,
+.about-image-frame img { height: 100%; }
 a { color: inherit; text-decoration: none; }
 button { border: none; background: none; font-family: var(--sans); cursor: pointer; }
 
@@ -217,13 +227,7 @@ body.modal-open .brand-wordmark {
     transition: color var(--dur-fast);
 }
 .mobile-link:hover { color: var(--white); }
-.most-requested-badge {
-    font-family: var(--sans); font-size: 0.625rem; font-weight: 600;
-    letter-spacing: 0.05em; text-transform: uppercase; color: #ea580c;
-    background: #fff8f1; border: 1px solid rgba(234, 88, 12, 0.2);
-    padding: 4px 10px; border-radius: 100px;
-    white-space: nowrap;
-}
+/* .most-requested-badge — canonical definition further below near line 1302 */
 
 .mobile-cta {
     font-family: var(--serif); font-size: clamp(2rem, 8vw, 2.5rem);
@@ -309,8 +313,8 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 }
 /* Icon optical alignment inside buttons */
 .btn-primary svg.lucide, .show-more-btn svg.lucide, .form-submit svg.lucide, .modal-cta-btn svg.lucide { 
-    width: 16px !important; height: 16px !important; 
-    margin-left: 6px !important; 
+    width: 16px; height: 16px; 
+    margin-left: 6px; 
     stroke-width: 2; 
     transform: none; 
 }
@@ -456,7 +460,8 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 
 .scroll-link-custom {
     display: flex; flex-direction: row; align-items: center; gap: 6px;
-    text-decoration: none; outline: none;
+    text-decoration: none;
+    /* FIX: Removed outline:none — the global :focus-visible rule handles focus rings */
     padding: var(--space-2) 0; /* Increase touch target area for Fitts's Law */
 }
 .scroll-link-custom i {
@@ -660,10 +665,9 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 .skeleton-tags  { display: flex; gap: var(--space-2); margin-top: auto; padding-top: var(--space-5); }
 .skeleton-pill  { height: 22px; width: 60px; border-radius: var(--radius); }
 
-.project-card:hover, .lab-card:hover, .insight-card:hover {
-    transform: translateY(-5px); box-shadow: var(--shadow-lg);
-    border-color: rgba(13,13,15,0.06);
-}
+/* FIX: Removed unguarded card hover here — was applying translateY(-5px) on ALL
+   devices including touch, conflicting with the authoritative (hover:hover) block below.
+   See the "PREMIUM ELEVATION" section for the correct, device-guarded hover styles. */
 
 /* Premium Shimmer for while images are downloading */
 .card-image {
@@ -785,7 +789,10 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 .viz-carousel-track {
     display: flex; gap: var(--space-5); overflow-x: auto;
     scrollbar-width: none; padding-bottom: var(--space-8); scroll-snap-type: x mandatory;
+    /* FIX: grab cursor communicates scrollability to mouse users (signifier / affordance) */
+    cursor: grab;
 }
+.viz-carousel-track:active { cursor: grabbing; }
 .viz-carousel-track::-webkit-scrollbar { display: none; }
 
 .viz-item {
@@ -1049,7 +1056,8 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     .service-row-desc { font-size: 0.875rem; margin-bottom: var(--space-4); }
     .service-row-tools { display: none; }
     .services-footer-bar { flex-direction: column; align-items: center; gap: var(--space-5); text-align: center; }
-    .services-footer-bar p { white-space: nowrap; font-size: 0.6875rem; }
+    /* FIX: white-space:nowrap caused text overflow on narrow screens */
+    .services-footer-bar p { white-space: normal; font-size: 0.6875rem; }
     .services-pdf-link--light { width: 100%; justify-content: center; }
 }
 
@@ -1546,12 +1554,15 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 .lightbox-next { right: var(--space-5); }
 @media (max-width: 640px) {
     .lightbox-nav-btn { top: auto; bottom: var(--space-5); transform: none; }
-    .lightbox-prev { left: 35%; }
-    .lightbox-next { right: 35%; }
+    /* FIX: Moved to true edges so the two buttons don't overlap in the centre */
+    .lightbox-prev { left: var(--space-5); }
+    .lightbox-next { right: var(--space-5); }
 }
 
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: var(--radius); }
 .carousel-btn:focus-visible, .back-to-top:focus-visible, .lightbox-close:focus-visible, .modal-close:focus-visible { border-radius: 50%; }
+/* FIX: Carousel track gets a focus ring so keyboard users know it accepts arrow-key navigation */
+.viz-carousel-track:focus-visible { outline-offset: 6px; border-radius: var(--radius-lg); }
 
 /* ═══════════════════════════════════════════════════════════════════════
    RESPONSIVE SYSTEM — DESKTOP → LAPTOP → TABLET → MOBILE → SMALL PHONE
@@ -1959,7 +1970,7 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
 
 /* Only apply hover elevation on devices with a mouse */
 @media (hover: hover) and (pointer: fine) {
-    .project-card:hover, .service-card:hover, .insight-card:hover {
+    .project-card:hover, .service-card:hover, .insight-card:hover, .lab-card:hover {
         transform: translateY(-8px);
         box-shadow: var(--shadow-xl);
         border-color: rgba(26,68,128,0.2);
@@ -1969,6 +1980,17 @@ body:not(.loading) .reveal-up { opacity: 1; transform: none; }
     .project-card:hover .card-image img {
         transform: scale(1.04);
         filter: contrast(1.05);
+    }
+}
+
+/* FIX: Suppress card lift for users who prefer reduced motion.
+   Vestibular disorders can be triggered by translate animations. */
+@media (prefers-reduced-motion: reduce) {
+    .project-card:hover,
+    .lab-card:hover,
+    .insight-card:hover,
+    .service-card:hover {
+        transform: none;
     }
 }
 
