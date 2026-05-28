@@ -770,4 +770,14 @@ document.addEventListener('DOMContentLoaded', () => {
             loadNextProject();
         }
     }
+
+    // ── 15. EXTERNAL LINK WARNING ─────────────────────────────────────────
+    document.querySelectorAll('a[href*="medium.com"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            const proceed = confirm("You are about to leave this site to read the full article on Medium. Do you want to continue?");
+            if (!proceed) {
+                e.preventDefault();
+            }
+        });
+    });
 });

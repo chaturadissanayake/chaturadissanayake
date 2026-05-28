@@ -632,7 +632,7 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
 .extended-work.list-mode.show { display: flex; }
 
 .card-interactive { position: relative; }
-.card-hitbox { position: absolute; inset: 0; z-index: 10; outline: none; }
+.card-hitbox { position: absolute; inset: 0; z-index: 20; outline: none; }
 
 .project-card, .lab-card, .insight-card {
     position: relative; border-radius: var(--radius-lg); overflow: hidden;
@@ -1556,8 +1556,8 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
     z-index: 3010;
 }
 .lightbox-nav-btn:hover { background: rgba(255,255,255,0.2); }
-.lightbox-prev { left: var(--space-5); }
-.lightbox-next { right: var(--space-5); }
+.lightbox-prev { left: 5vw; }
+.lightbox-next { right: 5vw; }
 @media (max-width: 640px) {
     .lightbox-nav-btn { top: auto; bottom: var(--space-5); transform: none; }
     .lightbox-prev { left: 35%; }
