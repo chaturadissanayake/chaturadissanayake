@@ -158,13 +158,13 @@
     "challenge": "Rural communities in Aranayake Division, Sabaragamuwa Province faced complex, intersecting development challenges that were poorly understood at the institutional level. The gap between UN strategic frameworks and the lived realities of these communities needed to be bridged through direct field engagement and rigorous documentation.",
     "role": "As a participant and field documentarian in the Youth Community Leadership Initiative, I worked alongside WHO, UNDP, and UNV partners across three phases of training and implementation. I conducted community needs assessments using the UN Healthy Settings framework, contributed to conflict mapping, and produced the strategic field assessment report documenting 17 data points across Aranayake's social fabric, environmental assets, and economic gaps.",
     "outcome": "A technical community needs assessment that gave UN and government partners a credible, ground-level picture of Aranayake Division. The initiative bridged the Ministry of Youth & Sports and UN agencies, producing actionable recommendations for community resilience and development programming.",
-    "link": "https://chaturadissanayake.github.io/projectycli/",
+    "link": "https://chaturadissanayake.github.io/projectycli",
     "status": "View Field Assessment",
     "tags": [
       "Civic & Public",
       "Publications"
     ],
-    "thumbnail": "projects/ycli-field-assessment/assets/YCLI_Thumb.webp",
+    "thumbnail": "projects/project-ycli/assets/YCLI_Thumb.webp",
     "date": "2021—2022",
     "color": "#0369a1"
   },
@@ -172,9 +172,9 @@
     "id": "why-sri-lanka-pays-more",
     "category": "Data Driven Experiences",
     "title": "Why Sri Lanka Pays More",
-    "challenge": "Sri Lankan households were paying significantly more for everyday goods than comparable economies, yet the structural reasons behind this price disparity were buried in economic reports that ordinary people never read. The data existed — the accessible explanation did not.",
-    "role": "I built an interactive data investigation exploring the economic forces driving Sri Lanka's cost of living gap. The piece translates complex macroeconomic factors — trade policy, import dependency, currency depreciation — into a visual narrative accessible to a general audience.",
-    "outcome": "A data-driven explainer that makes a structural economic argument without requiring the reader to have an economics background — putting important policy context directly in the hands of the public.",
+    "challenge": "Sri Lankan households were paying significantly more for everyday goods than comparable economies, yet the structural reasons behind this price disparity were buried in economic reports that ordinary people never read. The data existed, the accessible explanation did not.",
+    "role": "I built an interactive data investigation exploring the economic forces driving Sri Lanka's cost of living gap. The piece translates complex macroeconomic factors, trade policy, import dependency, currency depreciation, into a visual narrative accessible to a general audience.",
+    "outcome": "A data-driven explainer that makes a structural economic argument without requiring the reader to have an economics background, putting important policy context directly in the hands of the public.",
     "link": "#",
     "status": "Active Development",
     "tags": [
@@ -184,22 +184,5 @@
     "thumbnail": "projects/why-sri-lanka-pays-more/assets/WhySriLankaPaysMore_Thumb.webp",
     "date": "ACTIVE",
     "color": "#334155"
-  },
-  {
-    "id": "salary-inflation-tracker",
-    "category": "Data Driven Experiences",
-    "title": "Salary & Inflation Tracker",
-    "challenge": "Sri Lanka's inflation crisis eroded real wages dramatically between 2022 and 2026, but most people had no way to quantify what they had actually lost. Official indices like CCPI and NCPI existed but were inaccessible to anyone outside economic institutions.",
-    "role": "I built an interactive economic dashboard drawing on Department of Census and Statistics data, allowing users to input their own salary figures and see precisely how inflation has eroded their purchasing power since January 2022. The tool covers both Colombo (CCPI) and national (NCPI) indices with historical trend analysis.",
-    "outcome": "A personal, data-driven tool that makes Sri Lanka's inflation story real for individual households — turning abstract national statistics into a direct, tangible calculation anyone can run for themselves.",
-    "link": "https://chaturadissanayake.github.io/salaryandinflationtracker/",
-    "status": "View Dashboard",
-    "tags": [
-      "Civic & Public",
-      "Data Driven Experiences"
-    ],
-    "thumbnail": "projects/salary-inflation-tracker/assets/SalaryInflation_Thumb.webp",
-    "date": "MAR 2023",
-    "color": "#be123c"
   }
 ]
