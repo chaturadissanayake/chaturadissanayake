@@ -1,20 +1,106 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
 <channel>
-    <title>Chatura Dissanayake | Insights</title>
-    <link>https://chaturadissanayake.vercel.app/</link>
-    <description>Process notes and decisions behind information design, data storytelling, and policy reports.</description>
-    <language>en-gb</language>
-    <lastBuildDate>Thu, 28 May 2026 12:00:00 GMT</lastBuildDate>
-    <atom:link href="https://chaturadissanayake.vercel.app/rss.xml" rel="self" type="application/rss+xml" />
-
-    <item>
-        <title>I Built a Data Story About Cyclone Ditwah. Here's Every Decision I Made and Why.</title>
-        <link>https://consultchatura.medium.com/i-built-a-data-story-about-cyclone-ditwah-heres-every-decision-i-made-and-why-c9c19c89398f</link>
-        <guid isPermaLink="true">https://consultchatura.medium.com/i-built-a-data-story-about-cyclone-ditwah-heres-every-decision-i-made-and-why-c9c19c89398f</guid>
-        <description>Behind the making of "How a Single Storm Broke Sri Lanka" - six iterations of a teardrop, a hero image that changed twice, and why restraint at the end is a design choice.</description>
-        <pubDate>Mon, 16 Mar 2026 09:00:00 GMT</pubDate>
-    </item>
-
+<title>
+<![CDATA[ Chatura Dissanayake | Communications Specialist ]]>
+</title>
+<description>
+<![CDATA[ I help organisations connect with the people who need their work, through data visualisation, reports, and communication design. ]]>
+</description>
+<link>https://chaturadissanayake.vercel.app/</link>
+<image>
+<url>https://chaturadissanayake.vercel.app/assets/apple-touch-icon.png</url>
+<title>Chatura Dissanayake | Communications Specialist</title>
+<link>https://chaturadissanayake.vercel.app/</link>
+</image>
+<generator>https://rss.app</generator>
+<lastBuildDate>Sun, 31 May 2026 19:44:44 GMT</lastBuildDate>
+<atom:link href="https://rss.app/feeds/1QjFWlxkKTZLVQd7.xml" rel="self" type="application/rss+xml"/>
+<language>
+<![CDATA[ en ]]>
+</language>
+<item>
+<title>
+<![CDATA[ Privacy Policy ]]>
+</title>
+<description>
+<![CDATA[ Privacy Policy for Chatura Dissanayake's portfolio: plain language, no jargon. ]]>
+</description>
+<link>https://chaturadissanayake.vercel.app/privacy.html</link>
+<guid isPermaLink="false">c8e339fe27753ce162b65e82eed1e343</guid>
+<dc:creator>
+<![CDATA[ chaturadissanayake.vercel.app ]]>
+</dc:creator>
+<pubDate>Wed, 27 May 2026 12:00:00 GMT</pubDate>
+</item>
+<item>
+<title>
+<![CDATA[ Chatura Dissanayake ]]>
+</title>
+<description>
+<![CDATA[ <div><img src="https://chaturadissanayake.vercel.app/assets/Social_Preview.webp" style="width: 100%;" /><div>I help organisations connect with the people who need their work, through data visualisation, reports, and communication design.</div></div> ]]>
+</description>
+<link>https://chaturadissanayake.vercel.app/</link>
+<guid isPermaLink="false">29f0a69c227e13807904981f1206c85e</guid>
+<dc:creator>
+<![CDATA[ chaturadissanayake.vercel.app ]]>
+</dc:creator>
+<pubDate>Tue, 01 Jul 2025 12:00:00 GMT</pubDate>
+<media:content medium="image" url="https://chaturadissanayake.vercel.app/assets/Social_Preview.webp"/>
+</item>
+<item>
+<title>
+<![CDATA[ United Nations in Sri Lanka ]]>
+</title>
+<link>https://srilanka.un.org/en/homepage</link>
+<guid isPermaLink="false">35dd632de682db34e075e3d7f3e8c94e</guid>
+<dc:creator>
+<![CDATA[ The United Nations in Sri Lanka ]]>
+</dc:creator>
+<pubDate>Tue, 05 May 2026 12:00:00 GMT</pubDate>
+</item>
+<item>
+<title>
+<![CDATA[ Home ]]>
+</title>
+<description>
+<![CDATA[ Home ]]>
+</description>
+<link>https://www.ideasmarketing.com.au/</link>
+<guid isPermaLink="false">8fcd4a56e2b22a4b857c29f81e68e6ea</guid>
+<dc:creator>
+<![CDATA[ ideasmarketing.com.au ]]>
+</dc:creator>
+<pubDate>Fri, 10 Jan 2025 05:35:30 GMT</pubDate>
+</item>
+<item>
+<title>
+<![CDATA[ Verité Research, Colombo ]]>
+</title>
+<link>https://www.veriteresearch.org/</link>
+<guid isPermaLink="false">5161a522714be82cac5c16617c67333c</guid>
+<dc:creator>
+<![CDATA[ veriteresearch.org ]]>
+</dc:creator>
+</item>
+<item>
+<title>
+<![CDATA[ Download Services Guide ]]>
+</title>
+<link>https://chaturadissanayake.vercel.app/assets/Services_Guide.pdf</link>
+<guid isPermaLink="false">d1d647954a8d5ce9148e4babf525efd4</guid>
+<dc:creator>
+<![CDATA[ chaturadissanayake.vercel.app ]]>
+</dc:creator>
+</item>
+<item>
+<title>
+<![CDATA[ Department of National Planning ]]>
+</title>
+<link>https://npd.treasury.gov.lk/</link>
+<guid isPermaLink="false">bc19fbf5d240fe4538036cb5f3a2c53a</guid>
+<dc:creator>
+<![CDATA[ npd.treasury.gov.lk ]]>
+</dc:creator>
+</item>
 </channel>
 </rss>
