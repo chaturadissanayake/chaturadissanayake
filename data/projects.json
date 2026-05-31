@@ -4,8 +4,8 @@
     "category": "Brand Identity",
     "title": "Ceylon Harvest Co.",
     "challenge": "The challenge was to introduce a product rooted in a 3,000-year-old agricultural tradition to premium Western markets without falling into the trap of generic tourism visual clichés. I had to bridge the gap between ancient historical authority and the expectations of modern, high-end commerce.",
-    "role": "I developed a visual identity centered on a rigorous botanical seal and a sophisticated typographic system. My work focused on balancing the weight of historical legacy with the clean utility required by trade buyers. This system prioritized authenticity and traceability over aesthetic ornamentation.",
-    "outcome": "The final result is a quietly confident visual identity that avoids common stereotypes, proving absolute authenticity to high-end trade buyers. It successfully translates a deep cultural heritage into a modern, shelf-ready brand, establishing immediate trust and credibility in competitive markets.",
+    "role": "I developed a visual identity centered on a rigorous botanical seal and a sophisticated typographic system. My work focused on balancing the weight of historical legacy with the clean utility required by trade buyers. This system prioritised authenticity and traceability over aesthetic ornamentation.",
+    "outcome": "The final result is a quietly confident visual identity that avoids common stereotypes, signalling authenticity to high-end trade buyers. It successfully translates a deep cultural heritage into a modern, shelf-ready brand, establishing immediate trust and credibility in competitive markets.",
     "link": "projects/ceylon-harvest/ceylon-harvest.html",
     "status": "View Case Study",
     "tags": [
@@ -21,8 +21,8 @@
     "category": "Data Driven Experiences",
     "title": "Ditwah Cyclone 2025: Disaster Narrative",
     "challenge": "When Cyclone Ditwah hit, the early official figures were drastically wrong. Reporting put the affected population at under a million. The real number was closer to 2.3 million. I wanted to make that gap impossible to ignore, not through opinion, but through the data itself.",
-    "role": "I went straight to the source: UN OCHA, UNICEF, and the World Bank. No secondary reporting, no press releases. The design had to match the weight of what the numbers were saying, so I kept it stripped back. Stark type, minimal interaction, and one central visualisation that didn't let you look away.",
-    "outcome": "The piece corrected the public record and held. 2.3 million people affected, triple the official estimate. It's become one of those references that gets cited when people need a credible source for the scale of what happened.",
+    "role": "I went straight to the source: UN OCHA, UNICEF, and the World Bank. No secondary reporting, no press releases. The design had to match the weight of what the numbers were saying, so I kept it stripped back. Stark type, minimal interaction, and one central visualisation that did not let you look away.",
+    "outcome": "The piece put the corrected figures into public circulation at a moment when most reporting had not caught up with the data. 2.3 million people affected, triple the early official estimate. The gap between what was reported and what actually happened became the spine of the whole story.",
     "link": "https://cycloneditwah.vercel.app/",
     "status": "View Full Story",
     "tags": [
@@ -38,8 +38,8 @@
     "category": "Publications",
     "title": "UN Sri Lanka 2024 Annual Results",
     "challenge": "Eight UN agencies were each producing their own numbers for Sri Lanka. None of it was talking to each other. Donors, policymakers, and the public were seeing fragments, not the full picture of what the UN was actually doing in the country.",
-    "role": "I came in to pull it together. That meant building a visual system that could hold data from eight different organisations without losing coherence, and writing it in a way that made sense to someone who wasn't already immersed in the work. I stayed close to UN brand standards while making the layouts actually readable.",
-    "outcome": "The report became the official national UN synthesis for 2024. Over 4,000 stakeholders received it, including the Prime Minister. More than the distribution, what mattered was that people could actually use it; it gave the UN a single, honest account of its work in Sri Lanka.",
+    "role": "I led the information design for the report, building a visual system that could hold data from eight different organisations without losing coherence. That meant coordinating inputs across agencies, maintaining strict UN branding standards, and writing layouts that made sense to someone who was not already immersed in the work.",
+    "outcome": "The report became the official national UN synthesis for 2024. Over 4,000 stakeholders received it, including the Prime Minister. More than the distribution, what mattered was that people could actually use it. It gave the UN a single, honest account of its work in Sri Lanka.",
     "link": "https://srilanka.un.org/en/293540-un-sri-lanka-2024-annual-results-report",
     "status": "View Full Report",
     "tags": [
@@ -55,8 +55,8 @@
     "category": "Publications",
     "title": "UN Sri Lanka SDG Fund 2024 Results",
     "challenge": "The SDG Fund runs across multiple programmes, each with its own goals, metrics, and language. The challenge was presenting all of that to donors and government partners in a way that felt like one conversation, not a catalogue.",
-    "role": "I designed the full information architecture and visual system, from how the programmes were structured to how the data was shown on each page. The aim was to make SDG indicators feel real to someone who didn't spend their days working with them.",
-    "outcome": "The publication gave the SDG Fund a way to bring its outcomes to life for people who hold the decision-making power. That relationship between the data and the people reading it: that's what the design was built around.",
+    "role": "I designed the full information architecture and visual system, from how the programmes were structured to how the data was shown on each page. That included multilingual policy briefs and visibility assets for a wide range of stakeholders. The aim was to make SDG indicators feel real to someone who did not spend their days working with them.",
+    "outcome": "The publication gave the SDG Fund a way to bring its outcomes to life for people who hold the decision-making power. The design was built around one thing: the relationship between the data and the people who needed to act on it.",
     "link": "https://srilanka.un.org/en/295650-un-sri-lanka-sdg-fund-2024-results-report",
     "status": "View Full Report",
     "tags": [
@@ -72,7 +72,7 @@
     "category": "Data Driven Experiences",
     "title": "The Shadow War: Drug Crisis",
     "challenge": "Sri Lanka's drug policy debate was being drowned in jargon, politics, and statistics that nobody outside the sector could parse. I wanted to make it accessible to someone who had no background in policy, because those people's opinions matter too.",
-    "role": "I built the whole thing from scratch: the narrative structure, the visual language, the data pipeline, and the final Data Storytelling experience. Every design decision came back to one question: will someone who knows nothing about this still be able to follow it?",
+    "role": "I built the whole thing from scratch: the narrative structure, the visual language, the data pipeline, and the final data storytelling experience. Every design decision came back to one question: will someone who knows nothing about this still be able to follow it?",
     "outcome": "A digital environment that lets people walk through the data themselves and reach their own conclusions. Not a lecture, an experience. One that treats the audience as capable of handling the complexity, just on their own terms.",
     "link": "https://chaturadissanayake.github.io/sri-lanka-drug-crisis-website/",
     "status": "View Full Case Study",
@@ -88,9 +88,9 @@
     "id": "voter-education",
     "category": "Digital Experiences",
     "title": "Voter Education Web Game",
-    "challenge": "Civic education about elections almost always fails the people who need it most: young voters, first-timers, anyone who finds the official materials dry or confusing. A pamphlet telling people how democracy works isn't enough. People learn by doing.",
-    "role": "I'm building a browser-based game that teaches voters how elections actually work: the logic of constituency systems, how to evaluate candidates, what democratic choice looks like in practice. Scenario-based, accessible, and built with AI-assisted development.",
-    "outcome": "Still in active development. The aim is to distribute it through schools and civil society organisations, putting it where people already are, rather than expecting them to come looking.",
+    "challenge": "Civic education about elections almost always fails the people who need it most: young voters, first-timers, anyone who finds the official materials dry or confusing. A pamphlet telling people how democracy works is not enough. People learn by doing.",
+    "role": "I am building a browser-based game that teaches voters how elections actually work: the logic of constituency systems, how to evaluate candidates, what democratic choice looks like in practice. Scenario-based, accessible, and built with AI-assisted development.",
+    "outcome": "The aim is to reach young voters and first-timers through schools and civil society organisations, meeting people where they already are rather than expecting them to seek it out.",
     "link": "#",
     "status": "Active Development",
     "tags": [
@@ -105,9 +105,9 @@
     "id": "embracy-platform",
     "category": "Digital Experiences",
     "title": "Embracy Financial Management Platform",
-    "challenge": "Financial tools tend to promise simplicity and deliver the opposite. The real problem wasn't the features; it was that users kept leaving before they saw value. I was brought in to find where the relationship between user and product was breaking down.",
+    "challenge": "Financial tools tend to promise simplicity and deliver the opposite. The real problem was not the features; it was that users kept leaving before they saw value. I was brought in to find where the relationship between user and product was breaking down.",
     "role": "I started with research: user interviews, journey mapping, looking at where people were dropping off and why. From there I built high-fidelity wireframes and a redesigned onboarding flow focused on one thing: getting people to their first useful moment faster.",
-    "outcome": "Drop-off rates fell by 30%. Internal production time was cut in half. The redesign became the foundation for the platform's ongoing development, which is the outcome that matters most. Not a one-off fix, but a better starting point.",
+    "outcome": "Drop-off rates fell by 30%. Internal production time was cut in half. The redesign became the foundation for the platform's ongoing development. Not a one-off fix, but a better starting point.",
     "link": "https://drive.google.com/drive/folders/1Ria6BG5ML2PYXCr3Hx-n5H9PNIjra5Zf",
     "status": "View Full Case Study",
     "tags": [
@@ -122,9 +122,9 @@
     "id": "mood-of-the-nation",
     "category": "Data Driven Experiences",
     "title": "Mood of the Nation",
-    "challenge": "Verité Research is tasked with disseminating over 150 research outputs to policymakers and national media. During the 2022 economic crisis, the specific challenge was ensuring that complex socio-political data - like the collapse of government approval and economic confidence - was immediately accessible to a diverse, trilingual public.",
-    "role": "As a Senior Communications Designer, I designed the data infographics for the nationally syndicated Mood of the Nation survey across all three official languages: English, Sinhala, and Tamil. I translated stark, defining statistics into authoritative visual narratives built for simultaneous distribution across national television, print, and digital platforms.",
-    "outcome": "The visual strategy ensured these critical findings reached every segment of Sri Lanka's media landscape simultaneously. The June 2022 edition successfully captured the country at a historic breaking point, turning raw data into an unignorable part of the national conversation.",
+    "challenge": "During the 2022 economic crisis, complex socio-political data, including the collapse of government approval and economic confidence, needed to reach a diverse, trilingual public immediately. The data was stark. The challenge was making sure it landed with the weight it deserved.",
+    "role": "I designed the data infographics for the nationally syndicated Mood of the Nation survey across all three official languages: English, Sinhala, and Tamil. The visuals had to work simultaneously across national television, print, and digital platforms without losing clarity or authority in any format.",
+    "outcome": "The visual strategy ensured the findings reached every segment of Sri Lanka's media landscape at the same time. The June 2022 edition captured the country at a historic breaking point, turning raw data into an unavoidable part of the national conversation.",
     "link": "projects/mood-of-the-nation/mood-of-the-nation.html",
     "status": "View Case Study",
     "tags": [
@@ -136,19 +136,20 @@
     "color": "#7f1d1d"
   },
   {
-    "title": "Practical Solutions for Inclusive Growth",
+    "id": "practical-solutions-for-inclusive-growth",
     "category": "Civic & Public",
-    "date": "JUL 2024",
-    "thumbnail": "projects/practical-solutions-for-inclusive-growth/assets/Practical_Solutions_Thumb.webp",
+    "title": "Practical Solutions for Inclusive Growth",
+    "challenge": "A public lecture hosted by Verité Research focusing on the critical policy shifts required to resume sustainable economic growth in Sri Lanka following the 2022 crisis. The core message was that the fundamental issue crippling the nation's economic sectors is a severe lack of accountability.",
+    "role": "I designed the visual identity and communication materials for the event, ensuring the urgency and clarity of the policy recommendations were reflected across all physical and digital touchpoints.",
+    "outcome": "A cohesive campaign system that helped outline five key pillars for reform: liberalising trade, reforming agricultural acts, targeting cash transfers, ensuring education accountability, and isolating foreign borrowing from geopolitics.",
     "link": "projects/practical-solutions-for-inclusive-growth/practical-solutions-for-inclusive-growth.html",
     "status": "View Case Study",
-    "challenge": "A public lecture hosted by Verité Research focusing on the critical policy shifts required to resume sustainable economic growth in Sri Lanka following the 2022 crisis. The core message highlighted that the fundamental issue crippling the nation's economic sectors is a severe lack of accountability.",
-    "role": "I was responsible for designing the visual identity and communication materials for the event, ensuring the urgency and clarity of the policy recommendations were reflected across all physical and digital touchpoints.",
-    "outcome": "A cohesive Campaigns system that helped outline five key pillars for reform: liberalizing trade, reforming agricultural acts, targeting cash transfers, ensuring education accountability, and isolating foreign borrowing from geopolitics.",
     "tags": [
       "Civic & Public",
       "Campaigns"
     ],
+    "thumbnail": "projects/practical-solutions-for-inclusive-growth/assets/Practical_Solutions_Thumb.webp",
+    "date": "JUL 2024",
     "color": "#b45309"
   },
   {
@@ -157,7 +158,7 @@
     "title": "YCLI: Strategic Field Assessment",
     "challenge": "Rural communities in Aranayake Division, Sabaragamuwa Province faced complex, intersecting development challenges that were poorly understood at the institutional level. The gap between UN strategic frameworks and the lived realities of these communities needed to be bridged through direct field engagement and rigorous documentation.",
     "role": "As a participant and field documentarian in the Youth Community Leadership Initiative, I worked alongside WHO, UNDP, and UNV partners across three phases of training and implementation. I conducted community needs assessments using the UN Healthy Settings framework, contributed to conflict mapping, and produced the strategic field assessment report documenting 17 data points across Aranayake's social fabric, environmental assets, and economic gaps.",
-    "outcome": "A technical community needs assessment that gave UN and government partners a credible, ground-level picture of Aranayake Division. The initiative bridged the Ministry of Youth & Sports and UN agencies, producing actionable recommendations for community resilience and development programming.",
+    "outcome": "A technical community needs assessment that gave UN and government partners a credible, ground-level picture of Aranayake Division. The initiative bridged the Ministry of Youth and Sports and UN agencies, producing actionable recommendations for community resilience and development programming.",
     "link": "https://chaturadissanayake.github.io/projectycli",
     "status": "View Field Assessment",
     "tags": [
@@ -165,16 +166,16 @@
       "Publications"
     ],
     "thumbnail": "projects/project-ycli/assets/YCLI_Thumb.webp",
-    "date": "2021—2022",
+    "date": "2021-2022",
     "color": "#0369a1"
   },
   {
     "id": "why-sri-lanka-pays-more",
     "category": "Data Driven Experiences",
     "title": "Why Sri Lanka Pays More",
-    "challenge": "Sri Lankan households were paying significantly more for everyday goods than comparable economies, yet the structural reasons behind this price disparity were buried in economic reports that ordinary people never read. The data existed, the accessible explanation did not.",
+    "challenge": "Sri Lankan households were paying significantly more for everyday goods than comparable economies, yet the structural reasons behind this price disparity were buried in economic reports that ordinary people never read. The data existed. The accessible explanation did not.",
     "role": "I built an interactive data investigation exploring the economic forces driving Sri Lanka's cost of living gap. The piece translates complex macroeconomic factors, trade policy, import dependency, currency depreciation, into a visual narrative accessible to a general audience.",
-    "outcome": "A data-driven explainer that makes a structural economic argument without requiring the reader to have an economics background, putting important policy context directly in the hands of the public.",
+    "outcome": "The aim is to put important policy context directly in the hands of the public, making a structural economic argument without requiring the reader to have an economics background.",
     "link": "#",
     "status": "Active Development",
     "tags": [
