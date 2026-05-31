@@ -666,13 +666,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (isDesktop) {
                 sidebarWrap.classList.toggle('is-collapsed');
                 const isNowOpen = !sidebarWrap.classList.contains('is-collapsed');
-                icons.forEach(icon => icon.textContent = isNowOpen ? '×' : '+');
                 if (desktopBtn) desktopBtn.setAttribute('aria-expanded', String(isNowOpen));
             } else {
                 sidebarWrap.classList.toggle('is-open-mobile');
                 const isNowOpen = sidebarWrap.classList.contains('is-open-mobile');
-                icons.forEach(icon => icon.textContent = isNowOpen ? '×' : '+');
                 if (mobileBtn) mobileBtn.setAttribute('aria-expanded', String(isNowOpen));
+                document.body.classList.toggle('modal-open', isNowOpen);
                 document.body.style.overflow = isNowOpen ? 'hidden' : '';
 
                 if (isNowOpen) initIcons(sidebarWrap);
@@ -766,12 +765,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    document.querySelectorAll('a[href*="medium.com"]').forEach(link => {
-        link.addEventListener('click', (e) => {
-            const proceed = confirm("You are about to leave this site to read the full article on Medium. Do you want to continue?");
-            if (!proceed) {
-                e.preventDefault();
-            }
+    // Cookie Banner Logic
+    const cookieBanner = document.getElementById('cookie-banner');
+    const acceptBtn = document.getElementById('accept-cookies');
+    const declineBtn = document.getElementById('decline-cookies');
+
+    if (cookieBanner && !localStorage.getItem('cookieConsent')) {
+        cookieBanner.style.display = 'block';
+    }
+
+    if (acceptBtn) {
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'granted');
+            cookieBanner.style.display = 'none';
+            if (typeof window.loadGA === 'function') window.loadGA();
         });
-    });
+    }
+
+    if (declineBtn) {
+        declineBtn.addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'denied');
+            cookieBanner.style.display = 'none';
+        });
+    }
 });
