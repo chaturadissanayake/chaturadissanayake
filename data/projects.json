@@ -1,5 +1,39 @@
 [
   {
+    "id": "road-remains",
+    "category": "Digital Experiences",
+    "title": "Road Remains",
+    "challenge": "Civic education about elections almost always fails the people who need it most. Young voters, first-timers, and anyone who finds official materials dry or confusing are often left behind. A pamphlet telling people how democracy works is simply not enough. People learn by doing.",
+    "role": "I am building a browser-based game that teaches voters how elections actually work. The experience covers the logic of constituency systems, how to evaluate candidates, and what democratic choice looks like in practice. It is an accessible, scenario-based approach to learning.",
+    "outcome": "The aim is to reach young voters and first-timers through schools and civil society organisations. We want to meet people where they already are rather than expecting them to seek out the information on their own. The project focuses on practical understanding rather than theoretical lecturing.",
+    "link": "projects/road-remains/road-remains.html",
+    "status": "Active Development",
+    "tags": [
+      "Civic & Public",
+      "Digital Experiences"
+    ],
+    "thumbnail": "projects/road-remains/assets/VoterEducation_Thumb.webp",
+    "date": "ACTIVE",
+    "color": "#ea580c"
+  },
+  {
+    "id": "why-sri-lanka-pays-more",
+    "category": "Data Driven Experiences",
+    "title": "Why Sri Lanka Pays More",
+    "challenge": "Sri Lankan households were paying significantly more for everyday goods than comparable economies, yet the structural reasons behind this price disparity were buried in economic reports that ordinary people never read. The data existed. The accessible explanation did not.",
+    "role": "I built an interactive data investigation exploring the economic forces driving Sri Lanka's cost of living gap. The piece translates complex macroeconomic factors, trade policy, import dependency, currency depreciation, into a visual narrative accessible to a general audience.",
+    "outcome": "The aim is to put important policy context directly in the hands of the public, making a structural economic argument without requiring the reader to have an economics background.",
+    "link": "https://chaturadissanayake.github.io/whysrilankapaysmore/",
+    "status": "Active Development",
+    "tags": [
+      "Civic & Public",
+      "Data Driven Experiences"
+    ],
+    "thumbnail": "projects/why-sri-lanka-pays-more/assets/WhySriLankaPaysMore_Thumb.webp",
+    "date": "Active Development",
+    "color": "#334155"
+  },
+  {
     "id": "ceylon-harvest",
     "category": "Brand Identity",
     "title": "Ceylon Harvest Co.",
@@ -85,23 +119,6 @@
     "color": "#1a1a1a"
   },
   {
-    "id": "voter-education",
-    "category": "Digital Experiences",
-    "title": "Voter Education Web Game",
-    "challenge": "Civic education about elections almost always fails the people who need it most: young voters, first-timers, anyone who finds the official materials dry or confusing. A pamphlet telling people how democracy works is not enough. People learn by doing.",
-    "role": "I am building a browser-based game that teaches voters how elections actually work: the logic of constituency systems, how to evaluate candidates, what democratic choice looks like in practice. Scenario-based, accessible, and built with AI-assisted development.",
-    "outcome": "The aim is to reach young voters and first-timers through schools and civil society organisations, meeting people where they already are rather than expecting them to seek it out.",
-    "link": "#",
-    "status": "Active Development",
-    "tags": [
-      "Civic & Public",
-      "Digital Experiences"
-    ],
-    "thumbnail": "projects/voter-education/assets/VoterEducation_Thumb.webp",
-    "date": "ACTIVE",
-    "color": "#ea580c"
-  },
-  {
     "id": "embracy-platform",
     "category": "Digital Experiences",
     "title": "Embracy Financial Management Platform",
@@ -117,23 +134,6 @@
     "thumbnail": "projects/embracy-platform/assets/EmbracyPlatform_Thumb.webp",
     "date": "FEB 2025",
     "color": "#1a4480"
-  },
-  {
-    "id": "mood-of-the-nation",
-    "category": "Data Driven Experiences",
-    "title": "Mood of the Nation",
-    "challenge": "During the 2022 economic crisis, complex socio-political data, including the collapse of government approval and economic confidence, needed to reach a diverse, trilingual public immediately. The data was stark. The challenge was making sure it landed with the weight it deserved.",
-    "role": "I designed the data infographics for the nationally syndicated Mood of the Nation survey across all three official languages: English, Sinhala, and Tamil. The visuals had to work simultaneously across national television, print, and digital platforms without losing clarity or authority in any format.",
-    "outcome": "The visual strategy ensured the findings reached every segment of Sri Lanka's media landscape at the same time. The June 2022 edition captured the country at a historic breaking point, turning raw data into an unavoidable part of the national conversation.",
-    "link": "projects/mood-of-the-nation/mood-of-the-nation.html",
-    "status": "View Case Study",
-    "tags": [
-      "Civic & Public",
-      "Data Driven Experiences"
-    ],
-    "thumbnail": "projects/mood-of-the-nation/assets/MOTN_Thumb.webp",
-    "date": "JUN 2022",
-    "color": "#7f1d1d"
   },
   {
     "id": "practical-solutions-for-inclusive-growth",
@@ -153,6 +153,23 @@
     "color": "#b45309"
   },
   {
+    "id": "mood-of-the-nation",
+    "category": "Data Driven Experiences",
+    "title": "Mood of the Nation",
+    "challenge": "During the 2022 economic crisis, complex socio-political data, including the collapse of government approval and economic confidence, needed to reach a diverse, trilingual public immediately. The data was stark. The challenge was making sure it landed with the weight it deserved.",
+    "role": "I designed the data infographics for the nationally syndicated Mood of the Nation survey across all three official languages: English, Sinhala, and Tamil. The visuals had to work simultaneously across national television, print, and digital platforms without losing clarity or authority in any format.",
+    "outcome": "The visual strategy ensured the findings reached every segment of Sri Lanka's media landscape at the same time. The June 2022 edition captured the country at a historic breaking point, turning raw data into an unavoidable part of the national conversation.",
+    "link": "projects/mood-of-the-nation/mood-of-the-nation.html",
+    "status": "View Case Study",
+    "tags": [
+      "Civic & Public",
+      "Data Driven Experiences"
+    ],
+    "thumbnail": "projects/mood-of-the-nation/assets/MOTN_Thumb.webp",
+    "date": "JUN 2022",
+    "color": "#7f1d1d"
+  },
+  {
     "id": "ycli-field-assessment",
     "category": "Civic & Public",
     "title": "YCLI: Strategic Field Assessment",
@@ -168,22 +185,5 @@
     "thumbnail": "projects/project-ycli/assets/YCLI_Thumb.webp",
     "date": "2021-2022",
     "color": "#0369a1"
-  },
-  {
-    "id": "why-sri-lanka-pays-more",
-    "category": "Data Driven Experiences",
-    "title": "Why Sri Lanka Pays More",
-    "challenge": "Sri Lankan households were paying significantly more for everyday goods than comparable economies, yet the structural reasons behind this price disparity were buried in economic reports that ordinary people never read. The data existed. The accessible explanation did not.",
-    "role": "I built an interactive data investigation exploring the economic forces driving Sri Lanka's cost of living gap. The piece translates complex macroeconomic factors, trade policy, import dependency, currency depreciation, into a visual narrative accessible to a general audience.",
-    "outcome": "The aim is to put important policy context directly in the hands of the public, making a structural economic argument without requiring the reader to have an economics background.",
-    "link": "#",
-    "status": "Active Development",
-    "tags": [
-      "Civic & Public",
-      "Data Driven Experiences"
-    ],
-    "thumbnail": "projects/why-sri-lanka-pays-more/assets/WhySriLankaPaysMore_Thumb.webp",
-    "date": "ACTIVE",
-    "color": "#334155"
   }
 ]

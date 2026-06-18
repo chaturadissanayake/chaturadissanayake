@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road Remains | Chatura Dissanayake</title>
+    <meta name="description" content="Case study: Road Remains. A browser-based game that teaches voters how elections actually work.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preload" as="style" href="/style.css">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://unpkg.com/lucide@0.292.0" defer></script>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="manifest" href="/assets/site.webmanifest">
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="scroll-progress-bar" id="scroll-progress" aria-hidden="true"></div>
+
+<noscript>
+    <style>
+        body.loading { overflow: auto; }
+        .media-item img { opacity: 1 !important; }
+    </style>
+</noscript>
+
+<header class="main-header scrolled" id="main-header">
+    <div class="nav-inner">
+        <a href="../../index.html" class="nav-logo" aria-label="Chatura Dissanayake Home">
+            <span class="brand-wordmark">Chatura Dissanayake</span>
+        </a>
+        <nav class="desktop-nav" role="navigation" aria-label="Primary">
+            <a href="../../index.html#projects"       class="nav-link">Work</a>
+            <a href="../../index.html#about"          class="nav-link">About</a>
+            <a href="../../index.html#services"       class="nav-link">Services</a>
+            <a href="../../index.html#insights"     class="nav-link">Writing</a>
+            <a href="../../index.html#visualisations" class="nav-link">Visualisations</a>
+        </nav>
+        <div class="nav-actions">
+            <a href="../../index.html#contact" class="nav-cta">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
+            <button type="button" class="hamburger-btn" id="mobile-nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav-menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation" style="z-index: 999 !important;">
+    <nav class="mobile-nav-links">
+        <a href="../../index.html#projects"       class="mobile-link">Work</a>
+        <a href="../../index.html#about"          class="mobile-link">About</a>
+        <a href="../../index.html#services"       class="mobile-link">Services</a>
+        <a href="../../index.html#insights"     class="mobile-link">Writing</a>
+        <a href="../../index.html#visualisations" class="mobile-link">Visualisations</a>
+        <a href="../../index.html#contact"        class="mobile-link mobile-cta">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
+    </nav>
+    <div class="mobile-menu-footer">
+        <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/chaturadissanayake"      target="_blank" rel="noopener">GitHub</a>
+        <a href="https://consultchatura.medium.com"          target="_blank" rel="noopener">Medium</a>
+        <a href="https://rss.app/feeds/1QjFWlxkKTZLVQd7.xml" target="_blank" rel="noopener">RSS</a>
+        <a href="../../privacy.html">Privacy Policy</a>
+    </div>
+</div>
+
+<main id="main-content">
+    <div class="site-wrapper">
+        
+        <header class="project-header">
+            <h1>Road Remains</h1>
+            <p class="subtitle">A browser-based game that teaches voters how elections actually work.</p>
+        </header>
+
+        <div class="controls-row">
+            <div class="tags-col">
+                <span class="tag">Civic &amp; Public</span>
+                <span class="tag">Digital Experiences</span>
+            </div>
+            <div class="btn-wrapper">
+                <button class="about-btn"
+                        id="sidebar-toggle-desktop"
+                        aria-expanded="true"
+                        aria-controls="sidebarWrap"
+                        onclick="toggleSidebar()">
+                    <span class="btn-label">About the project</span>
+                    <span class="toggle-icon" aria-hidden="true">+</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="layout-grid" id="mainLayout">
+            
+            <div class="media-col">
+                <div class="media-grid">
+
+                    <div class="media-item full-width">
+                        <img src="assets/main_menu_screen.webp"
+                             alt="Road Remains Title Screen"
+                             loading="eager"
+                             fetchpriority="high"
+                             width="1200"
+                             height="800">
+                    </div>
+
+                    <div class="media-item">
+                        <img src="assets/location_ui.webp"
+                             alt="Alupotha Town Map Navigation Interface"
+                             loading="lazy"
+                             width="600"
+                             height="600">
+                    </div>
+                    <div class="media-item">
+                        <img src="assets/dialogue_processing.webp"
+                             alt="Dialogue UI at Mudalali's Boutique"
+                             loading="lazy"
+                             width="600"
+                             height="600">
+                    </div>
+
+                    <div class="standard-quote">
+                        &ldquo;The experience rejects didactic instruction, forcing the player to parse systemic accuracy firsthand through raw, unembellished domestic realism.&rdquo;
+                    </div>
+                    
+                    <div class="media-item">
+                        <img src="assets/opening_cinematic.webp"
+                             alt="Opening Cinematic"
+                             loading="lazy"
+                             width="600"
+                             height="600">
+                    </div>
+
+                    <div class="media-item">
+                        <img src="assets/bg_polling_station.webp"
+                             alt="Polling Station"
+                             loading="lazy"
+                             width="600"
+                             height="600">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="sidebar-wrap" id="sidebarWrap">
+                <div class="text-col-inner">
+                    
+                    <div class="project-description">
+                        <p>Civic education about elections almost always fails the people who need it most. Young voters, first-timers, and anyone who finds official materials dry or confusing are often left behind. A pamphlet telling people how democracy works is simply not enough. People learn by doing.</p>
+                        
+                        <p>I am building a browser-based game that teaches voters how elections actually work. The experience covers the logic of constituency systems, how to evaluate candidates, and what democratic choice looks like in practice. It is an accessible, scenario-based approach to learning.</p>
+                        
+                        <p>The aim is to reach young voters and first-timers through schools and civil society organisations. We want to meet people where they already are rather than expecting them to seek out the information on their own. The project focuses on practical understanding rather than theoretical lecturing.</p>
+
+                        <p>The game is set in the fictional Sri Lankan village of Alupotha. Players step into the shoes of different community members to navigate town layouts, verify circulating rumors, and see the real consequences of their choices. If they share false information, they witness the immediate impact on their neighbors.</p>
+                        
+                        <p>Visually, the experience is grounded in raw domestic realism. Every visual decision prioritizes clarity, making complex civic processes easy to grasp. For a comprehensive breakdown of the mechanics, state architecture, and visual progress, you can review the full <a href="https://chaturadissanayake.github.io/roadremainsgdd/" target="_blank" rel="noopener" style="text-decoration: underline;">Game Design Document</a>.</p>
+                    </div>
+
+                    <div class="meta-section">
+                        <div class="meta-grid">
+                            <div class="meta-item">
+                                <div class="meta-label">Client</div>
+                                <div class="meta-value">Independent Initiative</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Office</div>
+                                <div class="meta-value">Homebased</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Sector</div>
+                                <div class="meta-value">Civic &amp; Public</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Discipline</div>
+                                <div class="meta-value">Digital Experiences</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Project team</div>
+                                <div class="meta-value">Chatura Dissanayake</div>
+                                <div class="meta-value">Imalee Nillekumbura</div>
+                                <div class="meta-value">Praveen Dissanayake</div>
+                                <div class="meta-value">Chameera Dissanayake</div>                                
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Collaborators</div>
+                                <div class="meta-value">Lakshmi Wilfred</div>
+                                <div class="meta-value">Wimal Dissanayake</div>
+                                <div class="meta-value">TBC</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+<section class="next-project-section" id="nextProjectTarget">
+    <!-- Dynamic Next Project injected via app.js -->
+</section>
+
+        <div class="btn-wrapper-mobile" id="mobileFloatBtn">
+            <button class="about-btn"
+                    id="sidebar-toggle-mobile"
+                    aria-expanded="false"
+                    aria-controls="sidebarWrap"
+                    onclick="toggleSidebar()">
+                <span class="btn-label">About the project</span>
+                <span class="toggle-icon" aria-hidden="true">+</span>
+            </button>
+        </div>
+
+    </div>
+</main>
+
+<button id="floating-back-to-top" class="floating-btt" aria-label="Back to top" tabindex="-1">
+    <i data-lucide="arrow-up" aria-hidden="true"></i>
+</button>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h5>Navigate</h5>
+                <a href="#projects">Work</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#insights">Writing</a>
+                <a href="#visualisations">Visualisations</a>
+            </div>
+            <div class="footer-col">
+                <h5>Connect</h5>
+                <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
+                <a href="https://github.com/chaturadissanayake"      target="_blank" rel="noopener">GitHub</a>
+                <a href="https://consultchatura.medium.com" target="_blank" rel="noopener">Medium</a>
+                <a href="https://rss.app/feeds/1QjFWlxkKTZLVQd7.xml" target="_blank" rel="noopener">RSS Feed</a>
+            </div>
+            <div class="footer-col">
+                <h5>Resources &amp; Legal</h5>
+                <a href="assets/Services_Guide.pdf" target="_blank" rel="noopener">Services Guide</a>
+                <a href="assets/Chatura_Dissanayake_CV.pdf" target="_blank" rel="noopener" download>Download CV</a>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom-container">
+            <div class="footer-divider"></div>
+            <div class="footer-bottom-bar">
+                <div class="footer-copyright">
+                    © 2022-2026 Chatura Dissanayake. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+function toggleSidebar() {
+    var sidebar = document.getElementById('sidebarWrap');
+    var desktopBtn = document.getElementById('sidebar-toggle-desktop');
+    var mobileBtn = document.getElementById('sidebar-toggle-mobile');
+    var isMobile = window.innerWidth <= 1024;
+
+    if (isMobile) {
+        var opening = !sidebar.classList.contains('is-open-mobile');
+        sidebar.classList.toggle('is-open-mobile');
+        if (mobileBtn) mobileBtn.setAttribute('aria-expanded', opening ? 'true' : 'false');
+        document.body.style.overflow = opening ? 'hidden' : '';
+    } else {
+        var isCollapsed = sidebar.classList.toggle('is-collapsed');
+        if (desktopBtn) desktopBtn.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+    }
+}
+</script>
+<script src="/app.js" defer></script>
+
+</body>
+</html>
