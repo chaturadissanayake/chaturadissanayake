@@ -232,20 +232,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const projects = await res.json();
 
             projects.sort((a, b) => {
-                const aIsOngoing = !a.link || a.link === '#';
-                const bIsOngoing = !b.link || b.link === '#';
-
-                if (aIsOngoing && !bIsOngoing) return 1;
-                if (!aIsOngoing && bIsOngoing) return -1;
-
                 const dateA = new Date(a.date);
                 const dateB = new Date(b.date);
-
                 if (!isNaN(dateA) && !isNaN(dateB)) {
                     return dateB - dateA;
                 }
-
-                return 0; 
+                return 0;
             });
 
             projWrap.innerHTML = ''; 
@@ -274,9 +266,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         data-tags="${safeTags.join(',')}">
                         <div class="card-inner">
                             <div class="card-image">
-                                <img src="${proj.thumbnail}" alt="${proj.title}" width="800" height="600">
+                                <img src="${proj.thumbnail}" alt="${proj.title}" width="800" height="600" loading="lazy">
                                 <div class="card-overlay">
-                                    <span class="card-open-label">View Case Study <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
+                                    <span class="card-open-label">View Details <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -305,11 +297,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (parent) parent.classList.add('shimmer-complete');
                 };
 
+                const handleError = () => {
+                    img.style.display = 'none';
+                    const parent = img.closest('.card-image');
+                    if (parent) {
+                        parent.classList.add('shimmer-complete', 'image-failed');
+                        parent.insertAdjacentHTML('afterbegin', '<div class="fallback-img">Asset Unavailable</div>');
+                    }
+                };
+
                 if (img.complete && img.naturalHeight !== 0) {
                     handleLoad();
+                } else if (img.complete && img.naturalHeight === 0) {
+                    handleError();
                 } else {
                     img.addEventListener('load', handleLoad);
-                    img.addEventListener('error', handleLoad);
+                    img.addEventListener('error', handleError);
                 }
             });
 
@@ -402,7 +405,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: { 'Accept': 'application/json' }
                 });
                 if (res.ok) {
-                    contactForm.innerHTML = '<div class="form-status success" style="font-size: 1.125rem; font-weight: 500; text-align: center; padding: 2rem; color: var(--ink);">Message sent. I\'ll be in touch soon.</div>';
+                    contactForm.innerHTML = '<div class="form-status success" style="font-size: 1rem; font-weight: 500; text-align: center; padding: 2.5rem 1rem; color: var(--ink); line-height: 1.6;">Message received.<br><span style="display: block; margin-top: 8px; font-weight: 400; font-size: 0.875rem; color: var(--ink-muted);">I\'ll follow up within 1–2 business days.</span></div>';
                 } else {
                     throw new Error('server');
                 }
@@ -638,7 +641,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
         if (!motionQuery.matches) {
-            setInterval(cycleWords, 3500);
+            setInterval(cycleWords, 5000);
         }
 
     }
