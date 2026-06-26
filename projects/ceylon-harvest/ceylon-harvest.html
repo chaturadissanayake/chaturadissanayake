@@ -12,6 +12,34 @@
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"></noscript>
     <link rel="preload" as="style" href="/style.css">
     <link rel="stylesheet" href="/style.css">
+<style>
+    /* ── Project page: prose link style ── */
+    .project-description a,
+    .project-description a:visited {
+        color: var(--accent);
+        text-decoration: underline;
+        text-decoration-color: var(--accent);
+        text-underline-offset: 3px;
+        text-decoration-thickness: 1px;
+        transition: opacity 0.15s ease;
+    }
+    .project-description a:hover {
+        opacity: 0.6;
+        text-decoration-color: transparent;
+    }
+    /* ── Image fade-in ── */
+    .media-item img {
+        opacity: 0;
+        transition: opacity 0.45s ease;
+    }
+    .media-item img.img-loaded {
+        opacity: 1;
+    }
+    /* ── Quote refinement ── */
+    .standard-quote {
+        font-style: italic;
+    }
+</style>
     <script src="https://unpkg.com/lucide@0.292.0" defer></script>
     
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
@@ -124,7 +152,8 @@
                              loading="eager"
                              fetchpriority="high"
                              width="1200"
-                             height="800">
+                             height="800"
+                             onload="this.classList.add('img-loaded')">
                     </div>
 
                     <div class="media-item">
@@ -132,14 +161,16 @@
                              alt="Anatomy of the Botanical Mark detailing trace ingredients"
                              loading="lazy"
                              width="600"
-                             height="600">
+                             height="600"
+                             onload="this.classList.add('img-loaded')">
                     </div>
                     <div class="media-item">
                         <img src="assets/03_Brand_Pattern.webp"
                              alt="Ceylon Harvest Co. Seamless Brand Pattern"
                              loading="lazy"
                              width="600"
-                             height="600">
+                             height="600"
+                             onload="this.classList.add('img-loaded')">
                     </div>
 
                     <div class="standard-quote">
@@ -151,14 +182,16 @@
                              alt="Typographic Hierarchy showcasing Baskerville and Poppins"
                              loading="lazy"
                              width="600"
-                             height="600">
+                             height="600"
+                             onload="this.classList.add('img-loaded')">
                     </div>
                     <div class="media-item">
                         <img src="assets/09_Color_Palette.webp"
                              alt="Extracted from the Earth colour palette"
                              loading="lazy"
                              width="600"
-                             height="600">
+                             height="600"
+                             onload="this.classList.add('img-loaded')">
                     </div>
 
                     <div class="media-item">
@@ -166,14 +199,16 @@
                              alt="Live Long Rich final brand seals"
                              loading="lazy"
                              width="600"
-                             height="600">
+                             height="600"
+                             onload="this.classList.add('img-loaded')">
                     </div>
                     <div class="media-item">
                         <img src="assets/Wooden_Stamp_Mockup.webp"
                              alt="Ceylon Harvest Co. brand seal as a wooden stamp on paper"
                              loading="lazy"
                              width="600"
-                             height="600">
+                             height="600"
+                             onload="this.classList.add('img-loaded')">
                     </div>
 
                     <div class="media-item full-width">
@@ -181,7 +216,8 @@
                              alt="Ceylon Harvest Co. Cardamom paper tube packaging with gold lid"
                              loading="lazy"
                              width="1200"
-                             height="800">
+                             height="800"
+                             onload="this.classList.add('img-loaded')">
                     </div>
 
                     <div class="media-item">
@@ -189,14 +225,16 @@
                              alt="Ceylon Harvest Co. Cardamom paper tube standing"
                              loading="lazy"
                              width="600"
-                             height="600">
+                             height="600"
+                             onload="this.classList.add('img-loaded')">
                     </div>
                     <div class="media-item">
                         <img src="assets/Doypack_Mockup_1.webp"
                              alt="Ceylon Harvest Co. Pure Tea kraft doypack"
                              loading="lazy"
                              width="600"
-                             height="600">
+                             height="600"
+                             onload="this.classList.add('img-loaded')">
                     </div>
 
                     <div class="media-item">
@@ -204,14 +242,16 @@
                              alt="Ceylon Harvest Co. folded hang tag in sage green"
                              loading="lazy"
                              width="600"
-                             height="600">
+                             height="600"
+                             onload="this.classList.add('img-loaded')">
                     </div>
                     <div class="media-item">
                         <img src="assets/Square_Sticker_Mockup_1.webp"
                              alt="Ceylon Harvest Co. delivery seal sticker on branded tissue paper"
                              loading="lazy"
                              width="600"
-                             height="600">
+                             height="600"
+                             onload="this.classList.add('img-loaded')">
                     </div>
 
                     <div class="media-item full-width">
@@ -219,7 +259,8 @@
                              alt="Ceylon Harvest Co. natural canvas tote bag with botanical pattern"
                              loading="lazy"
                              width="1200"
-                             height="800">
+                             height="800"
+                             onload="this.classList.add('img-loaded')">
                     </div>
 
                 </div>
@@ -317,9 +358,9 @@
             </div>
             <div class="footer-col">
                 <p class="footer-title">Resources &amp; Legal</p>
-                <a href="assets/Services_Guide.pdf" target="_blank" rel="noopener">Services Guide</a>
-                <a href="assets/Chatura_Dissanayake_CV.pdf" target="_blank" rel="noopener" download>Download CV</a>
-                <a href="privacy.html">Privacy Policy</a>
+                <a href="/assets/Services_Guide.pdf" target="_blank" rel="noopener">Services Guide</a>
+                <a href="/assets/Chatura_Dissanayake_CV.pdf" target="_blank" rel="noopener" download>Download CV</a>
+                <a href="/privacy.html">Privacy Policy</a>
             </div>
         </div>
         <div class="footer-bottom-container">
