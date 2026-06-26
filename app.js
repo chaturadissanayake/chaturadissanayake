@@ -64,14 +64,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const sections  = document.querySelectorAll('section[id]');
-    const navLinks  = document.querySelectorAll('.nav-link[data-section]');
+    const navLinks  = document.querySelectorAll('.nav-link[data-section], .mobile-link[data-section]');
 
     let isNavTicking = false;
+    let sectionOffsets = [];
+    const cacheOffsets = () => {
+        sectionOffsets = Array.from(sections).map(s => ({ id: s.id, top: s.offsetTop }));
+    };
+    window.addEventListener('resize', cacheOffsets);
+    cacheOffsets();
+
     const activateNav = () => {
         let current = '';
         const scrollPos = window.scrollY;
-        sections.forEach(s => {
-            if (scrollPos >= s.offsetTop - 120) current = s.id;
+        sectionOffsets.forEach(s => {
+            if (scrollPos >= s.top - 120) current = s.id;
         });
         navLinks.forEach(l => {
             l.classList.toggle('active', l.getAttribute('data-section') === current);
@@ -231,19 +238,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
             const projects = await res.json();
 
-            projects.sort((a, b) => {
-                const dateA = new Date(a.date);
-                const dateB = new Date(b.date);
-                if (!isNaN(dateA) && !isNaN(dateB)) {
-                    return dateB - dateA;
-                }
-                return 0;
-            });
-
             projWrap.innerHTML = ''; 
             const categories = new Set();
             
-            projects.forEach(proj => {
+            projects.forEach((proj, index) => {
                 if (proj.category) categories.add(proj.category);
                 
                 const safeTags = proj.tags || [];
@@ -254,8 +252,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     ? safeChallenge.substring(0, 120) + '...' 
                     : safeChallenge;
 
+                const loadingAttr = index === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
+
                 const cardHTML = `
-                    <article class="project-card project-trigger" 
+                    <div class="project-card project-trigger" 
                         data-category="${proj.category}"
                         data-title="${proj.title}"
                         data-challenge="${proj.challenge}"
@@ -266,7 +266,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         data-tags="${safeTags.join(',')}">
                         <div class="card-inner">
                             <div class="card-image">
-                                <img src="${proj.thumbnail}" alt="${proj.title}" width="800" height="600" loading="lazy">
+                                <img src="${proj.thumbnail}" alt="${proj.title}" width="800" height="600" ${loadingAttr}>
                                 <div class="card-overlay">
                                     <span class="card-open-label">View Details <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                                 </div>
@@ -283,7 +283,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <div class="card-tags">${tagsHTML}</div>
                             </div>
                         </div>
-                    </article>
+                    </div>
                 `;
                 projWrap.insertAdjacentHTML('beforeend', cardHTML);
             });
@@ -304,6 +304,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         parent.classList.add('shimmer-complete', 'image-failed');
                         parent.insertAdjacentHTML('afterbegin', '<div class="fallback-img">Asset Unavailable</div>');
                     }
+                    const card = img.closest('.project-card');
+                    if (card) card.style.order = '99';
                 };
 
                 if (img.complete && img.naturalHeight !== 0) {
@@ -410,7 +412,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     throw new Error('server');
                 }
             } catch {
-                formStatus.textContent = 'Message not sent — something went wrong. Try again or email directly at consultchatura@gmail.com';
+                formStatus.textContent = 'Message not sent, something went wrong. Try again or email directly at consultchatura@gmail.com';
                 formStatus.classList.add('error');
             } finally {
                 if (document.contains(formSubmitBtn)) {
@@ -554,24 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.key === 'ArrowRight') vizTrack.scrollBy({ left: scrollAmt(), behavior: 'smooth' });
             if (e.key === 'ArrowLeft')  vizTrack.scrollBy({ left: -scrollAmt(), behavior: 'smooth' });
         });
-
-        const vizCounter = document.getElementById('viz-counter');
-        if (vizCounter) {
-            const syncCounter = () => {
-                const items = vizTrack.querySelectorAll('.viz-item');
-                if (!items.length) return;
-                const itemW = items[0].offsetWidth + 20;
-                const activeIdx = Math.min(
-                    Math.round(vizTrack.scrollLeft / itemW),
-                    items.length - 1
-                );
-                vizCounter.textContent = `${activeIdx + 1} / ${items.length}`;
-            };
-            vizTrack.addEventListener('scroll', syncCounter, { passive: true });
-            syncCounter();
-        }
     }
-
     const lightboxModal  = document.getElementById('lightbox-modal');
     const lightboxImg    = document.getElementById('lightbox-image');
     const lightboxClose  = lightboxModal?.querySelector('.lightbox-close');
@@ -579,6 +564,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const lightboxNext   = document.getElementById('lightbox-next');
     const vizTriggers    = Array.from(document.querySelectorAll('.viz-lightbox-trigger'));
     let lightboxIdx      = 0;
+
+    const trapLightboxFocus = e => {
+        if (lightboxModal.style.display !== 'flex') return;
+        const focusable = [...lightboxModal.querySelectorAll(focusableSelectors)];
+        const first = focusable[0], last = focusable[focusable.length - 1];
+        if (e.key === 'Tab') {
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+    };
 
     const openLightboxAt = (idx) => {
         if (!lightboxModal || !vizTriggers[idx]) return;
@@ -590,12 +585,24 @@ document.addEventListener('DOMContentLoaded', () => {
             lightboxImg.alt = src.alt || '';
         }
         lightboxModal.style.display = 'flex';
+        lightboxModal.addEventListener('keydown', trapLightboxFocus);
+        
+        document.getElementById('main-content')?.setAttribute('aria-hidden', 'true');
+        document.getElementById('main-header')?.setAttribute('aria-hidden', 'true');
+        
         lightboxClose?.focus();
     };
 
     const closeLightbox = () => {
-        if (lightboxModal) lightboxModal.style.display = 'none';
+        if (lightboxModal) {
+            lightboxModal.style.display = 'none';
+            lightboxModal.removeEventListener('keydown', trapLightboxFocus);
+        }
         if (lightboxImg)   { lightboxImg.src = ''; lightboxImg.alt = ''; }
+        
+        document.getElementById('main-content')?.removeAttribute('aria-hidden');
+        document.getElementById('main-header')?.removeAttribute('aria-hidden');
+        
         if (lastFocusedElement) lastFocusedElement.focus();
     };
 

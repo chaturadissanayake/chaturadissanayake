@@ -17,23 +17,6 @@
     "color": "#ea580c"
   },
   {
-    "id": "why-sri-lanka-pays-more",
-    "category": "Data Driven Experiences",
-    "title": "Why Sri Lanka Pays More",
-    "challenge": "Sri Lankan households were paying significantly more for everyday goods than comparable economies, yet the structural reasons behind this price disparity were buried in economic reports that ordinary people never read. The data existed. The accessible explanation did not.",
-    "role": "I built an interactive data investigation exploring the economic forces driving Sri Lanka's cost of living gap. The piece translates complex macroeconomic factors, trade policy, import dependency, currency depreciation, into a visual narrative accessible to a general audience.",
-    "outcome": "The aim is to put important policy context directly in the hands of the public, making a structural economic argument without requiring the reader to have an economics background.",
-    "link": "https://chaturadissanayake.github.io/whysrilankapaysmore/",
-    "status": "Active Development",
-    "tags": [
-      "Civic & Public",
-      "Data Driven Experiences"
-    ],
-    "thumbnail": "projects/why-sri-lanka-pays-more/assets/WhySriLankaPaysMore_Thumb.webp",
-    "date": "Active Development",
-    "color": "#334155"
-  },
-  {
     "id": "ceylon-harvest",
     "category": "Brand Identity",
     "title": "Ceylon Harvest Co.",
@@ -185,5 +168,22 @@
     "thumbnail": "projects/project-ycli/assets/YCLI_Thumb.webp",
     "date": "2021-2022",
     "color": "#0369a1"
+  },
+  {
+    "id": "why-sri-lanka-pays-more",
+    "category": "Data Driven Experiences",
+    "title": "Why Sri Lanka Pays More",
+    "challenge": "Sri Lankan households were paying significantly more for everyday goods than comparable economies, yet the structural reasons behind this price disparity were buried in economic reports that ordinary people never read. The data existed. The accessible explanation did not.",
+    "role": "I built an interactive data investigation exploring the economic forces driving Sri Lanka's cost of living gap. The piece translates complex macroeconomic factors, trade policy, import dependency, currency depreciation, into a visual narrative accessible to a general audience.",
+    "outcome": "The aim is to put important policy context directly in the hands of the public, making a structural economic argument without requiring the reader to have an economics background.",
+    "link": "https://chaturadissanayake.github.io/whysrilankapaysmore/",
+    "status": "Active Development",
+    "tags": [
+      "Civic & Public",
+      "Data Driven Experiences"
+    ],
+    "thumbnail": "projects/why-sri-lanka-pays-more/assets/WhySriLankaPaysMore_Thumb.webp",
+    "date": "Active Development",
+    "color": "#334155"
   }
 ]
