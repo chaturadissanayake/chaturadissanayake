@@ -167,11 +167,18 @@
                 <p class="section-eyebrow">Selected Work</p>
                 <h2 class="section-title">Projects</h2>
             </div>
-            <div class="projects-controls-right" style="width: 100%;">
-                <div class="filter-group-wrapper">
-<div class="filter-group" id="dynamic-filter-group" role="group" aria-label="Filter projects">
-                        </div>
-                </div>
+            <div class="projects-controls-right">
+                <div class="filter-bar" id="filter-bar">
+                    <button type="button" class="filter-nav-btn filter-nav-prev" id="filter-scroll-prev" aria-label="Scroll filters left" hidden>
+                        <i data-lucide="chevron-left" aria-hidden="true"></i>
+                    </button>
+                    <div class="filter-group-wrapper" id="filter-group-wrapper">
+                        <div class="filter-group" id="dynamic-filter-group" role="group" aria-label="Filter projects"></div>
+                    </div>
+                    <button type="button" class="filter-nav-btn filter-nav-next" id="filter-scroll-next" aria-label="Scroll filters right" hidden>
+                        <i data-lucide="chevron-right" aria-hidden="true"></i>
+                    </button>
+                </div>  
             </div>
         </div>
 
@@ -182,8 +189,10 @@
         <div id="filter-announcer" aria-live="polite" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;"></div>
         <div id="no-projects-msg" class="empty-msg" style="display:none">No matching projects found.</div>
             
-        <div style="text-align: center; margin-top: var(--space-8);">
-            <button id="expand-projects-btn" class="show-more-btn" style="display: none; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.75rem; font-weight: 600;">VIEW ALL WORK</button>
+        <div class="expand-action-wrapper">
+            <button id="expand-projects-btn" class="show-more-btn" style="display: none;">
+                <span class="btn-label">View all work</span><i data-lucide="chevron-down" aria-hidden="true" style="width:16px;height:16px;"></i>
+            </button>
         </div>
     </div>
 </section>

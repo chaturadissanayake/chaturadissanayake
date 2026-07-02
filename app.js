@@ -7,10 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     initIcons();
 
-    // Dynamically check OS-level motion preference
     const getScrollBehavior = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 
-    // Universal anchor routing for cross-page navigation
     document.addEventListener('click', e => {
         const anchor = e.target.closest('a[href^="/#"]');
         if (anchor && !anchor.classList.contains('mobile-link')) {
@@ -24,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Context menu override removed to respect native OS behaviors
 
     const removeLoadingState = () => {
         document.body.classList.remove('loading');
@@ -60,14 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const onGlobalScroll = () => {
         const scrollPos = window.scrollY;
         
-        // 1. Progress Bar
         if (progressBar) {
             const docHeight = document.documentElement.scrollHeight - window.innerHeight;
             const pct = docHeight > 0 ? (scrollPos / docHeight) : 0;
             progressBar.style.transform = `scaleX(${pct})`;
         }
 
-        // 2. Header & Floating Button
         if (header) header.classList.toggle('scrolled', scrollPos > 40 || headerForceScrolled);
         if (floatBtt) {
             if (scrollPos > 400) {
@@ -79,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // 3. Scrollspy (Active Nav)
         let current = '';
         sectionOffsets.forEach(s => {
             if (scrollPos >= s.top - 120) current = s.id;
@@ -99,12 +93,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, { passive: true });
     
-    onGlobalScroll(); // Init
+    onGlobalScroll();
 
     const mobileToggle = document.getElementById('mobile-nav-toggle');
     const mobileMenu   = document.getElementById('mobile-nav-menu');
 
-    // Mobile Menu Focus Trap
     const trapMobileFocus = e => {
         if (!mobileMenu.classList.contains('is-active')) return;
         const focusable = [...mobileMenu.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])')];
@@ -178,8 +171,117 @@ document.addEventListener('DOMContentLoaded', () => {
     const projWrap = document.getElementById('projects-container');
     const noProjMsg = document.getElementById('no-projects-msg');
     const filterGroup = document.getElementById('dynamic-filter-group');
+    const filterGroupWrapper = document.getElementById('filter-group-wrapper');
+    const filterScrollPrev = document.getElementById('filter-scroll-prev');
+    const filterScrollNext = document.getElementById('filter-scroll-next');
+    const filterDropdown = document.getElementById('filter-dropdown');
+    const filterDropdownTrigger = document.getElementById('filter-dropdown-trigger');
+    const filterDropdownLabel = document.getElementById('filter-dropdown-label');
+    const filterDropdownMenu = document.getElementById('filter-dropdown-menu');
     let currentFilter = 'all';
     let allProjCards = [];
+
+    const updateFilterScrollUI = () => {
+        if (!filterGroup || !filterGroupWrapper) return;
+        const maxScroll = filterGroup.scrollWidth - filterGroup.clientWidth;
+        const canLeft = filterGroup.scrollLeft > 4;
+        const canRight = filterGroup.scrollLeft < maxScroll - 4;
+        if (filterScrollPrev) filterScrollPrev.hidden = !canLeft;
+        if (filterScrollNext) filterScrollNext.hidden = !canRight;
+        filterGroupWrapper.classList.toggle('can-scroll-left', canLeft);
+        filterGroupWrapper.classList.toggle('can-scroll-right', canRight);
+    };
+
+    if (filterGroup) {
+        filterGroup.addEventListener('scroll', updateFilterScrollUI, { passive: true });
+        filterGroup.addEventListener('wheel', e => {
+            if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+            e.preventDefault();
+            filterGroup.scrollLeft += e.deltaY;
+        }, { passive: false });
+
+        let dragState = null;
+        filterGroup.addEventListener('pointerdown', e => {
+            if (e.pointerType === 'touch') return;
+            dragState = { startX: e.clientX, startScroll: filterGroup.scrollLeft, moved: false };
+            filterGroup.classList.add('is-dragging');
+        });
+        document.addEventListener('pointermove', e => {
+            if (!dragState) return;
+            const delta = e.clientX - dragState.startX;
+            // Increased threshold to 8px to prevent accidental click-cancellations on sensitive mice
+            if (Math.abs(delta) > 8) dragState.moved = true; 
+            filterGroup.scrollLeft = dragState.startScroll - delta;
+        });
+        const endDrag = e => {
+            if (!dragState) return;
+            if (dragState.moved) {
+                const suppressClick = ev => { ev.stopPropagation(); filterGroup.removeEventListener('click', suppressClick, true); };
+                filterGroup.addEventListener('click', suppressClick, true);
+            }
+            dragState = null;
+            filterGroup.classList.remove('is-dragging');
+        };
+        document.addEventListener('pointerup', endDrag);
+        document.addEventListener('pointercancel', endDrag);
+    }
+
+    window.addEventListener('resize', () => {
+        clearTimeout(window.__filterScrollResizeTimer);
+        window.__filterScrollResizeTimer = setTimeout(updateFilterScrollUI, 150);
+    });
+
+    const closeFilterDropdown = () => {
+        if (!filterDropdown) return;
+        filterDropdown.classList.remove('is-open');
+        if (filterDropdownTrigger) filterDropdownTrigger.setAttribute('aria-expanded', 'false');
+    };
+
+    const openFilterDropdown = () => {
+        if (!filterDropdown) return;
+        filterDropdown.classList.add('is-open');
+        if (filterDropdownTrigger) filterDropdownTrigger.setAttribute('aria-expanded', 'true');
+    };
+
+    if (filterDropdownTrigger) {
+        filterDropdownTrigger.addEventListener('click', () => {
+            if (filterDropdown.classList.contains('is-open')) closeFilterDropdown();
+            else openFilterDropdown();
+        });
+    }
+
+    document.addEventListener('click', e => {
+        if (!filterDropdown || !filterDropdown.classList.contains('is-open')) return;
+        if (!filterDropdown.contains(e.target)) closeFilterDropdown();
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && filterDropdown?.classList.contains('is-open')) {
+            closeFilterDropdown();
+            filterDropdownTrigger?.focus();
+        }
+    });
+
+    if (filterScrollPrev) {
+        filterScrollPrev.addEventListener('click', () => {
+            filterGroup.scrollBy({ left: -220, behavior: getScrollBehavior() });
+        });
+    }
+    if (filterScrollNext) {
+        filterScrollNext.addEventListener('click', () => {
+            filterGroup.scrollBy({ left: 220, behavior: getScrollBehavior() });
+        });
+    }
+
+    const updateCardTagOverflow = () => {
+        document.querySelectorAll('.card-tags').forEach(el => {
+            el.classList.toggle('no-overflow', el.scrollWidth <= el.clientWidth + 1);
+        });
+    };
+    window.addEventListener('resize', () => {
+        clearTimeout(window.__cardTagResizeTimer);
+        window.__cardTagResizeTimer = setTimeout(updateCardTagOverflow, 150);
+    });
 
     const applyProjectFilter = () => {
         let count = 0; let visibleCount = 0;
@@ -189,9 +291,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const maxCards = isMobile ? 3 : 6;
 
         allProjCards.forEach(card => {
-            const cardTags = card.getAttribute('data-tags') || '';
-            const matches = currentFilter === 'all' || cardTags.includes(currentFilter);
-            
+            const cardTagList = (card.getAttribute('data-tags') || '').split(',').map(t => t.trim()).filter(Boolean);
+            const matches = currentFilter === 'all' || cardTagList.includes(currentFilter);
+
             card.classList.remove('mobile-hidden', 'capped-hidden');
 
             if (matches) {
@@ -205,15 +307,23 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 card.style.display = 'none';
             }
+
+            card.querySelectorAll('.card-tag-btn').forEach(tagBtn => {
+                const isActiveTag = tagBtn.getAttribute('data-tag') === currentFilter;
+                tagBtn.classList.toggle('is-active', isActiveTag);
+                tagBtn.setAttribute('aria-pressed', String(isActiveTag));
+            });
         });
         if (noProjMsg) noProjMsg.style.display = count === 0 ? 'block' : 'none';
         const announcer = document.getElementById('filter-announcer');
         if (announcer) announcer.textContent = `Showing ${visibleCount} projects.`;
-        
+
         if (expandBtn) {
             if (currentFilter === 'all' && count > maxCards) {
                 expandBtn.style.display = 'inline-flex';
-                expandBtn.innerHTML = isExpanded ? 'SHOW LESS <i data-lucide="chevron-up" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i>' : 'VIEW ALL WORK';
+                expandBtn.innerHTML = isExpanded
+                    ? '<span class="btn-label">Show less</span><i data-lucide="chevron-up" aria-hidden="true" style="width:16px;height:16px;"></i>'
+                    : '<span class="btn-label">View all work</span><i data-lucide="chevron-down" aria-hidden="true" style="width:16px;height:16px;"></i>';
                 if (window.lucide) lucide.createIcons({ root: expandBtn });
             } else {
                 expandBtn.style.display = 'none';
@@ -250,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
             projects.forEach((proj, index) => {
                 const safeTags = proj.tags || [];
                 safeTags.forEach(tag => allTags.add(tag));
-                const tagsHTML = safeTags.map(tag => `<button type="button" class="card-tag-btn" data-tag="${tag}">${tag}</button>`).join('');
+                const tagsHTML = safeTags.map(tag => `<button type="button" class="card-tag-btn" data-tag="${tag}" aria-pressed="false" aria-label="Filter projects by ${tag}">${tag}</button>`).join('');
                 
                 const safeChallenge = proj.challenge || '';
                 const descSnippet = safeChallenge.length > 120 
@@ -259,13 +369,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const loadingAttr = index === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
 
-                // Absolute URL resolution for native navigation
-                const isExternal = proj.link.startsWith('http');
-                const finalHref = isExternal ? proj.link : `/${proj.link.replace(/^\//, '')}`;
+                const safeLink = proj.link || '#';
+                const isExternal = safeLink.startsWith('http');
+                const finalHref = isExternal ? safeLink : `/${safeLink.replace(/^\//, '')}`;
                 const externalAttr = isExternal ? `target="_blank" rel="noopener"` : '';
 
                 const cardHTML = `
-                    <div class="project-card card-interactive" data-tags="${safeTags.join(',')}">
+                    <div class="project-card card-interactive" data-tags="${safeTags.join(',')}" data-title="${proj.title || ''}" data-challenge="${proj.challenge || ''}" data-role="${proj.role || ''}" data-outcome="${proj.outcome || ''}" data-link="${finalHref}" data-status="${proj.status || ''}">
                         <a href="${finalHref}" ${externalAttr} class="card-hitbox" aria-label="View Project: ${proj.title}"></a>
                         <div class="card-inner">
                             <div class="card-image">
@@ -321,68 +431,121 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // Restore filter state from sessionStorage (UX Polish)
-            currentFilter = sessionStorage.getItem('activeProjectFilter') || 'all';
+            const storedFilter = sessionStorage.getItem('activeProjectFilter');
+            currentFilter = (storedFilter === 'all' || allTags.has(storedFilter)) ? storedFilter : 'all';
 
-            if (filterGroup) {
-                let filterHTML = `<button type="button" class="filter-pill ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">All Work</button>`;
-                allTags.forEach(tag => {
-                    filterHTML += `<button type="button" class="filter-pill ${currentFilter === tag ? 'active' : ''}" data-filter="${tag}">${tag}</button>`;
+            const filterOptions = [{ value: 'all', label: 'All Work' }];
+            allTags.forEach(tag => filterOptions.push({ value: tag, label: tag }));
+
+            const setActiveFilter = (value, { scrollToProjects = false } = {}) => {
+                currentFilter = value;
+                sessionStorage.setItem('activeProjectFilter', currentFilter);
+
+                document.querySelectorAll('.filter-pill').forEach(b => {
+                    const isActive = b.getAttribute('data-filter') === value;
+                    b.classList.toggle('active', isActive);
+                    b.setAttribute('aria-pressed', String(isActive));
                 });
-                filterGroup.innerHTML = filterHTML;
 
-                const filterBtns = document.querySelectorAll('.filter-pill');
-                filterBtns.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        filterBtns.forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        currentFilter = btn.getAttribute('data-filter');
-                        sessionStorage.setItem('activeProjectFilter', currentFilter); // Persist state
-                        applyProjectFilter();
-                    });
+                document.querySelectorAll('.filter-dropdown-option').forEach(o => {
+                    const isActive = o.getAttribute('data-filter') === value;
+                    o.classList.toggle('active', isActive);
+                    o.setAttribute('aria-selected', String(isActive));
                 });
-            }
 
-            initIcons(projWrap);
-            
-            // Allow clicking tags inside cards to trigger the main filter
-            projWrap.addEventListener('click', e => {
-                const tagBtn = e.target.closest('.card-tag-btn');
-                if (tagBtn) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    const tag = tagBtn.getAttribute('data-tag');
-                    
-                    // Update top filter pills
-                    document.querySelectorAll('.filter-pill').forEach(b => {
-                        b.classList.toggle('active', b.getAttribute('data-filter') === tag);
-                    });
-                    
-                    currentFilter = tag;
-                    sessionStorage.setItem('activeProjectFilter', currentFilter);
-                    applyProjectFilter();
-                    
-                    // Scroll to top of projects section for context
+                const matched = filterOptions.find(o => o.value === value);
+                if (filterDropdownLabel) filterDropdownLabel.textContent = matched ? matched.label : value;
+
+                applyProjectFilter();
+                requestAnimationFrame(updateFilterScrollUI);
+
+                if (scrollToProjects) {
                     const projectsSection = document.getElementById('projects');
                     if (projectsSection) {
                         const offset = projectsSection.getBoundingClientRect().top + window.scrollY - 80;
                         window.scrollTo({ top: offset, behavior: getScrollBehavior() });
                     }
                 }
+            };
+
+            if (filterGroup) {
+                filterGroup.innerHTML = filterOptions.map(o =>
+                    `<button type="button" class="filter-pill ${currentFilter === o.value ? 'active' : ''}" data-filter="${o.value}" aria-pressed="${currentFilter === o.value}">${o.label}</button>`
+                ).join('');
+
+                filterGroup.addEventListener('click', e => {
+                    const btn = e.target.closest('.filter-pill');
+                    if (!btn || filterGroup.classList.contains('is-dragging')) return;
+                    setActiveFilter(btn.getAttribute('data-filter'));
+                });
+            }
+
+            if (filterDropdownMenu) {
+                filterDropdownMenu.innerHTML = filterOptions.map(o =>
+                    `<button type="button" class="filter-dropdown-option ${currentFilter === o.value ? 'active' : ''}" data-filter="${o.value}" role="option" aria-selected="${currentFilter === o.value}"><span>${o.label}</span><span class="filter-dropdown-option-dot" aria-hidden="true"></span></button>`
+                ).join('');
+                if (filterDropdownLabel) {
+                    const matched = filterOptions.find(o => o.value === currentFilter);
+                    filterDropdownLabel.textContent = matched ? matched.label : 'All Work';
+                }
+
+                filterDropdownMenu.addEventListener('click', e => {
+                    const opt = e.target.closest('.filter-dropdown-option');
+                    if (!opt) return;
+                    setActiveFilter(opt.getAttribute('data-filter'));
+                    closeFilterDropdown();
+                    filterDropdownTrigger?.focus();
+                });
+            }
+
+            requestAnimationFrame(updateFilterScrollUI);
+
+            initIcons(projWrap);
+
+            projWrap.addEventListener('click', e => {
+                const tagBtn = e.target.closest('.card-tag-btn');
+                if (tagBtn) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setActiveFilter(tagBtn.getAttribute('data-tag'), { scrollToProjects: true });
+                    return;
+                }
+
+                const hitbox = e.target.closest('.card-hitbox');
+                const card = hitbox ? hitbox.closest('.project-card') : null;
+                if (card && typeof projectModal !== 'undefined' && projectModal) {
+                    const linkHref = card.getAttribute('data-link') || '';
+                    const isExternalLink = linkHref.startsWith('http');
+                    if (!isExternalLink) {
+                        e.preventDefault();
+                        openModal(card);
+                    }
+                }
             });
 
-            const expandBtn = document.getElementById('expand-projects-btn');
+            requestAnimationFrame(updateCardTagOverflow);
+
+        const expandBtn = document.getElementById('expand-projects-btn');
             if (expandBtn) {
                 expandBtn.addEventListener('click', () => {
                     const isExpanded = expandBtn.classList.toggle('expanded');
-                    applyProjectFilter();
-                    
+
                     if (!isExpanded) {
+                        if (expandBtn.parentElement) expandBtn.parentElement.classList.remove('floating-action-wrapper');
+                        
+                        applyProjectFilter();
+                        requestAnimationFrame(updateCardTagOverflow);
+                        
                         const projectsSection = document.getElementById('projects');
                         if (projectsSection) {
                             const offset = projectsSection.getBoundingClientRect().top + window.scrollY - 80;
-                            window.scrollTo({ top: offset, behavior: getScrollBehavior() });
+                            window.scrollTo({ top: offset, behavior: 'auto' });
                         }
+                    } else {
+                        if (expandBtn.parentElement) expandBtn.parentElement.classList.add('floating-action-wrapper');
+                        
+                        applyProjectFilter();
+                        requestAnimationFrame(updateCardTagOverflow);
                     }
                 });
             }
@@ -525,7 +688,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const panel = projectModal.querySelector('.modal-panel');
             if (panel) panel.scrollTop = 0;
             
-            // Shift accessibility focus directly into the modal
             const closeBtn = document.getElementById('close-project-modal');
             if (closeBtn) closeBtn.focus();
         });
@@ -750,13 +912,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     const res = await fetch('/data/projects.json');
                     if (!res.ok) throw new Error('Failed to load projects');
                     
-                    // Filter out non-case study links (like external URLs or '#')
                     const validProjects = (await res.json()).filter(p => p.link && !p.link.startsWith('http') && p.link !== '#');
 
                     const currentIndex = validProjects.findIndex(p => window.location.pathname.includes(p.id));
 
                     if (currentIndex !== -1) {
-                        // Sequential math with looping
                         const prevIndex = currentIndex === 0 ? validProjects.length - 1 : currentIndex - 1;
                         const nextIndex = currentIndex === validProjects.length - 1 ? 0 : currentIndex + 1;
                         
@@ -795,7 +955,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Cookie Banner Logic
     const cookieBanner = document.getElementById('cookie-banner');
     const acceptBtn = document.getElementById('accept-cookies');
     const declineBtn = document.getElementById('decline-cookies');
