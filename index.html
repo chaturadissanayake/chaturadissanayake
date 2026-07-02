@@ -20,7 +20,10 @@
 
     <link rel="dns-prefetch" href="https://unpkg.com">
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <meta name="theme-color" content="#f4f7f9">
     <link rel="preload" as="image" href="projects/road-remains/assets/VoterEducation_Thumb.webp">
+    <link rel="preload" as="font" href="/assets/fonts/dm-serif-display.woff2" type="font/woff2" crossorigin>
+    <link rel="preload" as="font" href="/assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
     <link rel="preload" as="style" href="/style.css">
     <link rel="stylesheet" href="/style.css">
     <script src="https://unpkg.com/lucide@0.292.0" defer crossorigin="anonymous"></script>
@@ -75,24 +78,24 @@
     }
     </script>
 </head>
-<body>
+<body class="loading">
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="scroll-progress-bar" id="scroll-progress" aria-hidden="true"></div>
 
 <header class="main-header" id="main-header">
     <div class="nav-inner">
-        <a href="#hero" class="nav-logo" aria-label="Chatura Dissanayake Home">
+        <a href="/#hero" class="nav-logo" aria-label="Chatura Dissanayake Home">
             <span class="brand-wordmark">Chatura Dissanayake</span>
         </a>
         <nav class="desktop-nav" role="navigation" aria-label="Primary">
-            <a href="#projects"       class="nav-link" data-section="projects">Work</a>
-            <a href="#about"          class="nav-link" data-section="about">About</a>
-            <a href="#services"       class="nav-link" data-section="services">Services</a>
-            <a href="#insights"       class="nav-link" data-section="insights">Writing</a>
-            <a href="#visualisations" class="nav-link" data-section="visualisations">Visualisations</a>
+            <a href="/#projects"       class="nav-link" data-section="projects">Work</a>
+            <a href="/#about"          class="nav-link" data-section="about">About</a>
+            <a href="/#services"       class="nav-link" data-section="services">Services</a>
+            <a href="/#insights"       class="nav-link" data-section="insights">Writing</a>
+            <a href="/#visualisations" class="nav-link" data-section="visualisations">Visualisations</a>
         </nav>
         <div class="nav-actions">
-            <a href="#contact" class="nav-cta-ghost">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
+            <a href="/#contact" class="nav-cta-ghost">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
             <button type="button" class="hamburger-btn" id="mobile-nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav-menu">
                 <span></span><span></span><span></span>
             </button>
@@ -102,12 +105,12 @@
 
 <div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
     <nav class="mobile-nav-links">
-        <a href="#projects"       class="mobile-link" data-section="projects">Work</a>
-        <a href="#about"          class="mobile-link" data-section="about">About</a>
-        <a href="#services"       class="mobile-link" data-section="services">Services</a>
-        <a href="#insights"       class="mobile-link" data-section="insights">Writing</a>
-        <a href="#visualisations" class="mobile-link" data-section="visualisations">Visualisations</a>
-        <a href="#contact"        class="mobile-link mobile-cta" data-section="contact">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
+        <a href="/#projects"       class="mobile-link" data-section="projects">Work</a>
+        <a href="/#about"          class="mobile-link" data-section="about">About</a>
+        <a href="/#services"       class="mobile-link" data-section="services">Services</a>
+        <a href="/#insights"       class="mobile-link" data-section="insights">Writing</a>
+        <a href="/#visualisations" class="mobile-link" data-section="visualisations">Visualisations</a>
+        <a href="/#contact"        class="mobile-link mobile-cta" data-section="contact">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
     </nav>
     <div class="mobile-menu-footer">
         <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
@@ -132,7 +135,7 @@
                     <div class="hero-line reveal-up" style="--d:150ms;">
                         <span class="hero-static">I help </span>
                         <span class="hero-cycler">
-                            <strong class="hero-emp-1">data stories</strong>
+                            <strong class="hero-emp-1 active">data stories</strong>
                             <strong class="hero-emp-1">policy work</strong>
                         </span>
                     </div>
@@ -173,48 +176,10 @@
         </div>
 
         <div class="projects-wrapper grid-mode" id="projects-container">
-            <div class="skeleton-card">
-                <div class="skeleton-image skeleton-shimmer"></div>
-                <div class="skeleton-body">
-                    <div class="skeleton-meta skeleton-shimmer"></div>
-                    <div class="skeleton-title skeleton-shimmer"></div>
-                    <div class="skeleton-desc skeleton-shimmer"></div>
-                    <div class="skeleton-desc short skeleton-shimmer"></div>
-                    <div class="skeleton-tags">
-                        <div class="skeleton-pill skeleton-shimmer"></div>
-                        <div class="skeleton-pill skeleton-shimmer"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="skeleton-card">
-                <div class="skeleton-image skeleton-shimmer"></div>
-                <div class="skeleton-body">
-                    <div class="skeleton-meta skeleton-shimmer"></div>
-                    <div class="skeleton-title skeleton-shimmer" style="width: 85%;"></div>
-                    <div class="skeleton-desc skeleton-shimmer"></div>
-                    <div class="skeleton-desc short skeleton-shimmer" style="width: 40%;"></div>
-                    <div class="skeleton-tags">
-                        <div class="skeleton-pill skeleton-shimmer"></div>
-                        <div class="skeleton-pill skeleton-shimmer" style="width: 40px;"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="skeleton-card">
-                <div class="skeleton-image skeleton-shimmer"></div>
-                <div class="skeleton-body">
-                    <div class="skeleton-meta skeleton-shimmer"></div>
-                    <div class="skeleton-title skeleton-shimmer" style="width: 60%;"></div>
-                    <div class="skeleton-desc skeleton-shimmer"></div>
-                    <div class="skeleton-desc short skeleton-shimmer" style="width: 70%;"></div>
-                    <div class="skeleton-tags">
-                        <div class="skeleton-pill skeleton-shimmer"></div>
-                        <div class="skeleton-pill skeleton-shimmer"></div>
-                        <div class="skeleton-pill skeleton-shimmer" style="width: 50px;"></div>
-                    </div>
-                </div>
-            </div>
+            <div class="system-message loading-state">Loading Projects...</div>
         </div>
         <div id="loading-indicator" style="text-align: center; color: var(--ink-muted); font-size: 0.875rem; margin-top: var(--space-4); display: none;">Loading projects...</div>
+        <div id="filter-announcer" aria-live="polite" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0;"></div>
         <div id="no-projects-msg" class="empty-msg" style="display:none">No matching projects found.</div>
             
         <div style="text-align: center; margin-top: var(--space-8);">
@@ -410,14 +375,14 @@
                 <div class="card-image">
                     <img src="assets/InsightCycloneDitwah_Thumb.webp" alt="Behind the making of the Cyclone Ditwah data story" loading="lazy" width="800" height="600" onload="this.classList.add('img-loaded'); this.parentElement.classList.add('shimmer-complete');" onerror="this.style.display='none'; this.parentElement.classList.add('shimmer-complete', 'image-failed'); this.parentElement.insertAdjacentHTML('afterbegin', '<div class=\'fallback-img\'>Asset Unavailable</div>');">
                     <div class="card-overlay">
-                        <span class="card-open-label">Read on Medium <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
+                        <span class="card-open-label">Read on Medium<i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                     </div>
                 </div>
                 <div class="insight-body">
                     <div class="insight-meta">PROCESS · 13 MIN READ</div>
                     <h3>I Built a Data Story About Cyclone Ditwah. Here's Every Decision I Made and Why.</h3>
                     <p>Six iterations of a teardrop, a hero image that changed twice, and why pulling back at the end was the hardest call I made on the whole project.</p>
-                    <span class="insight-read-link">Read on Medium <i data-lucide="arrow-right" aria-hidden="true" class="inline-icon"></i></span>
+                    <span class="insight-read-link">Read on Medium<i data-lucide="arrow-right" aria-hidden="true" class="inline-icon"></i></span>
                 </div>
             </article>
 
@@ -426,14 +391,14 @@
                 <div class="card-image">
                     <img src="assets/01_Hero_Cover.webp" alt="Ceylon Harvest Co. Hero Brand Identity" loading="lazy" width="800" height="600" onload="this.classList.add('img-loaded'); this.parentElement.classList.add('shimmer-complete');" onerror="this.style.display='none'; this.parentElement.classList.add('shimmer-complete', 'image-failed'); this.parentElement.insertAdjacentHTML('afterbegin', '<div class=\'fallback-img\'>Asset Unavailable</div>');">
                     <div class="card-overlay">
-                        <span class="card-open-label">Read Article <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
+                        <span class="card-open-label">Read on Medium<i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                     </div>
                 </div>
                 <div class="insight-body">
                     <div class="insight-meta">ARTICLE · 10 MIN READ</div>
                     <h3>Understanding Every Story Behind Product Branding</h3>
                     <p>Building a premium Sri Lankan export identity. The client needed a brand that felt ancient, classic, and rooted in heritage, entirely avoiding generic tourism tropes.</p>
-                    <span class="insight-read-link">Read Article <i data-lucide="arrow-right" aria-hidden="true" class="inline-icon"></i></span>
+                    <span class="insight-read-link">Read on Medium<i data-lucide="arrow-right" aria-hidden="true" class="inline-icon"></i></span>
                 </div>
             </article>
 
@@ -582,7 +547,7 @@
             </div>
             <div class="contact-right">
                 <form class="contact-form" id="contact-form" action="https://formspree.io/f/myyqzqjb" method="POST">
-                    <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+                    <input type="hidden" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
                     <div class="form-row">
                         <div class="form-group">
                             <label for="contact-name">Name</label>

@@ -7,11 +7,24 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     initIcons();
 
-    document.addEventListener('contextmenu', e => {
-        if (e.target.tagName === 'IMG') {
-            e.preventDefault();
+    // Dynamically check OS-level motion preference
+    const getScrollBehavior = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+
+    // Universal anchor routing for cross-page navigation
+    document.addEventListener('click', e => {
+        const anchor = e.target.closest('a[href^="/#"]');
+        if (anchor && !anchor.classList.contains('mobile-link')) {
+            const targetId = anchor.getAttribute('href').split('#')[1];
+            const targetEl = document.getElementById(targetId);
+            if (targetEl) {
+                e.preventDefault();
+                targetEl.scrollIntoView({ behavior: getScrollBehavior() });
+                history.pushState(null, '', '#' + targetId);
+            }
         }
     });
+
+    // Context menu override removed to respect native OS behaviors
 
     const removeLoadingState = () => {
         document.body.classList.remove('loading');
@@ -24,32 +37,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const progressBar = document.getElementById('scroll-progress');
-    let isProgressTicking = false;
-    const updateProgress = () => {
-        const scrollTop  = window.scrollY;
-        const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
-        const pct = docHeight > 0 ? (scrollTop / docHeight) : 0;
-        if (progressBar) progressBar.style.transform = `scaleX(${pct})`;
-    };
-    window.addEventListener('scroll', () => {
-        if (!isProgressTicking) {
-            window.requestAnimationFrame(() => {
-                updateProgress();
-                isProgressTicking = false;
-            });
-            isProgressTicking = true;
-        }
-    }, { passive: true });
-
     const header = document.getElementById('main-header');
     const floatBtt = document.getElementById('floating-back-to-top');
     const headerForceScrolled = header?.classList.contains('scrolled') ?? false;
+
+    floatBtt?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: getScrollBehavior() });
+    });
+
+    const sections  = document.querySelectorAll('section[id]');
+    const navLinks  = document.querySelectorAll('.nav-link[data-section], .mobile-link[data-section]');
+    let sectionOffsets = [];
     
-    window.addEventListener('scroll', () => {
-        if (header) header.classList.toggle('scrolled', window.scrollY > 40 || headerForceScrolled);
+    const cacheOffsets = () => {
+        sectionOffsets = Array.from(sections).map(s => ({ id: s.id, top: s.offsetTop }));
+    };
+    window.addEventListener('resize', cacheOffsets);
+    cacheOffsets();
+
+    let isGlobalScrollTicking = false;
+    
+    const onGlobalScroll = () => {
+        const scrollPos = window.scrollY;
         
+        // 1. Progress Bar
+        if (progressBar) {
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docHeight > 0 ? (scrollPos / docHeight) : 0;
+            progressBar.style.transform = `scaleX(${pct})`;
+        }
+
+        // 2. Header & Floating Button
+        if (header) header.classList.toggle('scrolled', scrollPos > 40 || headerForceScrolled);
         if (floatBtt) {
-            if (window.scrollY > 400) {
+            if (scrollPos > 400) {
                 floatBtt.classList.add('is-visible');
                 floatBtt.removeAttribute('tabindex');
             } else {
@@ -57,26 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 floatBtt.setAttribute('tabindex', '-1');
             }
         }
-    }, { passive: true });
 
-    floatBtt?.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    const sections  = document.querySelectorAll('section[id]');
-    const navLinks  = document.querySelectorAll('.nav-link[data-section], .mobile-link[data-section]');
-
-    let isNavTicking = false;
-    let sectionOffsets = [];
-    const cacheOffsets = () => {
-        sectionOffsets = Array.from(sections).map(s => ({ id: s.id, top: s.offsetTop }));
-    };
-    window.addEventListener('resize', cacheOffsets);
-    cacheOffsets();
-
-    const activateNav = () => {
+        // 3. Scrollspy (Active Nav)
         let current = '';
-        const scrollPos = window.scrollY;
         sectionOffsets.forEach(s => {
             if (scrollPos >= s.top - 120) current = s.id;
         });
@@ -84,29 +88,45 @@ document.addEventListener('DOMContentLoaded', () => {
             l.classList.toggle('active', l.getAttribute('data-section') === current);
         });
     };
+
     window.addEventListener('scroll', () => {
-        if (!isNavTicking) {
+        if (!isGlobalScrollTicking) {
             window.requestAnimationFrame(() => {
-                activateNav();
-                isNavTicking = false;
+                onGlobalScroll();
+                isGlobalScrollTicking = false;
             });
-            isNavTicking = true;
+            isGlobalScrollTicking = true;
         }
     }, { passive: true });
-    activateNav();
+    
+    onGlobalScroll(); // Init
 
     const mobileToggle = document.getElementById('mobile-nav-toggle');
     const mobileMenu   = document.getElementById('mobile-nav-menu');
+
+    // Mobile Menu Focus Trap
+    const trapMobileFocus = e => {
+        if (!mobileMenu.classList.contains('is-active')) return;
+        const focusable = [...mobileMenu.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])')];
+        const first = focusable[0], last = focusable[focusable.length - 1];
+        if (e.key === 'Tab') {
+            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+        }
+    };
 
     const toggleMobileMenu = () => {
         const isOpen = mobileMenu.classList.toggle('is-active');
         mobileToggle.classList.toggle('is-active', isOpen);
         mobileToggle.setAttribute('aria-expanded', String(isOpen));
         document.body.classList.toggle('modal-open', isOpen);
+        
         if (isOpen) {
+            mobileMenu.addEventListener('keydown', trapMobileFocus);
             const firstLink = mobileMenu.querySelector('.mobile-link');
             if (firstLink) setTimeout(() => firstLink.focus(), 60);
         } else {
+            mobileMenu.removeEventListener('keydown', trapMobileFocus);
             mobileToggle.focus();
         }
     };
@@ -129,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         e.preventDefault();
 
                         setTimeout(() => {
-                            targetEl.scrollIntoView({ behavior: 'smooth' });
+                            targetEl.scrollIntoView({ behavior: getScrollBehavior() });
                             history.pushState(null, '', href);
                         }, 50);
                     }
@@ -162,43 +182,54 @@ document.addEventListener('DOMContentLoaded', () => {
     let allProjCards = [];
 
     const applyProjectFilter = () => {
-        let count = 0;
-        let visibleCount = 0;
-        const isMobile = window.innerWidth <= 640;
-        const expandBtn = document.getElementById('expand-projects-btn');
-        const isExpanded = expandBtn ? expandBtn.classList.contains('expanded') : false;
+            let count = 0;
+            let visibleCount = 0;
+            const isMobile = window.innerWidth <= 640;
+            const expandBtn = document.getElementById('expand-projects-btn');
+            const isExpanded = expandBtn ? expandBtn.classList.contains('expanded') : false;
 
-        const maxCards = isMobile ? 3 : 6;
+            const maxCards = isMobile ? 3 : 6;
 
-        allProjCards.forEach(card => {
-            const cat = card.getAttribute('data-category') || '';
-            const matches = currentFilter === 'all' || cat === currentFilter;
-            
-            card.classList.remove('mobile-hidden');
-            card.classList.remove('capped-hidden');
+            allProjCards.forEach(card => {
+                const cat = card.getAttribute('data-category') || '';
+                const matches = currentFilter === 'all' || cat === currentFilter;
+                
+                card.classList.remove('mobile-hidden');
+                card.classList.remove('capped-hidden');
 
-            if (matches) {
-                count++;
-                if (!isExpanded && currentFilter === 'all' && count > maxCards) {
-                    card.classList.add('capped-hidden');
+                if (matches) {
+                    count++;
+                    if (!isExpanded && currentFilter === 'all' && count > maxCards) {
+                        card.classList.add('capped-hidden');
+                    } else {
+                        card.style.display = '';
+                        visibleCount++;
+                    }
                 } else {
-                    card.style.display = '';
-                    visibleCount++;
+                    card.style.display = 'none';
                 }
-            } else {
-                card.style.display = 'none';
+            });
+            if (noProjMsg) noProjMsg.style.display = count === 0 ? 'block' : 'none';
+            
+            const announcer = document.getElementById('filter-announcer');
+            if (announcer) {
+                announcer.textContent = `Showing ${visibleCount} ${currentFilter === 'all' ? 'projects' : currentFilter + ' projects'}.`;
             }
-        });
-        if (noProjMsg) noProjMsg.style.display = count === 0 ? 'block' : 'none';
-        
-        if (expandBtn) {
-            if (currentFilter === 'all' && count > maxCards) {
-                expandBtn.style.display = isExpanded ? 'none' : 'inline-flex';
-            } else {
-                expandBtn.style.display = 'none';
+            
+            if (expandBtn) {
+                if (currentFilter === 'all' && count > maxCards) {
+                    expandBtn.style.display = 'inline-flex';
+                    expandBtn.innerHTML = isExpanded 
+                        ? 'SHOW LESS <i data-lucide="chevron-up" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i>' 
+                        : 'VIEW ALL WORK';
+                    if (window.lucide) {
+                        lucide.createIcons({ root: expandBtn });
+                    }
+                } else {
+                    expandBtn.style.display = 'none';
+                }
             }
-        }
-    };
+        };
 
     let resizeTimer;
     window.addEventListener('resize', () => {
@@ -212,22 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const loadingIndicator = document.getElementById('loading-indicator');
         if (loadingIndicator) loadingIndicator.style.display = 'none';
 
-        const skeletonHTML = Array.from({ length: 6 }, () => `
-            <div class="skeleton-card" aria-hidden="true">
-                <div class="skeleton-image skeleton-shimmer"></div>
-                <div class="skeleton-body">
-                    <div class="skeleton-meta skeleton-shimmer"></div>
-                    <div class="skeleton-title skeleton-shimmer"></div>
-                    <div class="skeleton-desc skeleton-shimmer"></div>
-                    <div class="skeleton-desc short skeleton-shimmer"></div>
-                    <div class="skeleton-tags">
-                        <div class="skeleton-pill skeleton-shimmer"></div>
-                        <div class="skeleton-pill skeleton-shimmer"></div>
-                    </div>
-                </div>
-            </div>
-        `).join('');
-        projWrap.innerHTML = skeletonHTML;
+        projWrap.innerHTML = '<div class="system-message loading-state">Loading Projects...</div>';
 
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 8000);
@@ -254,21 +270,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const loadingAttr = index === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
 
+                // Absolute URL resolution for native navigation
+                const isExternal = proj.link.startsWith('http');
+                const finalHref = isExternal ? proj.link : `/${proj.link.replace(/^\//, '')}`;
+                const externalAttr = isExternal ? `target="_blank" rel="noopener"` : '';
+
                 const cardHTML = `
-                    <div class="project-card project-trigger" 
-                        data-category="${proj.category}"
-                        data-title="${proj.title}"
-                        data-challenge="${proj.challenge}"
-                        data-role="${proj.role}"
-                        data-outcome="${proj.outcome}"
-                        data-link="${proj.link}" 
-                        data-status="${proj.status}" 
-                        data-tags="${safeTags.join(',')}">
+                    <a href="${finalHref}" ${externalAttr} class="project-card" data-tags="${safeTags.join(',')}">
                         <div class="card-inner">
                             <div class="card-image">
-                                <img src="${proj.thumbnail}" alt="${proj.title}" width="800" height="600" ${loadingAttr}>
+                                <img src="${proj.thumbnail}" alt="${proj.title}" width="800" height="600" ${loadingAttr} style="view-transition-name: project-img-${proj.id};">
                                 <div class="card-overlay">
-                                    <span class="card-open-label">View Details <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
+                                    <span class="card-open-label">View Project <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -318,10 +331,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
+            // Restore filter state from sessionStorage (UX Polish)
+            currentFilter = sessionStorage.getItem('activeProjectFilter') || 'all';
+
             if (filterGroup) {
-                let filterHTML = `<button type="button" class="filter-pill active" data-filter="all">All Work</button>`;
-                categories.forEach(cat => {
-                    filterHTML += `<button type="button" class="filter-pill" data-filter="${cat}">${cat}</button>`;
+                let filterHTML = `<button type="button" class="filter-pill ${currentFilter === 'all' ? 'active' : ''}" data-filter="all">All Work</button>`;
+                allTags.forEach(tag => {
+                    filterHTML += `<button type="button" class="filter-pill ${currentFilter === tag ? 'active' : ''}" data-filter="${tag}">${tag}</button>`;
                 });
                 filterGroup.innerHTML = filterHTML;
 
@@ -331,34 +347,69 @@ document.addEventListener('DOMContentLoaded', () => {
                         filterBtns.forEach(b => b.classList.remove('active'));
                         btn.classList.add('active');
                         currentFilter = btn.getAttribute('data-filter');
+                        sessionStorage.setItem('activeProjectFilter', currentFilter); // Persist state
                         applyProjectFilter();
                     });
                 });
             }
 
             initIcons(projWrap);
+            
+            // Re-write apply filter to check the tags array instead of exact category match
+            const originalApplyFilter = applyProjectFilter;
+            applyProjectFilter = () => {
+                let count = 0; let visibleCount = 0;
+                const isMobile = window.innerWidth <= 640;
+                const expandBtn = document.getElementById('expand-projects-btn');
+                const isExpanded = expandBtn ? expandBtn.classList.contains('expanded') : false;
+                const maxCards = isMobile ? 3 : 6;
 
-            allProjCards.forEach(card => {
-                card.setAttribute('tabindex', '0');
-                card.setAttribute('role', 'button');
-                card.setAttribute('aria-label', 'View case study: ' + (card.getAttribute('data-title') || 'Project'));
-                card.addEventListener('click', e => {
-                    if (e.target.closest('.card-direct-link')) return;
-                    openModal(card);
-                });
-                card.addEventListener('keydown', e => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        openModal(card);
+                allProjCards.forEach(card => {
+                    const cardTags = card.getAttribute('data-tags') || '';
+                    const matches = currentFilter === 'all' || cardTags.includes(currentFilter);
+                    
+                    card.classList.remove('mobile-hidden', 'capped-hidden');
+
+                    if (matches) {
+                        count++;
+                        if (!isExpanded && currentFilter === 'all' && count > maxCards) {
+                            card.classList.add('capped-hidden');
+                        } else {
+                            card.style.display = '';
+                            visibleCount++;
+                        }
+                    } else {
+                        card.style.display = 'none';
                     }
                 });
-            });
+                if (noProjMsg) noProjMsg.style.display = count === 0 ? 'block' : 'none';
+                const announcer = document.getElementById('filter-announcer');
+                if (announcer) announcer.textContent = `Showing ${visibleCount} projects.`;
+                
+                if (expandBtn) {
+                    if (currentFilter === 'all' && count > maxCards) {
+                        expandBtn.style.display = 'inline-flex';
+                        expandBtn.innerHTML = isExpanded ? 'SHOW LESS <i data-lucide="chevron-up" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i>' : 'VIEW ALL WORK';
+                        if (window.lucide) lucide.createIcons({ root: expandBtn });
+                    } else {
+                        expandBtn.style.display = 'none';
+                    }
+                }
+            };
             
             const expandBtn = document.getElementById('expand-projects-btn');
             if (expandBtn) {
                 expandBtn.addEventListener('click', () => {
-                    expandBtn.classList.add('expanded');
+                    const isExpanded = expandBtn.classList.toggle('expanded');
                     applyProjectFilter();
+                    
+                    if (!isExpanded) {
+                        const projectsSection = document.getElementById('projects');
+                        if (projectsSection) {
+                            const offset = projectsSection.getBoundingClientRect().top + window.scrollY - 80;
+                            window.scrollTo({ top: offset, behavior: getScrollBehavior() });
+                        }
+                    }
                 });
             }
             
@@ -373,9 +424,9 @@ document.addEventListener('DOMContentLoaded', () => {
             
             if (noProjMsg) {
                 noProjMsg.innerHTML = `
-                    <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px; padding: var(--space-12);">
-                        <p style="color: var(--ink-muted); font-size: 0.9375rem; line-height: 1.7;">Couldn't load projects.<br>Check your connection and try again.</p>
-                        <button onclick="window.location.reload()" class="btn-primary" style="margin-top: 8px;">Retry <i data-lucide="refresh-cw" aria-hidden="true"></i></button>
+                    <div class="system-message error-state">
+                        <p>Couldn't load projects.<br>Check your connection and try again.</p>
+                        <button onclick="window.location.reload()" class="btn-primary">Retry <i data-lucide="refresh-cw" aria-hidden="true"></i></button>
                     </div>
                 `;
                 noProjMsg.style.display = 'block';
@@ -407,7 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: { 'Accept': 'application/json' }
                 });
                 if (res.ok) {
-                    contactForm.innerHTML = '<div class="form-status success" style="font-size: 1rem; font-weight: 500; text-align: center; padding: 2.5rem 1rem; color: var(--ink); line-height: 1.6;">Message received.<br><span style="display: block; margin-top: 8px; font-weight: 400; font-size: 0.875rem; color: var(--ink-muted);">I\'ll follow up within 1–2 business days.</span></div>';
+                    contactForm.innerHTML = '<div class="system-message form-success-state"><strong>Message received.</strong><span>I\'ll follow up within 1–2 business days.</span></div>';
                 } else {
                     throw new Error('server');
                 }
@@ -449,7 +500,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('pm-role').textContent      = card.getAttribute('data-role')      || '—';
         document.getElementById('pm-outcome').textContent   = card.getAttribute('data-outcome')   || '—';
 
-        history.pushState({ modalOpen: true }, '', window.location.pathname + window.location.search);
+        window.location.hash = 'project-details';
 
         const link   = document.getElementById('pm-link');
         const href   = card.getAttribute('data-link');
@@ -499,6 +550,10 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(() => {
             const panel = projectModal.querySelector('.modal-panel');
             if (panel) panel.scrollTop = 0;
+            
+            // Shift accessibility focus directly into the modal
+            const closeBtn = document.getElementById('close-project-modal');
+            if (closeBtn) closeBtn.focus();
         });
     };
 
@@ -507,7 +562,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('modal-open');
         projectModal.removeEventListener('keydown', trapFocus);
 
-        if (isPopState !== true && history.state && history.state.modalOpen) {
+        if (isPopState !== true && window.location.hash === '#project-details') {
             history.back();
         }
         
@@ -525,8 +580,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape' && projectModal?.classList.contains('active')) closeModal(false);
     });
 
-    window.addEventListener('popstate', () => {
-        if (projectModal?.classList.contains('active')) {
+    window.addEventListener('hashchange', () => {
+        if (window.location.hash !== '#project-details' && projectModal?.classList.contains('active')) {
             closeModal(true);
         }
     });
@@ -546,15 +601,23 @@ document.addEventListener('DOMContentLoaded', () => {
             return itemW * visibleCount;
         };
         document.getElementById('viz-next-btn')?.addEventListener('click', () =>
-            vizTrack.scrollBy({ left: scrollAmt(), behavior: 'smooth' })
+            vizTrack.scrollBy({ left: scrollAmt(), behavior: getScrollBehavior() })
         );
         document.getElementById('viz-prev-btn')?.addEventListener('click', () =>
-            vizTrack.scrollBy({ left: -scrollAmt(), behavior: 'smooth' })
+            vizTrack.scrollBy({ left: -scrollAmt(), behavior: getScrollBehavior() })
         );
 
         vizTrack.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') vizTrack.scrollBy({ left: scrollAmt(), behavior: 'smooth' });
-            if (e.key === 'ArrowLeft')  vizTrack.scrollBy({ left: -scrollAmt(), behavior: 'smooth' });
+            if (e.target === vizTrack) {
+                if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    vizTrack.scrollBy({ left: scrollAmt(), behavior: getScrollBehavior() });
+                }
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    vizTrack.scrollBy({ left: -scrollAmt(), behavior: getScrollBehavior() });
+                }
+            }
         });
     }
     const lightboxModal  = document.getElementById('lightbox-modal');
@@ -712,63 +775,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 try {
                     const res = await fetch('/data/projects.json');
                     if (!res.ok) throw new Error('Failed to load projects');
-                    const projects = await res.json();
+                    
+                    // Filter out non-case study links (like external URLs or '#')
+                    const validProjects = (await res.json()).filter(p => p.link && !p.link.startsWith('http') && p.link !== '#');
 
-                    const currentProject = projects.find(p => p.link && p.link !== '#' && window.location.pathname.includes(p.link.replace('.html', '').replace('/index.html', '')));
-                    const currentLinkKey = currentProject ? currentProject.link : window.location.pathname;
+                    const currentIndex = validProjects.findIndex(p => window.location.pathname.includes(p.id));
 
-                    let visited = JSON.parse(sessionStorage.getItem('viewedCaseStudies') || '[]');
-                    if (!visited.includes(currentLinkKey)) {
-                        visited.push(currentLinkKey);
-                        sessionStorage.setItem('viewedCaseStudies', JSON.stringify(visited));
-                    }
+                    if (currentIndex !== -1) {
+                        // Sequential math with looping
+                        const prevIndex = currentIndex === 0 ? validProjects.length - 1 : currentIndex - 1;
+                        const nextIndex = currentIndex === validProjects.length - 1 ? 0 : currentIndex + 1;
+                        
+                        const prevProj = validProjects[prevIndex];
+                        const nextProj = validProjects[nextIndex];
 
-                    const potentialNext = projects.filter(p => 
-                        p.link && 
-                        p.link !== '#' && 
-                        p.link !== currentLinkKey &&
-                        !window.location.pathname.includes(p.link.replace('.html', '').replace('/index.html', ''))
-                    );
-
-                    let unvisited = potentialNext.filter(p => !visited.includes(p.link));
-
-                    let selectionPool = unvisited.length > 0 ? unvisited : potentialNext;
-
-                    if (selectionPool.length > 0) {
-
-                        const randomProj = selectionPool[Math.floor(Math.random() * selectionPool.length)];
-
-                        const isExternal = randomProj.link.startsWith('http');
-                        const finalHref = isExternal ? randomProj.link : `/${randomProj.link.replace(/^\//, '')}`;
-                        const externalAttr = isExternal ? `target="_blank" rel="noopener"` : '';
-
-                        const tagsHTML = (randomProj.tags || []).map(tag => `<span class="tag">${tag}</span>`).join('');
-
-                        let descSnippet = randomProj.challenge || '';
-                        if (descSnippet.length > 120) {
-                            descSnippet = descSnippet.substring(0, 120) + '...';
-                        }
-
-                        const thumbSrc = randomProj.thumbnail.startsWith('http') 
-                            ? randomProj.thumbnail 
-                            : '/' + randomProj.thumbnail.replace(/^\//, '');
+                        const buildCard = (proj, label) => {
+                            const href = `/${proj.link.replace(/^\//, '')}`;
+                            const thumbSrc = `/${proj.thumbnail.replace(/^\//, '')}`;
+                            const desc = proj.challenge.length > 90 ? proj.challenge.substring(0, 90) + '...' : proj.challenge;
+                            
+                            return `
+                                <a href="${href}" class="next-project-inner" aria-label="${label}: ${proj.title}">
+                                    <div class="next-label">${label}</div>
+                                    <h2 class="next-title" style="font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 12px;">${proj.title}</h2>
+                                    <p class="next-desc" style="font-size: 0.8125rem; margin-bottom: 24px;">${desc}</p>
+                                    <div class="next-project-preview" style="margin-top: 0; margin-bottom: 0; position: absolute; inset: 0; opacity: 0.05; z-index: 0; mix-blend-mode: multiply;">
+                                        <img src="${thumbSrc}" alt="" loading="lazy" style="filter: none; transform: none;">
+                                    </div>
+                                </a>
+                            `;
+                        };
 
                         triggerSection.innerHTML = `
-                            <a href="${finalHref}" ${externalAttr} class="next-project-inner next-project-link" aria-label="View next project: ${randomProj.title}">
-                                <div class="next-label">Next Project</div>
-                                <h2 class="next-title">${randomProj.title}</h2>
-                                <p class="next-desc">${descSnippet}</p>
-                                <div class="tags-col">
-                                    ${tagsHTML}
-                                </div>
-                                <div class="next-project-preview">
-                                    <img src="${thumbSrc}" alt="Preview of ${randomProj.title}" loading="lazy">
-                                </div>
-                            </a>
+                            <div class="project-nav-grid">
+                                ${buildCard(prevProj, 'Previous Project')}
+                                ${buildCard(nextProj, 'Next Project')}
+                            </div>
                         `;
                     }
                 } catch (error) {
-                    console.error('Error loading next project:', error);
+                    console.error('Error loading sequential projects:', error);
                 }
             };
             loadNextProject();

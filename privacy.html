@@ -10,12 +10,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap"></noscript>
-    <link rel="preload" as="style" href="style.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="preload" as="style" href="/style.css">
+    <link rel="stylesheet" href="/style.css">
     <script src="https://unpkg.com/lucide@0.292.0" defer></script>
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
     <noscript><style>body.loading { overflow: auto; }</style></noscript>
 </head>
 <body class="loading">
@@ -109,11 +109,11 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <p class="footer-title">Navigate</p>
-                <a href="index.html#projects">Work</a>
-                <a href="index.html#about">About</a>
-                <a href="index.html#services">Services</a>
-                <a href="index.html#insights">Writing</a>
-                <a href="index.html#visualisations">Visualisations</a>
+                <a href="/index.html#projects">Work</a>
+                <a href="/index.html#about">About</a>
+                <a href="/index.html#services">Services</a>
+                <a href="/index.html#insights">Writing</a>
+                <a href="/index.html#visualisations">Visualisations</a>
             </div>
             <div class="footer-col">
                 <p class="footer-title">Connect</p>
@@ -140,42 +140,6 @@
     </div>
 </footer>
 
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        lucide.createIcons();
-        document.body.classList.remove('loading');
-
-        const mobileToggle = document.getElementById('mobile-nav-toggle');
-        const mobileMenu   = document.getElementById('mobile-nav-menu');
-
-        const closeMobileMenu = () => {
-            mobileMenu.classList.remove('is-active');
-            mobileToggle.classList.remove('is-active');
-            mobileToggle.setAttribute('aria-expanded', 'false');
-            document.body.classList.remove('modal-open');
-            document.body.style.overflow = '';
-        };
-
-        if (mobileToggle) {
-            mobileToggle.addEventListener('click', () => {
-                const isOpen = mobileMenu.classList.toggle('is-active');
-                mobileToggle.classList.toggle('is-active', isOpen);
-                mobileToggle.setAttribute('aria-expanded', String(isOpen));
-                document.body.classList.toggle('modal-open', isOpen);
-            });
-
-            document.querySelectorAll('.mobile-link, .mobile-cta').forEach(l =>
-                l.addEventListener('click', closeMobileMenu)
-            );
-
-            document.addEventListener('keydown', e => {
-                if (e.key === 'Escape' && mobileMenu.classList.contains('is-active')) {
-                    closeMobileMenu();
-                    mobileToggle.focus();
-                }
-            });
-        }
-    });
-</script>
+<script src="/app.js" defer></script>
 </body>
 </html>

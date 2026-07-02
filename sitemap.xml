@@ -4,7 +4,7 @@
     <!-- Main Home Page -->
     <url>
         <loc>https://chaturadissanayake.vercel.app/</loc>
-        <lastmod>2026-05-28</lastmod>
+        <lastmod>2026-07-02</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -12,39 +12,47 @@
     <!-- Privacy Policy -->
     <url>
         <loc>https://chaturadissanayake.vercel.app/privacy.html</loc>
-        <lastmod>2026-05-28</lastmod>
+        <lastmod>2026-07-02</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
 
     <!-- Project: Ceylon Harvest Co. -->
     <url>
-        <loc>https://chaturadissanayake.vercel.app/projects/ceylon-harvest/index.html</loc>
-        <lastmod>2026-05-28</lastmod>
+        <loc>https://chaturadissanayake.vercel.app/projects/ceylon-harvest/ceylon-harvest.html</loc>
+        <lastmod>2026-07-02</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <!-- Project: Ily's Garden -->
     <url>
-        <loc>https://chaturadissanayake.vercel.app/projects/ilys-garden/index.html</loc>
-        <lastmod>2026-05-28</lastmod>
+        <loc>https://chaturadissanayake.vercel.app/projects/ilys-garden/ilys-garden.html</loc>
+        <lastmod>2026-07-02</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <!-- Project: Mood of the Nation -->
     <url>
-        <loc>https://chaturadissanayake.vercel.app/projects/mood-of-the-nation/index.html</loc>
-        <lastmod>2026-05-29</lastmod>
+        <loc>https://chaturadissanayake.vercel.app/projects/mood-of-the-nation/mood-of-the-nation.html</loc>
+        <lastmod>2026-07-02</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <!-- Project: Practical Solutions for Inclusive Growth -->
     <url>
-        <loc>https://chaturadissanayake.vercel.app/projects/practical-solutions-for-inclusive-growth/index.html</loc>
-        <lastmod>2026-05-29</lastmod>
+        <loc>https://chaturadissanayake.vercel.app/projects/practical-solutions-for-inclusive-growth/practical-solutions-for-inclusive-growth.html</loc>
+        <lastmod>2026-07-02</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Project: Road Remains -->
+    <url>
+        <loc>https://chaturadissanayake.vercel.app/projects/road-remains/road-remains.html</loc>
+        <lastmod>2026-07-02</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
