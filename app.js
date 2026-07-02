@@ -182,54 +182,44 @@ document.addEventListener('DOMContentLoaded', () => {
     let allProjCards = [];
 
     const applyProjectFilter = () => {
-            let count = 0;
-            let visibleCount = 0;
-            const isMobile = window.innerWidth <= 640;
-            const expandBtn = document.getElementById('expand-projects-btn');
-            const isExpanded = expandBtn ? expandBtn.classList.contains('expanded') : false;
+        let count = 0; let visibleCount = 0;
+        const isMobile = window.innerWidth <= 640;
+        const expandBtn = document.getElementById('expand-projects-btn');
+        const isExpanded = expandBtn ? expandBtn.classList.contains('expanded') : false;
+        const maxCards = isMobile ? 3 : 6;
 
-            const maxCards = isMobile ? 3 : 6;
-
-            allProjCards.forEach(card => {
-                const cat = card.getAttribute('data-category') || '';
-                const matches = currentFilter === 'all' || cat === currentFilter;
-                
-                card.classList.remove('mobile-hidden');
-                card.classList.remove('capped-hidden');
-
-                if (matches) {
-                    count++;
-                    if (!isExpanded && currentFilter === 'all' && count > maxCards) {
-                        card.classList.add('capped-hidden');
-                    } else {
-                        card.style.display = '';
-                        visibleCount++;
-                    }
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-            if (noProjMsg) noProjMsg.style.display = count === 0 ? 'block' : 'none';
+        allProjCards.forEach(card => {
+            const cardTags = card.getAttribute('data-tags') || '';
+            const matches = currentFilter === 'all' || cardTags.includes(currentFilter);
             
-            const announcer = document.getElementById('filter-announcer');
-            if (announcer) {
-                announcer.textContent = `Showing ${visibleCount} ${currentFilter === 'all' ? 'projects' : currentFilter + ' projects'}.`;
-            }
-            
-            if (expandBtn) {
-                if (currentFilter === 'all' && count > maxCards) {
-                    expandBtn.style.display = 'inline-flex';
-                    expandBtn.innerHTML = isExpanded 
-                        ? 'SHOW LESS <i data-lucide="chevron-up" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i>' 
-                        : 'VIEW ALL WORK';
-                    if (window.lucide) {
-                        lucide.createIcons({ root: expandBtn });
-                    }
+            card.classList.remove('mobile-hidden', 'capped-hidden');
+
+            if (matches) {
+                count++;
+                if (!isExpanded && currentFilter === 'all' && count > maxCards) {
+                    card.classList.add('capped-hidden');
                 } else {
-                    expandBtn.style.display = 'none';
+                    card.style.display = '';
+                    visibleCount++;
                 }
+            } else {
+                card.style.display = 'none';
             }
-        };
+        });
+        if (noProjMsg) noProjMsg.style.display = count === 0 ? 'block' : 'none';
+        const announcer = document.getElementById('filter-announcer');
+        if (announcer) announcer.textContent = `Showing ${visibleCount} projects.`;
+        
+        if (expandBtn) {
+            if (currentFilter === 'all' && count > maxCards) {
+                expandBtn.style.display = 'inline-flex';
+                expandBtn.innerHTML = isExpanded ? 'SHOW LESS <i data-lucide="chevron-up" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i>' : 'VIEW ALL WORK';
+                if (window.lucide) lucide.createIcons({ root: expandBtn });
+            } else {
+                expandBtn.style.display = 'none';
+            }
+        }
+    };
 
     let resizeTimer;
     window.addEventListener('resize', () => {
@@ -255,13 +245,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const projects = await res.json();
 
             projWrap.innerHTML = ''; 
-            const categories = new Set();
+            const allTags = new Set();
             
             projects.forEach((proj, index) => {
-                if (proj.category) categories.add(proj.category);
-                
                 const safeTags = proj.tags || [];
-                const tagsHTML = safeTags.map(tag => `<span>${tag}</span>`).join('');
+                safeTags.forEach(tag => allTags.add(tag));
+                const tagsHTML = safeTags.map(tag => `<button type="button" class="card-tag-btn" data-tag="${tag}">${tag}</button>`).join('');
                 
                 const safeChallenge = proj.challenge || '';
                 const descSnippet = safeChallenge.length > 120 
@@ -276,7 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const externalAttr = isExternal ? `target="_blank" rel="noopener"` : '';
 
                 const cardHTML = `
-                    <a href="${finalHref}" ${externalAttr} class="project-card" data-tags="${safeTags.join(',')}">
+                    <div class="project-card card-interactive" data-tags="${safeTags.join(',')}">
+                        <a href="${finalHref}" ${externalAttr} class="card-hitbox" aria-label="View Project: ${proj.title}"></a>
                         <div class="card-inner">
                             <div class="card-image">
                                 <img src="${proj.thumbnail}" alt="${proj.title}" width="800" height="600" ${loadingAttr} style="view-transition-name: project-img-${proj.id};">
@@ -301,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 projWrap.insertAdjacentHTML('beforeend', cardHTML);
             });
 
-            allProjCards = document.querySelectorAll('.project-card.project-trigger');
+            allProjCards = document.querySelectorAll('.project-card');
 
             projWrap.querySelectorAll('.card-image img').forEach(img => {
                 const handleLoad = () => {
@@ -355,48 +345,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
             initIcons(projWrap);
             
-            // Re-write apply filter to check the tags array instead of exact category match
-            const originalApplyFilter = applyProjectFilter;
-            applyProjectFilter = () => {
-                let count = 0; let visibleCount = 0;
-                const isMobile = window.innerWidth <= 640;
-                const expandBtn = document.getElementById('expand-projects-btn');
-                const isExpanded = expandBtn ? expandBtn.classList.contains('expanded') : false;
-                const maxCards = isMobile ? 3 : 6;
-
-                allProjCards.forEach(card => {
-                    const cardTags = card.getAttribute('data-tags') || '';
-                    const matches = currentFilter === 'all' || cardTags.includes(currentFilter);
+            // Allow clicking tags inside cards to trigger the main filter
+            projWrap.addEventListener('click', e => {
+                const tagBtn = e.target.closest('.card-tag-btn');
+                if (tagBtn) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const tag = tagBtn.getAttribute('data-tag');
                     
-                    card.classList.remove('mobile-hidden', 'capped-hidden');
-
-                    if (matches) {
-                        count++;
-                        if (!isExpanded && currentFilter === 'all' && count > maxCards) {
-                            card.classList.add('capped-hidden');
-                        } else {
-                            card.style.display = '';
-                            visibleCount++;
-                        }
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-                if (noProjMsg) noProjMsg.style.display = count === 0 ? 'block' : 'none';
-                const announcer = document.getElementById('filter-announcer');
-                if (announcer) announcer.textContent = `Showing ${visibleCount} projects.`;
-                
-                if (expandBtn) {
-                    if (currentFilter === 'all' && count > maxCards) {
-                        expandBtn.style.display = 'inline-flex';
-                        expandBtn.innerHTML = isExpanded ? 'SHOW LESS <i data-lucide="chevron-up" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i>' : 'VIEW ALL WORK';
-                        if (window.lucide) lucide.createIcons({ root: expandBtn });
-                    } else {
-                        expandBtn.style.display = 'none';
+                    // Update top filter pills
+                    document.querySelectorAll('.filter-pill').forEach(b => {
+                        b.classList.toggle('active', b.getAttribute('data-filter') === tag);
+                    });
+                    
+                    currentFilter = tag;
+                    sessionStorage.setItem('activeProjectFilter', currentFilter);
+                    applyProjectFilter();
+                    
+                    // Scroll to top of projects section for context
+                    const projectsSection = document.getElementById('projects');
+                    if (projectsSection) {
+                        const offset = projectsSection.getBoundingClientRect().top + window.scrollY - 80;
+                        window.scrollTo({ top: offset, behavior: getScrollBehavior() });
                     }
                 }
-            };
-            
+            });
+
             const expandBtn = document.getElementById('expand-projects-btn');
             if (expandBtn) {
                 expandBtn.addEventListener('click', () => {
