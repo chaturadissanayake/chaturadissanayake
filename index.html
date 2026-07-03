@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chatura Dissanayake | Digital Communications &amp; Information Design Specialist</title>
+    <title>Chatura Dissanayake · Digital Communications &amp; Information Design Specialist</title>
     <meta name="description" content="Chatura Dissanayake, Digital Communications and Information Design Specialist. I help UN agencies, governments and research institutions turn complex work into communications that reach and move people.">
     <meta name="google-site-verification" content="wrXdvsn3z1BvWHX7kkdvGAqVtiLvQwyJ1OczNxkKAtk">
     
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://chaturadissanayake.vercel.app/">
-    <meta property="og:title" content="Chatura Dissanayake | Digital Communications &amp; Information Design Specialist">
+    <meta property="og:title" content="Chatura Dissanayake · Digital Communications &amp; Information Design Specialist">
     <meta property="og:description" content="I help UN agencies, governments and research institutions turn complex work into communications that reach and move people.">
     <meta property="og:image" content="https://chaturadissanayake.vercel.app/assets/Social_Preview.jpg">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Chatura Dissanayake | Digital Communications &amp; Information Design Specialist">
+    <meta name="twitter:title" content="Chatura Dissanayake · Digital Communications &amp; Information Design Specialist">
     <meta name="twitter:description" content="I help UN agencies, governments and research institutions turn complex work into communications that reach and move people.">
     <meta name="twitter:image" content="https://chaturadissanayake.vercel.app/assets/Social_Preview.jpg">
     <link rel="canonical" href="https://chaturadissanayake.vercel.app/">
@@ -95,9 +95,8 @@
             <a href="/#visualisations" class="nav-link" data-section="visualisations">Visualisations</a>
         </nav>
         <div class="nav-actions">
-            <a href="/#contact" class="nav-cta-ghost">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
             <button type="button" class="hamburger-btn" id="mobile-nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav-menu">
-                <span></span><span></span><span></span>
+                <span></span><span></span>
             </button>
         </div>
     </div>
@@ -110,7 +109,6 @@
         <a href="/#services"       class="mobile-link" data-section="services">Services</a>
         <a href="/#insights"       class="mobile-link" data-section="insights">Writing</a>
         <a href="/#visualisations" class="mobile-link" data-section="visualisations">Visualisations</a>
-        <a href="/#contact"        class="mobile-link mobile-cta" data-section="contact">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
     </nav>
     <div class="mobile-menu-footer">
         <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
@@ -124,32 +122,19 @@
 <main id="main-content">
 
 <section class="hero-section" id="hero">
-    <div class="hero-soft-glow" aria-hidden="true"></div>
+    <div class="grain-overlay" aria-hidden="true"></div>
+    <div class="hero-motion-bg" aria-hidden="true">
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+    </div>
     <div class="container hero-container">
         <div class="hero-content">
-            <div class="hero-main-text">
-                <div class="hero-label reveal-up" style="--d:0ms">
-                    Digital Communications &amp; <br class="hero-label-break">Information Design Specialist
-                </div>
-                <h1 class="hero-title-massive">
-                    <div class="hero-line reveal-up" style="--d:150ms;">
-                        <span class="hero-static">I help </span>
-                        <span class="hero-cycler">
-                            <strong class="hero-emp-1 active">data stories</strong>
-                            <strong class="hero-emp-1">policy work</strong>
-                        </span>
-                    </div>
-                    <div class="hero-line reveal-up" style="--d:300ms;">
-                        <span class="hero-static">reach the people</span>
-                    </div>
-                    <div class="hero-line reveal-up" style="--d:450ms;">
-                        <em class="hero-accent-italic">who need to act.</em>
-                    </div>
-                </h1>
-            </div>
-
-            <div class="hero-supporting reveal-up" style="--d:600ms">
-                <p class="hero-subtext">Bridging the gap between complex analysis and engaging communication to ensure your work makes a measurable impact.</p>
+            <h1 class="hero-title-massive reveal-up" style="--d:0ms">
+                Turning data and content into user friendly experiences that everyone can easily understand.
+            </h1>
+            <div class="hero-supporting reveal-up" style="--d:150ms">
+                <p class="hero-subtext">Technology, analytics, and information design, I love finding the best ways to make ideas clearer and easier to understand. I believe in learning by doing, and I enjoy sharing what I discover along the way!</p>
                 <div class="hero-actions">
                     <a href="#contact" class="btn-primary">
                         Let's talk <i data-lucide="arrow-right" aria-hidden="true"></i>
@@ -157,7 +142,6 @@
                 </div>
             </div>
         </div>
-    </div>
 </section>
 
 <section class="projects-section section-fade-in" id="projects">
@@ -178,7 +162,14 @@
                     <button type="button" class="filter-nav-btn filter-nav-next" id="filter-scroll-next" aria-label="Scroll filters right" hidden>
                         <i data-lucide="chevron-right" aria-hidden="true"></i>
                     </button>
-                </div>  
+                </div>
+                <div class="filter-dropdown" id="filter-dropdown">
+                    <button type="button" class="filter-dropdown-trigger" id="filter-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false" aria-controls="filter-dropdown-menu">
+                        <span id="filter-dropdown-label">All Work</span>
+                        <i data-lucide="chevron-down" aria-hidden="true"></i>
+                    </button>
+                    <div class="filter-dropdown-menu" id="filter-dropdown-menu" role="listbox" aria-label="Filter projects"></div>
+                </div>
             </div>
         </div>
 
@@ -211,9 +202,9 @@
                 <div class="about-philosophy">
                     <h3>How I Work</h3>
                     <p>I am a digital communications and information design specialist who works at the intersection of policy, data, and design. I help institutions, including UN agencies and government ministries, translate complex, high-stakes work into clear communications that reach the people who need to act.</p>
-                    <p>Good communication isn't just about making things look nice. It's about making sure the right message lands with the right person. Sometimes that's a national policy report for senior government officials; sometimes it's an interactive data story for a public audience who's never read a policy brief in their life. The work changes, but the core question stays the same: who needs to understand this, and what do they actually need to see?</p>
-                    <p>Organisations frequently invest significant resources in thorough research and detailed analysis, yet they often stumble at the final step: communication. When this aspect is treated as an afterthought, it can lead to misinformed findings and poor decision-making. That's where I step in; I bridge the gap between complex analysis and clear, engaging communication to ensure that the work fulfils its purpose.</p>
-                    <p>Having delivered information design for the UN Resident Coordinator's Office, contributed to national policy publications for the Department of National Planning, and produced over 150 research outputs at Verité Research that reached national media, I now work independently on projects where communication is the difference between impact and obscurity.</p>
+                    <p>Good communication isn't just about making things look nice; it's about ensuring the right message lands with the right person. Sometimes that's a national report; sometimes, it's an interactive data story for a public audience that has never read a policy brief in their life. The work changes, but the core question stays the same: who needs to understand this, and what do they actually need to see?</p>
+                    <p>Organisations frequently invest significant resources in thorough research and detailed analysis, yet they often stumble at the final step: communication. When this aspect is treated as an afterthought, it can lead to misinformed findings and poor decision-making. That's where I step in; I bridge the gap between analysis and clear, engaging communication to ensure that the work fulfils its purpose.</p>
+                    <p>Having delivered information design for the UN Resident Coordinator's Office, contributed to national policy publications for the Department of National Planning, and produced over 150 research outputs at Verité Research, I now work independently on projects where communication is the difference between impact and success.</p>
                 </div>
 
                 <div class="about-capabilities">
@@ -227,7 +218,7 @@
                     </div>
                     <div class="cap-block">
                         <p class="cap-title">Digital &amp; Campaign Communications</p>
-                        <div>Social Media Strategy · Digital Content Creation · Video Production · Campaign Analytics · Event Branding</div>
+                        <div>Social Media Strategy · Digital Content Creation · Video Production · Campaign Analytics · Branding</div>
                     </div>
                 </div>
 
@@ -295,7 +286,7 @@
             <div class="services-header-content">
                 <p class="section-eyebrow">What I Do</p>
                 <h2 class="section-title">Services</h2>
-                <p class="services-intro-text">I work with research organisations, policy bodies, and institutions that need to communicate complex work to real people. Scope and pricing on request.</p>
+                <p class="services-intro-text">I collaborate with research organisations and institutions to communicate their work effectively to the public. Scope and pricing available upon request.</p>
                 <a href="assets/Services_Guide.pdf" target="_blank" rel="noopener" class="show-more-btn" style="margin-top: var(--space-2);">
                     Download Services Guide <i data-lucide="file-text" aria-hidden="true" style="width:14px;height:14px;margin-left:6px;"></i>
                 </a>
@@ -375,7 +366,7 @@
             <div class="header-text-block">
                 <p class="section-eyebrow">Writing</p>
                 <h2 class="section-title">Insights</h2>
-                <p class="section-header-desc">Notes on the decisions behind the work: what I tried, what didn't hold, and why things ended up the way they did.</p>
+                <p class="section-header-desc">Notes on my decisions during the work: what I tried, what failed, and why the results turned out as they did.</p>
             </div>
         </div>
         <div class="insights-grid" id="insights-container">

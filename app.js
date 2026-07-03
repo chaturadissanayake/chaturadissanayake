@@ -824,34 +824,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'ArrowLeft')  { e.preventDefault(); openLightboxAt((lightboxIdx - 1 + vizTriggers.length) % vizTriggers.length); }
     });
 
-    const cyclers = document.querySelectorAll('.hero-cycler');
-    if (cyclers.length > 0) {
-        let activeIdx1 = 0;
-        const emp1 = cyclers[0].querySelectorAll('.hero-emp-1');
-
-        if (emp1.length > 0) {
-            emp1[0].classList.add('active');
-        }
-
-        const cycleWords = () => {
-            if (emp1.length > 0) {
-                emp1[activeIdx1].classList.remove('active');
-                emp1[activeIdx1].classList.add('exit');
-                const prev1 = activeIdx1;
-                setTimeout(() => emp1[prev1].classList.remove('exit'), 400);
-                
-                activeIdx1 = (activeIdx1 + 1) % emp1.length;
-                emp1[activeIdx1].classList.add('active');
-            }
-        };
-
-        const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-        if (!motionQuery.matches) {
-            setInterval(cycleWords, 5000);
-        }
-
-    }
-
     document.querySelectorAll('.media-item img').forEach(img => {
         const handleLoad = () => img.classList.add('img-loaded');
         if (img.complete && img.naturalHeight !== 0) {
