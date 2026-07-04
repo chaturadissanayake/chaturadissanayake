@@ -46,7 +46,7 @@ Strategic outreach and content creation for institutional campaigns across multi
 
 ### GitHub Activity
 
-![Chatura's GitHub stats](https://github-readme-stats.vercel.app/api?username=chaturadissanayake&show_icons=true&hide_border=true&count_private=true&bg_color=f4f7f9&title_color=1a4480&icon_color=1a4480&text_color=2c3645)
+![Chatura's GitHub stats](https://github-readme-stats.vercel.app/api?username=chaturadissanayake&show_icons=true&hide_border=true&bg_color=f4f7f9&title_color=1a4480&icon_color=1a4480&text_color=2c3645&cache_seconds=1800)
 
 ![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=chaturadissanayake&hide_border=true&background=f4f7f9&ring=1a4480&fire=1a4480&currStreakLabel=1a4480&sideLabels=2c3645&currStreakNum=2c3645&sideNums=2c3645&dates=2c3645)
 
