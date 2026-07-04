@@ -22,8 +22,10 @@
     <link rel="preconnect" href="https://unpkg.com" crossorigin>
     <meta name="theme-color" content="#f4f7f9">
     <link rel="preload" as="image" href="projects/road-remains/assets/VoterEducation_Thumb.webp">
-    <link rel="preload" as="font" href="/assets/fonts/dm-serif-display.woff2" type="font/woff2" crossorigin>
     <link rel="preload" as="font" href="/assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
     <link rel="preload" as="style" href="/style.css">
     <link rel="stylesheet" href="/style.css">
     <script src="https://unpkg.com/lucide@0.292.0" defer crossorigin="anonymous"></script>
@@ -130,13 +132,14 @@
     </div>
     <div class="container hero-container">
         <div class="hero-content">
-            <h1 class="hero-title-massive reveal-up" style="--d:0ms">
-                Turning data and content into digital experiences, enabling people to understand information intuitively.
+            <span class="hero-label reveal-up" style="--d:0ms">Digital Communications &amp; Information Design</span>
+            <h1 class="hero-title-massive" id="hero-headline">
+                Turning data and content into <span class="hero-accent-blue" data-plain="digital experiences">digital experiences</span>, enabling people to understand information intuitively.
             </h1>
             <div class="hero-supporting reveal-up" style="--d:150ms">
                 <p class="hero-subtext">At the intersection of technology, data analytics, and information design. I learn by doing, and enjoy sharing what I've created along the way!</p>
                 <div class="hero-actions">
-                    <a href="#contact" class="btn-primary">
+                    <a href="#contact" class="btn-primary" id="hero-cta">
                         Let's talk <i data-lucide="arrow-right" aria-hidden="true"></i>
                     </a>
                 </div>

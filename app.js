@@ -33,6 +33,23 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(removeLoadingState, 400);
     }
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const heroHeadline = document.getElementById('hero-headline');
+    if (heroHeadline && !prefersReducedMotion) {
+        const originalText = heroHeadline.textContent.trim();
+        const words = originalText.split(/\s+/);
+        heroHeadline.setAttribute('aria-label', originalText);
+        heroHeadline.innerHTML = words.map((word, i) => {
+            return '<span class="word-mask"><span class="word-inner" style="--wd:' + (i * 45) + 'ms" aria-hidden="true">' + word + '&nbsp;</span></span>';
+        }).join('');
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                heroHeadline.classList.add('in-view');
+            });
+        });
+    }
+
     const progressBar = document.getElementById('scroll-progress');
     const header = document.getElementById('main-header');
     const floatBtt = document.getElementById('floating-back-to-top');
