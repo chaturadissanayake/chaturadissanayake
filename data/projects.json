@@ -38,7 +38,7 @@
     "challenge": "Sri Lanka's drug policy debate was being drowned in jargon, politics, and statistics that nobody outside the sector could parse. I wanted to make it accessible to someone who had no background in policy, because those people's opinions matter too.",
     "role": "I built the whole thing from scratch: the narrative structure, the visual language, the data pipeline, and the final data storytelling experience. Every design decision came back to one question: will someone who knows nothing about this still be able to follow it?",
     "outcome": "A digital environment that lets people walk through the data themselves and reach their own conclusions. Not a lecture, an experience. One that treats the audience as capable of handling the complexity, just on their own terms.",
-    "link": "https://chaturadissanayake.github.io/sri-lanka-drug-crisis-website/",
+    "link": "https://chaturadissanayake.github.io/theshadowwar/",
     "status": "View Full Story",
     "tags": ["Health", "Data Driven Experiences"],
     "thumbnail": "projects/drug-crisis/assets/DrugCrisis_Thumb.webp",
@@ -189,6 +189,6 @@
     "date": "FEB 2025",
     "sortDate": "2025-02-01",
     "priority": 12,
-    "archive": true
+    "archive": false
   }
 ]

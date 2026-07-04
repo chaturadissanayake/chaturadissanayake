@@ -375,6 +375,7 @@ let currentFilter = 'all';
         if (!projWrap) return;
         projWrap.innerHTML = ''; 
         const allTags = new Set();
+        const disciplineTagsSet = new Set();
         
         let viewData = rawProjectsData.filter(p => !!p.archive === isArchiveView);
         
@@ -393,6 +394,12 @@ let currentFilter = 'all';
         viewData.forEach((proj, index) => {
             const safeTags = proj.tags || [];
             safeTags.forEach(tag => allTags.add(tag));
+            
+            // Safely handle if discipline type is a string or an array in JSON
+            const rawDiscipline = proj.set_2_discipline_type;
+            const disciplineTags = Array.isArray(rawDiscipline) ? rawDiscipline : (rawDiscipline ? [rawDiscipline] : []);
+            disciplineTags.forEach(tag => disciplineTagsSet.add(tag));
+
             const tagsHTML = safeTags.map(tag => `<button type="button" class="card-tag-btn" data-tag="${tag}" aria-pressed="false" aria-label="Filter projects by ${tag}">${tag}</button>`).join('');
             
             const safeChallenge = proj.challenge || '';
@@ -465,9 +472,15 @@ let currentFilter = 'all';
         allTags.forEach(tag => filterOptions.push({ value: tag, label: tag }));
 
         if (filterGroup) {
-            filterGroup.innerHTML = filterOptions.map(o =>
-                `<button type="button" class="filter-pill ${currentFilter === o.value ? 'active' : ''}" data-filter="${o.value}" aria-pressed="${currentFilter === o.value}">${o.label}</button>`
-            ).join('');
+            filterGroup.innerHTML = filterOptions.map(o => {
+                const hasDisciplineTags = disciplineTagsSet.size > 0;
+                const isDiscipline = disciplineTagsSet.has(o.value) || o.value === 'all';
+                
+                // Only apply the hiding class if we actually found discipline tags in the JSON
+                const mobileClass = (hasDisciplineTags && !isDiscipline) ? ' desktop-only-filter' : '';
+                
+                return `<button type="button" class="filter-pill${mobileClass} ${currentFilter === o.value ? 'active' : ''}" data-filter="${o.value}" aria-pressed="${currentFilter === o.value}">${o.label}</button>`;
+            }).join('');
         }
 
         if (filterDropdownMenu) {
@@ -538,12 +551,8 @@ let currentFilter = 'all';
                 const hitbox = e.target.closest('.card-hitbox');
                 const card = hitbox ? hitbox.closest('.project-card') : null;
                 if (card && typeof projectModal !== 'undefined' && projectModal) {
-                    const linkHref = card.getAttribute('data-link') || '';
-                    const isExternalLink = linkHref.startsWith('http');
-                    if (!isExternalLink) {
-                        e.preventDefault();
-                        openModal(card);
-                    }
+                    e.preventDefault();
+                    openModal(card);
                 }
             });
 
