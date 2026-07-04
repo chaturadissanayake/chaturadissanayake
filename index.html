@@ -131,10 +131,10 @@
     <div class="container hero-container">
         <div class="hero-content">
             <h1 class="hero-title-massive reveal-up" style="--d:0ms">
-                Turning data and content into user friendly experiences that everyone can easily understand.
+                Turning data and content into user-friendly experiences that everyone can easily understand.
             </h1>
             <div class="hero-supporting reveal-up" style="--d:150ms">
-                <p class="hero-subtext">Technology, analytics, and information design, I love finding the best ways to make ideas clearer and easier to understand. I believe in learning by doing, and I enjoy sharing what I discover along the way!</p>
+                <p class="hero-subtext">At the intersection of technology, analytics, and information design, I focus on making ideas clearer and easier to understand. I believe in learning by doing and enjoy sharing my discoveries along the way!</p>
                 <div class="hero-actions">
                     <a href="#contact" class="btn-primary">
                         Let's talk <i data-lucide="arrow-right" aria-hidden="true"></i>
@@ -146,10 +146,16 @@
 
 <section class="projects-section section-fade-in" id="projects">
     <div class="container">
-        <div class="section-header-row mobile-optimize-header">
-            <div class="header-text-block">
-                <p class="section-eyebrow">Selected Work</p>
-                <h2 class="section-title">Projects</h2>
+<div class="section-header-row mobile-optimize-header">
+            <div class="header-text-block" style="width: 100%;">
+                <p class="section-eyebrow" style="margin-bottom: var(--space-3);">Selected Work</p>
+                <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+                    <h2 class="section-title" style="margin: 0; line-height: 1;">Projects</h2>
+                    <div class="view-controls" style="display: flex; gap: 8px;">
+                        <button id="sort-toggle-btn" class="show-more-btn" style="margin: 0; min-height: 32px; padding: 0 14px; font-size: 0.75rem !important;">Sort: Recent <i data-lucide="arrow-down-up" style="width:14px;height:14px; margin-left:6px;"></i></button>
+                        <button id="archive-toggle-btn" class="show-more-btn" style="margin: 0; min-height: 32px; padding: 0 14px; font-size: 0.75rem !important;">Archive <i data-lucide="archive" style="width:14px;height:14px; margin-left:6px;"></i></button>
+                    </div>
+                </div>
             </div>
             <div class="projects-controls-right">
                 <div class="filter-bar" id="filter-bar">
@@ -206,6 +212,7 @@
                     <p>Organisations frequently invest significant resources in thorough research and detailed analysis, yet they often stumble at the final step: communication. When this aspect is treated as an afterthought, it can lead to misinformed findings and poor decision-making. That's where I step in; I bridge the gap between analysis and clear, engaging communication to ensure that the work fulfils its purpose.</p>
                     <p>Having delivered information design for the UN Resident Coordinator's Office, contributed to national policy publications for the Department of National Planning, and produced over 150 research outputs at Verité Research, I now work independently on projects where communication is the difference between impact and success.</p>
                 </div>
+                <button id="about-read-more-btn" class="show-more-btn read-more-toggle" style="margin-bottom: 32px;">Read more <i data-lucide="chevron-down" style="width:14px;height:14px;margin-left:4px;"></i></button>
 
                 <div class="about-capabilities">
                     <div class="cap-block">
@@ -420,10 +427,26 @@
         </div>
         <div class="viz-carousel-viewport">
             <div class="viz-carousel-track mobile-carousel-grid" aria-live="polite">
+                
+                <!-- 1. Fertility -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
                         <img src="assets/Viz_1.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_1.webp" alt="Sri Lanka Government Budget" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <img src="assets/Viz_1.webp" alt="Sri Lanka's Fertility Rate: Children per Woman" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                    </div>
+                    <div class="viz-text-content">
+                        <span class="lab-tag-label">Demographics</span>
+                        <h3 class="viz-title">Sri Lanka's Fertility Rate: Children per Woman</h3>
+                        <p class="viz-desc">In 2023, the fertility rate was 1.97 births per woman, reflecting a historical decline influenced by family planning initiatives.</p>
+                    </div>
+                </article>
+
+                <!-- 2. Budget -->
+                <article class="viz-item viz-lightbox-trigger card-interactive">
+                    <div class="viz-image-wrapper">
+                        <img src="assets/Viz_2.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
+                        <img src="assets/Viz_2.webp" alt="Sri Lanka Government Budget" class="viz-main-img" loading="lazy" width="800" height="600">
                         <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
@@ -432,34 +455,12 @@
                         <p class="viz-desc">Where the money comes from, and where it goes. The Sri Lankan government budget made legible in one view.</p>
                     </div>
                 </article>
-                <article class="viz-item viz-lightbox-trigger card-interactive">
-                    <div class="viz-image-wrapper">
-                        <img src="assets/Viz_2.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_2.webp" alt="From Skipping Classes to Figuring It Out Myself" class="viz-main-img" loading="lazy" width="800" height="600">
-                        <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
-                    </div>
-                    <div class="viz-text-content">
-                        <span class="lab-tag-label">Reflection</span>
-                        <h3 class="viz-title">From Skipping Classes to Figuring It Out Myself</h3>
-                        <p class="viz-desc">A personal piece. On navigating uncertainty without a map, and what it looks like to slowly find your footing.</p>
-                    </div>
-                </article>
+
+                <!-- 3. Broken Lotus -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
                         <img src="assets/Viz_3.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_3.webp" alt="338 Acts of Change" class="viz-main-img" loading="lazy" width="800" height="600">
-                        <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
-                    </div>
-                    <div class="viz-text-content">
-                        <span class="lab-tag-label">Civic Data</span>
-                        <h3 class="viz-title">338 Acts of Change</h3>
-                        <p class="viz-desc">338 initiatives that shaped Sri Lanka in 2024. Each dot is one effort to strengthen communities or inform policy, visualised as a spiral.</p>
-                    </div>
-                </article>
-                <article class="viz-item viz-lightbox-trigger card-interactive">
-                    <div class="viz-image-wrapper">
-                        <img src="assets/Viz_4.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_4.webp" alt="Broken Lotus: Sexual Harassment in Sri Lanka" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <img src="assets/Viz_3.webp" alt="Broken Lotus: Sexual Harassment in Sri Lanka" class="viz-main-img" loading="lazy" width="800" height="600">
                         <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
@@ -468,18 +469,36 @@
                         <p class="viz-desc">2,252 reported cases. Each petal is 100. A broken lotus, because some numbers deserve more than a bar chart.</p>
                     </div>
                 </article>
+
+                <!-- 4. Skipping Classes -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
-                        <img src="assets/Viz_5.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_5.webp" alt="Drug-Related Arrests vs. Treatment Cases" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <img src="assets/Viz_4.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
+                        <img src="assets/Viz_4.webp" alt="From Skipping Classes to Figuring It Out Myself" class="viz-main-img" loading="lazy" width="800" height="600">
                         <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
-                        <span class="lab-tag-label">2018 - 2023</span>
-                        <h3 class="viz-title">Drug-Related Arrests vs. Treatment Cases</h3>
-                        <p class="viz-desc">Arrests climbing. Treatment access flat. The widening gap between punishment and care, in one chart.</p>
+                        <span class="lab-tag-label">Reflection</span>
+                        <h3 class="viz-title">From Skipping Classes to Figuring It Out Myself</h3>
+                        <p class="viz-desc">A personal piece. On navigating uncertainty without a map, and what it looks like to slowly find your footing.</p>
                     </div>
                 </article>
+
+                <!-- 5. 338 Acts -->
+                <article class="viz-item viz-lightbox-trigger card-interactive">
+                    <div class="viz-image-wrapper">
+                        <img src="assets/Viz_5.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
+                        <img src="assets/Viz_5.webp" alt="338 Acts of Change" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                    </div>
+                    <div class="viz-text-content">
+                        <span class="lab-tag-label">Civic Data</span>
+                        <h3 class="viz-title">338 Acts of Change</h3>
+                        <p class="viz-desc">338 initiatives that shaped Sri Lanka in 2024. Each dot is one effort to strengthen communities or inform policy, visualised as a spiral.</p>
+                    </div>
+                </article>
+
+                <!-- 6. Arrests by Substance -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
                         <img src="assets/Viz_6.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
@@ -492,10 +511,26 @@
                         <p class="viz-desc">Heroin, cannabis, methamphetamines, all rising. The breakdown behind Sri Lanka's drug enforcement picture.</p>
                     </div>
                 </article>
+
+                <!-- 7. Arrests vs Treatment -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
                         <img src="assets/Viz_7.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_7.webp" alt="Drug Control Under Sri Lanka's Presidents" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <img src="assets/Viz_7.webp" alt="Drug-Related Arrests vs. Treatment Cases" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
+                    </div>
+                    <div class="viz-text-content">
+                        <span class="lab-tag-label">2018 - 2023</span>
+                        <h3 class="viz-title">Drug-Related Arrests vs. Treatment Cases</h3>
+                        <p class="viz-desc">Arrests climbing. Treatment access flat. The widening gap between punishment and care, in one chart.</p>
+                    </div>
+                </article>
+
+                <!-- 8. Presidents -->
+                <article class="viz-item viz-lightbox-trigger card-interactive">
+                    <div class="viz-image-wrapper">
+                        <img src="assets/Viz_8.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
+                        <img src="assets/Viz_8.webp" alt="Drug Control Under Sri Lanka's Presidents" class="viz-main-img" loading="lazy" width="800" height="600">
                         <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
@@ -504,10 +539,12 @@
                         <p class="viz-desc">Arrests have climbed across every presidency. Record cannabis and heroin seizures under Gotabaya Rajapaksa.</p>
                     </div>
                 </article>
+
+                <!-- 9. Provincial -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
-                        <img src="assets/Viz_8.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_8.webp" alt="Provincial Drug Case Outcomes" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <img src="assets/Viz_9.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
+                        <img src="assets/Viz_9.webp" alt="Provincial Drug Case Outcomes" class="viz-main-img" loading="lazy" width="800" height="600">
                         <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
@@ -516,10 +553,12 @@
                         <p class="viz-desc">Case flow by province, and what it reveals about a system still built around punishment more than rehabilitation.</p>
                     </div>
                 </article>
+
+                <!-- 10. Rehabilitation -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
-                        <img src="assets/Viz_9.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_9.webp" alt="Who Provides Rehabilitation in Sri Lanka" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <img src="assets/Viz_10.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
+                        <img src="assets/Viz_10.webp" alt="Who Provides Rehabilitation in Sri Lanka" class="viz-main-img" loading="lazy" width="800" height="600">
                         <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
@@ -528,6 +567,7 @@
                         <p class="viz-desc">NDDCB Centres handle more than half of all rehabilitation cases. A look at who's doing the work, and who isn't.</p>
                     </div>
                 </article>
+
             </div>
         </div>
     </div>
@@ -539,7 +579,7 @@
             <div class="contact-left">
                 <p class="section-eyebrow">Get In Touch</p>
                 <h2 class="contact-headline">You don't need<br>a perfect brief.</h2>
-                <p class="contact-body">If you're working through a data challenge, an upcoming report, or just want to think out loud about how your organisation communicates, I'm open to that conversation. The best projects I've worked on started with a vague problem, not a finished spec.</p>
+                <p class="contact-body">If you're working through data, an upcoming report, or want to think out loud about how your organisation communicates, I'm open to that conversation. The best projects I've worked on started with a problem, not a finished product.</p>
 <p class="availability-note">Open to the right opportunities, let's talk.</p>
                 <a href="mailto:consultchatura@gmail.com" class="contact-email">
                     <span>consultchatura@gmail.com</span>

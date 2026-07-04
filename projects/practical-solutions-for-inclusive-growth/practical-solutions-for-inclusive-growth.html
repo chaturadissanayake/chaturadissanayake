@@ -55,6 +55,134 @@
     .standard-quote {
         font-style: italic;
     }
+
+    .project-header h1 {
+        margin-bottom: 12px !important;
+    }
+    .project-header .subtitle {
+        margin-top: 0 !important;
+        margin-bottom: 16px !important;
+        font-size: 1.0625rem;
+        color: var(--ink);
+        line-height: 1.5;
+        max-width: 900px;
+    }
+    .controls-row {
+        margin-top: 0 !important;
+        margin-bottom: var(--space-8, 32px) !important;
+        padding-bottom: var(--space-5, 20px) !important;
+        border-bottom: 1px solid var(--surface-3) !important;
+    }
+
+    @media (min-width: 1025px) {
+        .sidebar-wrap {
+            transition: min-width 0.4s var(--ease-out), width 0.4s var(--ease-out), opacity 0.3s var(--ease-out), margin 0.4s var(--ease-out) !important;
+            transform: none !important;
+            position: relative !important;
+            opacity: 1;
+        }
+        .sidebar-wrap.is-collapsed {
+            min-width: 0 !important;
+            width: 0 !important;
+            opacity: 0 !important;
+            margin-left: calc(-1 * var(--space-12, 48px)) !important;
+            pointer-events: none !important;
+            position: relative !important;
+            transform: none !important;
+        }
+        .text-col-inner {
+            width: clamp(300px, 30vw, 400px) !important;
+        }
+    }
+
+    .next-project-section {
+        margin-top: clamp(3rem, 8vw, var(--space-24));
+        padding-top: clamp(2rem, 6vw, var(--space-12));
+        border-top: 1px solid var(--surface-3);
+    }
+    .next-project-single-wrapper {
+        display: block;
+        text-decoration: none;
+        color: inherit;
+        outline: none;
+        transition: opacity 0.3s ease;
+    }
+    .next-project-single-wrapper:hover .next-title-single {
+        color: var(--accent);
+    }
+    .next-label-single {
+        display: block;
+        font-family: var(--mono, 'DM Mono', monospace);
+        font-size: 0.6875rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-muted);
+        margin-bottom: 12px;
+    }
+    .next-title-single {
+        font-family: var(--serif, 'DM Serif Display', serif);
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 400;
+        letter-spacing: -0.025em;
+        line-height: 1.1;
+        color: var(--ink);
+        margin-bottom: 12px;
+        transition: color 0.3s var(--ease-out);
+    }
+    .next-desc-single {
+        font-family: var(--sans, 'Inter', sans-serif);
+        font-size: 1rem;
+        line-height: 1.65;
+        color: var(--ink);
+        max-width: 800px;
+        margin-bottom: var(--space-5);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .next-tags-single {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 32px;
+    }
+    .next-tags-single .tag {
+        font-family: var(--sans, 'Inter', sans-serif);
+        font-size: 0.75rem;
+        color: var(--ink-muted);
+        background: var(--surface-2);
+        border: 1px solid var(--surface-3);
+        padding: 4px 10px;
+        border-radius: 4px;
+    }
+    .next-image-single {
+        width: 100%;
+        height: 160px;
+        overflow: hidden;
+        background: var(--surface-2);
+        border-radius: 4px 4px 0 0;
+        margin-bottom: calc(-1 * var(--space-24, 96px)); 
+    }
+    .next-image-single img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        object-position: center top;
+    }
+    @media (max-width: 640px) {
+        .next-title-single { font-size: 2.1rem; margin-bottom: 8px; }
+        .next-desc-single { font-size: 0.9375rem; margin-bottom: 12px; }
+        .next-label-single { margin-bottom: 8px; }
+        .next-tags-single { margin-bottom: 24px; }
+        .next-image-single {
+            height: 100px;
+            margin-bottom: calc(-1 * var(--space-24, 48px)); 
+        }
+    }
 </style>
     <script src="https://unpkg.com/lucide@0.292.0" defer></script>
     
@@ -108,7 +236,7 @@
         <div class="nav-actions">
             <a href="/index.html#contact" class="nav-cta-ghost">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
             <button type="button" class="hamburger-btn" id="mobile-nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav-menu">
-                <span></span><span></span><span></span>
+                <span></span><span></span>
             </button>
         </div>
     </div>
@@ -133,13 +261,7 @@
 </div>
 
 <main id="main-content">
-    <div class="site-wrapper">
-        
-        <nav aria-label="Breadcrumb" class="project-breadcrumb">
-            <a href="/index.html#projects">Work</a>
-            <span aria-hidden="true">/</span>
-            <span aria-current="page">Practical Solutions</span>
-        </nav>
+    <div class="site-wrapper">    
 
         <header class="project-header">
             <h1>Practical Solutions for Inclusive Growth</h1>

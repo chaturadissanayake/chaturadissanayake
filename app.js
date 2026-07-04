@@ -178,8 +178,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const filterDropdownTrigger = document.getElementById('filter-dropdown-trigger');
     const filterDropdownLabel = document.getElementById('filter-dropdown-label');
     const filterDropdownMenu = document.getElementById('filter-dropdown-menu');
-    let currentFilter = 'all';
+let currentFilter = 'all';
     let allProjCards = [];
+    let rawProjectsData = [];
+    let currentSortMode = 'recent'; 
+    let isArchiveView = false;
 
     const updateFilterScrollUI = () => {
         if (!filterGroup || !filterGroupWrapper) return;
@@ -209,7 +212,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('pointermove', e => {
             if (!dragState) return;
             const delta = e.clientX - dragState.startX;
-            // Increased threshold to 8px to prevent accidental click-cancellations on sensitive mice
             if (Math.abs(delta) > 8) dragState.moved = true; 
             filterGroup.scrollLeft = dragState.startScroll - delta;
         });
@@ -337,6 +339,153 @@ document.addEventListener('DOMContentLoaded', () => {
         resizeTimer = setTimeout(applyProjectFilter, 150);
     });
 
+    const setActiveFilter = (value, { scrollToProjects = false } = {}) => {
+        currentFilter = value;
+        sessionStorage.setItem('activeProjectFilter', currentFilter);
+
+        document.querySelectorAll('.filter-pill').forEach(b => {
+            const isActive = b.getAttribute('data-filter') === value;
+            b.classList.toggle('active', isActive);
+            b.setAttribute('aria-pressed', String(isActive));
+        });
+
+        document.querySelectorAll('.filter-dropdown-option').forEach(o => {
+            const isActive = o.getAttribute('data-filter') === value;
+            o.classList.toggle('active', isActive);
+            o.setAttribute('aria-selected', String(isActive));
+        });
+
+        const matchedOption = document.querySelector(`.filter-dropdown-option[data-filter="${value}"] span`);
+        if (filterDropdownLabel && matchedOption) filterDropdownLabel.textContent = matchedOption.textContent;
+        else if (filterDropdownLabel) filterDropdownLabel.textContent = value === 'all' ? 'All Work' : value;
+
+        applyProjectFilter();
+        requestAnimationFrame(updateFilterScrollUI);
+
+        if (scrollToProjects) {
+            const projectsSection = document.getElementById('projects');
+            if (projectsSection) {
+                const offset = projectsSection.getBoundingClientRect().top + window.scrollY - 80;
+                window.scrollTo({ top: offset, behavior: getScrollBehavior() });
+            }
+        }
+    };
+
+    const renderProjectsGrid = () => {
+        if (!projWrap) return;
+        projWrap.innerHTML = ''; 
+        const allTags = new Set();
+        
+        let viewData = rawProjectsData.filter(p => !!p.archive === isArchiveView);
+        
+        if (currentSortMode === 'impact') {
+            viewData.sort((a, b) => (a.priority || 99) - (b.priority || 99));
+        } else {
+            viewData.sort((a, b) => new Date(b.sortDate || '2000-01-01') - new Date(a.sortDate || '2000-01-01'));
+        }
+
+        if (viewData.length === 0) {
+            projWrap.innerHTML = '<div class="system-message error-state"><p>No projects available in this view.</p></div>';
+            if (noProjMsg) noProjMsg.style.display = 'none';
+            return;
+        }
+
+        viewData.forEach((proj, index) => {
+            const safeTags = proj.tags || [];
+            safeTags.forEach(tag => allTags.add(tag));
+            const tagsHTML = safeTags.map(tag => `<button type="button" class="card-tag-btn" data-tag="${tag}" aria-pressed="false" aria-label="Filter projects by ${tag}">${tag}</button>`).join('');
+            
+            const safeChallenge = proj.challenge || '';
+            const descSnippet = safeChallenge.length > 120 ? safeChallenge.substring(0, 120) + '...' : safeChallenge;
+            const loadingAttr = index === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
+            const safeLink = proj.link || '#';
+            const isExternal = safeLink.startsWith('http');
+            const finalHref = isExternal ? safeLink : `/${safeLink.replace(/^\//, '')}`;
+            const externalAttr = isExternal ? `target="_blank" rel="noopener"` : '';
+
+            const cardHTML = `
+                <div class="project-card card-interactive" data-tags="${safeTags.join(',')}" data-title="${proj.title || ''}" data-challenge="${proj.challenge || ''}" data-role="${proj.role || ''}" data-outcome="${proj.outcome || ''}" data-link="${finalHref}" data-status="${proj.status || ''}">
+                    <a href="${finalHref}" ${externalAttr} class="card-hitbox" aria-label="View Project: ${proj.title}"></a>
+                    <div class="card-inner">
+                        <div class="card-image">
+                            <img src="${proj.thumbnail}" alt="${proj.title}" width="800" height="600" ${loadingAttr} style="view-transition-name: project-img-${proj.id};">
+                            <div class="card-overlay">
+                                <span class="card-open-label">View Project <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-meta">
+                                <span class="card-cat">${safeTags[0] || ''}</span>
+                                <span class="card-date">${proj.date}</span>
+                            </div>
+                            <div class="card-title-wrap">
+                                <h3 class="card-title">${proj.title}</h3>
+                                <p class="card-desc">${descSnippet}</p>
+                            </div>
+                            <div class="card-tags">${tagsHTML}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            projWrap.insertAdjacentHTML('beforeend', cardHTML);
+        });
+
+        allProjCards = document.querySelectorAll('.project-card');
+
+        projWrap.querySelectorAll('.card-image img').forEach(img => {
+            const handleLoad = () => {
+                img.classList.add('img-loaded');
+                const parent = img.closest('.card-image');
+                if (parent) parent.classList.add('shimmer-complete');
+            };
+            const handleError = () => {
+                img.style.display = 'none';
+                const parent = img.closest('.card-image');
+                if (parent) {
+                    parent.classList.add('shimmer-complete', 'image-failed');
+                    parent.insertAdjacentHTML('afterbegin', '<div class="fallback-img">Asset Unavailable</div>');
+                }
+                const card = img.closest('.project-card');
+                if (card) card.style.order = '99';
+            };
+            if (img.complete && img.naturalHeight !== 0) handleLoad();
+            else if (img.complete && img.naturalHeight === 0) handleError();
+            else {
+                img.addEventListener('load', handleLoad);
+                img.addEventListener('error', handleError);
+            }
+        });
+
+        if (!allTags.has(currentFilter) && currentFilter !== 'all') {
+            currentFilter = 'all';
+            sessionStorage.setItem('activeProjectFilter', 'all');
+        }
+
+        const filterOptions = [{ value: 'all', label: 'All Work' }];
+        allTags.forEach(tag => filterOptions.push({ value: tag, label: tag }));
+
+        if (filterGroup) {
+            filterGroup.innerHTML = filterOptions.map(o =>
+                `<button type="button" class="filter-pill ${currentFilter === o.value ? 'active' : ''}" data-filter="${o.value}" aria-pressed="${currentFilter === o.value}">${o.label}</button>`
+            ).join('');
+        }
+
+        if (filterDropdownMenu) {
+            filterDropdownMenu.innerHTML = filterOptions.map(o =>
+                `<button type="button" class="filter-dropdown-option ${currentFilter === o.value ? 'active' : ''}" data-filter="${o.value}" role="option" aria-selected="${currentFilter === o.value}"><span>${o.label}</span><span class="filter-dropdown-option-dot" aria-hidden="true"></span></button>`
+            ).join('');
+            if (filterDropdownLabel) {
+                const matched = filterOptions.find(o => o.value === currentFilter);
+                filterDropdownLabel.textContent = matched ? matched.label : 'All Work';
+            }
+        }
+
+        applyProjectFilter();
+        requestAnimationFrame(updateFilterScrollUI);
+        requestAnimationFrame(updateCardTagOverflow);
+        initIcons(projWrap);
+    };
+
     const initProjects = async () => {
         if (!projWrap) return;
         
@@ -352,127 +501,14 @@ document.addEventListener('DOMContentLoaded', () => {
             const res = await fetch('/data/projects.json', { signal: controller.signal });
             clearTimeout(timeoutId);
             if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            const projects = await res.json();
-
-            projWrap.innerHTML = ''; 
-            const allTags = new Set();
+            rawProjectsData = await res.json();
             
-            projects.forEach((proj, index) => {
-                const safeTags = proj.tags || [];
-                safeTags.forEach(tag => allTags.add(tag));
-                const tagsHTML = safeTags.map(tag => `<button type="button" class="card-tag-btn" data-tag="${tag}" aria-pressed="false" aria-label="Filter projects by ${tag}">${tag}</button>`).join('');
-                
-                const safeChallenge = proj.challenge || '';
-                const descSnippet = safeChallenge.length > 120 
-                    ? safeChallenge.substring(0, 120) + '...' 
-                    : safeChallenge;
-
-                const loadingAttr = index === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"';
-
-                const safeLink = proj.link || '#';
-                const isExternal = safeLink.startsWith('http');
-                const finalHref = isExternal ? safeLink : `/${safeLink.replace(/^\//, '')}`;
-                const externalAttr = isExternal ? `target="_blank" rel="noopener"` : '';
-
-                const cardHTML = `
-                    <div class="project-card card-interactive" data-tags="${safeTags.join(',')}" data-title="${proj.title || ''}" data-challenge="${proj.challenge || ''}" data-role="${proj.role || ''}" data-outcome="${proj.outcome || ''}" data-link="${finalHref}" data-status="${proj.status || ''}">
-                        <a href="${finalHref}" ${externalAttr} class="card-hitbox" aria-label="View Project: ${proj.title}"></a>
-                        <div class="card-inner">
-                            <div class="card-image">
-                                <img src="${proj.thumbnail}" alt="${proj.title}" width="800" height="600" ${loadingAttr} style="view-transition-name: project-img-${proj.id};">
-                                <div class="card-overlay">
-                                    <span class="card-open-label">View Project <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="card-meta">
-                                    <span class="card-cat">${safeTags[0] || ''}</span>
-                                    <span class="card-date">${proj.date}</span>
-                                </div>
-                                <div class="card-title-wrap">
-                                    <h3 class="card-title">${proj.title}</h3>
-                                    <p class="card-desc">${descSnippet}</p>
-                                </div>
-                                <div class="card-tags">${tagsHTML}</div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                projWrap.insertAdjacentHTML('beforeend', cardHTML);
-            });
-
-            allProjCards = document.querySelectorAll('.project-card');
-
-            projWrap.querySelectorAll('.card-image img').forEach(img => {
-                const handleLoad = () => {
-                    img.classList.add('img-loaded');
-                    const parent = img.closest('.card-image');
-                    if (parent) parent.classList.add('shimmer-complete');
-                };
-
-                const handleError = () => {
-                    img.style.display = 'none';
-                    const parent = img.closest('.card-image');
-                    if (parent) {
-                        parent.classList.add('shimmer-complete', 'image-failed');
-                        parent.insertAdjacentHTML('afterbegin', '<div class="fallback-img">Asset Unavailable</div>');
-                    }
-                    const card = img.closest('.project-card');
-                    if (card) card.style.order = '99';
-                };
-
-                if (img.complete && img.naturalHeight !== 0) {
-                    handleLoad();
-                } else if (img.complete && img.naturalHeight === 0) {
-                    handleError();
-                } else {
-                    img.addEventListener('load', handleLoad);
-                    img.addEventListener('error', handleError);
-                }
-            });
-
             const storedFilter = sessionStorage.getItem('activeProjectFilter');
-            currentFilter = (storedFilter === 'all' || allTags.has(storedFilter)) ? storedFilter : 'all';
-
-            const filterOptions = [{ value: 'all', label: 'All Work' }];
-            allTags.forEach(tag => filterOptions.push({ value: tag, label: tag }));
-
-            const setActiveFilter = (value, { scrollToProjects = false } = {}) => {
-                currentFilter = value;
-                sessionStorage.setItem('activeProjectFilter', currentFilter);
-
-                document.querySelectorAll('.filter-pill').forEach(b => {
-                    const isActive = b.getAttribute('data-filter') === value;
-                    b.classList.toggle('active', isActive);
-                    b.setAttribute('aria-pressed', String(isActive));
-                });
-
-                document.querySelectorAll('.filter-dropdown-option').forEach(o => {
-                    const isActive = o.getAttribute('data-filter') === value;
-                    o.classList.toggle('active', isActive);
-                    o.setAttribute('aria-selected', String(isActive));
-                });
-
-                const matched = filterOptions.find(o => o.value === value);
-                if (filterDropdownLabel) filterDropdownLabel.textContent = matched ? matched.label : value;
-
-                applyProjectFilter();
-                requestAnimationFrame(updateFilterScrollUI);
-
-                if (scrollToProjects) {
-                    const projectsSection = document.getElementById('projects');
-                    if (projectsSection) {
-                        const offset = projectsSection.getBoundingClientRect().top + window.scrollY - 80;
-                        window.scrollTo({ top: offset, behavior: getScrollBehavior() });
-                    }
-                }
-            };
+            if (storedFilter) currentFilter = storedFilter;
+            
+            renderProjectsGrid();
 
             if (filterGroup) {
-                filterGroup.innerHTML = filterOptions.map(o =>
-                    `<button type="button" class="filter-pill ${currentFilter === o.value ? 'active' : ''}" data-filter="${o.value}" aria-pressed="${currentFilter === o.value}">${o.label}</button>`
-                ).join('');
-
                 filterGroup.addEventListener('click', e => {
                     const btn = e.target.closest('.filter-pill');
                     if (!btn || filterGroup.classList.contains('is-dragging')) return;
@@ -481,14 +517,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (filterDropdownMenu) {
-                filterDropdownMenu.innerHTML = filterOptions.map(o =>
-                    `<button type="button" class="filter-dropdown-option ${currentFilter === o.value ? 'active' : ''}" data-filter="${o.value}" role="option" aria-selected="${currentFilter === o.value}"><span>${o.label}</span><span class="filter-dropdown-option-dot" aria-hidden="true"></span></button>`
-                ).join('');
-                if (filterDropdownLabel) {
-                    const matched = filterOptions.find(o => o.value === currentFilter);
-                    filterDropdownLabel.textContent = matched ? matched.label : 'All Work';
-                }
-
                 filterDropdownMenu.addEventListener('click', e => {
                     const opt = e.target.closest('.filter-dropdown-option');
                     if (!opt) return;
@@ -497,10 +525,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     filterDropdownTrigger?.focus();
                 });
             }
-
-            requestAnimationFrame(updateFilterScrollUI);
-
-            initIcons(projWrap);
 
             projWrap.addEventListener('click', e => {
                 const tagBtn = e.target.closest('.card-tag-btn');
@@ -523,19 +547,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            requestAnimationFrame(updateCardTagOverflow);
-
-        const expandBtn = document.getElementById('expand-projects-btn');
+            const expandBtn = document.getElementById('expand-projects-btn');
             if (expandBtn) {
                 expandBtn.addEventListener('click', () => {
                     const isExpanded = expandBtn.classList.toggle('expanded');
-
                     if (!isExpanded) {
                         if (expandBtn.parentElement) expandBtn.parentElement.classList.remove('floating-action-wrapper');
-                        
                         applyProjectFilter();
                         requestAnimationFrame(updateCardTagOverflow);
-                        
                         const projectsSection = document.getElementById('projects');
                         if (projectsSection) {
                             const offset = projectsSection.getBoundingClientRect().top + window.scrollY - 80;
@@ -543,22 +562,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     } else {
                         if (expandBtn.parentElement) expandBtn.parentElement.classList.add('floating-action-wrapper');
-                        
                         applyProjectFilter();
                         requestAnimationFrame(updateCardTagOverflow);
                     }
                 });
             }
-            
-            applyProjectFilter();
 
         } catch (error) {
             console.error('Failed to load projects:', error);
-            
-            const loadingIndicator = document.getElementById('loading-indicator');
             if (loadingIndicator) loadingIndicator.style.display = 'none';
             projWrap.innerHTML = '';
-            
             if (noProjMsg) {
                 noProjMsg.innerHTML = `
                     <div class="system-message error-state">
@@ -567,14 +580,57 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 `;
                 noProjMsg.style.display = 'block';
-                if (window.lucide) {
-                    lucide.createIcons({ root: noProjMsg });
-                }
+                if (window.lucide) lucide.createIcons({ root: noProjMsg });
             }
         }
     };
     
     initProjects();
+
+    const sortBtn = document.getElementById('sort-toggle-btn');
+    const archiveBtn = document.getElementById('archive-toggle-btn');
+    
+    if (sortBtn) {
+        sortBtn.addEventListener('click', () => {
+            currentSortMode = currentSortMode === 'recent' ? 'impact' : 'recent';
+            sortBtn.innerHTML = `Sort: ${currentSortMode === 'recent' ? 'Impact' : 'Recent'} <i data-lucide="arrow-down-up" style="width:14px;height:14px; margin-left:6px;"></i>`;
+            if (window.lucide) lucide.createIcons({ root: sortBtn });
+            renderProjectsGrid();
+        });
+    }
+    
+    if (archiveBtn) {
+        archiveBtn.addEventListener('click', () => {
+            isArchiveView = !isArchiveView;
+            archiveBtn.innerHTML = `${isArchiveView ? 'Portfolio' : 'Archive'} <i data-lucide="archive" style="width:14px;height:14px; margin-left:6px;"></i>`;
+            if (isArchiveView) {
+                archiveBtn.style.background = 'var(--ink)';
+                archiveBtn.style.color = 'var(--white)';
+                archiveBtn.style.borderColor = 'var(--ink)';
+            } else {
+                archiveBtn.style.background = '';
+                archiveBtn.style.color = '';
+                archiveBtn.style.borderColor = '';
+            }
+            if (window.lucide) lucide.createIcons({ root: archiveBtn });
+            renderProjectsGrid();
+        });
+    }
+
+    const aboutContent = document.querySelector('.about-philosophy');
+    const aboutReadMoreBtn = document.getElementById('about-read-more-btn');
+    if (aboutContent && aboutReadMoreBtn) {
+        if (window.innerWidth <= 640) {
+            aboutContent.classList.add('is-collapsed-mobile');
+        }
+        aboutReadMoreBtn.addEventListener('click', () => {
+            aboutContent.classList.toggle('is-collapsed-mobile');
+            aboutReadMoreBtn.innerHTML = aboutContent.classList.contains('is-collapsed-mobile') 
+                ? 'Read more <i data-lucide="chevron-down" style="width:14px;height:14px;margin-left:4px;"></i>' 
+                : 'Show less <i data-lucide="chevron-up" style="width:14px;height:14px;margin-left:4px;"></i>';
+            if (window.lucide) lucide.createIcons({ root: aboutReadMoreBtn });
+        });
+    }
 
     const contactForm   = document.getElementById('contact-form');
     const formStatus    = document.getElementById('form-status');
@@ -834,7 +890,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const sidebarWrap = document.getElementById('sidebarWrap');
+const sidebarWrap = document.getElementById('sidebarWrap');
     
     if (sidebarWrap) {
 
@@ -885,42 +941,39 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!res.ok) throw new Error('Failed to load projects');
                     
                     const validProjects = (await res.json()).filter(p => p.link && !p.link.startsWith('http') && p.link !== '#');
-
                     const currentIndex = validProjects.findIndex(p => window.location.pathname.includes(p.id));
 
-                    if (currentIndex !== -1) {
-                        const prevIndex = currentIndex === 0 ? validProjects.length - 1 : currentIndex - 1;
-                        const nextIndex = currentIndex === validProjects.length - 1 ? 0 : currentIndex + 1;
+                    if (validProjects.length > 0) {
+                        let nextProj;
+                        if (validProjects.length > 1) {
+                            const availableProjects = validProjects.filter((_, i) => i !== currentIndex);
+                            const randomIndex = Math.floor(Math.random() * availableProjects.length);
+                            nextProj = availableProjects[randomIndex];
+                        } else {
+                            nextProj = validProjects[0];
+                        }
+
+                        const href = `/${nextProj.link.replace(/^\//, '')}`;
+                        const thumbSrc = `/${nextProj.thumbnail.replace(/^\//, '')}`;
                         
-                        const prevProj = validProjects[prevIndex];
-                        const nextProj = validProjects[nextIndex];
-
-                        const buildCard = (proj, label) => {
-                            const href = `/${proj.link.replace(/^\//, '')}`;
-                            const thumbSrc = `/${proj.thumbnail.replace(/^\//, '')}`;
-                            const desc = proj.challenge.length > 90 ? proj.challenge.substring(0, 90) + '...' : proj.challenge;
-                            
-                            return `
-                                <a href="${href}" class="next-project-inner" aria-label="${label}: ${proj.title}">
-                                    <div class="next-label">${label}</div>
-                                    <h2 class="next-title" style="font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: 12px;">${proj.title}</h2>
-                                    <p class="next-desc" style="font-size: 0.8125rem; margin-bottom: 24px;">${desc}</p>
-                                    <div class="next-project-preview" style="margin-top: 0; margin-bottom: 0; position: absolute; inset: 0; opacity: 0.05; z-index: 0; mix-blend-mode: multiply;">
-                                        <img src="${thumbSrc}" alt="" loading="lazy" style="filter: none; transform: none;">
-                                    </div>
-                                </a>
-                            `;
-                        };
-
+                        const tagsHTML = (nextProj.tags || []).slice(0, 2).map(tag => `<span class="tag">${tag}</span>`).join('');
+                        
                         triggerSection.innerHTML = `
-                            <div class="project-nav-grid">
-                                ${buildCard(prevProj, 'Previous Project')}
-                                ${buildCard(nextProj, 'Next Project')}
-                            </div>
+                            <a href="${href}" class="next-project-single-wrapper">
+                                <span class="next-label-single">Next Project</span>
+                                <h2 class="next-title-single">${nextProj.title}</h2>
+                                <p class="next-desc-single">${nextProj.challenge}</p>
+                                <div class="next-tags-single">
+                                    ${tagsHTML}
+                                </div>
+                                <div class="next-image-single">
+                                    <img src="${thumbSrc}" alt="${nextProj.title}" loading="lazy">
+                                </div>
+                            </a>
                         `;
                     }
                 } catch (error) {
-                    console.error('Error loading sequential projects:', error);
+                    console.error('Error loading random next project:', error);
                 }
             };
             loadNextProject();

@@ -3,24 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mood of the Nation | Chatura Dissanayake</title>
-    <meta name="description" content="Case study: Mood of the Nation. Tracking government approval ratings, national satisfaction, and economic confidence across Sri Lanka.">
-    
-    <!-- Open Graph (Social Sharing) -->
+    <title>Midnight Sun – Part I | Chatura Dissanayake</title>
+    <meta name="description" content="Case study: Midnight Sun – Part I. A 1950s sci-fi pin-up fantasy reimagined as album cover art for an independent band's debut release.">
+
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://chaturadissanayake.vercel.app/projects/mood-of-the-nation/mood-of-the-nation.html">
-    <meta property="og:title" content="Mood of the Nation | Chatura Dissanayake">
-    <meta property="og:description" content="Case study: Mood of the Nation. Tracking government approval ratings, national satisfaction, and economic confidence across Sri Lanka.">
-    <meta property="og:image" content="https://chaturadissanayake.vercel.app/projects/mood-of-the-nation/assets/MOTN_Thumb.webp">
-    
-    <!-- Twitter Cards -->
+    <meta property="og:url" content="https://chaturadissanayake.vercel.app/projects/midnight-sun/midnight-sun.html">
+    <meta property="og:title" content="Midnight Sun – Part I | Chatura Dissanayake">
+    <meta property="og:description" content="Case study: Midnight Sun – Part I. A 1950s sci-fi pin-up fantasy reimagined as album cover art for an independent band's debut release.">
+    <meta property="og:image" content="https://chaturadissanayake.vercel.app/projects/midnight-sun/assets/Vinyl_Record.webp">
+
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Mood of the Nation | Chatura Dissanayake">
-    <meta name="twitter:description" content="Case study: Mood of the Nation. Tracking government approval ratings, national satisfaction, and economic confidence across Sri Lanka.">
-    <meta name="twitter:image" content="https://chaturadissanayake.vercel.app/projects/mood-of-the-nation/assets/MOTN_Thumb.webp">
-    
-    <!-- Canonical -->
-    <link rel="canonical" href="https://chaturadissanayake.vercel.app/projects/mood-of-the-nation/mood-of-the-nation.html">
+    <meta name="twitter:title" content="Midnight Sun – Part I | Chatura Dissanayake">
+    <meta name="twitter:description" content="Case study: Midnight Sun – Part I. A 1950s sci-fi pin-up fantasy reimagined as album cover art for an independent band's debut release.">
+    <meta name="twitter:image" content="https://chaturadissanayake.vercel.app/projects/midnight-sun/assets/Vinyl_Record.webp">
+
+    <link rel="canonical" href="https://chaturadissanayake.vercel.app/projects/midnight-sun/midnight-sun.html">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +26,6 @@
     <link rel="preload" as="style" href="/style.css">
     <link rel="stylesheet" href="/style.css">
 <style>
-    /* ── Project page: prose link style ── */
     .project-description a,
     .project-description a:visited {
         color: var(--accent);
@@ -43,7 +39,6 @@
         opacity: 0.6;
         text-decoration-color: transparent;
     }
-    /* ── Image fade-in ── */
     .media-item img {
         opacity: 0;
         transition: opacity 0.45s ease;
@@ -51,9 +46,25 @@
     .media-item img.img-loaded {
         opacity: 1;
     }
-    /* ── Quote refinement ── */
     .standard-quote {
         font-style: italic;
+    }
+    .caption-link {
+        display: block;
+        margin-top: 10px;
+        font-family: var(--font-mono, 'DM Mono', monospace);
+        font-size: 0.75rem;
+        letter-spacing: 0.02em;
+        color: var(--accent);
+        text-decoration: underline;
+        text-decoration-color: var(--accent);
+        text-underline-offset: 3px;
+        text-decoration-thickness: 1px;
+        transition: opacity 0.15s ease;
+    }
+    .caption-link:hover {
+        opacity: 0.6;
+        text-decoration-color: transparent;
     }
 
     .project-header h1 {
@@ -185,7 +196,7 @@
     }
 </style>
     <script src="https://unpkg.com/lucide@0.292.0" defer></script>
-    
+
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
@@ -202,24 +213,6 @@
         .card-image img, .media-item img { opacity: 1 !important; }
     </style>
 </noscript>
-
-<script>
-    function loadGA() {
-        const script = document.createElement('script');
-        script.async = true;
-        script.src = "https://www.googletagmanager.com/gtag/js?id=G-24MX1C8QK3";
-        document.head.appendChild(script);
-
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-24MX1C8QK3');
-    }
-
-    if (localStorage.getItem('cookieConsent') === 'granted') {
-        loadGA();
-    }
-</script>
 
 <header class="main-header scrolled" id="main-header">
     <div class="nav-inner">
@@ -242,7 +235,7 @@
     </div>
 </header>
 
-<div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation" style="z-index: 999 !important;">
+<div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
     <nav class="mobile-nav-links">
         <a href="/index.html#projects"       class="mobile-link">Work</a>
         <a href="/index.html#about"          class="mobile-link">About</a>
@@ -261,17 +254,19 @@
 </div>
 
 <main id="main-content">
-    <div class="site-wrapper">   
+    <div class="site-wrapper">
+
+        <!-- Breadcrumb completely removed as requested -->
 
         <header class="project-header">
-            <h1>Mood of the Nation</h1>
-            <p class="subtitle">Tracking government approval ratings, national satisfaction, and economic confidence across Sri Lanka.</p>
+            <h1>Midnight Sun – Part I</h1>
+            <p class="subtitle">A 1950s sci-fi pin-up fantasy, reimagined as album cover art for an independent band's debut release.</p>
         </header>
 
         <div class="controls-row">
             <div class="tags-col">
-                <span class="tag">Civic & Public</span>
-                <span class="tag">Data Driven Experiences</span>
+                <span class="tag">Entertainment</span>
+                <span class="tag">Packaging</span>
             </div>
             <div class="btn-wrapper">
                 <button class="about-btn"
@@ -286,50 +281,57 @@
         </div>
 
         <div class="layout-grid" id="mainLayout">
-            
+
             <div class="media-col">
                 <div class="media-grid">
-                    
-                    <!-- 1. Full width — Hero (English version) -->
+
                     <div class="media-item full-width">
-                        <img src="assets/MOTN_ENG.webp"
-                             alt="Mood of the Nation - English Version"
+                        <img src="assets/vinyl_record.webp"
+                             alt="Midnight Sun Part I vinyl record mockup with retro sci-fi pool party artwork"
                              loading="eager"
                              fetchpriority="high"
                              width="1200"
                              height="800"
-                             style="view-transition-name: project-img-mood-of-the-nation;"
+                             style="view-transition-name: project-img-midnight-sun;"
                              onload="this.classList.add('img-loaded')">
                     </div>
 
-                    <!-- 2. Actual quote from the MOTN June 2022 survey -->
                     <div class="standard-quote">
-                        &ldquo;To the question, 'In general, are you satisfied or dissatisfied with the way things are going in Sri Lanka?' only 2% said they were satisfied.&rdquo;
-                        <span class="quote-author">&mdash; Verité Research, June 2022</span>
+                        &ldquo;Retro pool party&hellip; in outer space.&rdquo; That was the entire brief. Everything else was mine to build.
                     </div>
 
-                    <!-- 3. Full width — Sinhala & Tamil Versions (Combined) -->
-                    <div class="media-item full-width">
-                        <img src="assets/MOTN_SINTAM.webp"
-                             alt="Mood of the Nation - Sinhala and Tamil Versions"
+                    <!-- Draft 1 (Half width with PDF link underneath) -->
+                    <div class="media-item" style="flex-direction: column; align-items: flex-start; background: transparent;">
+                        <img src="assets/album_artone.webp"
+                             alt="First concept delivery of Midnight Sun Part I"
                              loading="lazy"
-                             width="1200"
-                             height="800"
-                             onload="this.classList.add('img-loaded')">
-                    </div>
-
-                    <!-- 4. Full width — Newspaper Mockup -->
-                    <div class="media-item full-width" style="flex-direction: column; background: transparent;">
-                        <img src="assets/MOTN_News.webp"
-                             alt="Mood of the Nation - Newspaper Mockup"
-                             loading="lazy"
-                             width="1200"
-                             height="800"
+                             width="600"
+                             height="600"
                              style="border-radius: 4px;"
                              onload="this.classList.add('img-loaded')">
-                        <p style="font-family: var(--sans); font-size: 0.8125rem; color: var(--ink-muted); text-align: left; margin-top: 16px; padding: 0 16px; line-height: 1.5;">
-                            <em>Note: The newspaper mockup featured in this gallery was generated using Google Flow to contextualize the print distribution of the data.</em>
-                        </p>
+                        <a href="assets/rationale_draftone.pdf" target="_blank" rel="noopener" class="caption-link" style="margin-top: 16px; padding: 0 8px;">Design rationale — Delivery 1 (PDF)</a>
+                    </div>
+
+                    <!-- Draft 2 (Half width with PDF link underneath) -->
+                    <div class="media-item" style="flex-direction: column; align-items: flex-start; background: transparent;">
+                        <img src="assets/album_arttwo.webp"
+                             alt="Second concept delivery of Midnight Sun Part I"
+                             loading="lazy"
+                             width="600"
+                             height="600"
+                             style="border-radius: 4px;"
+                             onload="this.classList.add('img-loaded')">
+                        <a href="assets/rationale_drafttwo.pdf" target="_blank" rel="noopener" class="caption-link" style="margin-top: 16px; padding: 0 8px;">Design rationale — Delivery 2 (PDF)</a>
+                    </div>
+
+                    <!-- Final Artwork (Full width) -->
+                    <div class="media-item full-width">
+                        <img src="assets/album_final.webp"
+                             alt="Final revised Midnight Sun Part I cover"
+                             loading="lazy"
+                             width="1200"
+                             height="800"
+                             onload="this.classList.add('img-loaded')">
                     </div>
 
                 </div>
@@ -337,42 +339,43 @@
 
             <div class="sidebar-wrap" id="sidebarWrap">
                 <div class="text-col-inner">
-                    
+
                     <div class="project-description">
-                        <p>The <a href="https://www.veriteresearch.org/category/publications/mood-of-the-nation/" target="_blank" rel="noopener">Mood of the Nation</a> is Verité Research's nationally syndicated public opinion survey - tracking government approval ratings, national satisfaction, and economic confidence across Sri Lanka. The survey is based on a Gallup-style methodology, gathering data through a nationwide randomized sample of over a thousand respondents to gauge public sentiment on critical socio-political viewpoints.</p>
-                        
-                        <p>I designed the data infographics for this survey across all three official languages - English, Sinhala, and Tamil. The objective was to ensure these critical findings could be distributed simultaneously to national television channels, print media, and digital platforms, reaching every segment of Sri Lanka's diverse media landscape.</p>
-                        
-                        <p>The <a href="https://www.veriteresearch.org/publication/mood-of-the-nation-june-2022/" target="_blank" rel="noopener">June 2022 edition</a> of the poll captured Sri Lanka at a historic breaking point during the economic crisis. The survey revealed that the government approval rating had collapsed to just 3%. Furthermore, the nation's economic confidence score hit a staggering negative (-) 96 out of a possible (-) 100 - meaning almost the entire country viewed the economy as being in poor condition and actively worsening. My role was to translate these stark, defining statistics into clear, authoritative visuals that commanded the national conversation.</p>
+            <p>Midnight Sun – Part I is a custom album cover for an independent band's streaming release, blending 1950s sci-fi with pin-up art set at a retro pool party in outer space. The scene features UFOs, pyramids, vintage swimsuits, and cosmic backdrops.</p>
+
+            <p>The deliverables included a 4000×4000px main cover, a layered high-resolution source file for vinyl and print, plus reframed crops for YouTube, Spotify Canvas, and social media, all from a single composition.</p>
+
+            <p>The first draft depicted a poolside scene with sunbathers in bubble helmets, a UFO beaming up a swimmer, distant pyramids, and a live band. Feedback led to adjustments: the band’s instrumentation was revised, some human figures were replaced with aliens, and extraneous elements were removed for clarity.</p>
+
+            <p>The final version introduced a bold, vintage sci-fi typography for the title, enhancing the artwork's 1950s B-movie feel. The finished piece was delivered as a layered PSD with flattened exports for streaming and print use.</p>
                     </div>
 
-                    <!-- Updated Meta Section to precisely match your template -->
                     <div class="meta-section">
                         <div class="meta-grid">
                             <div class="meta-item">
                                 <div class="meta-label">Client</div>
-                                <div class="meta-value">Economics Team</div>
+                                <div class="meta-value">AJ Khoury</div>
+                                <div class="meta-value">Fiverr</div>
                             </div>
                             <div class="meta-item">
                                 <div class="meta-label">Office</div>
-                                <div class="meta-value">Verité Research</div>
+                                <div class="meta-value">Homebased</div>
                             </div>
                             <div class="meta-item">
                                 <div class="meta-label">Sector</div>
-                                <div class="meta-value">Civic & Public</div>
+                                <div class="meta-value">Entertainment</div>
                             </div>
                             <div class="meta-item">
                                 <div class="meta-label">Discipline</div>
-                                <div class="meta-value">Data Driven Experiences</div>
+                                <div class="meta-value">Packaging</div>
                             </div>
                             <div class="meta-item">
                                 <div class="meta-label">Project team</div>
-                                <div class="meta-value">Adrian Marcus</div>
                                 <div class="meta-value">Chatura Dissanayake</div>
                             </div>
                             <div class="meta-item">
                                 <div class="meta-label">Collaborators</div>
-                                <div class="meta-value">Communications Team</div>
+                                <div class="meta-value">None</div>
                             </div>
                         </div>
                     </div>
@@ -382,9 +385,8 @@
 
         </div>
 
-<section class="next-project-section" id="nextProjectTarget">
-    <!-- Dynamic Next Project injected via app.js -->
-</section>
+        <!-- Dynamic target element for the Random Next Project -->
+        <section class="next-project-section" id="nextProjectTarget"></section>
 
         <div class="btn-wrapper-mobile" id="mobileFloatBtn">
             <button class="about-btn"
