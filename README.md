@@ -14,7 +14,7 @@ I help UN agencies, governments, and research institutions turn complex work int
 
 ### Philosophy
 
-I work at the intersection of policy, data, and design. Good communication isn't about making things look nice, it's about ensuring the right message lands with the right person, whether that's a national report or an interactive data story for someone who has never read a policy brief in their life. Organisations often invest heavily in research and analysis, then treat communication as an afterthought. I bridge that gap.
+I work at the intersection of policy, data, and design. Good communication isn't about making things look nice; it's about ensuring the right message lands with the right person, whether that's a national report or an interactive data story for someone who has never read a policy brief in their life. Organisations often invest heavily in research and analysis, then treat communication as an afterthought. I bridge that gap.
 
 <br>
 
@@ -35,7 +35,7 @@ Turning complex datasets into clear visual narratives through interactive web ex
 `Data Storytelling` `Information Architecture` `Creative Coding` `UX/UI Design`
 
 **Report & Publication Design**
-Designing institutional publications so complex policy and research documents stay accessible and professional.
+Designing institutional publications so that complex policy and research documents stay accessible and professional.
 `Editorial Design` `Typography Systems` `Print Production` `Visual Hierarchy`
 
 **Digital & Campaign Communications**
