@@ -1,53 +1,55 @@
 <div align="center">
 
 # Chatura Dissanayake
-**Information Designer : Systems Thinker**
+**Information Designer · Systems Thinker**
 
-> Designing clarity from complexity. Every system has a story. I find it.
+Designing clarity from complexity. Every system has a story — I find it.
+
+![Profile Views](https://komarev.com/ghpvc/?username=chaturadissanayake&color=1a4480&style=flat-square&label=Profile+Views)
 
 </div>
 
 <br>
 
 ### Philosophy
-I believe that effective design is a form of public service. It makes data democratic and complex topics accessible to everyone. My process prioritises both visual impact and ethical accuracy, because a beautiful chart that misleads is still a failure. I operate best when given a messy problem: fragmented data, contested narratives, or impossible deadlines.
+
+Effective design is a form of public service — it makes data democratic and complex topics accessible. My process prioritises visual impact and ethical accuracy equally, because a beautiful chart that misleads is still a failure. I work best on messy problems: fragmented data, contested narratives, impossible deadlines.
 
 <br>
 
-### The Arsenal
-My toolkit is engineered to translate complex systems into highly visible formats.
+### Toolkit
 
-* **Data Narrative Engineering**
-    Transforming dense policy and research datasets into visual narratives for institutional publication.
-    `Tableau` | `ECharts` | `Adobe Illustrator` | `Adobe InDesign` | `MS Excel`
+**Data Narrative Engineering**
+`Tableau` `ECharts` `Adobe Illustrator` `Adobe InDesign` `MS Excel`
 
-* **Policy Communication UX**
-    Designing intuitive digital environments and scrollytelling websites to make bureaucratic information user-friendly.
-    `Figma` | `HTML` | `CSS` | `JS` | `Webflow` | `Hotjar` | `Notion`
+**Policy Communication UX**
+`Figma` `HTML` `CSS` `JS` `Webflow` `Hotjar` `Notion`
 
-* **Mass-Digital Reach**
-    Scaling digital platforms through real-time analytics, retention metrics, and audience psychology.
-    `Google Analytics` | `YouTube Studio` | `Meta Business Suite` | `Premiere Pro`
+**Mass-Digital Reach**
+`Google Analytics` `YouTube Studio` `Meta Business Suite` `Premiere Pro`
 
 <br>
 
-### Domain Expertise
-I deliver structured information solutions across these core areas:
+### Focus Areas
 
-* **Institutional Reporting**
-    Synthesising impact data across multiple agencies into cohesive national development narratives. I have led information design for official UN annual results and SDG fund reports.
+- **Institutional Reporting** — UN annual results and SDG fund reports across multiple agencies
+- **Government Policy Design** — Public Investment Programme report, Ministry of Finance
+- **Crisis Communication** — situation reports and data structuring for emergency response
+- **Interactive Scrollytelling** — social and public-health issues as digital journeys
+- **Digital Growth Strategy** — content playbooks built on retention and sentiment data
 
-* **Government Policy Design**
-    Simplifying macroeconomic data and investment targets for national policy documents. I designed the official Public Investment Programme report for the Ministry of Finance.
+<br>
 
-* **Crisis Communication**
-    Structuring ground-truth data into cohesive visual situation reports for emergency response. These frameworks provide narrative clarity for NGOs and government units under operational pressure.
+### GitHub Activity
 
-* **Interactive Scrollytelling**
-    Mapping complex social issues, such as national drug policy or public health outcomes, into compelling digital journeys for the general public.
+<div align="center">
 
-* **Digital Growth Strategy**
-    Engineering repeatable content playbooks using sentiment analysis and retention engineering to scale platforms to millions of views.
+![Chatura's GitHub stats](https://github-readme-stats.vercel.app/api?username=chaturadissanayake&show_icons=true&hide_border=true&bg_color=00000000&title_color=1a4480&icon_color=1a4480&text_color=2c3645)
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=chaturadissanayake&layout=compact&hide_border=true&bg_color=00000000&title_color=1a4480&text_color=2c3645)
+
+![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user=chaturadissanayake&hide_border=true&background=00000000&ring=1a4480&fire=1a4480&currStreakLabel=1a4480&sideLabels=2c3645&currStreakNum=2c3645&sideNums=2c3645&dates=2c3645)
+
+</div>
 
 <br>
 
@@ -55,11 +57,9 @@ I deliver structured information solutions across these core areas:
 
 <div align="center">
 
-**Contact : Collaboration**
+**Contact · Collaboration**
 
-[consultchatura@gmail.com](mailto:consultchatura@gmail.com) | [LinkedIn](https://linkedin.com/in/chaturadissanayake) | [GitHub](https://github.com/chaturadissanayake) | [X](https://x.com/atakatus)
-
-<br>
+[consultchatura@gmail.com](mailto:consultchatura@gmail.com) · [LinkedIn](https://linkedin.com/in/chaturadissanayake) · [GitHub](https://github.com/chaturadissanayake) · [X](https://x.com/atakatus)
 
 *Available for consulting roles, institutional partnerships, and speaking engagements.*
 
