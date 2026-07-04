@@ -2,9 +2,9 @@
 
 # Chatura Dissanayake
 
-**Digital Communications & Information Design Specialist**
+**Information Designer · Systems Thinker** · **Digital Communications & Information Design Specialist**
 
-I help UN agencies, governments, and research institutions turn complex work into communications that reach and move people.
+Designing clarity from complexity. I help UN agencies, governments, and research institutions turn complex work into communications that reach and move people.
 
 ![Profile Views](https://komarev.com/ghpvc/?username=chaturadissanayake&color=1a4480&style=flat-square&label=Profile+Views)
 
@@ -14,7 +14,7 @@ I help UN agencies, governments, and research institutions turn complex work int
 
 ### Philosophy
 
-I work at the intersection of policy, data, and design. Good communication isn't about making things look nice, it's about ensuring the right message lands with the right person, whether that's a national report or an interactive data story for someone who has never read a policy brief in their life. Organisations often invest heavily in research and analysis, then treat communication as an afterthought. I bridge that gap.
+Effective design is a form of public service. It makes data democratic and complex topics accessible. My process weighs visual impact and ethical accuracy equally, because a beautiful chart that misleads is still a failure. I work best on messy problems: fragmented data, contested narratives, impossible deadlines. I work at the intersection of policy, data, and design; I bridge the gap between research and audience so the right message lands with the right person.
 
 <br>
 
@@ -41,6 +41,29 @@ Designing institutional publications so complex policy and research documents st
 **Digital & Campaign Communications**
 Strategic outreach and content creation for institutional campaigns across multiple platforms.
 `Digital Strategy` `Content Production` `Video Editing` `Data Analysis`
+
+<br>
+
+### Toolkit
+
+**Data Narrative Engineering**
+`Tableau` `ECharts` `Adobe Illustrator` `Adobe InDesign` `MS Excel`
+
+**Policy Communication UX**
+`Figma` `HTML` `CSS` `JS` `Webflow` `Hotjar` `Notion`
+
+**Mass-Digital Reach**
+`Google Analytics` `YouTube Studio` `Meta Business Suite` `Premiere Pro`
+
+<br>
+
+### Focus Areas
+
+- **Institutional Reporting**: UN annual results and SDG fund reports, synthesised across multiple agencies
+- **Government Policy Design**: the official Public Investment Programme report for the Ministry of Finance
+- **Crisis Communication**: situation reports that turn ground-truth data into clarity under operational pressure
+- **Interactive Scrollytelling**: social and public-health issues shaped into digital journeys for a public audience
+- **Digital Growth Strategy**: content playbooks built on retention metrics and audience psychology
 
 <br>
 
