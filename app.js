@@ -625,22 +625,41 @@ let currentFilter = 'all';
         });
     }
     
-    if (archiveBtn) {
-        archiveBtn.addEventListener('click', () => {
-            isArchiveView = !isArchiveView;
-            archiveBtn.innerHTML = `${isArchiveView ? 'Portfolio' : 'Archive'} <i data-lucide="archive" style="width:14px;height:14px; margin-left:6px;"></i>`;
-            if (isArchiveView) {
-                archiveBtn.style.background = 'var(--ink)';
-                archiveBtn.style.color = 'var(--white)';
-                archiveBtn.style.borderColor = 'var(--ink)';
-            } else {
-                archiveBtn.style.background = '';
-                archiveBtn.style.color = '';
-                archiveBtn.style.borderColor = '';
+    const archiveModeBanner = document.getElementById('archive-mode-banner');
+    const archiveBackBtn = document.getElementById('archive-back-btn');
+
+    const setArchiveView = (nextValue) => {
+        isArchiveView = nextValue;
+        archiveBtn.innerHTML = `${isArchiveView ? 'Portfolio' : 'Archive'} <i data-lucide="archive" style="width:14px;height:14px; margin-left:6px;"></i>`;
+        if (isArchiveView) {
+            archiveBtn.style.background = 'var(--ink)';
+            archiveBtn.style.color = 'var(--white)';
+            archiveBtn.style.borderColor = 'var(--ink)';
+        } else {
+            archiveBtn.style.background = '';
+            archiveBtn.style.color = '';
+            archiveBtn.style.borderColor = '';
+        }
+        if (archiveModeBanner) archiveModeBanner.hidden = !isArchiveView;
+        setActiveFilter('all');
+        if (window.lucide) lucide.createIcons({ root: archiveBtn });
+        if (archiveModeBanner) initIcons(archiveModeBanner);
+        renderProjectsGrid();
+        if (isArchiveView) {
+            const projectsSection = document.getElementById('projects');
+            if (projectsSection) {
+                const offset = projectsSection.getBoundingClientRect().top + window.scrollY - 80;
+                window.scrollTo({ top: offset, behavior: getScrollBehavior() });
             }
-            if (window.lucide) lucide.createIcons({ root: archiveBtn });
-            renderProjectsGrid();
-        });
+        }
+    };
+
+    if (archiveBtn) {
+        archiveBtn.addEventListener('click', () => setArchiveView(!isArchiveView));
+    }
+
+    if (archiveBackBtn) {
+        archiveBackBtn.addEventListener('click', () => setArchiveView(false));
     }
 
     const aboutContent = document.querySelector('.about-philosophy');
@@ -726,27 +745,24 @@ let currentFilter = 'all';
         const status = card.getAttribute('data-status') || 'View Project';
 
         link.innerHTML = `${status} <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i>`;
-        
+
         if (window.lucide) {
             lucide.createIcons({ nameAttr: 'data-lucide', root: link });
         }
 
         if (href && href !== '#') {
-
             link.href = href;
             link.target = href.startsWith('http') ? '_blank' : '_self';
             link.style.display = 'inline-flex';
             link.style.opacity = '1';
             link.style.pointerEvents = 'auto';
         } else if (status && status !== 'View Project') {
-
             link.textContent = status;
             link.removeAttribute('href');
             link.style.opacity = '0.45';
             link.style.pointerEvents = 'none';
             link.style.display = 'inline-flex';
         } else {
-
             link.removeAttribute('href');
             link.style.display = 'none';
         }
@@ -1026,6 +1042,45 @@ const sidebarWrap = document.getElementById('sidebarWrap');
         declineBtn.addEventListener('click', () => {
             localStorage.setItem('cookieConsent', 'denied');
             cookieBanner.style.display = 'none';
+        });
+    }
+const mapObj = document.querySelector('.clients-map-img');
+    const mapTooltip = document.getElementById('map-tooltip');
+
+    if (mapObj && mapTooltip) {
+        mapObj.addEventListener('load', () => {
+            try {
+                const svgDoc = mapObj.contentDocument;
+                if (!svgDoc) return;
+
+                const style = svgDoc.createElementNS("http://www.w3.org/2000/svg", "style");
+                style.textContent = ".cls-1, .cls-2 { cursor: pointer; transition: opacity 0.2s; } .cls-1:hover, .cls-2:hover { opacity: 0.7; }";
+                svgDoc.documentElement.appendChild(style);
+
+                const interactivePaths = svgDoc.querySelectorAll('.cls-1, .cls-2');
+
+                interactivePaths.forEach(path => {
+                    path.addEventListener('mouseenter', () => {
+                        const infoText = path.getAttribute('data-info');
+                        if (infoText) {
+                            mapTooltip.textContent = infoText;
+                            mapTooltip.classList.add('is-visible');
+                        }
+                    });
+
+                    path.addEventListener('mousemove', (e) => {
+                        const rect = mapObj.getBoundingClientRect();
+                        const x = e.clientX + rect.left;
+                        const y = e.clientY + rect.top;
+                        mapTooltip.style.left = `${x}px`;
+                        mapTooltip.style.top = `${y}px`;
+                    });
+
+                    path.addEventListener('mouseleave', () => {
+                        mapTooltip.classList.remove('is-visible');
+                    });
+                });
+            } catch (err) {}
         });
     }
 });

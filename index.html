@@ -182,6 +182,11 @@
             </div>
         </div>
 
+        <div class="archive-mode-banner" id="archive-mode-banner" hidden>
+            <span class="archive-mode-text"><i data-lucide="archive" aria-hidden="true"></i><span class="archive-mode-text-full">You're viewing archived work</span></span>
+            <button type="button" class="archive-back-btn" id="archive-back-btn">Back to Portfolio <i data-lucide="arrow-left" aria-hidden="true"></i></button>
+        </div>
+
         <div class="projects-wrapper grid-mode" id="projects-container">
             <div class="system-message loading-state">Loading Projects...</div>
         </div>
@@ -193,6 +198,23 @@
             <button id="expand-projects-btn" class="show-more-btn" style="display: none;">
                 <span class="btn-label">View all work</span><i data-lucide="chevron-down" aria-hidden="true" style="width:16px;height:16px;"></i>
             </button>
+        </div>
+    </div>
+</section>
+
+<section class="clients-map-section section-fade-in" id="global-reach">
+    <div class="container">
+        <div class="section-header-row">
+            <div class="header-text-block">
+                <p class="section-eyebrow">Global Reach</p>
+                <h2 class="section-title">Global Footprint</h2>
+                <p class="section-header-desc">A look at the countries my work has reached.</p>
+            </div>
+        </div>
+        <div class="clients-map-wrapper">
+            <div class="map-image-inner">
+                <object data="assets/world-map.svg" type="image/svg+xml" class="clients-map-img" aria-label="World map highlighting countries with delivered projects"></object>
+            </div>
         </div>
     </div>
 </section>
@@ -573,6 +595,7 @@
 
             </div>
         </div>
+        <div class="viz-swipe-hint" aria-hidden="true"><span></span><span></span><span></span></div>
     </div>
 </section>
 
@@ -698,7 +721,7 @@
                 </div>
             </div>
             <div class="modal-footer-action">
-                <a href="#" id="pm-link" target="_blank" rel="noopener" class="modal-cta-btn">View Project <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
+                <a href="#" id="pm-link" target="_blank" rel="noopener" class="modal-cta-btn-primary">View Project <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
             </div>
         </div>
     </div>
@@ -720,6 +743,8 @@
         </div>
     </div>
 </div>
+
+<div id="map-tooltip" class="map-tooltip" aria-hidden="true"></div>
 
 <script src="app.js" defer></script>
 </body>
