@@ -33,23 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(removeLoadingState, 400);
     }
 
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const heroHeadline = document.getElementById('hero-headline');
-    if (heroHeadline && !prefersReducedMotion) {
-        const originalText = heroHeadline.textContent.trim();
-        const words = originalText.split(/\s+/);
-        heroHeadline.setAttribute('aria-label', originalText);
-        heroHeadline.innerHTML = words.map((word, i) => {
-            return '<span class="word-mask"><span class="word-inner" style="--wd:' + (i * 45) + 'ms" aria-hidden="true">' + word + '&nbsp;</span></span>';
-        }).join('');
-        requestAnimationFrame(() => {
-            requestAnimationFrame(() => {
-                heroHeadline.classList.add('in-view');
-            });
-        });
-    }
-
     const progressBar = document.getElementById('scroll-progress');
     const header = document.getElementById('main-header');
     const floatBtt = document.getElementById('floating-back-to-top');
@@ -1044,43 +1027,51 @@ const sidebarWrap = document.getElementById('sidebarWrap');
             cookieBanner.style.display = 'none';
         });
     }
-const mapObj = document.querySelector('.clients-map-img');
+const mapContainer = document.querySelector('.map-image-inner');
     const mapTooltip = document.getElementById('map-tooltip');
 
-    if (mapObj && mapTooltip) {
-        mapObj.addEventListener('load', () => {
-            try {
-                const svgDoc = mapObj.contentDocument;
-                if (!svgDoc) return;
+    if (mapContainer && mapTooltip) {
+        fetch('assets/world-map.svg')
+            .then(response => {
+                if (!response.ok) throw new Error('SVG not found');
+                return response.text();
+            })
+            .then(svgData => {
+                mapContainer.innerHTML = svgData;
+                
+                const svg = mapContainer.querySelector('svg');
+                if (svg) {
+                    svg.classList.add('clients-map-img');
+                    svg.style.width = '100%';
+                    svg.style.height = 'auto';
+                }
 
-                const style = svgDoc.createElementNS("http://www.w3.org/2000/svg", "style");
-                style.textContent = ".cls-1, .cls-2 { cursor: pointer; transition: opacity 0.2s; } .cls-1:hover, .cls-2:hover { opacity: 0.7; }";
-                svgDoc.documentElement.appendChild(style);
+                const interactiveElements = mapContainer.querySelectorAll('.cls-1, .cls-2, [data-info]');
 
-                const interactivePaths = svgDoc.querySelectorAll('.cls-1, .cls-2');
+                interactiveElements.forEach(el => {
+                    el.style.cursor = 'pointer';
+                    el.style.transition = 'opacity 0.2s ease';
 
-                interactivePaths.forEach(path => {
-                    path.addEventListener('mouseenter', () => {
-                        const infoText = path.getAttribute('data-info');
+                    el.addEventListener('mouseenter', () => {
+                        el.style.opacity = '0.6';
+                        const infoText = el.getAttribute('data-info');
                         if (infoText) {
                             mapTooltip.textContent = infoText;
                             mapTooltip.classList.add('is-visible');
                         }
                     });
 
-                    path.addEventListener('mousemove', (e) => {
-                        const rect = mapObj.getBoundingClientRect();
-                        const x = e.clientX + rect.left;
-                        const y = e.clientY + rect.top;
-                        mapTooltip.style.left = `${x}px`;
-                        mapTooltip.style.top = `${y}px`;
+                    el.addEventListener('mousemove', (e) => {
+                        mapTooltip.style.left = `${e.clientX}px`;
+                        mapTooltip.style.top = `${e.clientY}px`;
                     });
 
-                    path.addEventListener('mouseleave', () => {
+                    el.addEventListener('mouseleave', () => {
+                        el.style.opacity = '1';
                         mapTooltip.classList.remove('is-visible');
                     });
                 });
-            } catch (err) {}
-        });
+            })
+            .catch(err => console.error('Map loading error:', err));
     }
 });
