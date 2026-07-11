@@ -400,7 +400,10 @@ let currentFilter = 'all';
             const disciplineTags = Array.isArray(rawDiscipline) ? rawDiscipline : (rawDiscipline ? [rawDiscipline] : []);
             disciplineTags.forEach(tag => disciplineTagsSet.add(tag));
 
-            const tagsHTML = safeTags.map(tag => `<button type="button" class="card-tag-btn" data-tag="${tag}" aria-pressed="false" aria-label="Filter projects by ${tag}">${tag}</button>`).join('');
+            const tagsHTML = safeTags.slice(1).map(tag => `<button type="button" class="card-tag-btn" data-tag="${tag}" aria-pressed="false" aria-label="Filter projects by ${tag}">${tag}</button>`).join('');
+            const catHTML = safeTags[0]
+                ? `<button type="button" class="card-cat card-tag-btn" data-tag="${safeTags[0]}" aria-pressed="false" aria-label="Filter projects by ${safeTags[0]}">${safeTags[0]}</button>`
+                : '';
             
             const safeChallenge = proj.challenge || '';
             const descSnippet = safeChallenge.length > 120 ? safeChallenge.substring(0, 120) + '...' : safeChallenge;
@@ -422,15 +425,14 @@ let currentFilter = 'all';
                         </div>
                         <div class="card-body">
                             <div class="card-meta">
-                                <span class="card-cat">${safeTags[0] || ''}</span>
+                                ${catHTML}
                                 <span class="card-date">${proj.date}</span>
                             </div>
                             <div class="card-title-wrap">
                                 <h3 class="card-title">${proj.title}</h3>
                                 <p class="card-desc">${descSnippet}</p>
                             </div>
-                            <div class="card-tags">${tagsHTML}</div>
-                        </div>
+                            </div>
                     </div>
                 </div>
             `;
@@ -836,6 +838,19 @@ let currentFilter = 'all';
                 }
             }
         });
+
+        const vizDots = Array.from(document.querySelectorAll('.viz-swipe-hint span'));
+        if (vizDots.length) {
+            const updateVizDots = () => {
+                const maxScroll = vizTrack.scrollWidth - vizTrack.clientWidth;
+                const progress = maxScroll > 0 ? vizTrack.scrollLeft / maxScroll : 0;
+                const activeIdx = Math.min(vizDots.length - 1, Math.round(progress * (vizDots.length - 1)));
+                vizDots.forEach((dot, i) => dot.classList.toggle('is-active', i === activeIdx));
+            };
+            vizTrack.addEventListener('scroll', updateVizDots, { passive: true });
+            window.addEventListener('resize', updateVizDots);
+            updateVizDots();
+        }
     }
     const lightboxModal  = document.getElementById('lightbox-modal');
     const lightboxImg    = document.getElementById('lightbox-image');
