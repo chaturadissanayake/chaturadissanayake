@@ -27,8 +27,24 @@
     <link rel="stylesheet" href="/style.css">
     <link rel="preload" as="image" href="/assets/Chatura.webp" fetchpriority="high">
     <script type="module">
-    import { createIcons, Archive, ArrowDownUp, ArrowLeft, ArrowRight, ArrowUp, ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, FileText, RefreshCw, Send, X, ZoomIn } from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/lucide.js";
-    window.lucide = { createIcons: (opts) => createIcons({ icons: { Archive, ArrowDownUp, ArrowLeft, ArrowRight, ArrowUp, ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, FileText, RefreshCw, Send, X, ZoomIn }, ...opts }) };
+    import replaceElement from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/replaceElement.js";
+    import Archive from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/icons/archive.js";
+    import ArrowDownUp from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/icons/arrow-down-up.js";
+    import ArrowLeft from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/icons/arrow-left.js";
+    import ArrowRight from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/icons/arrow-right.js";
+    import ArrowUp from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/icons/arrow-up.js";
+    import ArrowUpRight from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/icons/arrow-up-right.js";
+    import ChevronDown from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/icons/chevron-down.js";
+    import ChevronLeft from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/icons/chevron-left.js";
+    import ChevronRight from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/icons/chevron-right.js";
+    import ChevronUp from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/icons/chevron-up.js";
+    import FileText from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/icons/file-text.js";
+    import RefreshCw from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/icons/refresh-cw.js";
+    import Send from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/icons/send.js";
+    import X from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/icons/x.js";
+    import ZoomIn from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/icons/zoom-in.js";
+    const lucideIcons = { Archive, ArrowDownUp, ArrowLeft, ArrowRight, ArrowUp, ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, FileText, RefreshCw, Send, X, ZoomIn };
+    window.lucide = { createIcons: () => { document.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
     </script>
     
     <noscript>
