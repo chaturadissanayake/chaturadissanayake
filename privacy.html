@@ -7,12 +7,15 @@
     <meta name="description" content="Privacy Policy for Chatura Dissanayake's portfolio: plain language, no jargon.">
     <link rel="canonical" href="https://chaturadissanayake.vercel.app/privacy.html">
     <link rel="preload" as="font" href="/assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link rel="preload" as="font" href="/assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
     <link rel="preload" as="style" href="/style.css">
     <link rel="stylesheet" href="/style.css">
-    <script src="https://unpkg.com/lucide@0.292.0" defer></script>
+    <script type="module">
+    import replaceElement from "/assets/icons/replaceElement.js";
+    import ArrowRight from "/assets/icons/arrow-right.js";
+    const lucideIcons = { ArrowRight };
+    window.lucide = { createIcons: () => { document.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
+    </script>
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
@@ -70,11 +73,11 @@
             <h2>What I collect</h2>
 
             <h3>Usage data & Analytics</h3>
-            <p>When you visit the site, basic technical information is collected automatically via Google Analytics. This includes your IP address, browser type, location data, which pages you visited, and how long you spent on them. This helps me understand how the site is being used so I can improve the portfolio.</p>
-            <p>If you're on a mobile device, this may also include your device type, operating system, and mobile browser.</p>
+            <p>When you first visit the site, you'll see a cookie banner asking whether to allow analytics. If you choose "Accept," Google Analytics loads and collects basic technical information: your IP address, browser type, approximate location, which pages you visited, and how long you spent on them. This helps me understand how the site is being used so I can improve it. If you choose "Decline," no analytics script loads and none of this is collected.</p>
+            <p>If you're on a mobile device and you've accepted analytics, this may also include your device type, operating system, and mobile browser.</p>
 
             <h3>Cookies</h3>
-            <p>This site uses cookies and similar tracking technologies provided by Google Analytics to understand traffic patterns. A cookie is a small file placed on your device. You can set your browser to refuse cookies or use a tracking blocker, and the site will still function perfectly.</p>
+            <p>Your choice on the cookie banner is remembered in your browser's local storage so you're not asked again. If you accept, Google Analytics also sets its own cookies to track return visits. You can change your mind at any time by clearing this site's data in your browser settings, which brings the banner back on your next visit.</p>
 
             <h3>Contact form</h3>
             <p>If you choose to fill in the contact form, I will receive your name, email address, organisation (if you include it), and your message. I use this information solely to reply to your inquiry. It is processed securely through Formspree, a third-party form service, and sent directly to my inbox.</p>
