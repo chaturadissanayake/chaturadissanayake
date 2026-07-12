@@ -168,6 +168,50 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
     document.querySelectorAll('.section-fade-in').forEach(s => observer.observe(s));
 
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const proofNums = document.querySelectorAll('.proof-num[data-count-to]');
+
+    const animateCountUp = (el) => {
+        const target = parseInt(el.getAttribute('data-count-to'), 10) || 0;
+        const suffix = el.getAttribute('data-suffix') || '';
+
+        if (prefersReducedMotion) {
+            el.textContent = target.toLocaleString('en-US') + suffix;
+            return;
+        }
+
+        const duration = 1400;
+        const startTime = performance.now();
+
+        const tick = (now) => {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(target * eased);
+
+            el.textContent = current.toLocaleString('en-US') + suffix;
+
+            if (progress < 1) {
+                requestAnimationFrame(tick);
+            }
+        };
+
+        requestAnimationFrame(tick);
+    };
+
+    if (proofNums.length) {
+        const proofObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCountUp(entry.target);
+                    proofObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.4 });
+
+        proofNums.forEach(el => proofObserver.observe(el));
+    }
+
     const projWrap = document.getElementById('projects-container');
     const noProjMsg = document.getElementById('no-projects-msg');
     const filterGroup = document.getElementById('dynamic-filter-group');
