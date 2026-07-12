@@ -18,8 +18,8 @@
     <meta name="twitter:image" content="https://chaturadissanayake.vercel.app/assets/Social_Preview.jpg">
     <link rel="canonical" href="https://chaturadissanayake.vercel.app/">
 
-    <link rel="dns-prefetch" href="https://unpkg.com">
-    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <meta name="theme-color" content="#f4f7f9">
     <link rel="preload" as="font" href="/assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
     <link rel="preload" as="style" href="/style.css">
     <link rel="stylesheet" href="/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/umd/lucide.min.js" defer crossorigin="anonymous"></script>
+    <link rel="preload" as="image" href="/assets/Chatura.webp" fetchpriority="high">
+    <script type="module">
+    import { createIcons, Archive, ArrowDownUp, ArrowLeft, ArrowRight, ArrowUp, ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, FileText, Send, X, ZoomIn } from "https://cdn.jsdelivr.net/npm/lucide@0.292.0/dist/esm/lucide.js";
+    window.lucide = { createIcons: (opts) => createIcons({ icons: { Archive, ArrowDownUp, ArrowLeft, ArrowRight, ArrowUp, ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, FileText, Send, X, ZoomIn }, ...opts }) };
+    </script>
     
     <noscript>
         <style>
@@ -275,7 +279,7 @@
                 <p class="section-eyebrow">About</p>
                 <h2 class="section-title">Background</h2>
                 <div class="about-image-frame">
-                    <img src="assets/Chatura.webp" alt="Chatura Dissanayake" loading="eager" width="600" height="800">
+                    <img src="assets/Chatura.webp" alt="Chatura Dissanayake" loading="eager" fetchpriority="high" width="600" height="800">
                 </div>
             </div>
             <div class="about-right">
