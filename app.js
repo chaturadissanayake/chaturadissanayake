@@ -7,6 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     initIcons();
 
+    document.addEventListener('contextmenu', e => {
+        if (e.target.closest('img')) {
+            e.preventDefault();
+        }
+    });
+
+    document.addEventListener('dragstart', e => {
+        if (e.target.closest('img')) {
+            e.preventDefault();
+        }
+    });
+
     const getScrollBehavior = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 
     document.addEventListener('click', e => {
@@ -225,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
 let currentFilter = 'all';
     let allProjCards = [];
     let rawProjectsData = [];
-    let currentSortMode = 'recent'; 
+    let currentSortMode = 'impact'; 
     let isArchiveView = false;
 
     const updateFilterScrollUI = () => {
@@ -607,14 +619,18 @@ let currentFilter = 'all';
                 expandBtn.addEventListener('click', () => {
                     const isExpanded = expandBtn.classList.toggle('expanded');
                     if (!isExpanded) {
+                        const isMobile = window.innerWidth <= 640;
+                        const maxCards = isMobile ? 3 : 6;
+                        const visibleCards = Array.from(allProjCards).filter(card => card.style.display !== 'none');
+                        const anchorCard = visibleCards[maxCards - 1];
+                        const targetOffset = anchorCard ? anchorCard.getBoundingClientRect().bottom + window.scrollY - 24 : null;
                         if (expandBtn.parentElement) expandBtn.parentElement.classList.remove('floating-action-wrapper');
                         applyProjectFilter();
-                        requestAnimationFrame(updateCardTagOverflow);
-                        const projectsSection = document.getElementById('projects');
-                        if (projectsSection) {
-                            const offset = projectsSection.getBoundingClientRect().top + window.scrollY - 80;
-                            window.scrollTo({ top: offset, behavior: 'auto' });
-                        }
+                        requestAnimationFrame(() => {
+                            updateCardTagOverflow();
+                            const offset = targetOffset !== null ? targetOffset : expandBtn.getBoundingClientRect().top + window.scrollY - 80;
+                            window.scrollTo({ top: offset, behavior: getScrollBehavior() });
+                        });
                     } else {
                         if (expandBtn.parentElement) expandBtn.parentElement.classList.add('floating-action-wrapper');
                         applyProjectFilter();
@@ -648,7 +664,7 @@ let currentFilter = 'all';
     if (sortBtn) {
         sortBtn.addEventListener('click', () => {
             currentSortMode = currentSortMode === 'recent' ? 'impact' : 'recent';
-            sortBtn.innerHTML = `Sort: ${currentSortMode === 'recent' ? 'Impact' : 'Recent'} <i data-lucide="arrow-down-up" style="width:14px;height:14px; margin-left:6px;"></i>`;
+            sortBtn.innerHTML = `Sort: ${currentSortMode === 'impact' ? 'Featured' : 'Recent'} <i data-lucide="arrow-down-up" style="width:14px;height:14px; margin-left:6px;"></i>`;
             if (window.lucide) lucide.createIcons({ root: sortBtn });
             renderProjectsGrid();
         });
@@ -963,6 +979,26 @@ let currentFilter = 'all';
         if (e.key === 'ArrowRight') { e.preventDefault(); openLightboxAt((lightboxIdx + 1) % vizTriggers.length); }
         if (e.key === 'ArrowLeft')  { e.preventDefault(); openLightboxAt((lightboxIdx - 1 + vizTriggers.length) % vizTriggers.length); }
     });
+
+    let lightboxTouchStartX = 0;
+    let lightboxTouchStartY = 0;
+
+    lightboxModal?.addEventListener('touchstart', e => {
+        lightboxTouchStartX = e.changedTouches[0].clientX;
+        lightboxTouchStartY = e.changedTouches[0].clientY;
+    }, { passive: true });
+
+    lightboxModal?.addEventListener('touchend', e => {
+        const deltaX = e.changedTouches[0].clientX - lightboxTouchStartX;
+        const deltaY = e.changedTouches[0].clientY - lightboxTouchStartY;
+        if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
+            if (deltaX < 0) {
+                openLightboxAt((lightboxIdx + 1) % vizTriggers.length);
+            } else {
+                openLightboxAt((lightboxIdx - 1 + vizTriggers.length) % vizTriggers.length);
+            }
+        }
+    }, { passive: true });
 
     document.querySelectorAll('.media-item img').forEach(img => {
         const handleLoad = () => img.classList.add('img-loaded');

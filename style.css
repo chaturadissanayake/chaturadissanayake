@@ -85,6 +85,13 @@ html { font-size: 16px; width: 100%; }
 @media (prefers-reduced-motion: no-preference) {
     html { scroll-behavior: smooth; }
 }
+img {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-drag: none;
+}
 body {
     font-family: var(--sans); font-weight: 400; color: var(--ink);
     background: var(--surface); line-height: 1.65;
@@ -391,6 +398,9 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
     margin-left: 0 !important;
     stroke-width: 1.5;
 }
+.show-more-btn svg.lucide, .modal-cta-btn svg.lucide {
+    color: var(--ink) !important;
+}
 .btn-icon-wrap {
     display: inline-flex; align-items: center; justify-content: center;
     transition: transform 0.4s var(--ease-out); margin-left: 6px;
@@ -502,12 +512,10 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
     width: 100%;
 }
 
-@media (min-width: 1441px) {
+@media (min-width: 769px) {
     .hero-container {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(220px, 360px);
-        align-items: center;
-        gap: var(--space-16);
+        max-width: 900px;
+        margin: 0 auto;
     }
 }
 
@@ -752,11 +760,11 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
 
 @media (max-width: 768px) {
 .hero-title-massive {
-    font-size: clamp(2.1rem, 9.0vw, 2.1rem);
+    font-size: clamp(1.85rem, 8.5vw, 2.35rem);
     line-height: 1.15;
     text-align: left !important;
     margin-left: -0.02em;
-    max-width: 100%;
+    max-width: 21ch;
     padding-right: 0;
 }
 
@@ -1003,12 +1011,16 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
     .filter-dropdown { display: none !important; }
 }
 
+#projects-container { overflow-anchor: none; }
 .projects-wrapper.grid-mode, .extended-work.grid-mode, .lab-grid {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-5);
 }
 
 @media (max-width: 860px) {
     .projects-wrapper.grid-mode, .extended-work.grid-mode.show {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .insights-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -1094,8 +1106,8 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
 }
 
 .project-card:hover, .lab-card:hover, .insight-card:hover {
-    transform: none; 
-    box-shadow: none;
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
     border-color: var(--ink);
 }
 
@@ -1185,6 +1197,7 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
     text-transform: uppercase; color: var(--accent);
 }
 .card-cat.card-tag-btn {
+    position: relative;
     background: transparent;
     border: none;
     padding: 0;
@@ -1192,6 +1205,11 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
     border-radius: 0;
     color: var(--accent);
     transition: color var(--dur-fast);
+}
+.card-cat.card-tag-btn::before {
+    content: "";
+    position: absolute;
+    inset: -12px;
 }
 .card-cat.card-tag-btn:hover {
     color: var(--ink);
@@ -2229,7 +2247,7 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
 .modal-section { display: flex; flex-direction: column; gap: var(--space-2); }
 .modal-section-label { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-2); }
 .modal-section-num { font-family: var(--mono); font-size: 0.625rem; color: var(--accent); letter-spacing: 0.1em; }
-.modal-section-label h4 {
+.modal-section-label h3 {
     font-family: var(--mono);
     font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.12em;
     text-transform: uppercase; color: var(--ink);
@@ -2750,8 +2768,8 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
 
 @media (hover: hover) and (pointer: fine) {
     .project-card:hover, .service-card:hover, .insight-card:hover {
-        transform: none;
-        box-shadow: none;
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
         border-color: var(--ink);
     }
 
