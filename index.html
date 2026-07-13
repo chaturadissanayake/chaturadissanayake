@@ -21,8 +21,13 @@
 <meta name="theme-color" content="#f4f7f9">
     <link rel="preload" as="font" href="/assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
     <link rel="preload" as="font" href="/assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
-    <link rel="preload" as="style" href="/style.css">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="preload" as="style" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/layout.css">
+    <link rel="stylesheet" href="/assets/css/components.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/animations.css">
+
     <link rel="preload" as="image" href="/assets/Chatura.webp" fetchpriority="high">
     <script type="module">
     import replaceElement from "/assets/icons/replaceElement.js";
@@ -53,10 +58,10 @@
         </style>
     </noscript>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
-    <link rel="manifest" href="assets/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicons/site.webmanifest">
     <link rel="alternate" type="application/rss+xml" title="Chatura Dissanayake, Insights RSS Feed" href="https://rss.app/feeds/1QjFWlxkKTZLVQd7.xml">
 
     <script>
@@ -372,7 +377,7 @@
                     <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener" class="about-link-pill">
                         LinkedIn
                     </a>
-                    <a href="assets/Chatura_CurriculumVitae.pdf" target="_blank" rel="noopener" download class="about-link-pill">
+                    <a href="assets/documents/Chatura_CurriculumVitae.pdf" target="_blank" rel="noopener" download class="about-link-pill">
                         Download CV
                     </a>
                 </div>
@@ -389,7 +394,7 @@
                 <p class="section-eyebrow">What I Do</p>
                 <h2 class="section-title">Services</h2>
                 <p class="services-intro-text">I collaborate with research organisations and institutions to communicate their work effectively to the public. Scope and pricing available upon request.</p>
-                <a href="assets/Services_Guide.pdf" target="_blank" rel="noopener" class="show-more-btn" style="margin-top: var(--space-2);">
+                <a href="assets/documents/Services_Guide.pdf" target="_blank" rel="noopener" class="show-more-btn" style="margin-top: var(--space-2);">
                     Download Services Guide <i data-lucide="file-text" aria-hidden="true" style="width:14px;height:14px;margin-left:6px;"></i>
                 </a>
             </div>
@@ -475,7 +480,7 @@
             <article class="insight-card card-interactive">
                 <a href="https://consultchatura.medium.com/i-built-a-data-story-about-cyclone-ditwah-heres-every-decision-i-made-and-why-c9c19c89398f" target="_blank" rel="noopener" class="card-hitbox" aria-label="Read I Built a Data Story About Cyclone Ditwah"></a>
                 <div class="card-image">
-                    <img src="assets/InsightCycloneDitwah_Thumb.webp" alt="Behind the making of the Cyclone Ditwah data story" loading="lazy" width="800" height="600" onload="this.classList.add('img-loaded'); this.parentElement.classList.add('shimmer-complete');" onerror="this.style.display='none'; this.parentElement.classList.add('shimmer-complete', 'image-failed'); this.parentElement.insertAdjacentHTML('afterbegin', '<div class=\'fallback-img\'>Asset Unavailable</div>');">
+                    <img src="assets/insights/InsightCycloneDitwah_Thumb.webp" alt="Behind the making of the Cyclone Ditwah data story" loading="lazy" width="800" height="600" onload="this.classList.add('img-loaded'); this.parentElement.classList.add('shimmer-complete');" onerror="this.style.display='none'; this.parentElement.classList.add('shimmer-complete', 'image-failed'); this.parentElement.insertAdjacentHTML('afterbegin', '<div class=\'fallback-img\'>Asset Unavailable</div>');">
                     <div class="card-overlay">
                         <span class="card-open-label">Read on Medium<i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                     </div>
@@ -491,7 +496,7 @@
             <article class="insight-card card-interactive">
                 <a href="ceylon-harvest.html" class="card-hitbox" aria-label="Read Ceylon Harvest Co. Article"></a>
                 <div class="card-image">
-                    <img src="assets/01_Hero_Cover.webp" alt="Ceylon Harvest Co. Hero Brand Identity" loading="lazy" width="800" height="600" onload="this.classList.add('img-loaded'); this.parentElement.classList.add('shimmer-complete');" onerror="this.style.display='none'; this.parentElement.classList.add('shimmer-complete', 'image-failed'); this.parentElement.insertAdjacentHTML('afterbegin', '<div class=\'fallback-img\'>Asset Unavailable</div>');">
+                    <img src="assets/insights/01_Hero_Cover.webp" alt="Ceylon Harvest Co. Hero Brand Identity" loading="lazy" width="800" height="600" onload="this.classList.add('img-loaded'); this.parentElement.classList.add('shimmer-complete');" onerror="this.style.display='none'; this.parentElement.classList.add('shimmer-complete', 'image-failed'); this.parentElement.insertAdjacentHTML('afterbegin', '<div class=\'fallback-img\'>Asset Unavailable</div>');">
                     <div class="card-overlay">
                         <span class="card-open-label">Read on Medium<i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                     </div>
@@ -526,8 +531,8 @@
                 <!-- 1. Fertility -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
-                        <img src="assets/Viz_1.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_1.webp" alt="Sri Lanka's Fertility Rate: Children per Woman" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <img src="assets/visualisations/Viz_1.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
+                        <img src="assets/visualisations/Viz_1.webp" alt="Sri Lanka's Fertility Rate: Children per Woman" class="viz-main-img" loading="lazy" width="800" height="600">
                         <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
@@ -540,8 +545,8 @@
                 <!-- 2. Budget -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
-                        <img src="assets/Viz_2.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_2.webp" alt="Sri Lanka Government Budget" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <img src="assets/visualisations/Viz_2.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
+                        <img src="assets/visualisations/Viz_2.webp" alt="Sri Lanka Government Budget" class="viz-main-img" loading="lazy" width="800" height="600">
                         <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
@@ -554,8 +559,8 @@
                 <!-- 3. Broken Lotus -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
-                        <img src="assets/Viz_3.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_3.webp" alt="Broken Lotus: Sexual Harassment in Sri Lanka" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <img src="assets/visualisations/Viz_3.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
+                        <img src="assets/visualisations/Viz_3.webp" alt="Broken Lotus: Sexual Harassment in Sri Lanka" class="viz-main-img" loading="lazy" width="800" height="600">
                         <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
@@ -568,8 +573,8 @@
                 <!-- 4. Skipping Classes -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
-                        <img src="assets/Viz_4.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_4.webp" alt="From Skipping Classes to Figuring It Out Myself" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <img src="assets/visualisations/Viz_4.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
+                        <img src="assets/visualisations/Viz_4.webp" alt="From Skipping Classes to Figuring It Out Myself" class="viz-main-img" loading="lazy" width="800" height="600">
                         <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
@@ -582,8 +587,8 @@
                 <!-- 5. 338 Acts -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
-                        <img src="assets/Viz_5.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_5.webp" alt="338 Acts of Change" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <img src="assets/visualisations/Viz_5.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
+                        <img src="assets/visualisations/Viz_5.webp" alt="338 Acts of Change" class="viz-main-img" loading="lazy" width="800" height="600">
                         <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
@@ -596,8 +601,8 @@
                 <!-- 6. Arrests by Substance -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
-                        <img src="assets/Viz_6.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_6.webp" alt="Drug-Related Arrests by Substance" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <img src="assets/visualisations/Viz_6.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
+                        <img src="assets/visualisations/Viz_6.webp" alt="Drug-Related Arrests by Substance" class="viz-main-img" loading="lazy" width="800" height="600">
                         <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
@@ -610,8 +615,8 @@
                 <!-- 7. Arrests vs Treatment -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
-                        <img src="assets/Viz_7.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_7.webp" alt="Drug-Related Arrests vs. Treatment Cases" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <img src="assets/visualisations/Viz_7.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
+                        <img src="assets/visualisations/Viz_7.webp" alt="Drug-Related Arrests vs. Treatment Cases" class="viz-main-img" loading="lazy" width="800" height="600">
                         <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
@@ -624,8 +629,8 @@
                 <!-- 8. Presidents -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
-                        <img src="assets/Viz_8.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_8.webp" alt="Drug Control Under Sri Lanka's Presidents" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <img src="assets/visualisations/Viz_8.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
+                        <img src="assets/visualisations/Viz_8.webp" alt="Drug Control Under Sri Lanka's Presidents" class="viz-main-img" loading="lazy" width="800" height="600">
                         <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
@@ -638,8 +643,8 @@
                 <!-- 9. Provincial -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
-                        <img src="assets/Viz_9.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_9.webp" alt="Provincial Drug Case Outcomes" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <img src="assets/visualisations/Viz_9.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
+                        <img src="assets/visualisations/Viz_9.webp" alt="Provincial Drug Case Outcomes" class="viz-main-img" loading="lazy" width="800" height="600">
                         <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
@@ -652,8 +657,8 @@
                 <!-- 10. Rehabilitation -->
                 <article class="viz-item viz-lightbox-trigger card-interactive">
                     <div class="viz-image-wrapper">
-                        <img src="assets/Viz_10.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
-                        <img src="assets/Viz_10.webp" alt="Who Provides Rehabilitation in Sri Lanka" class="viz-main-img" loading="lazy" width="800" height="600">
+                        <img src="assets/visualisations/Viz_10.webp" alt="" class="viz-bg-blur" loading="lazy" width="800" height="600" aria-hidden="true">
+                        <img src="assets/visualisations/Viz_10.webp" alt="Who Provides Rehabilitation in Sri Lanka" class="viz-main-img" loading="lazy" width="800" height="600">
                         <div class="card-overlay"><span class="card-open-label">Enlarge <i data-lucide="zoom-in" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span></div>
                     </div>
                     <div class="viz-text-content">
@@ -736,8 +741,8 @@
             </div>
             <div class="footer-col">
                 <p class="footer-title">Resources &amp; Legal</p>
-                <a href="assets/Services_Guide.pdf" target="_blank" rel="noopener">Services Guide</a>
-                <a href="assets/Chatura_CurriculumVitae.pdf" target="_blank" rel="noopener" download>Download CV</a>
+                <a href="assets/documents/Services_Guide.pdf" target="_blank" rel="noopener">Services Guide</a>
+                <a href="assets/documents/Chatura_CurriculumVitae.pdf" target="_blank" rel="noopener" download>Download CV</a>
                 <a href="privacy.html">Privacy Policy</a>
             </div>
         </div>
@@ -816,6 +821,10 @@
 
 <div id="map-tooltip" class="map-tooltip" aria-hidden="true"></div>
 
-<script src="app.js" defer></script>
+<script src="assets/js/utilities.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+<script src="assets/js/navigation.js" defer></script>
+<script src="assets/js/projects.js" defer></script>
+<script src="assets/js/modals.js" defer></script>
 </body>
 </html>
