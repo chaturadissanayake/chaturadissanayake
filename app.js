@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     initIcons();
 
+    console.log('%cChatura Dissanayake', 'font-size:22px;font-weight:bold;color:#111;');
+    console.log('%cThis site design and code are original work by Chatura Dissanayake (chaturadissanayake.vercel.app). Copying or reusing this template without permission is not permitted.', 'font-size:13px;color:#555;');
+
     document.addEventListener('contextmenu', e => {
         if (e.target.closest('img')) {
             e.preventDefault();
@@ -618,23 +621,23 @@ let currentFilter = 'all';
             if (expandBtn) {
                 expandBtn.addEventListener('click', () => {
                     const isExpanded = expandBtn.classList.toggle('expanded');
-                    if (!isExpanded) {
-                        const isMobile = window.innerWidth <= 640;
-                        const maxCards = isMobile ? 3 : 6;
-                        const visibleCards = Array.from(allProjCards).filter(card => card.style.display !== 'none');
-                        const anchorCard = visibleCards[maxCards - 1];
-                        const targetOffset = anchorCard ? anchorCard.getBoundingClientRect().bottom + window.scrollY - 24 : null;
+                    expandBtn.blur();
+                    if (isExpanded) {
+                        if (expandBtn.parentElement) expandBtn.parentElement.classList.add('floating-action-wrapper');
+                        applyProjectFilter();
+                        requestAnimationFrame(updateCardTagOverflow);
+                    } else {
                         if (expandBtn.parentElement) expandBtn.parentElement.classList.remove('floating-action-wrapper');
                         applyProjectFilter();
                         requestAnimationFrame(() => {
                             updateCardTagOverflow();
-                            const offset = targetOffset !== null ? targetOffset : expandBtn.getBoundingClientRect().top + window.scrollY - 80;
-                            window.scrollTo({ top: offset, behavior: getScrollBehavior() });
+                            const visibleCards = Array.from(document.querySelectorAll('.project-card')).filter(c => !c.classList.contains('capped-hidden') && c.style.display !== 'none');
+                            const lastCard = visibleCards[visibleCards.length - 1];
+                            if (lastCard) {
+                                const offset = lastCard.getBoundingClientRect().top + window.scrollY - 100;
+                                window.scrollTo({ top: offset, behavior: getScrollBehavior() });
+                            }
                         });
-                    } else {
-                        if (expandBtn.parentElement) expandBtn.parentElement.classList.add('floating-action-wrapper');
-                        applyProjectFilter();
-                        requestAnimationFrame(updateCardTagOverflow);
                     }
                 });
             }
@@ -745,7 +748,8 @@ let currentFilter = 'all';
                 } else {
                     throw new Error('server');
                 }
-            } catch {
+            } catch (error) {
+                console.error('Contact form submission error:', error);
                 formStatus.textContent = 'Message not sent, something went wrong. Try again or email directly at consultchatura@gmail.com';
                 formStatus.classList.add('error');
             } finally {
@@ -1167,6 +1171,9 @@ const mapContainer = document.querySelector('.map-image-inner');
                     });
                 });
             })
-            .catch(err => console.error('Map loading error:', err));
+            .catch(err => {
+                console.error('Map loading error:', err);
+                mapContainer.innerHTML = '<div class="system-message error-state"><p>Map unavailable right now.</p></div>';
+            });
     }
 });
