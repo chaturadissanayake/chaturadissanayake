@@ -91,10 +91,10 @@
 }
 
 .show-more-btn:hover, .modal-cta-btn:hover {
-    background: var(--surface-2) !important;
-    border-color: var(--ink-muted) !important;
-    color: var(--ink-soft) !important;
-    transform: none;
+    background: var(--accent-dim) !important;
+    border-color: var(--accent) !important;
+    color: var(--ink) !important;
+    transform: translateY(-1px);
 }
 
 .show-more-btn:active, .modal-cta-btn:active {
@@ -899,16 +899,16 @@
     display: inline-flex !important; align-items: center !important; gap: 8px !important;
     background: var(--ink) !important; color: var(--white) !important;
     border: 1.5px solid var(--ink) !important; border-radius: var(--radius-pill) !important;
-    padding: 13px 26px !important;
-    font-family: var(--sans) !important; font-size: 0.9375rem !important; font-weight: 500 !important;
+    padding: 11px 24px !important;
+    font-family: var(--sans) !important; font-size: 0.875rem !important; font-weight: 500 !important;
     text-transform: none !important; letter-spacing: normal !important;
-    box-shadow: var(--shadow-md) !important;
-    transition: background var(--dur-fast), border-color var(--dur-fast), transform var(--dur-fast);
+    box-shadow: none !important;
+    transition: background var(--dur-fast), border-color var(--dur-fast), transform var(--dur-fast), box-shadow var(--dur-fast);
 }
 
-.modal-cta-btn-primary:hover { background: var(--accent) !important; border-color: var(--accent) !important; transform: translateY(-2px); }
+.modal-cta-btn-primary:hover { background: var(--accent) !important; border-color: var(--accent) !important; transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
-.modal-cta-btn-primary:active { transform: translateY(0) scale(0.97); }
+.modal-cta-btn-primary:active { transform: translateY(0) scale(0.96); }
 
 .modal-cta-btn-primary svg.lucide { width: 16px !important; height: 16px !important; margin-left: 0 !important; }
 
@@ -1165,6 +1165,11 @@
     margin-top: 16px;
     letter-spacing: 0.05em;
     text-transform: uppercase;
+}
+
+@media (min-width: 1024px) and (max-width: 1440px) {
+    .project-header h1 { font-size: clamp(2rem, 4vw, 3.5rem); }
+    .standard-quote { font-size: clamp(1.125rem, 2.5vw, 2rem); }
 }
 
 .project-description p {
