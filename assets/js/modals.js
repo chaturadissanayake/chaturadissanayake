@@ -4,15 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastFocusedElement = null;
 
     const focusableSelectors = 'a, button, [tabindex]:not([tabindex="-1"])';
-    const trapFocus = e => {
-        if (!projectModal.classList.contains('active')) return;
-        const focusable = [...projectModal.querySelectorAll(focusableSelectors)];
-        const first = focusable[0], last = focusable[focusable.length - 1];
-        if (e.key === 'Tab') {
-            if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-            else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
-        }
-    };
 
     const openModal = card => {
         lastFocusedElement = document.activeElement;
@@ -63,44 +54,45 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        projectModal.classList.add('active');
+        const methoEl = document.getElementById('pm-methodology');
+        if (methoEl) {
+            const dataSource = card.getAttribute('data-source');
+            const stack = card.getAttribute('data-stack');
+            const parts = [];
+            if (dataSource) parts.push(`Data Source: ${dataSource}`);
+            if (stack) parts.push(`Stack: ${stack}`);
+            methoEl.textContent = parts.join(' · ');
+            methoEl.style.display = parts.length ? 'block' : 'none';
+        }
+
+        projectModal.showModal();
         document.body.classList.add('modal-open');
-        projectModal.addEventListener('keydown', trapFocus);
         requestAnimationFrame(() => {
             const panel = projectModal.querySelector('.modal-panel');
             if (panel) panel.scrollTop = 0;
-
-            const closeBtn = document.getElementById('close-project-modal');
-            if (closeBtn) closeBtn.focus();
         });
     };
 
-    const closeModal = (isPopState = false) => {
-        projectModal?.classList.remove('active');
-        document.body.classList.remove('modal-open');
-        projectModal.removeEventListener('keydown', trapFocus);
-
-        if (isPopState !== true && window.location.hash === '#project-details') {
-            history.back();
-        }
-
-        if (lastFocusedElement) lastFocusedElement.focus();
+    const closeModal = () => {
+        if (projectModal?.open) projectModal.close();
     };
 
-    closeProjectBtn?.addEventListener('click', () => closeModal(false));
+    closeProjectBtn?.addEventListener('click', closeModal);
     projectModal?.addEventListener('mousedown', e => {
-        if (e.target === projectModal) closeModal(false);
+        if (e.target === projectModal) closeModal();
     });
     document.querySelector('.modal-panel')?.addEventListener('mousedown', e => {
         e.stopPropagation();
     });
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && projectModal?.classList.contains('active')) closeModal(false);
+    projectModal?.addEventListener('close', () => {
+        document.body.classList.remove('modal-open');
+        if (window.location.hash === '#project-details') history.back();
+        if (lastFocusedElement) lastFocusedElement.focus();
     });
 
     window.addEventListener('hashchange', () => {
-        if (window.location.hash !== '#project-details' && projectModal?.classList.contains('active')) {
-            closeModal(true);
+        if (window.location.hash !== '#project-details' && projectModal?.open) {
+            closeModal();
         }
     });
 

@@ -23,8 +23,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
-    <link rel="preload" as="style" href="/style.css">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="preload" as="style" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/base.css">
+<link rel="stylesheet" href="/assets/css/layout.css">
+<link rel="stylesheet" href="/assets/css/components.css">
+<link rel="stylesheet" href="/assets/css/sections.css">
+<link rel="stylesheet" href="/assets/css/animations.css">
 <style>
     .project-description a,
     .project-description a:visited {
@@ -200,7 +204,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
-    <link rel="manifest" href="/assets/site.webmanifest">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
 </head>
 <body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -227,6 +231,11 @@
             <a href="/index.html#visualisations" class="nav-link">Visualisations</a>
         </nav>
         <div class="nav-actions">
+            <div class="lang-switcher" role="group" aria-label="Select language">
+                <button type="button" class="lang-text is-active" data-lang="en" aria-pressed="true">EN</button>
+                <span class="lang-divider" aria-hidden="true">/</span>
+                <button type="button" class="lang-text" data-lang="fr" aria-pressed="false">FR</button>
+            </div>
             <a href="/index.html#contact" class="nav-cta-ghost">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
             <button type="button" class="hamburger-btn" id="mobile-nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav-menu">
                 <span></span><span></span>
@@ -236,6 +245,11 @@
 </header>
 
 <div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <div class="mobile-lang-switcher" role="group" aria-label="Select language">
+        <button type="button" class="mobile-lang-text is-active" data-lang="en" aria-pressed="true">EN</button>
+        <span class="mobile-lang-divider" aria-hidden="true">/</span>
+        <button type="button" class="mobile-lang-text" data-lang="fr" aria-pressed="false">FR</button>
+    </div>
     <nav class="mobile-nav-links">
         <a href="/index.html#projects"       class="mobile-link">Work</a>
         <a href="/index.html#about"          class="mobile-link">About</a>
@@ -444,13 +458,11 @@
 
 <div id="cookie-banner" class="cookie-banner" style="display: none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
     <div class="cookie-content">
-        <p>I use Google Analytics to understand how visitors interact with this site. No personal data is collected.</p>
+        <p>I use Google Analytics to understand how visitors interact with this site. This may involve anonymised data such as your general location and device type.</p>
         <div class="cookie-actions">
             <button id="accept-cookies" class="btn-primary" style="padding: 8px 18px; font-size: 0.8125rem;">Accept</button>
             <button id="decline-cookies" class="show-more-btn" style="padding: 8px 18px; font-size: 0.8125rem; margin-top: 0;">Decline</button>
         </div>
-    </div>
-</div>
 
 <script>
 function toggleSidebar() {
@@ -470,7 +482,10 @@ function toggleSidebar() {
     }
 }
 </script>
-<script src="/app.js" defer></script>
+<script src="/assets/js/utilities.js" defer></script>
+<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/navigation.js" defer></script>
+<script src="/assets/js/modals.js" defer></script>
 
 </body>
 </html>

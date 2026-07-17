@@ -244,7 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const externalAttr = isExternal ? `target="_blank" rel="noopener"` : '';
 
             const cardHTML = `
-                <div class="project-card card-interactive" data-tags="${safeTags.join(',')}" data-title="${proj.title || ''}" data-challenge="${proj.challenge || ''}" data-role="${proj.role || ''}" data-outcome="${proj.outcome || ''}" data-link="${finalHref}" data-status="${proj.status || ''}">
+                <div class="project-card card-interactive" data-tags="${safeTags.join(',')}" data-title="${proj.title || ''}" data-challenge="${proj.challenge || ''}" data-role="${proj.role || ''}" data-outcome="${proj.outcome || ''}" data-link="${finalHref}" data-status="${proj.status || ''}" data-source="${proj.dataSource || ''}" data-stack="${proj.stack || ''}">
                     <a href="${finalHref}" ${externalAttr} class="card-hitbox" aria-label="View Project: ${proj.title}"></a>
                     <div class="card-inner">
                         <div class="card-image">
@@ -262,6 +262,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <h3 class="card-title">${proj.title}</h3>
                                 <p class="card-desc">${descSnippet}</p>
                             </div>
+                            ${(proj.dataSource || proj.stack) ? `<p class="card-methodology">${proj.dataSource ? `Data Source: ${proj.dataSource}` : ''}${proj.dataSource && proj.stack ? ' &middot; ' : ''}${proj.stack ? `Stack: ${proj.stack}` : ''}</p>` : ''}
                             </div>
                     </div>
                 </div>

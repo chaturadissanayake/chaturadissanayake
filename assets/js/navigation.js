@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.lang-text, .mobile-lang-text').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.getAttribute('data-lang');
+            document.querySelectorAll('.lang-text, .mobile-lang-text').forEach(b => {
+                const match = b.getAttribute('data-lang') === lang;
+                b.classList.toggle('is-active', match);
+                b.setAttribute('aria-pressed', String(match));
+            });
+        });
+    });
+
     const progressBar = document.getElementById('scroll-progress');
     const header = document.getElementById('main-header');
     const floatBtt = document.getElementById('floating-back-to-top');

@@ -19,8 +19,8 @@
     <link rel="canonical" href="https://chaturadissanayake.vercel.app/">
 
 <meta name="theme-color" content="#f4f7f9">
-    <link rel="preload" as="font" href="/assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
-    <link rel="preload" as="font" href="/assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
+    <link rel="preload" as="font" href="assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
+    <link rel="preload" as="font" href="assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
     <link rel="preload" as="style" href="/assets/css/base.css">
     <link rel="stylesheet" href="/assets/css/base.css">
     <link rel="stylesheet" href="/assets/css/layout.css">
@@ -111,7 +111,7 @@
 
 <header class="main-header" id="main-header">
     <div class="nav-inner">
-        <a href="/#hero" class="nav-logo" aria-label="Chatura Dissanayake Home">
+        <a href="index.html#hero" class="nav-logo" aria-label="Chatura Dissanayake Home">
             <span class="brand-wordmark">Chatura Dissanayake</span>
         </a>
         <nav class="desktop-nav" role="navigation" aria-label="Primary">
@@ -122,6 +122,11 @@
             <a href="/#visualisations" class="nav-link" data-section="visualisations">Visualisations</a>
         </nav>
         <div class="nav-actions">
+            <div class="lang-switcher" role="group" aria-label="Select language">
+                <button type="button" class="lang-text is-active" data-lang="en" aria-pressed="true">EN</button>
+                <span class="lang-divider" aria-hidden="true">/</span>
+                <button type="button" class="lang-text" data-lang="fr" aria-pressed="false">FR</button>
+            </div>
             <button type="button" class="hamburger-btn" id="mobile-nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav-menu">
                 <span></span><span></span>
             </button>
@@ -130,12 +135,17 @@
 </header>
 
 <div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <div class="mobile-lang-switcher" role="group" aria-label="Select language">
+        <button type="button" class="mobile-lang-text is-active" data-lang="en" aria-pressed="true">EN</button>
+        <span class="mobile-lang-divider" aria-hidden="true">/</span>
+        <button type="button" class="mobile-lang-text" data-lang="fr" aria-pressed="false">FR</button>
+    </div>
     <nav class="mobile-nav-links">
-        <a href="/#projects"       class="mobile-link" data-section="projects">Work</a>
-        <a href="/#about"          class="mobile-link" data-section="about">About</a>
-        <a href="/#services"       class="mobile-link" data-section="services">Services</a>
-        <a href="/#insights"       class="mobile-link" data-section="insights">Writing</a>
-        <a href="/#visualisations" class="mobile-link" data-section="visualisations">Visualisations</a>
+        <a href="index.html#projects"       class="mobile-link" data-section="projects">Work</a>
+        <a href="index.html#about"          class="mobile-link" data-section="about">About</a>
+        <a href="index.html#services"       class="mobile-link" data-section="services">Services</a>
+        <a href="index.html#insights"       class="mobile-link" data-section="insights">Writing</a>
+        <a href="index.html#visualisations" class="mobile-link" data-section="visualisations">Visualisations</a>
     </nav>
     <div class="mobile-menu-footer">
         <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
@@ -150,11 +160,6 @@
 
 <section class="hero-section" id="hero">
     <div class="grain-overlay" aria-hidden="true"></div>
-    <div class="hero-motion-bg" aria-hidden="true">
-        <div class="hero-orb hero-orb-1"></div>
-        <div class="hero-orb hero-orb-2"></div>
-        <div class="hero-orb hero-orb-3"></div>
-    </div>
     <div class="container hero-container">
         <div class="hero-content">
             <span class="hero-label reveal-up" style="--d:0ms">Digital Communications &amp; Information Design</span>
@@ -759,7 +764,7 @@
 
 </main>
 
-<div id="project-detail-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="pm-title">
+<dialog id="project-detail-modal" class="modal-overlay" aria-labelledby="pm-title">
     <div class="modal-panel">
         <div class="modal-close-row">
             <span class="brand-wordmark" style="pointer-events: auto;">Chatura Dissanayake</span>
@@ -771,6 +776,7 @@
             <div class="modal-header">
                 <h2 id="pm-title">Project Title</h2>
                 <div class="modal-tags" id="pm-tags"></div>
+                <p class="modal-methodology" id="pm-methodology"></p>
             </div>
             <div class="modal-sections">
                 <div class="modal-section">
@@ -800,7 +806,7 @@
             </div>
         </div>
     </div>
-</div>
+</dialog>
 
 <div id="lightbox-modal" class="lightbox-overlay" role="dialog" aria-modal="true" aria-label="Image viewer">
     <button type="button" class="lightbox-close" aria-label="Close lightbox"><i data-lucide="x" aria-hidden="true"></i></button>
