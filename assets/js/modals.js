@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         projectModal.showModal();
         document.body.classList.add('modal-open');
+        document.body.classList.add('project-modal-open');
         requestAnimationFrame(() => {
             const panel = projectModal.querySelector('.modal-panel');
             if (panel) panel.scrollTop = 0;
@@ -86,6 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     projectModal?.addEventListener('close', () => {
         document.body.classList.remove('modal-open');
+        document.body.classList.remove('project-modal-open');
         if (window.location.hash === '#project-details') history.back();
         if (lastFocusedElement) lastFocusedElement.focus();
     });

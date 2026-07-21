@@ -26,7 +26,12 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
     <link rel="manifest" href="assets/favicons/site.webmanifest">
 </head>
-<body>
+<body class="loading">
+<div class="site-loader" id="site-loader" aria-hidden="true">
+    <div class="site-loader-inner">
+        <span class="site-loader-type" id="site-loader-type"></span><span class="site-loader-caret"></span>
+    </div>
+</div>
 
 <header class="main-header" id="main-header" style="z-index: 1000 !important;">
     <div class="nav-inner">

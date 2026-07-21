@@ -1,4 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const siteLoader = document.getElementById('site-loader');
+    const siteLoaderType = document.getElementById('site-loader-type');
+    const loaderText = 'Chatura Dissanayake';
+    const prefersReducedMotionLoader = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    const hideSiteLoader = () => {
+        if (!siteLoader) return;
+        siteLoader.classList.add('is-hidden');
+        setTimeout(() => {
+            if (siteLoader.parentNode) siteLoader.parentNode.removeChild(siteLoader);
+        }, 500);
+    };
+
+    if (siteLoader && siteLoaderType) {
+        if (prefersReducedMotionLoader) {
+            siteLoaderType.textContent = loaderText;
+            setTimeout(hideSiteLoader, 300);
+        } else {
+            let loaderCharIndex = 0;
+            const typeLoaderChar = () => {
+                if (loaderCharIndex < loaderText.length) {
+                    siteLoaderType.textContent += loaderText.charAt(loaderCharIndex);
+                    loaderCharIndex++;
+                    setTimeout(typeLoaderChar, 45);
+                } else {
+                    setTimeout(hideSiteLoader, 350);
+                }
+            };
+            typeLoaderChar();
+        }
+    }
+
     SiteUtils.initIcons();
 
     console.log('%cChatura Dissanayake', 'font-size:22px;font-weight:bold;color:#111;');

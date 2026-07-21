@@ -184,15 +184,15 @@ button { border: none; background: none; font-family: var(--sans); cursor: point
 
 svg.lucide { width: 1em; height: 1em; vertical-align: -0.125em; flex-shrink: 0; }
 
-body.modal-open .main-header {
-    background: transparent !important;
-    box-shadow: none !important;
-    backdrop-filter: none !important;
+body.project-modal-open .main-header {
+    opacity: 0.45;
+    pointer-events: none;
+    transition: opacity var(--dur-med) var(--ease-out);
 }
 
-body.modal-open .main-header .desktop-nav,
-body.modal-open .main-header .nav-cta {
-    opacity: 0; pointer-events: none;
+body.project-modal-open .main-header .desktop-nav,
+body.project-modal-open .main-header .nav-cta {
+    pointer-events: none;
 }
 
 body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
@@ -200,11 +200,11 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: var(--radius); }
 
 @media (min-width: 1024px) and (max-width: 1440px) {
-    html { font-size: 14px; }
+    html { font-size: 15px; }
     :root {
-        --max-w: 1080px;
-        --space-24: 4.5rem;
-        --space-16: 3.5rem;
+        --max-w: 1120px;
+        --space-24: 5rem;
+        --space-16: 3.75rem;
         --nav-h: 64px;
     }
     .hero-title-massive { font-size: clamp(2rem, 4.5vw, 3.5rem); }
@@ -240,10 +240,4 @@ body[style*="overflow: hidden"] .site-wrapper {
     overflow: hidden !important;
 }
 
-@media (min-width: 769px) and (max-width: 1440px) {
-    :root {
-        --max-w: 1040px;
-        --space-24: 5rem;
-        --space-16: 3.5rem;
-    }
-}
+

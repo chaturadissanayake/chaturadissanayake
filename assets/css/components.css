@@ -94,7 +94,8 @@
     background: var(--accent-dim) !important;
     border-color: var(--accent) !important;
     color: var(--ink) !important;
-    transform: translateY(-1px);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
 }
 
 .show-more-btn:active, .modal-cta-btn:active {
