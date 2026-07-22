@@ -65,6 +65,10 @@ document.addEventListener('DOMContentLoaded', () => {
             methoEl.style.display = parts.length ? 'block' : 'none';
         }
 
+        // Prevent scrollbar layout shift
+        const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+        document.body.style.setProperty('--scroll-pad', `${scrollbarWidth}px`);
+
         projectModal.showModal();
         document.body.classList.add('modal-open');
         document.body.classList.add('project-modal-open');
@@ -126,7 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
     projectModal?.addEventListener('close', () => {
         document.body.classList.remove('modal-open');
         document.body.classList.remove('project-modal-open');
-        if (window.location.hash === '#project-details') history.back();
+        if (window.location.hash === '#project-details') {
+            history.pushState(null, '', window.location.pathname + window.location.search);
+        }
         if (lastFocusedElement) lastFocusedElement.focus();
     });
 

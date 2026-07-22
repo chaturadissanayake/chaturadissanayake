@@ -19,9 +19,9 @@
     <link rel="stylesheet" href="assets/css/off-duty.css">
 
     <script type="module">
-    import replaceElement from "assets/icons/replaceElement.js";
-    import ArrowLeft from "assets/icons/arrow-left.js";
-    import ArrowRight from "assets/icons/arrow-right.js";
+    import replaceElement from "/assets/icons/replaceElement.js";
+    import ArrowLeft from "/assets/icons/arrow-left.js";
+    import ArrowRight from "/assets/icons/arrow-right.js";
     const lucideIcons = { ArrowLeft, ArrowRight };
     window.lucide = { createIcons: () => { document.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
     </script>
@@ -33,12 +33,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
     <link rel="manifest" href="assets/favicons/site.webmanifest">
 </head>
-<body class="loading">
-<div class="site-loader" id="site-loader" aria-hidden="true">
-    <div class="site-loader-inner">
-        <span class="site-loader-type" id="site-loader-type"></span><span class="site-loader-caret"></span>
-    </div>
-</div>
+<body>
 <a href="#main-content" class="skip-link">Skip to main content</a>
 
 <header class="main-header" id="main-header">

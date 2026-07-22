@@ -29,7 +29,6 @@
     opacity: 0.05;
     mix-blend-mode: multiply;
     transform: translateZ(0);
-    will-change: transform;
 }
 
 .hero-title-massive {

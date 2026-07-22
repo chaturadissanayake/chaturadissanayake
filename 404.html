@@ -8,17 +8,17 @@
     <meta name="robots" content="noindex">
     <meta name="theme-color" content="#f4f7f9">
     
-    <link rel="preload" as="font" href="assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
-    <link rel="preload" as="font" href="assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
-    <link rel="preload" as="style" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/layout.css">
-    <link rel="stylesheet" href="assets/css/components.css">
-    <link rel="stylesheet" href="assets/css/sections.css">
-    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="preload" as="font" href="/assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
+    <link rel="preload" as="font" href="/assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
+    <link rel="preload" as="style" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/layout.css">
+    <link rel="stylesheet" href="/assets/css/components.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/animations.css">
     <script type="module">
-    import replaceElement from "assets/icons/replaceElement.js";
-    import ArrowRight from "assets/icons/arrow-right.js";
+    import replaceElement from "/assets/icons/replaceElement.js";
+    import ArrowRight from "/assets/icons/arrow-right.js";
     const lucideIcons = { ArrowRight };
     window.lucide = { createIcons: () => { document.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
     </script>
@@ -63,7 +63,7 @@
     </div>
 </header>
 
-
+<div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
     <div class="mobile-lang-switcher" role="group" aria-label="Select language">
         <button type="button" class="mobile-lang-text is-active" data-lang="en" aria-pressed="true">EN</button>
         <span class="mobile-lang-divider" aria-hidden="true">/</span>
@@ -142,9 +142,9 @@
     </div>
 </footer>
 
-<script src="assets/js/utilities.js" defer></script>
-<script src="assets/js/main.js" defer></script>
-<script src="assets/js/navigation.js" defer></script>
+<script src="/assets/js/utilities.js" defer></script>
+<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/navigation.js" defer></script>
 
 </body>
 </html>

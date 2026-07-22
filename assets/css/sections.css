@@ -1038,7 +1038,7 @@
     line-height: 1.4;
 }
 
-.about-links { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.about-links { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
 
 .about-link-pill {
     display: inline-flex; align-items: center; font-size: 0.75rem; font-weight: 500;
@@ -1051,6 +1051,34 @@
 .about-link-pill:hover {
     border-color: var(--accent); background: var(--accent-dim); color: var(--ink);
     transform: translateY(-2px); box-shadow: var(--shadow-md);
+}
+
+.about-link-pill-offduty {
+    display: inline-flex; align-items: center; gap: 7px;
+    margin-left: auto;
+    padding: 9px 0; border: none; background: none;
+    font-family: var(--serif); font-style: italic; font-size: 0.9375rem;
+    color: var(--accent-warm);
+    transition: gap var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.about-link-pill-offduty:hover { color: var(--accent); gap: 10px; }
+
+.about-link-pill-offduty .pill-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: currentColor; flex-shrink: 0;
+    animation: pulse-dot 2.6s ease-in-out infinite;
+}
+
+.about-link-pill-offduty svg.lucide { transition: transform var(--dur-fast) var(--ease-out); }
+.about-link-pill-offduty:hover svg.lucide { transform: translateX(3px); }
+
+@media (max-width: 640px) {
+    .about-link-pill-offduty {
+        margin-left: 0; flex-basis: 100%;
+        padding-top: var(--space-3); margin-top: var(--space-1);
+        border-top: 1px dashed var(--surface-3);
+    }
 }
 
 .inline-link {

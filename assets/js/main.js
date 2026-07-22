@@ -29,18 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
             siteLoaderType.textContent = loaderText;
             typingDone = true;
         } else {
-            let loaderCharIndex = 0;
-            const typeLoaderChar = () => {
-                if (loaderCharIndex < loaderText.length) {
-                    siteLoaderType.textContent += loaderText.charAt(loaderCharIndex);
-                    loaderCharIndex++;
-                    setTimeout(typeLoaderChar, 45);
-                } else {
-                    typingDone = true;
-                    revealContent();
-                }
-            };
-            typeLoaderChar();
+            siteLoaderType.textContent = loaderText;
+            typingDone = true;
+            revealContent();
         }
     } else {
         typingDone = true;
@@ -61,17 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('%cChatura Dissanayake', 'font-size:22px;font-weight:bold;color:#111;');
     console.log('%cThis site design and code are original work by Chatura Dissanayake (chaturadissanayake.vercel.app). Copying or reusing this template without permission is not permitted.', 'font-size:13px;color:#555;');
 
-    document.addEventListener('contextmenu', e => {
-        if (e.target.closest('img')) {
-            e.preventDefault();
-        }
-    });
-
-    document.addEventListener('dragstart', e => {
-        if (e.target.closest('img')) {
-            e.preventDefault();
-        }
-    });
+    // Image contextmenu and dragstart restrictions removed for better UX and accessibility.
 
     document.addEventListener('click', e => {
         const anchor = e.target.closest('a[href^="/#"]');
@@ -168,12 +149,17 @@ document.addEventListener('DOMContentLoaded', () => {
             formStatus.textContent = '';
             formStatus.className = 'form-status';
 
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 10000);
+
             try {
                 const res = await fetch(contactForm.action, {
                     method: 'POST',
                     body: new FormData(contactForm),
-                    headers: { 'Accept': 'application/json' }
+                    headers: { 'Accept': 'application/json' },
+                    signal: controller.signal
                 });
+                clearTimeout(timeoutId);
                 if (res.ok) {
                     contactForm.innerHTML = '<div class="system-message form-success-state"><strong>Message received.</strong><span>I\'ll follow up within 1–2 business days.</span></div>';
                 } else {
@@ -261,9 +247,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
 
+                    let ticking = false;
                     el.addEventListener('mousemove', (e) => {
-                        mapTooltip.style.left = `${e.clientX}px`;
-                        mapTooltip.style.top = `${e.clientY}px`;
+                        if (!ticking) {
+                            window.requestAnimationFrame(() => {
+                                mapTooltip.style.left = `${e.clientX}px`;
+                                mapTooltip.style.top = `${e.clientY}px`;
+                                ticking = false;
+                            });
+                            ticking = true;
+                        }
                     });
 
                     el.addEventListener('mouseleave', () => {

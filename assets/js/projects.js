@@ -232,8 +232,17 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const escapeHTML = str => String(str).replace(/[&<>'"]/g, match => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[match]));
+        
         viewData.forEach((proj, index) => {
-            const safeTags = proj.tags || [];
+            proj.title = escapeHTML(proj.title || '');
+            proj.challenge = escapeHTML(proj.challenge || '');
+            proj.role = escapeHTML(proj.role || '');
+            proj.outcome = escapeHTML(proj.outcome || '');
+            proj.dataSource = escapeHTML(proj.dataSource || '');
+            proj.stack = escapeHTML(proj.stack || '');
+            
+            const safeTags = (proj.tags || []).map(escapeHTML);
             safeTags.forEach(tag => allTags.add(tag));
 
             const rawDiscipline = proj.set_2_discipline_type;
