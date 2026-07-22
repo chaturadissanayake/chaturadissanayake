@@ -1224,7 +1224,7 @@
 
 @media (max-width: 480px) {
     .hero-actions-centered { flex-direction: column; align-items: stretch; width: 100%; }
-    .nav-inner { padding: var(--space-3) var(--space-4); }
+    .nav-inner { padding: var(--space-3) var(--space-4) !important; }
     .hero-belief { font-size: 0.9375rem; }
     .hero-belief br { display: none; }
 }

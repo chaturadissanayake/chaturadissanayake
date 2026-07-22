@@ -584,7 +584,6 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
         left: 0 !important;
         right: 0 !important;
         bottom: 0 !important;
-        width: 100vw !important;
         height: 100vh !important;
         height: 100dvh !important;
         margin: 0 !important;

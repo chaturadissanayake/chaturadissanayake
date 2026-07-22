@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page Not Found | Chatura Dissanayake</title>
+    <meta name="description" content="The page you're looking for doesn't exist or has been moved.">
     <meta name="robots" content="noindex">
+    <meta name="theme-color" content="#f4f7f9">
     
     <link rel="preload" as="font" href="assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
     <link rel="preload" as="font" href="assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
@@ -25,25 +27,27 @@
     <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
     <link rel="manifest" href="assets/favicons/site.webmanifest">
+    <noscript><style>body.loading { overflow: auto; }</style></noscript>
 </head>
 <body class="loading">
 <div class="site-loader" id="site-loader" aria-hidden="true">
     <div class="site-loader-inner">
-        <span class="site-loader-type" id="site-loader-type"></span><span class="site-loader-caret"></span>
+        <span class="site-loader-mark">Chatura Dissanayake</span>
+        <span class="site-loader-bar"><span class="site-loader-bar-fill"></span></span>
     </div>
 </div>
 
-<header class="main-header" id="main-header" style="z-index: 1000 !important;">
+<header class="main-header" id="main-header">
     <div class="nav-inner">
         <a href="index.html#hero" class="nav-logo" aria-label="Chatura Dissanayake Home">
             <span class="brand-wordmark">Chatura Dissanayake</span>
         </a>
         <nav class="desktop-nav" role="navigation" aria-label="Primary">
-            <a href="/index.html#projects"       class="nav-link">Work</a>
-            <a href="/index.html#about"          class="nav-link">About</a>
-            <a href="/index.html#services"       class="nav-link">Services</a>
-            <a href="/index.html#insights"       class="nav-link">Writing</a>
-            <a href="/index.html#visualisations" class="nav-link">Visualisations</a>
+            <a href="/index.html#projects"       class="nav-link" data-section="projects">Work</a>
+            <a href="/index.html#about"          class="nav-link" data-section="about">About</a>
+            <a href="/index.html#services"       class="nav-link" data-section="services">Services</a>
+            <a href="/index.html#insights"       class="nav-link" data-section="insights">Writing</a>
+            <a href="/index.html#visualisations" class="nav-link" data-section="visualisations">Visualisations</a>
         </nav>
         <div class="nav-actions">
             <div class="lang-switcher" role="group" aria-label="Select language">
@@ -59,18 +63,18 @@
     </div>
 </header>
 
-<div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation" style="z-index: 999 !important;">
+
     <div class="mobile-lang-switcher" role="group" aria-label="Select language">
         <button type="button" class="mobile-lang-text is-active" data-lang="en" aria-pressed="true">EN</button>
         <span class="mobile-lang-divider" aria-hidden="true">/</span>
         <button type="button" class="mobile-lang-text" data-lang="fr" aria-pressed="false">FR</button>
     </div>
     <nav class="mobile-nav-links">
-        <a href="index.html#projects"       class="mobile-link">Work</a>
-        <a href="index.html#about"          class="mobile-link">About</a>
-        <a href="index.html#services"       class="mobile-link">Services</a>
-        <a href="index.html#insights"       class="mobile-link">Writing</a>
-        <a href="index.html#visualisations" class="mobile-link">Visualisations</a>
+        <a href="index.html#projects"       class="mobile-link" data-section="projects">Work</a>
+        <a href="index.html#about"          class="mobile-link" data-section="about">About</a>
+        <a href="index.html#services"       class="mobile-link" data-section="services">Services</a>
+        <a href="index.html#insights"       class="mobile-link" data-section="insights">Writing</a>
+        <a href="index.html#visualisations" class="mobile-link" data-section="visualisations">Visualisations</a>
         <a href="index.html#contact"        class="mobile-link mobile-cta">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
     </nav>
     <div class="mobile-menu-footer">
@@ -78,10 +82,11 @@
         <a href="https://github.com/chaturadissanayake"      target="_blank" rel="noopener">GitHub</a>
         <a href="https://consultchatura.medium.com"          target="_blank" rel="noopener">Medium</a>
         <a href="https://rss.app/feeds/1QjFWlxkKTZLVQd7.xml" target="_blank" rel="noopener">RSS</a>
+        <a href="privacy.html">Privacy Policy</a>
     </div>
 </div>
 
-<main>
+<main id="main-content" tabindex="-1" style="outline: none;">
     <section class="hero-section" style="min-height: 85vh; padding-top: var(--nav-h);">
         <div class="container" style="text-align: center; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center;">
             <p class="section-eyebrow">Error 404</p>

@@ -4,18 +4,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const loaderText = 'Chatura Dissanayake';
     const prefersReducedMotionLoader = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const hideSiteLoader = () => {
-        if (!siteLoader) return;
-        siteLoader.classList.add('is-hidden');
-        setTimeout(() => {
-            if (siteLoader.parentNode) siteLoader.parentNode.removeChild(siteLoader);
-        }, 500);
+    // The loader's typing animation and the page's actual readiness used to
+    // run on two independent timers: on a fast/cached load the content was
+    // ready and revealed underneath while the loader kept typing away for no
+    // reason, and on a slow load the loader could disappear before the page
+    // was actually ready, leaving a blank flash. Gate the reveal on both
+    // conditions together so loader-hide and content-reveal happen as one step.
+    let typingDone = false;
+    let pageReady = false;
+
+    const revealContent = () => {
+        if (!typingDone || !pageReady) return;
+        document.body.classList.remove('loading');
+        if (siteLoader) {
+            siteLoader.classList.add('is-hidden');
+            setTimeout(() => {
+                if (siteLoader.parentNode) siteLoader.parentNode.removeChild(siteLoader);
+            }, 500);
+        }
     };
 
     if (siteLoader && siteLoaderType) {
         if (prefersReducedMotionLoader) {
             siteLoaderType.textContent = loaderText;
-            setTimeout(hideSiteLoader, 300);
+            typingDone = true;
         } else {
             let loaderCharIndex = 0;
             const typeLoaderChar = () => {
@@ -24,12 +36,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     loaderCharIndex++;
                     setTimeout(typeLoaderChar, 45);
                 } else {
-                    setTimeout(hideSiteLoader, 350);
+                    typingDone = true;
+                    revealContent();
                 }
             };
             typeLoaderChar();
         }
+    } else {
+        typingDone = true;
     }
+
+    if (document.readyState === 'complete') {
+        pageReady = true;
+    } else {
+        window.addEventListener('load', () => { pageReady = true; revealContent(); });
+    }
+    // Fallback so a slow-loading page can't hold the loader up indefinitely.
+    setTimeout(() => { pageReady = true; revealContent(); }, 2500);
+
+    if (typingDone && pageReady) revealContent();
 
     SiteUtils.initIcons();
 
@@ -61,16 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
-    const removeLoadingState = () => {
-        document.body.classList.remove('loading');
-    };
-    if (document.readyState === 'complete') {
-        removeLoadingState();
-    } else {
-        window.addEventListener('load', removeLoadingState);
-        setTimeout(removeLoadingState, 400);
-    }
 
     const observer = new IntersectionObserver(entries => {
         entries.forEach(e => {

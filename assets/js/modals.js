@@ -68,19 +68,57 @@ document.addEventListener('DOMContentLoaded', () => {
         projectModal.showModal();
         document.body.classList.add('modal-open');
         document.body.classList.add('project-modal-open');
+
+        const panel = projectModal.querySelector('.modal-panel');
+        if (panel) panel.scrollTop = 0;
+
+        // Let the browser paint one frame with the panel still off-screen
+        // (display just switched to flex via [open], but .is-open isn't on
+        // yet) before triggering the slide-in transition. Two rAFs is the
+        // safe margin some browsers need to guarantee that paint happens.
         requestAnimationFrame(() => {
-            const panel = projectModal.querySelector('.modal-panel');
-            if (panel) panel.scrollTop = 0;
+            requestAnimationFrame(() => {
+                projectModal.classList.add('is-open');
+            });
         });
     };
 
     const closeModal = () => {
-        if (projectModal?.open) projectModal.close();
+        if (!projectModal?.open) return;
+        if (!projectModal.classList.contains('is-open')) {
+            // Already mid-close or never finished opening; just bail out cleanly.
+            projectModal.close();
+            return;
+        }
+
+        const panel = projectModal.querySelector('.modal-panel');
+        let finished = false;
+        const finishClose = () => {
+            if (finished) return;
+            finished = true;
+            if (projectModal.open) projectModal.close();
+        };
+
+        projectModal.classList.remove('is-open');
+        if (panel) {
+            panel.addEventListener('transitionend', finishClose, { once: true });
+            // Fallback in case transitionend doesn't fire (e.g. reduced motion,
+            // or the panel was hidden mid-transition).
+            setTimeout(finishClose, 400);
+        } else {
+            finishClose();
+        }
     };
 
     closeProjectBtn?.addEventListener('click', closeModal);
     projectModal?.addEventListener('mousedown', e => {
         if (e.target === projectModal) closeModal();
+    });
+    projectModal?.addEventListener('cancel', e => {
+        // Escape key fires 'cancel' and would otherwise close the dialog
+        // instantly, skipping the slide-out entirely.
+        e.preventDefault();
+        closeModal();
     });
     document.querySelector('.modal-panel')?.addEventListener('mousedown', e => {
         e.stopPropagation();
@@ -131,15 +169,30 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('main-content')?.setAttribute('aria-hidden', 'true');
         document.getElementById('main-header')?.setAttribute('aria-hidden', 'true');
 
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                lightboxModal.classList.add('is-open');
+            });
+        });
+
         lightboxClose?.focus();
     };
 
     const closeLightbox = () => {
         if (lightboxModal) {
-            lightboxModal.style.display = 'none';
+            lightboxModal.classList.remove('is-open');
             lightboxModal.removeEventListener('keydown', trapLightboxFocus);
+
+            let finished = false;
+            const finishClose = () => {
+                if (finished) return;
+                finished = true;
+                lightboxModal.style.display = 'none';
+                if (lightboxImg) { lightboxImg.src = ''; lightboxImg.alt = ''; }
+            };
+            lightboxModal.addEventListener('transitionend', finishClose, { once: true });
+            setTimeout(finishClose, 350);
         }
-        if (lightboxImg)   { lightboxImg.src = ''; lightboxImg.alt = ''; }
 
         document.getElementById('main-content')?.removeAttribute('aria-hidden');
         document.getElementById('main-header')?.removeAttribute('aria-hidden');

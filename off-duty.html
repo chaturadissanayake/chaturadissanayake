@@ -10,18 +10,18 @@
 
     <link rel="preload" as="font" href="assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
     <link rel="preload" as="font" href="assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
-    <link rel="preload" as="style" href="/assets/css/base.css">
-    <link rel="stylesheet" href="/assets/css/base.css">
-    <link rel="stylesheet" href="/assets/css/layout.css">
-    <link rel="stylesheet" href="/assets/css/components.css">
-    <link rel="stylesheet" href="/assets/css/sections.css">
-    <link rel="stylesheet" href="/assets/css/animations.css">
-    <link rel="stylesheet" href="/assets/css/off-duty.css">
+    <link rel="preload" as="style" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/layout.css">
+    <link rel="stylesheet" href="assets/css/components.css">
+    <link rel="stylesheet" href="assets/css/sections.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="stylesheet" href="assets/css/off-duty.css">
 
     <script type="module">
-    import replaceElement from "/assets/icons/replaceElement.js";
-    import ArrowLeft from "/assets/icons/arrow-left.js";
-    import ArrowRight from "/assets/icons/arrow-right.js";
+    import replaceElement from "assets/icons/replaceElement.js";
+    import ArrowLeft from "assets/icons/arrow-left.js";
+    import ArrowRight from "assets/icons/arrow-right.js";
     const lucideIcons = { ArrowLeft, ArrowRight };
     window.lucide = { createIcons: () => { document.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
     </script>
@@ -47,13 +47,18 @@
             <span class="brand-wordmark">Chatura Dissanayake</span>
         </a>
         <nav class="desktop-nav" role="navigation" aria-label="Primary">
-            <a href="/index.html#projects"       class="nav-link">Work</a>
-            <a href="/index.html#about"          class="nav-link">About</a>
-            <a href="/index.html#services"       class="nav-link">Services</a>
-            <a href="/index.html#insights"       class="nav-link">Writing</a>
-            <a href="/index.html#visualisations" class="nav-link">Visualisations</a>
+            <a href="/index.html#projects"       class="nav-link" data-section="projects">Work</a>
+            <a href="/index.html#about"          class="nav-link" data-section="about">About</a>
+            <a href="/index.html#services"       class="nav-link" data-section="services">Services</a>
+            <a href="/index.html#insights"       class="nav-link" data-section="insights">Writing</a>
+            <a href="/index.html#visualisations" class="nav-link" data-section="visualisations">Visualisations</a>
         </nav>
         <div class="nav-actions">
+            <div class="lang-switcher" role="group" aria-label="Select language">
+                <button type="button" class="lang-text is-active" data-lang="en" aria-pressed="true">EN</button>
+                <span class="lang-divider" aria-hidden="true">/</span>
+                <button type="button" class="lang-text" data-lang="fr" aria-pressed="false">FR</button>
+            </div>
             <a href="/index.html#contact" class="nav-cta">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
             <button type="button" class="hamburger-btn" id="mobile-nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav-menu">
                 <span></span><span></span>
@@ -63,29 +68,36 @@
 </header>
 
 <div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
+    <div class="mobile-lang-switcher" role="group" aria-label="Select language">
+        <button type="button" class="mobile-lang-text is-active" data-lang="en" aria-pressed="true">EN</button>
+        <span class="mobile-lang-divider" aria-hidden="true">/</span>
+        <button type="button" class="mobile-lang-text" data-lang="fr" aria-pressed="false">FR</button>
+    </div>
     <nav class="mobile-nav-links">
-        <a href="index.html#projects"       class="mobile-link">Work</a>
-        <a href="index.html#about"          class="mobile-link">About</a>
-        <a href="index.html#services"       class="mobile-link">Services</a>
-        <a href="index.html#insights"       class="mobile-link">Writing</a>
-        <a href="index.html#visualisations" class="mobile-link">Visualisations</a>
+        <a href="index.html#projects"       class="mobile-link" data-section="projects">Work</a>
+        <a href="index.html#about"          class="mobile-link" data-section="about">About</a>
+        <a href="index.html#services"       class="mobile-link" data-section="services">Services</a>
+        <a href="index.html#insights"       class="mobile-link" data-section="insights">Writing</a>
+        <a href="index.html#visualisations" class="mobile-link" data-section="visualisations">Visualisations</a>
         <a href="index.html#contact"        class="mobile-link mobile-cta">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
     </nav>
     <div class="mobile-menu-footer">
         <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://github.com/chaturadissanayake"      target="_blank" rel="noopener">GitHub</a>
-        <a href="https://instagram.com/chaturadissanayake"   target="_blank" rel="noopener">Instagram</a>
+        <a href="https://consultchatura.medium.com"          target="_blank" rel="noopener">Medium</a>
+        <a href="https://rss.app/feeds/1QjFWlxkKTZLVQd7.xml" target="_blank" rel="noopener">RSS</a>
+        <a href="privacy.html">Privacy Policy</a>
     </div>
 </div>
 
-<main id="main-content">
+<main id="main-content" tabindex="-1" style="outline: none;">
 
     <section class="od-hero">
         <div class="container od-hero-inner">
             <a href="index.html#about" class="od-back-link od-back-link-top"><i data-lucide="arrow-left" aria-hidden="true" style="width:14px;height:14px;"></i> Back to the work</a>
             <p class="od-kicker">Off Duty</p>
             <h1 class="od-title">Annoyingly, <em>unapologetically</em> happy, most of the time.</h1>
-            <p class="od-lede">That's the line I use on my own Instagram bio, and it's the closest thing I have to a personal mission statement. The rest of this site is careful and considered, on-brand. This page isn't &mdash; it's what I actually spend my evenings on.</p>
+            <p class="od-lede">That's the line I use on my own Instagram bio, and it's the closest thing I have to a personal mission statement. The rest of this site is careful and considered, on-brand. This page isn't,  it's what I actually spend my evenings on.</p>
         </div>
     </section>
 
@@ -122,7 +134,7 @@
                 </figure>
             </div>
 
-            <p class="od-steam-note">See what I'm actually playing right now on <a href="#" id="od-steam-link" target="_blank" rel="noopener">Steam</a>.</p>
+            <p class="od-steam-note">See what I'm actually playing right now on <a href="https://steamcommunity.com/" id="od-steam-link" target="_blank" rel="noopener">Steam</a>.</p>
         </div>
     </section>
 
@@ -130,7 +142,7 @@
         <div class="container">
             <p class="section-eyebrow">From Player To Maker</p>
             <h2 class="section-title">Eventually, playing wasn't enough.</h2>
-            <p class="section-header-desc">Being a picky, opinionated player for years eventually made me want to build one myself. So I'm making a voter-education visual novel in my spare time &mdash; badly at first, AI-assisted now, but the same instinct behind everything else I do: research first, then make it land.</p>
+            <p class="section-header-desc">Being a picky, opinionated player for years eventually made me want to build one myself. So I'm making a voter-education visual novel in my spare time,  badly at first, AI-assisted now, but the same instinct behind everything else I do: research first, then make it land.</p>
             <div class="od-bridge-media">
                 <div class="od-bridge-placeholder">
                     <span>Add a screenshot or GIF from Road Remains here</span>
@@ -178,18 +190,18 @@
         <div class="container">
             <p class="section-eyebrow">On The Move</p>
             <h2 class="section-title">Running keeps my head straight.</h2>
-            <p class="section-header-desc">It's the one part of the day nobody can put on my calendar. Add a stat or two below &mdash; distance this year, a personal best, a favorite route.</p>
+            <p class="section-header-desc">It's the one part of the day nobody can put on my calendar. Add a stat or two below, distance this year, a personal best, a favorite route.</p>
             <div class="od-stat-strip">
                 <div class="od-stat-item">
-                    <span class="od-stat-num">&mdash;</span>
+                    <span class="od-stat-num">,</span>
                     <span class="od-stat-label">Add a stat</span>
                 </div>
                 <div class="od-stat-item">
-                    <span class="od-stat-num">&mdash;</span>
+                    <span class="od-stat-num">,</span>
                     <span class="od-stat-label">Add a stat</span>
                 </div>
                 <div class="od-stat-item">
-                    <span class="od-stat-num">&mdash;</span>
+                    <span class="od-stat-num">,</span>
                     <span class="od-stat-label">Add a stat</span>
                 </div>
             </div>
@@ -200,7 +212,7 @@
         <div class="container">
             <p class="section-eyebrow">In Pictures</p>
             <h2 class="section-title">Proof I own a camera roll.</h2>
-            <p class="section-header-desc">I don't shoot much yet, on purpose &mdash; this section stays empty until that changes. Swap these tiles for real photos in <code>/assets/off-duty/candid/</code> when it does.</p>
+            <p class="section-header-desc">I don't shoot much yet, on purpose,  this section stays empty until that changes. Swap these tiles for real photos in <code>/assets/off-duty/candid/</code>when it does.</p>
             <div class="od-photo-grid">
                 <div class="od-photo-tile od-photo-tile-empty"><div class="od-photo-placeholder"><span class="od-photo-plus">+</span></div></div>
                 <div class="od-photo-tile od-photo-tile-empty"><div class="od-photo-placeholder"><span class="od-photo-plus">+</span></div></div>
@@ -211,7 +223,7 @@
     </section>
 
     <div class="container od-back-row">
-        <a href="index.html#about" class="od-back-link"><i data-lucide="arrow-left" aria-hidden="true" style="width:14px;height:14px;"></i> Back to the work</a>
+        <a href="index.html#about" class="od-back-link"><i data-lucide="arrow-left" aria-hidden="true" style="width:14px;height:14px;"></i>Back to the work</a>
     </div>
 
 </main>

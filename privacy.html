@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy | Chatura Dissanayake</title>
     <meta name="description" content="Privacy Policy for Chatura Dissanayake's portfolio: plain language, no jargon.">
+    <meta name="robots" content="noindex">
     <link rel="canonical" href="https://chaturadissanayake.vercel.app/privacy.html">
     <link rel="preload" as="font" href="assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
     <link rel="preload" as="font" href="assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
@@ -32,6 +33,7 @@
         <span class="site-loader-type" id="site-loader-type"></span><span class="site-loader-caret"></span>
     </div>
 </div>
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
 <header class="main-header" id="main-header">
     <div class="nav-inner">
@@ -39,18 +41,19 @@
             <span class="brand-wordmark">Chatura Dissanayake</span>
         </a>
         <nav class="desktop-nav" role="navigation" aria-label="Primary">
-            <a href="index.html#projects"       class="nav-link">Work</a>
-            <a href="index.html#about"          class="nav-link">About</a>
-            <a href="index.html#services"       class="nav-link">Services</a>
-            <a href="index.html#insights"       class="nav-link">Writing</a>
-            <a href="index.html#visualisations" class="nav-link">Visualisations</a>
+            <a href="/index.html#projects"       class="nav-link" data-section="projects">Work</a>
+            <a href="/index.html#about"          class="nav-link" data-section="about">About</a>
+            <a href="/index.html#services"       class="nav-link" data-section="services">Services</a>
+            <a href="/index.html#insights"       class="nav-link" data-section="insights">Writing</a>
+            <a href="/index.html#visualisations" class="nav-link" data-section="visualisations">Visualisations</a>
         </nav>
         <div class="nav-actions">
-<div class="lang-switcher" role="group" aria-label="Select language">
+            <div class="lang-switcher" role="group" aria-label="Select language">
                 <button type="button" class="lang-text is-active" data-lang="en" aria-pressed="true">EN</button>
                 <span class="lang-divider" aria-hidden="true">/</span>
                 <button type="button" class="lang-text" data-lang="fr" aria-pressed="false">FR</button>
             </div>
+            <a href="/index.html#contact" class="nav-cta">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
             <button type="button" class="hamburger-btn" id="mobile-nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav-menu">
                 <span></span><span></span>
             </button>
@@ -65,11 +68,12 @@
         <button type="button" class="mobile-lang-text" data-lang="fr" aria-pressed="false">FR</button>
     </div>
     <nav class="mobile-nav-links">
-        <a href="index.html#projects"       class="mobile-link">Work</a>
-        <a href="index.html#about"          class="mobile-link">About</a>
-        <a href="index.html#services"       class="mobile-link">Services</a>
-        <a href="index.html#insights"       class="mobile-link">Writing</a>
-        <a href="index.html#visualisations" class="mobile-link">Visualisations</a>
+        <a href="index.html#projects"       class="mobile-link" data-section="projects">Work</a>
+        <a href="index.html#about"          class="mobile-link" data-section="about">About</a>
+        <a href="index.html#services"       class="mobile-link" data-section="services">Services</a>
+        <a href="index.html#insights"       class="mobile-link" data-section="insights">Writing</a>
+        <a href="index.html#visualisations" class="mobile-link" data-section="visualisations">Visualisations</a>
+        <a href="index.html#contact"        class="mobile-link mobile-cta">Let's talk <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
     </nav>
     <div class="mobile-menu-footer">
         <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
@@ -79,7 +83,7 @@
     </div>
 </div>
 
-<main>
+<main id="main-content" tabindex="-1" style="outline: none;">
 <section class="legal-section">
     <div class="container">
         <div class="legal-content">
@@ -130,11 +134,11 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <p class="footer-title">Navigate</p>
-                <a href="/index.html#projects">Work</a>
-                <a href="/index.html#about">About</a>
-                <a href="/index.html#services">Services</a>
-                <a href="/index.html#insights">Writing</a>
-                <a href="/index.html#visualisations">Visualisations</a>
+                <a href="index.html#projects">Work</a>
+                <a href="index.html#about">About</a>
+                <a href="index.html#services">Services</a>
+                <a href="index.html#insights">Writing</a>
+                <a href="index.html#visualisations">Visualisations</a>
             </div>
             <div class="footer-col">
                 <p class="footer-title">Connect</p>
@@ -161,8 +165,8 @@
     </div>
 </footer>
 
-<script src="/assets/js/utilities.js" defer></script>
-<script src="/assets/js/main.js" defer></script>
-<script src="/assets/js/navigation.js" defer></script>
+<script src="assets/js/utilities.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+<script src="assets/js/navigation.js" defer></script>
 </body>
 </html>

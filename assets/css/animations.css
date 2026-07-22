@@ -78,18 +78,6 @@
     transition: background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), box-shadow var(--dur-fast) var(--ease-out);
 }
 
-@media (prefers-reduced-motion: reduce) {}
-.mobile-link,
-.mobile-cta {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: color var(--dur-fast) !important;
-}
-
-.mobile-menu {
-    transition: transform 0.4s ease !important;
-}
-
 @keyframes proofItemRise {
     to { opacity: 1; transform: translateY(0); }
 }
@@ -202,6 +190,17 @@
     .nav-link::after {
         transition: none;
     }
+
+    .mobile-link,
+    .mobile-cta {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: color var(--dur-fast) !important;
+    }
+
+    .mobile-menu {
+        transition: transform 0.4s ease !important;
+    }
 }
 
 .site-loader {
@@ -227,9 +226,14 @@
     display: flex;
     align-items: center;
     font-family: var(--mono);
-    font-size: 0.9375rem;
-    letter-spacing: 0.04em;
-    color: var(--ink-soft);
+    font-weight: 600;
+    font-size: 1.125rem;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+}
+
+@media (max-width: 480px) {
+    .site-loader-inner { font-size: 0.9375rem; }
 }
 
 .site-loader-caret {

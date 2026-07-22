@@ -133,7 +133,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 count++;
                 if (!isExpanded && currentFilter === 'all' && count > maxCards) {
                     card.classList.add('capped-hidden');
+                    card.style.animation = ''; // Reset animation
                 } else {
+                    // If newly revealed by expansion, apply staggered fade-in
+                    if (isExpanded && card.classList.contains('capped-hidden')) {
+                        card.style.opacity = '0';
+                        card.style.animation = `proofItemRise 0.6s var(--ease-out) ${visibleCount * 50}ms forwards`;
+                    }
+                    card.classList.remove('capped-hidden');
                     card.style.display = '';
                     visibleCount++;
                 }
@@ -167,7 +174,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(applyProjectFilter, 150);
+        resizeTimer = setTimeout(() => {
+            applyProjectFilter();
+            if (window.SiteNav && window.SiteNav.cacheOffsets) window.SiteNav.cacheOffsets();
+        }, 150);
     });
 
     const setActiveFilter = (value, { scrollToProjects = false } = {}) => {
@@ -248,7 +258,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <a href="${finalHref}" ${externalAttr} class="card-hitbox" aria-label="View Project: ${proj.title}"></a>
                     <div class="card-inner">
                         <div class="card-image">
-                            <img src="${proj.thumbnail}" alt="${proj.title}" width="800" height="600" ${loadingAttr} style="view-transition-name: project-img-${proj.id};">
+                            <img src="${proj.thumbnail}" alt="${proj.title}" width="800" height="600" ${loadingAttr}>
                             <div class="card-overlay">
                                 <span class="card-open-label">View Project <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
                             </div>
@@ -329,6 +339,11 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(updateFilterScrollUI);
         requestAnimationFrame(updateCardTagOverflow);
         SiteUtils.initIcons(projWrap);
+        
+        // Recalculate scroll-spy offsets after dynamic render
+        setTimeout(() => {
+            if (window.SiteNav && window.SiteNav.cacheOffsets) window.SiteNav.cacheOffsets();
+        }, 300);
     };
 
     const initProjects = async () => {

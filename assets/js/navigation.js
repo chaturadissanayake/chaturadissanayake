@@ -28,6 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     window.addEventListener('resize', cacheOffsets);
     cacheOffsets();
+    window.SiteNav = { cacheOffsets }; // Expose to global scope for dynamic content
 
     let isGlobalScrollTicking = false;
 
