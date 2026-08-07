@@ -697,7 +697,9 @@
 
 @media (max-width: 640px) {
     .read-more-toggle {
-        display: inline-flex !important;
+        display: flex !important;
+        width: max-content !important;
+        margin: 24px auto 32px auto !important;
     }
     .card-tag-btn {
         padding: 10px 12px;
@@ -732,6 +734,16 @@
 .capped-hidden { display: none !important; }
 
 .project-card.capped-hidden { display: none !important; }
+
+.project-card.is-revealed {
+    display: flex !important;
+    animation: fadeInReveal 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeInReveal {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
 .carousel-btn {
     width: 44px; height: 44px; border-radius: 50%; background: var(--white);

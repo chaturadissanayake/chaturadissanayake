@@ -229,11 +229,11 @@ body:not(.loading) .reveal-up { opacity: 1; transform: translateY(0); }
 }
 
 html, body {
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 main {
-    overflow-x: hidden;
+    overflow-x: clip;
 }
 
 body.modal-open,

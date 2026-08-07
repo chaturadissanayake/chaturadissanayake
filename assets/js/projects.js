@@ -135,10 +135,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     card.classList.add('capped-hidden');
                     card.style.animation = ''; // Reset animation
                 } else {
-                    // If newly revealed by expansion, apply staggered fade-in
                     if (isExpanded && card.classList.contains('capped-hidden')) {
-                        card.style.opacity = '0';
-                        card.style.animation = `proofItemRise 0.6s var(--ease-out) ${visibleCount * 50}ms forwards`;
+                        card.classList.add('is-revealed');
                     }
                     card.classList.remove('capped-hidden');
                     card.style.display = '';
@@ -414,22 +412,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const expandBtn = document.getElementById('expand-projects-btn');
             if (expandBtn) {
+                const projectsSection = document.getElementById('projects');
+                const wrapper = expandBtn.parentElement;
+
+                const updateFloatingBtn = () => {
+                    if (!expandBtn.classList.contains('expanded') || !projectsSection || !wrapper) return;
+                    
+                    const rect = projectsSection.getBoundingClientRect();
+                    if (rect.bottom <= window.innerHeight) {
+                        wrapper.classList.add('is-docked');
+                    } else {
+                        wrapper.classList.remove('is-docked');
+                    }
+                };
+
                 expandBtn.addEventListener('click', () => {
                     const isExpanded = expandBtn.classList.toggle('expanded');
                     expandBtn.blur();
+                    
                     if (isExpanded) {
-                        if (expandBtn.parentElement) expandBtn.parentElement.classList.add('floating-action-wrapper');
+                        if (wrapper) {
+                            wrapper.classList.add('floating-action-wrapper');
+                            wrapper.style = ''; 
+                            if (projectsSection) {
+                                projectsSection.style.position = 'relative'; 
+                            }
+                            window.addEventListener('scroll', updateFloatingBtn, { passive: true });
+                        }
+                        
                         applyProjectFilter();
-                        requestAnimationFrame(updateCardTagOverflow);
+                        
+                        requestAnimationFrame(() => {
+                            updateCardTagOverflow();
+                            updateFloatingBtn();
+                        });
                     } else {
-                        if (expandBtn.parentElement) expandBtn.parentElement.classList.remove('floating-action-wrapper');
+                        if (wrapper) {
+                            wrapper.classList.remove('floating-action-wrapper');
+                            wrapper.classList.remove('is-docked');
+                            window.removeEventListener('scroll', updateFloatingBtn);
+                            if (projectsSection) {
+                                projectsSection.style.overflowAnchor = '';
+                            }
+                        }
                         applyProjectFilter();
                         requestAnimationFrame(() => {
                             updateCardTagOverflow();
-                            const visibleCards = Array.from(document.querySelectorAll('.project-card')).filter(c => !c.classList.contains('capped-hidden') && c.style.display !== 'none');
-                            const lastCard = visibleCards[visibleCards.length - 1];
-                            if (lastCard) {
-                                const offset = lastCard.getBoundingClientRect().top + window.scrollY - 100;
+                            if (projectsSection) {
+                                const offset = projectsSection.getBoundingClientRect().top + window.scrollY - 80;
                                 window.scrollTo({ top: offset, behavior: SiteUtils.getScrollBehavior() });
                             }
                         });

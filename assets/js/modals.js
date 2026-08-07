@@ -153,6 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const trapLightboxFocus = e => {
         if (lightboxModal.style.display !== 'flex') return;
         const focusable = [...lightboxModal.querySelectorAll(focusableSelectors)];
+        if (focusable.length === 0) return;
         const first = focusable[0], last = focusable[focusable.length - 1];
         if (e.key === 'Tab') {
             if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }

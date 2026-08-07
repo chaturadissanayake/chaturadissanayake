@@ -129,7 +129,7 @@
 .lang-divider { color: var(--surface-3); font-size: 0.75rem; padding: 0 2px; }
 
 .mobile-lang-switcher {
-    display: flex; align-items: center; gap: 6px;
+    display: flex; align-items: center; justify-content: flex-start; gap: 6px;
     margin-bottom: var(--space-8); padding-left: 2px;
 }
 
@@ -186,29 +186,29 @@ body.modal-open .main-header {
 
 .mobile-menu {
     position: fixed; inset: 0; background: var(--ink); z-index: 999;
-    display: flex; flex-direction: column; min-height: 100dvh;
-    padding: 100px var(--space-6) var(--space-8);
-    transform: translateX(100%);
-    transition: transform 320ms var(--ease-out);
+    display: flex; flex-direction: column; align-items: flex-start; text-align: left;
+    min-height: 100dvh; padding: 100px var(--space-6) var(--space-8);
+    opacity: 0; pointer-events: none; transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
     overflow-y: auto;
 }
 
 .mobile-menu.is-active {
-    transform: translateX(0);
-    transition: transform 420ms var(--ease-spring);
+    opacity: 1; pointer-events: auto; transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .mobile-nav-links { 
-    display: flex; flex-direction: column; margin-top: 10vh; flex: 1; 
+    display: flex; flex-direction: column; align-items: flex-start; margin-top: 10vh; flex: 1; width: 100%;
 }
 
 .mobile-link {
     font-family: var(--serif); font-size: 2.25rem;
     color: rgba(255,255,255,0.6); padding: 1.25rem 0;
     border-bottom: 1px solid rgba(255,255,255,0.08);
-    display: block; line-height: 1;
+    display: block; line-height: 1; width: 100%;
     opacity: 0; transform: translateY(18px);
-    transition: color var(--dur-fast), opacity 380ms var(--ease-out), transform 380ms var(--ease-out);
+    transition: color var(--dur-fast), opacity 380ms ease, transform 380ms ease;
 }
 
 .mobile-menu.is-active .mobile-link {
@@ -227,9 +227,9 @@ body.modal-open .main-header {
     font-family: var(--serif); font-size: clamp(2rem, 8vw, 2.5rem);
     color: var(--white) !important; border-color: transparent !important; background: transparent !important;
     border-bottom: none; margin-top: var(--space-6);
-    display: inline-flex; align-items: center;
+    display: inline-flex; align-items: center; justify-content: flex-start;
     opacity: 0; transform: translateY(18px);
-    transition: color var(--dur-fast), opacity 380ms var(--ease-out), transform 380ms var(--ease-out);
+    transition: color var(--dur-fast), opacity 380ms ease, transform 380ms ease;
     transition-delay: 320ms;
 }
 
@@ -246,7 +246,8 @@ body.modal-open .main-header {
 .mobile-menu-footer {
     margin-top: auto;
     padding-top: var(--space-8);
-    display: flex; gap: var(--space-4) var(--space-6); flex-wrap: wrap;
+    display: flex; justify-content: flex-start; gap: var(--space-4) var(--space-6); flex-wrap: wrap;
+    width: 100%;
 }
 
 .mobile-menu-footer a {
@@ -697,16 +698,26 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
 }
 
 .floating-action-wrapper {
-    position: sticky !important;
+    position: fixed !important;
     bottom: var(--space-8);
-    z-index: 100;
+    left: 0;
+    width: 100%;
+    z-index: 900;
     padding-top: var(--space-4);
+    pointer-events: none;
+}
+
+.floating-action-wrapper.is-docked {
+    position: absolute !important;
+    bottom: 20px;
 }
 
 .floating-action-wrapper button {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
+    box-shadow: 0 8px 24px rgba(10, 15, 23, 0.12) !important;
+    pointer-events: auto;
 }
 
 @media (max-width: 640px) {
     .floating-action-wrapper { bottom: var(--space-4); }
+    .floating-action-wrapper.is-docked { bottom: 16px; }
 }

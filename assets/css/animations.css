@@ -9,7 +9,7 @@
     transition: opacity var(--dur-slow) var(--ease-out), transform var(--dur-slow) var(--ease-out);
 }
 
-.section-fade-in.is-visible { opacity: 1; transform: translateY(0); }
+.section-fade-in.is-visible { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
     .section-fade-in { transform: none; }

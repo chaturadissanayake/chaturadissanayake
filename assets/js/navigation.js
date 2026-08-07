@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const trapMobileFocus = e => {
         if (!mobileMenu.classList.contains('is-active')) return;
         const focusable = [...mobileMenu.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])')];
+        if (focusable.length === 0) return;
         const first = focusable[0], last = focusable[focusable.length - 1];
         if (e.key === 'Tab') {
             if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }

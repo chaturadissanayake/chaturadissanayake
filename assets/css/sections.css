@@ -967,7 +967,7 @@
 
 .about-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: clamp(3rem, 6vw, 5.5rem); align-items: start; }
 
-@media (min-width: 1025px) {
+@media (min-width: 861px) {
     .about-left {
         position: sticky;
         top: calc(var(--nav-h) + var(--space-12));
