@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="assets/css/layout.css">
     <link rel="stylesheet" href="assets/css/components.css">
     <link rel="stylesheet" href="assets/css/off-duty.css">
+    <link rel="stylesheet" href="assets/css/animations.css">
 
     <script type="module">
     import replaceElement from "/assets/icons/replaceElement.js";
@@ -32,8 +33,15 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
     <link rel="manifest" href="assets/favicons/site.webmanifest">
 </head>
-<body class="diary-theme">
+<body class="off-duty-theme loading">
+<div class="site-loader" id="site-loader" aria-hidden="true">
+    <div class="site-loader-inner">
+        <span class="site-loader-mark">Chatura Dissanayake<span class="site-loader-caret"></span></span>
+        <span class="site-loader-bar"><span class="site-loader-bar-fill"></span></span>
+    </div>
+</div>
 <a href="#main-content" class="skip-link">Skip to main content</a>
+<div class="scroll-progress-bar" id="scroll-progress" aria-hidden="true"></div>
 
 <header class="main-header" id="main-header">
     <div class="nav-inner">
@@ -135,7 +143,7 @@
         </div>
     </section>
 
-    <section class="raw-section raw-origin">
+    <section class="raw-section raw-origin section-fade-in">
         <div class="raw-section-header">
             <h2 class="raw-h2"><i data-lucide="compass"></i> The Long Way Round</h2>
             <div class="raw-header-line"></div>
@@ -168,7 +176,7 @@
         </figure>
     </section>
 
-    <section class="raw-section raw-hardware">
+    <section class="raw-section raw-hardware section-fade-in">
         <div class="raw-section-header">
             <h2 class="raw-h2"><i data-lucide="monitor"></i> Workspace & Rig</h2>
             <div class="raw-header-line"></div>
@@ -192,7 +200,7 @@
         </div>
     </section>
 
-    <section class="raw-section raw-gaming">
+    <section class="raw-section raw-gaming section-fade-in">
         <div class="raw-section-header">
             <h2 class="raw-h2"><i data-lucide="play"></i> Time Sinks</h2>
             <div class="raw-header-line"></div>
@@ -303,7 +311,7 @@
         </div>
     </section>
 
-    <section class="raw-section raw-audio-obsessions">
+    <section class="raw-section raw-audio-obsessions section-fade-in">
         <div class="raw-split-layout">
             <div class="raw-split-left">
                 <div class="raw-section-header">
@@ -332,7 +340,7 @@
         </div>
     </section>
 
-    <section class="raw-section raw-scrapbook">
+    <section class="raw-section raw-scrapbook section-fade-in">
         <div class="raw-section-header">
             <h2 class="raw-h2"><i data-lucide="camera"></i> Visual Dump</h2>
             <div class="raw-header-line"></div>
@@ -361,7 +369,7 @@
         </div>
     </section>
 
-    <section class="raw-section raw-project">
+    <section class="raw-section raw-project section-fade-in">
         <div class="raw-section-header">
             <h2 class="raw-h2"><i data-lucide="terminal"></i> Developer Log</h2>
             <div class="raw-header-line"></div>

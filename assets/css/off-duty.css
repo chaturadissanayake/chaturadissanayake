@@ -1,3 +1,20 @@
+body.off-duty-theme .site-loader {
+    background: #090a0c;
+}
+
+body.off-duty-theme .site-loader-mark {
+    color: #f0f2f5;
+}
+
+body.off-duty-theme .site-loader-bar {
+    background: #23272e;
+}
+
+body.off-duty-theme .site-loader-bar-fill,
+body.off-duty-theme .site-loader-caret {
+    background: #6b9be2;
+}
+
 body.off-duty-theme {
     --raw-bg: #090a0c;
     --raw-ink: #f0f2f5;

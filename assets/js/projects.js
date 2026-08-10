@@ -15,6 +15,32 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSortMode = 'impact'; 
     let isArchiveView = false;
 
+    let floatingBtnRaf = null;
+    const updateFloatingBtn = () => {
+        if (floatingBtnRaf) return;
+        floatingBtnRaf = requestAnimationFrame(() => {
+            floatingBtnRaf = null;
+
+            const expandBtn = document.getElementById('expand-projects-btn');
+            if (!expandBtn || !expandBtn.classList.contains('expanded')) return;
+
+            const wrapper = expandBtn.parentElement;
+            const projectsSection = document.getElementById('projects');
+
+            if (wrapper && projectsSection) {
+                const rect = projectsSection.getBoundingClientRect();
+                const viewportHeight = document.documentElement.clientHeight
+                    || (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+
+                if (rect.bottom <= viewportHeight) {
+                    wrapper.classList.add('is-docked');
+                } else {
+                    wrapper.classList.remove('is-docked');
+                }
+            }
+        });
+    };
+
     const updateFilterScrollUI = () => {
         if (!filterGroup || !filterGroupWrapper) return;
         const maxScroll = filterGroup.scrollWidth - filterGroup.clientWidth;
@@ -49,8 +75,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const endDrag = e => {
             if (!dragState) return;
             if (dragState.moved) {
-                const suppressClick = ev => { ev.stopPropagation(); filterGroup.removeEventListener('click', suppressClick, true); };
+                const suppressClick = ev => {
+                    ev.stopPropagation();
+                    filterGroup.removeEventListener('click', suppressClick, true);
+                };
                 filterGroup.addEventListener('click', suppressClick, true);
+                setTimeout(() => {
+                    filterGroup.removeEventListener('click', suppressClick, true);
+                }, 50);
             }
             dragState = null;
             filterGroup.classList.remove('is-dragging');
@@ -58,11 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('pointerup', endDrag);
         document.addEventListener('pointercancel', endDrag);
     }
-
-    window.addEventListener('resize', () => {
-        clearTimeout(window.__filterScrollResizeTimer);
-        window.__filterScrollResizeTimer = setTimeout(updateFilterScrollUI, 150);
-    });
 
     const closeFilterDropdown = () => {
         if (!filterDropdown) return;
@@ -111,39 +138,52 @@ document.addEventListener('DOMContentLoaded', () => {
             el.classList.toggle('no-overflow', el.scrollWidth <= el.clientWidth + 1);
         });
     };
-    window.addEventListener('resize', () => {
-        clearTimeout(window.__cardTagResizeTimer);
-        window.__cardTagResizeTimer = setTimeout(updateCardTagOverflow, 150);
-    });
 
-    const applyProjectFilter = () => {
-        let count = 0; let visibleCount = 0;
+    const REVEAL_TRANSITION_MS = 350; 
+
+    const applyProjectFilter = ({ animate = false } = {}) => {
+        let count = 0; 
+        let visibleCount = 0;
         const isMobile = window.innerWidth <= 640;
+        const maxCards = isMobile ? 3 : 6;
+        
         const expandBtn = document.getElementById('expand-projects-btn');
         const isExpanded = expandBtn ? expandBtn.classList.contains('expanded') : false;
-        const maxCards = isMobile ? 3 : 6;
+        const actionWrapper = expandBtn ? expandBtn.parentElement : null;
+
+        const toReveal = [];
+        const toHide = [];
 
         allProjCards.forEach(card => {
             const cardTagList = (card.getAttribute('data-tags') || '').split(',').map(t => t.trim()).filter(Boolean);
             const matches = currentFilter === 'all' || cardTagList.includes(currentFilter);
 
-            card.classList.remove('mobile-hidden', 'capped-hidden');
-
             if (matches) {
                 count++;
-                if (!isExpanded && currentFilter === 'all' && count > maxCards) {
-                    card.classList.add('capped-hidden');
-                    card.style.animation = ''; // Reset animation
-                } else {
-                    if (isExpanded && card.classList.contains('capped-hidden')) {
-                        card.classList.add('is-revealed');
+                const shouldCap = !isExpanded && currentFilter === 'all' && count > maxCards;
+
+                if (shouldCap) {
+                    if (card.style.display !== 'none') {
+                        toHide.push(card);
+                    } else {
+                        card.classList.remove('is-revealed', 'is-hiding', 'mobile-hidden');
+                        card.classList.add('capped-hidden');
                     }
-                    card.classList.remove('capped-hidden');
+                } else {
+                    const wasHidden = card.style.display === 'none';
+                    card.classList.remove('mobile-hidden', 'capped-hidden', 'is-hiding');
                     card.style.display = '';
                     visibleCount++;
+
+                    if (wasHidden && isExpanded && count > maxCards) {
+                        toReveal.push(card);
+                    } else if (!wasHidden && isExpanded && count > maxCards) {
+                        card.classList.add('is-revealed');
+                    }
                 }
             } else {
                 card.style.display = 'none';
+                card.classList.remove('is-revealed', 'is-hiding', 'capped-hidden');
             }
 
             card.querySelectorAll('.card-tag-btn').forEach(tagBtn => {
@@ -152,19 +192,68 @@ document.addEventListener('DOMContentLoaded', () => {
                 tagBtn.setAttribute('aria-pressed', String(isActiveTag));
             });
         });
+
+        if (toReveal.length) {
+            toReveal.forEach(card => {
+                card.classList.remove('capped-hidden', 'is-revealed');
+                card.style.display = '';
+            });
+            if (animate) {
+                void projWrap.offsetHeight;
+                requestAnimationFrame(() => {
+                    toReveal.forEach(card => card.classList.add('is-revealed'));
+                });
+            } else {
+                toReveal.forEach(card => card.classList.add('is-revealed'));
+            }
+        }
+
+        if (toHide.length) {
+            if (animate) {
+                toHide.forEach(card => {
+                    card.classList.remove('is-revealed');
+                    card.classList.add('is-hiding');
+                    const finish = () => {
+                        card.style.display = 'none';
+                        card.classList.remove('is-hiding');
+                        card.classList.add('capped-hidden');
+                        card.removeEventListener('transitionend', finish);
+                    };
+                    card.addEventListener('transitionend', finish, { once: true });
+                    setTimeout(finish, REVEAL_TRANSITION_MS); 
+                });
+            } else {
+                toHide.forEach(card => {
+                    card.classList.remove('is-revealed', 'is-hiding');
+                    card.classList.add('capped-hidden');
+                    card.style.display = 'none';
+                });
+            }
+        }
+
         if (noProjMsg) noProjMsg.style.display = count === 0 ? 'block' : 'none';
         const announcer = document.getElementById('filter-announcer');
         if (announcer) announcer.textContent = `Showing ${visibleCount} projects.`;
 
-        if (expandBtn) {
+        if (expandBtn && actionWrapper) {
             if (currentFilter === 'all' && count > maxCards) {
+                actionWrapper.style.display = 'flex';
                 expandBtn.style.display = 'inline-flex';
-                expandBtn.innerHTML = isExpanded
-                    ? '<span class="btn-label">Show less</span><i data-lucide="chevron-up" aria-hidden="true" style="width:16px;height:16px;"></i>'
-                    : '<span class="btn-label">View all work</span><i data-lucide="chevron-down" aria-hidden="true" style="width:16px;height:16px;"></i>';
+                
+                if (isExpanded) {
+                    expandBtn.innerHTML = '<span class="btn-label">Show less</span><i data-lucide="chevron-up" aria-hidden="true" style="width:16px;height:16px;margin-left:6px;"></i>';
+                    actionWrapper.classList.add('floating-action-wrapper');
+                    requestAnimationFrame(() => actionWrapper.classList.add('is-visible'));
+                } else {
+                    expandBtn.innerHTML = '<span class="btn-label">View all work</span><i data-lucide="chevron-down" aria-hidden="true" style="width:16px;height:16px;margin-left:6px;"></i>';
+                    actionWrapper.classList.remove('floating-action-wrapper', 'is-docked', 'is-visible');
+                }
+                
                 if (window.lucide) lucide.createIcons({ root: expandBtn });
             } else {
+                actionWrapper.style.display = 'none';
                 expandBtn.style.display = 'none';
+                actionWrapper.classList.remove('floating-action-wrapper', 'is-docked', 'is-visible');
             }
         }
     };
@@ -172,8 +261,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let resizeTimer;
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
+        clearTimeout(window.__filterScrollResizeTimer);
+        clearTimeout(window.__cardTagResizeTimer);
+        
+        window.__filterScrollResizeTimer = setTimeout(updateFilterScrollUI, 150);
+        window.__cardTagResizeTimer = setTimeout(updateCardTagOverflow, 150);
+        
         resizeTimer = setTimeout(() => {
             applyProjectFilter();
+            updateFloatingBtn();
             if (window.SiteNav && window.SiteNav.cacheOffsets) window.SiteNav.cacheOffsets();
         }, 150);
     });
@@ -181,6 +277,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const setActiveFilter = (value, { scrollToProjects = false } = {}) => {
         currentFilter = value;
         sessionStorage.setItem('activeProjectFilter', currentFilter);
+
+        const expandBtn = document.getElementById('expand-projects-btn');
+        if (expandBtn && expandBtn.classList.contains('expanded')) {
+            expandBtn.classList.remove('expanded');
+            const wrapper = expandBtn.parentElement;
+            if (wrapper) wrapper.classList.remove('floating-action-wrapper', 'is-docked', 'is-visible');
+            window.removeEventListener('scroll', updateFloatingBtn);
+            const projectsSection = document.getElementById('projects');
+            if (projectsSection) {
+                projectsSection.style.position = '';
+                projectsSection.style.overflowAnchor = '';
+            }
+        }
 
         document.querySelectorAll('.filter-pill').forEach(b => {
             const isActive = b.getAttribute('data-filter') === value;
@@ -325,9 +434,7 @@ document.addEventListener('DOMContentLoaded', () => {
             filterGroup.innerHTML = filterOptions.map(o => {
                 const hasDisciplineTags = disciplineTagsSet.size > 0;
                 const isDiscipline = disciplineTagsSet.has(o.value) || o.value === 'all';
-
                 const mobileClass = (hasDisciplineTags && !isDiscipline) ? ' desktop-only-filter' : '';
-
                 return `<button type="button" class="filter-pill${mobileClass} ${currentFilter === o.value ? 'active' : ''}" data-filter="${o.value}" aria-pressed="${currentFilter === o.value}">${o.label}</button>`;
             }).join('');
         }
@@ -347,7 +454,6 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(updateCardTagOverflow);
         SiteUtils.initIcons(projWrap);
         
-        // Recalculate scroll-spy offsets after dynamic render
         setTimeout(() => {
             if (window.SiteNav && window.SiteNav.cacheOffsets) window.SiteNav.cacheOffsets();
         }, 300);
@@ -412,50 +518,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const expandBtn = document.getElementById('expand-projects-btn');
             if (expandBtn) {
-                const projectsSection = document.getElementById('projects');
-                const wrapper = expandBtn.parentElement;
-
-                const updateFloatingBtn = () => {
-                    if (!expandBtn.classList.contains('expanded') || !projectsSection || !wrapper) return;
+                expandBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const wrapper = expandBtn.parentElement;
+                    const projectsSection = document.getElementById('projects');
                     
-                    const rect = projectsSection.getBoundingClientRect();
-                    if (rect.bottom <= window.innerHeight) {
-                        wrapper.classList.add('is-docked');
-                    } else {
-                        wrapper.classList.remove('is-docked');
-                    }
-                };
+                    const lockedScrollX = window.scrollX;
+                    const lockedScrollY = window.scrollY;
 
-                expandBtn.addEventListener('click', () => {
                     const isExpanded = expandBtn.classList.toggle('expanded');
                     expandBtn.blur();
                     
                     if (isExpanded) {
-                        if (wrapper) {
-                            wrapper.classList.add('floating-action-wrapper');
-                            wrapper.style = ''; 
-                            if (projectsSection) {
-                                projectsSection.style.position = 'relative'; 
-                            }
-                            window.addEventListener('scroll', updateFloatingBtn, { passive: true });
+                        if (projectsSection) {
+                            projectsSection.style.position = 'relative';
+                            projectsSection.style.overflowAnchor = 'none';
                         }
                         
-                        applyProjectFilter();
+                        applyProjectFilter({ animate: true });
+                        window.addEventListener('scroll', updateFloatingBtn, { passive: true });
                         
                         requestAnimationFrame(() => {
+                            window.scrollTo(lockedScrollX, lockedScrollY);
                             updateCardTagOverflow();
                             updateFloatingBtn();
                         });
                     } else {
-                        if (wrapper) {
-                            wrapper.classList.remove('floating-action-wrapper');
-                            wrapper.classList.remove('is-docked');
-                            window.removeEventListener('scroll', updateFloatingBtn);
-                            if (projectsSection) {
-                                projectsSection.style.overflowAnchor = '';
-                            }
+                        window.removeEventListener('scroll', updateFloatingBtn);
+                        if (projectsSection) {
+                            projectsSection.style.position = '';
+                            projectsSection.style.overflowAnchor = '';
                         }
-                        applyProjectFilter();
+                        
+                        applyProjectFilter({ animate: true });
+                        
                         requestAnimationFrame(() => {
                             updateCardTagOverflow();
                             if (projectsSection) {

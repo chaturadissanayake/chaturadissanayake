@@ -4,12 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const loaderText = 'Chatura Dissanayake';
     const prefersReducedMotionLoader = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // The loader's typing animation and the page's actual readiness used to
-    // run on two independent timers: on a fast/cached load the content was
-    // ready and revealed underneath while the loader kept typing away for no
-    // reason, and on a slow load the loader could disappear before the page
-    // was actually ready, leaving a blank flash. Gate the reveal on both
-    // conditions together so loader-hide and content-reveal happen as one step.
     let typingDone = false;
     let pageReady = false;
 
@@ -42,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         window.addEventListener('load', () => { pageReady = true; revealContent(); });
     }
-    // Fallback so a slow-loading page can't hold the loader up indefinitely.
+    
     setTimeout(() => { pageReady = true; revealContent(); }, 2500);
 
     if (typingDone && pageReady) revealContent();
@@ -52,7 +46,12 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('%cChatura Dissanayake', 'font-size:22px;font-weight:bold;color:#111;');
     console.log('%cThis site design and code are original work by Chatura Dissanayake (chaturadissanayake.vercel.app). Copying or reusing this template without permission is not permitted.', 'font-size:13px;color:#555;');
 
-    // Image contextmenu and dragstart restrictions removed for better UX and accessibility.
+    document.addEventListener('contextmenu', e => {
+        if (e.target.closest('img')) e.preventDefault();
+    });
+    document.addEventListener('dragstart', e => {
+        if (e.target.closest('img')) e.preventDefault();
+    });
 
     document.addEventListener('click', e => {
         const anchor = e.target.closest('a[href^="/#"]');
@@ -66,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-
 
     const observer = new IntersectionObserver(entries => {
         entries.forEach(e => {
@@ -213,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cookieBanner.style.display = 'none';
         });
     }
+    
     const mapContainer = document.querySelector('.map-image-inner');
     const mapTooltip = document.getElementById('map-tooltip');
 
@@ -269,5 +268,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Map loading error:', err);
                 mapContainer.innerHTML = '<div class="system-message error-state"><p>Map unavailable right now.</p></div>';
             });
+    }
+
+    const supportsFineHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    if (supportsFineHover && !prefersReducedMotion) {
+        const magneticTargets = document.querySelectorAll('.nav-cta, #hero-cta, .form-submit');
+        const magnetStrength = 0.3;
+
+        magneticTargets.forEach(el => {
+            el.classList.add('magnetic-btn');
+
+            el.addEventListener('mousemove', e => {
+                const rect = el.getBoundingClientRect();
+                const relX = e.clientX - rect.left - rect.width / 2;
+                const relY = e.clientY - rect.top - rect.height / 2;
+                el.style.transform = `translate(${relX * magnetStrength}px, ${relY * magnetStrength}px)`;
+            });
+
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = '';
+            });
+        });
     }
 });

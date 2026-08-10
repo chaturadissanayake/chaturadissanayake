@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     window.addEventListener('resize', cacheOffsets);
     cacheOffsets();
-    window.SiteNav = { cacheOffsets }; // Expose to global scope for dynamic content
+    window.SiteNav = { cacheOffsets };
 
     let isGlobalScrollTicking = false;
 
@@ -128,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
         );
-
     }
 
     document.addEventListener('keydown', e => {
@@ -143,7 +142,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         window.toggleSidebar = function() {
             const isDesktop = window.innerWidth > 1024;
-            const icons = document.querySelectorAll('.toggle-icon');
             const desktopBtn  = document.getElementById('sidebar-toggle-desktop');
             const mobileBtn   = document.getElementById('sidebar-toggle-mobile');
 
@@ -188,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (!res.ok) throw new Error('Failed to load projects');
 
                     const validProjects = (await res.json()).filter(p => p.link && !p.link.startsWith('http') && p.link !== '#');
-                    const currentIndex = validProjects.findIndex(p => window.location.pathname.includes(p.id));
+                    const currentIndex = validProjects.findIndex(p => p.id && window.location.pathname.includes(p.id));
 
                     if (validProjects.length > 0) {
                         let nextProj;
@@ -201,20 +199,23 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
 
                         const href = `/${nextProj.link.replace(/^\//, '')}`;
-                        const thumbSrc = `/${nextProj.thumbnail.replace(/^\//, '')}`;
+                        const thumbSrc = nextProj.thumbnail ? `/${nextProj.thumbnail.replace(/^\//, '')}` : '';
 
-                        const tagsHTML = (nextProj.tags || []).slice(0, 2).map(tag => `<span class="tag">${tag}</span>`).join('');
+                        const escapeHTML = str => String(str).replace(/[&<>'"]/g, match => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[match]));
+                        const safeTitle = escapeHTML(nextProj.title || '');
+                        const safeChallenge = escapeHTML(nextProj.challenge || '');
+                        const tagsHTML = (nextProj.tags || []).slice(0, 2).map(tag => `<span class="tag">${escapeHTML(tag)}</span>`).join('');
 
                         triggerSection.innerHTML = `
                             <a href="${href}" class="next-project-single-wrapper">
                                 <span class="next-label-single">Next Project</span>
-                                <h2 class="next-title-single">${nextProj.title}</h2>
-                                <p class="next-desc-single">${nextProj.challenge}</p>
+                                <h2 class="next-title-single">${safeTitle}</h2>
+                                <p class="next-desc-single">${safeChallenge}</p>
                                 <div class="next-tags-single">
                                     ${tagsHTML}
                                 </div>
                                 <div class="next-image-single">
-                                    <img src="${thumbSrc}" alt="${nextProj.title}" loading="lazy">
+                                    <img src="${thumbSrc}" alt="${safeTitle}" loading="lazy">
                                 </div>
                             </a>
                         `;
