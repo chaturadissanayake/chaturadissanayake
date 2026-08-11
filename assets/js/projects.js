@@ -142,11 +142,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const REVEAL_TRANSITION_MS = 350; 
 
     const applyProjectFilter = ({ animate = false } = {}) => {
-        let count = 0; 
-        let visibleCount = 0;
-        const isMobile = window.innerWidth <= 640;
-        const maxCards = isMobile ? 3 : 6;
-        
+            let count = 0; 
+            let visibleCount = 0;
+            const isMobile = window.innerWidth <= 640;
+            const maxCards = isMobile ? 3 : 6;
+                    
         const expandBtn = document.getElementById('expand-projects-btn');
         const isExpanded = expandBtn ? expandBtn.classList.contains('expanded') : false;
         const actionWrapper = expandBtn ? expandBtn.parentElement : null;
@@ -521,43 +521,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 expandBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     const wrapper = expandBtn.parentElement;
-                    const projectsSection = document.getElementById('projects');
-                    
-                    const lockedScrollX = window.scrollX;
-                    const lockedScrollY = window.scrollY;
 
                     const isExpanded = expandBtn.classList.toggle('expanded');
                     expandBtn.blur();
                     
                     if (isExpanded) {
-                        if (projectsSection) {
-                            projectsSection.style.position = 'relative';
-                            projectsSection.style.overflowAnchor = 'none';
-                        }
-                        
                         applyProjectFilter({ animate: true });
                         window.addEventListener('scroll', updateFloatingBtn, { passive: true });
                         
                         requestAnimationFrame(() => {
-                            window.scrollTo(lockedScrollX, lockedScrollY);
                             updateCardTagOverflow();
                             updateFloatingBtn();
                         });
                     } else {
                         window.removeEventListener('scroll', updateFloatingBtn);
-                        if (projectsSection) {
-                            projectsSection.style.position = '';
-                            projectsSection.style.overflowAnchor = '';
-                        }
                         
-                        applyProjectFilter({ animate: true });
+                        document.documentElement.style.scrollBehavior = 'auto';
+                        
+                        applyProjectFilter({ animate: false });
                         
                         requestAnimationFrame(() => {
                             updateCardTagOverflow();
+                            const projectsSection = document.getElementById('projects');
                             if (projectsSection) {
                                 const offset = projectsSection.getBoundingClientRect().top + window.scrollY - 80;
-                                window.scrollTo({ top: offset, behavior: SiteUtils.getScrollBehavior() });
+                                window.scrollTo({ top: offset, behavior: 'auto' });
                             }
+                            
+                            requestAnimationFrame(() => {
+                                document.documentElement.style.scrollBehavior = '';
+                            });
                         });
                     }
                 });
