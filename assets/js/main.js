@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('load', () => { pageReady = true; revealContent(); });
     }
     
-    setTimeout(() => { pageReady = true; revealContent(); }, 2500);
+    setTimeout(() => { pageReady = true; revealContent(); }, 12000);
 
     if (typingDone && pageReady) revealContent();
 

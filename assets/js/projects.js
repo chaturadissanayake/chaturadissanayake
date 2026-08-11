@@ -14,32 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let rawProjectsData = [];
     let currentSortMode = 'impact'; 
     let isArchiveView = false;
-
-    let floatingBtnRaf = null;
-    const updateFloatingBtn = () => {
-        if (floatingBtnRaf) return;
-        floatingBtnRaf = requestAnimationFrame(() => {
-            floatingBtnRaf = null;
-
-            const expandBtn = document.getElementById('expand-projects-btn');
-            if (!expandBtn || !expandBtn.classList.contains('expanded')) return;
-
-            const wrapper = expandBtn.parentElement;
-            const projectsSection = document.getElementById('projects');
-
-            if (wrapper && projectsSection) {
-                const rect = projectsSection.getBoundingClientRect();
-                const viewportHeight = document.documentElement.clientHeight
-                    || (window.visualViewport ? window.visualViewport.height : window.innerHeight);
-
-                if (rect.bottom <= viewportHeight) {
-                    wrapper.classList.add('is-docked');
-                } else {
-                    wrapper.classList.remove('is-docked');
-                }
-            }
-        });
-    };
+    let currentLimit = window.innerWidth <= 640 ? 3 : 6;
 
     const updateFilterScrollUI = () => {
         if (!filterGroup || !filterGroupWrapper) return;
@@ -141,18 +116,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const REVEAL_TRANSITION_MS = 350; 
 
-    const applyProjectFilter = ({ animate = false } = {}) => {
-            let count = 0; 
-            let visibleCount = 0;
-            const isMobile = window.innerWidth <= 640;
-            const maxCards = isMobile ? 3 : 6;
-                    
+    const updateFloatingExpandBtn = () => {
         const expandBtn = document.getElementById('expand-projects-btn');
-        const isExpanded = expandBtn ? expandBtn.classList.contains('expanded') : false;
         const actionWrapper = expandBtn ? expandBtn.parentElement : null;
+        const projectsSection = document.getElementById('projects');
+        if (!expandBtn || !actionWrapper || !projectsSection) return;
 
+        const baseLimit = window.innerWidth <= 640 ? 3 : 6;
+        const shouldFloat = currentLimit > baseLimit && expandBtn.style.display !== 'none';
+
+        if (!shouldFloat) {
+            actionWrapper.classList.remove('floating-action-wrapper', 'is-docked', 'is-visible');
+            return;
+        }
+
+        const viewportH = window.innerHeight;
+        const sectionRect = projectsSection.getBoundingClientRect();
+        const sectionInView = sectionRect.top < viewportH && sectionRect.bottom > 0;
+
+        if (!sectionInView) {
+            actionWrapper.classList.remove('floating-action-wrapper', 'is-docked', 'is-visible');
+            return;
+        }
+
+        actionWrapper.classList.remove('floating-action-wrapper', 'is-docked', 'is-visible');
+        const staticRect = actionWrapper.getBoundingClientRect();
+        const approachingStaticButton = staticRect.top < viewportH + 120;
+
+        if (approachingStaticButton) {
+            actionWrapper.classList.add('floating-action-wrapper', 'is-docked', 'is-visible');
+        } else if (sectionRect.top < 0) {
+            actionWrapper.classList.add('floating-action-wrapper', 'is-visible');
+        }
+    };
+
+    const applyProjectFilter = ({ animate = false } = {}) => {
+        let count = 0; 
+        let visibleCount = 0;
+        const baseLimit = window.innerWidth <= 640 ? 3 : 6;
+                
+        const expandBtn = document.getElementById('expand-projects-btn');
+        const actionWrapper = expandBtn ? expandBtn.parentElement : null;
         const toReveal = [];
-        const toHide = [];
 
         allProjCards.forEach(card => {
             const cardTagList = (card.getAttribute('data-tags') || '').split(',').map(t => t.trim()).filter(Boolean);
@@ -160,25 +165,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (matches) {
                 count++;
-                const shouldCap = !isExpanded && currentFilter === 'all' && count > maxCards;
-
-                if (shouldCap) {
-                    if (card.style.display !== 'none') {
-                        toHide.push(card);
-                    } else {
-                        card.classList.remove('is-revealed', 'is-hiding', 'mobile-hidden');
-                        card.classList.add('capped-hidden');
-                    }
+                if (count > currentLimit) {
+                    card.style.display = 'none';
+                    card.classList.remove('is-revealed', 'is-hiding');
+                    card.classList.add('capped-hidden');
                 } else {
-                    const wasHidden = card.style.display === 'none';
+                    const wasHidden = card.style.display === 'none' || card.classList.contains('capped-hidden');
                     card.classList.remove('mobile-hidden', 'capped-hidden', 'is-hiding');
                     card.style.display = '';
                     visibleCount++;
 
-                    if (wasHidden && isExpanded && count > maxCards) {
+                    if (wasHidden) {
                         toReveal.push(card);
-                    } else if (!wasHidden && isExpanded && count > maxCards) {
-                        card.classList.add('is-revealed');
                     }
                 }
             } else {
@@ -194,10 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (toReveal.length) {
-            toReveal.forEach(card => {
-                card.classList.remove('capped-hidden', 'is-revealed');
-                card.style.display = '';
-            });
             if (animate) {
                 void projWrap.offsetHeight;
                 requestAnimationFrame(() => {
@@ -208,57 +202,49 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        if (toHide.length) {
-            if (animate) {
-                toHide.forEach(card => {
-                    card.classList.remove('is-revealed');
-                    card.classList.add('is-hiding');
-                    const finish = () => {
-                        card.style.display = 'none';
-                        card.classList.remove('is-hiding');
-                        card.classList.add('capped-hidden');
-                        card.removeEventListener('transitionend', finish);
-                    };
-                    card.addEventListener('transitionend', finish, { once: true });
-                    setTimeout(finish, REVEAL_TRANSITION_MS); 
-                });
-            } else {
-                toHide.forEach(card => {
-                    card.classList.remove('is-revealed', 'is-hiding');
-                    card.classList.add('capped-hidden');
-                    card.style.display = 'none';
-                });
-            }
-        }
-
         if (noProjMsg) noProjMsg.style.display = count === 0 ? 'block' : 'none';
         const announcer = document.getElementById('filter-announcer');
         if (announcer) announcer.textContent = `Showing ${visibleCount} projects.`;
 
         if (expandBtn && actionWrapper) {
-            if (currentFilter === 'all' && count > maxCards) {
+            if (count > baseLimit) {
                 actionWrapper.style.display = 'flex';
                 expandBtn.style.display = 'inline-flex';
-                
-                if (isExpanded) {
-                    expandBtn.innerHTML = '<span class="btn-label">Show less</span><i data-lucide="chevron-up" aria-hidden="true" style="width:16px;height:16px;margin-left:6px;"></i>';
-                    actionWrapper.classList.add('floating-action-wrapper');
-                    requestAnimationFrame(() => actionWrapper.classList.add('is-visible'));
+
+                if (count > currentLimit) {
+                    const stepLimit = window.innerWidth <= 640 ? 6 : 12;
+                    const nextBatch = Math.min(stepLimit, count - currentLimit);
+                    expandBtn.innerHTML = `<span class="btn-label">Load ${nextBatch} more (${currentLimit} of ${count})</span><i data-lucide="chevron-down" aria-hidden="true" style="width:16px;height:16px;margin-left:6px;"></i>`;
+                    expandBtn.setAttribute('aria-expanded', 'false');
                 } else {
-                    expandBtn.innerHTML = '<span class="btn-label">View all work</span><i data-lucide="chevron-down" aria-hidden="true" style="width:16px;height:16px;margin-left:6px;"></i>';
-                    actionWrapper.classList.remove('floating-action-wrapper', 'is-docked', 'is-visible');
+                    expandBtn.innerHTML = '<span class="btn-label">Show less</span><i data-lucide="chevron-up" aria-hidden="true" style="width:16px;height:16px;margin-left:6px;"></i>';
+                    expandBtn.setAttribute('aria-expanded', 'true');
                 }
-                
+
                 if (window.lucide) lucide.createIcons({ root: expandBtn });
             } else {
                 actionWrapper.style.display = 'none';
                 expandBtn.style.display = 'none';
                 actionWrapper.classList.remove('floating-action-wrapper', 'is-docked', 'is-visible');
             }
+
+            requestAnimationFrame(updateFloatingExpandBtn);
         }
     };
 
     let resizeTimer;
+    let projFloatTicking = false;
+
+    window.addEventListener('scroll', () => {
+        if (!projFloatTicking) {
+            window.requestAnimationFrame(() => {
+                updateFloatingExpandBtn();
+                projFloatTicking = false;
+            });
+            projFloatTicking = true;
+        }
+    }, { passive: true });
+
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimer);
         clearTimeout(window.__filterScrollResizeTimer);
@@ -269,7 +255,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         resizeTimer = setTimeout(() => {
             applyProjectFilter();
-            updateFloatingBtn();
+            updateFloatingExpandBtn();
             if (window.SiteNav && window.SiteNav.cacheOffsets) window.SiteNav.cacheOffsets();
         }, 150);
     });
@@ -277,19 +263,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const setActiveFilter = (value, { scrollToProjects = false } = {}) => {
         currentFilter = value;
         sessionStorage.setItem('activeProjectFilter', currentFilter);
-
-        const expandBtn = document.getElementById('expand-projects-btn');
-        if (expandBtn && expandBtn.classList.contains('expanded')) {
-            expandBtn.classList.remove('expanded');
-            const wrapper = expandBtn.parentElement;
-            if (wrapper) wrapper.classList.remove('floating-action-wrapper', 'is-docked', 'is-visible');
-            window.removeEventListener('scroll', updateFloatingBtn);
-            const projectsSection = document.getElementById('projects');
-            if (projectsSection) {
-                projectsSection.style.position = '';
-                projectsSection.style.overflowAnchor = '';
-            }
-        }
+        
+        currentLimit = window.innerWidth <= 640 ? 3 : 6;
 
         document.querySelectorAll('.filter-pill').forEach(b => {
             const isActive = b.getAttribute('data-filter') === value;
@@ -518,38 +493,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const expandBtn = document.getElementById('expand-projects-btn');
             if (expandBtn) {
+                let expandBusy = false;
+
                 expandBtn.addEventListener('click', (e) => {
                     e.preventDefault();
-                    const wrapper = expandBtn.parentElement;
-
-                    const isExpanded = expandBtn.classList.toggle('expanded');
+                    if (expandBusy) return;
                     expandBtn.blur();
-                    
-                    if (isExpanded) {
+
+                    const baseLimit = window.innerWidth <= 640 ? 3 : 6;
+                    const stepLimit = window.innerWidth <= 640 ? 6 : 12;
+
+                    const visibleCards = Array.from(allProjCards).filter(card => {
+                        const tags = (card.getAttribute('data-tags') || '').split(',').map(t => t.trim()).filter(Boolean);
+                        return currentFilter === 'all' || tags.includes(currentFilter);
+                    });
+                    const totalMatching = visibleCards.length;
+                    const announcer = document.getElementById('filter-announcer');
+
+                    if (currentLimit < totalMatching) {
+                        expandBusy = true;
+                        const previousLimit = currentLimit;
+                        currentLimit = Math.min(currentLimit + stepLimit, totalMatching);
                         applyProjectFilter({ animate: true });
-                        window.addEventListener('scroll', updateFloatingBtn, { passive: true });
-                        
+
                         requestAnimationFrame(() => {
-                            updateCardTagOverflow();
-                            updateFloatingBtn();
-                        });
-                    } else {
-                        window.removeEventListener('scroll', updateFloatingBtn);
-                        
-                        document.documentElement.style.scrollBehavior = 'auto';
-                        
-                        applyProjectFilter({ animate: false });
-                        
-                        requestAnimationFrame(() => {
-                            updateCardTagOverflow();
-                            const projectsSection = document.getElementById('projects');
-                            if (projectsSection) {
-                                const offset = projectsSection.getBoundingClientRect().top + window.scrollY - 80;
-                                window.scrollTo({ top: offset, behavior: 'auto' });
-                            }
-                            
                             requestAnimationFrame(() => {
-                                document.documentElement.style.scrollBehavior = '';
+                                const firstNewCard = visibleCards[previousLimit];
+                                if (firstNewCard) {
+                                    const header = document.getElementById('main-header');
+                                    const headerOffset = header ? header.offsetHeight : 0;
+                                    const targetTop = firstNewCard.getBoundingClientRect().top + window.scrollY - headerOffset - 24;
+                                    window.scrollTo({ top: targetTop, behavior: SiteUtils.getScrollBehavior() });
+                                }
+                                updateCardTagOverflow();
+                                updateFloatingExpandBtn();
+                                expandBusy = false;
+                            });
+                        });
+
+                        if (announcer) announcer.textContent = `Showing ${currentLimit} of ${totalMatching} projects.`;
+                    } else {
+                        expandBusy = true;
+                        currentLimit = baseLimit;
+                        applyProjectFilter({ animate: false });
+                        if (announcer) announcer.textContent = `Showing ${baseLimit} of ${totalMatching} projects.`;
+
+                        requestAnimationFrame(() => {
+                            requestAnimationFrame(() => {
+                                const projectsSection = document.getElementById('projects');
+                                const actionWrapper = expandBtn.parentElement;
+                                if (projectsSection && actionWrapper) {
+                                    actionWrapper.classList.remove('floating-action-wrapper', 'is-docked', 'is-visible');
+                                    const contentRect = actionWrapper.getBoundingClientRect();
+                                    const contentBottom = contentRect.bottom + window.scrollY;
+                                    const viewportBottom = window.scrollY + window.innerHeight;
+
+                                    if (viewportBottom > contentBottom + 40) {
+                                        const header = document.getElementById('main-header');
+                                        const headerOffset = header ? header.offsetHeight : 0;
+                                        const minTop = projectsSection.getBoundingClientRect().top + window.scrollY - headerOffset - 16;
+                                        const idealTop = contentBottom - window.innerHeight + 80;
+                                        const targetTop = Math.max(minTop, idealTop);
+                                        window.scrollTo({ top: targetTop, behavior: SiteUtils.getScrollBehavior() });
+                                    }
+                                }
+                                updateFloatingExpandBtn();
+                                expandBusy = false;
                             });
                         });
                     }

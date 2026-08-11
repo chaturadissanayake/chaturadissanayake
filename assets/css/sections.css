@@ -309,7 +309,7 @@
     }
 }
 
-.projects-section { padding: var(--space-16) 0 var(--space-24); background: var(--surface); }
+.projects-section { padding: var(--space-16) 0 var(--space-24); background: var(--surface); position: relative; }
 
 @media (max-width: 1023px) {
     .projects-section {
