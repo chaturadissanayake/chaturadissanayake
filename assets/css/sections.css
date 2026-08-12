@@ -26,6 +26,10 @@
     display: block;
 }
 
+@media (max-width: 768px) {
+    .hero-label { margin-bottom: var(--space-4); }
+}
+
 @media (max-width: 1023px) {
     .hero-section {
         padding-top: calc(var(--nav-h) + var(--space-10));
@@ -38,59 +42,58 @@
     position: relative;
     z-index: 1;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
 }
 
-@media (min-width: 1024px) and (max-width: 1440px) {
+@media (min-width: 1024px) {
     .hero-container {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr minmax(260px, 380px);
+        grid-template-rows: auto auto auto 1fr;
+        column-gap: var(--space-12);
+        row-gap: 0; 
+        align-items: start;
     }
-}
-
-@media (max-width: 1023px) {
-    .hero-container {
-        display: flex;
-        flex-direction: column;
+    
+    /* Spanning both columns gives the title room to breathe */
+    .hero-content { 
+        grid-column: 1 / 3; 
+        grid-row: 1; 
+        margin-bottom: var(--space-8); 
+        max-width: 880px; 
     }
-    .hero-content { order: 1; }
+    
+    .hero-supporting      { grid-column: 1; grid-row: 2; margin-bottom: var(--space-8); }
+    .hero-actions-wrapper { grid-column: 1; grid-row: 3; }
+    
+    /* Safest placement: Margin is 0. 
+       The Grid strictly forces the GIF into Row 2, guaranteeing it sits perfectly aligned with the paragraph and below the title on ALL screens. */
+    .hero-visual          { grid-column: 2; grid-row: 2 / 5; align-self: start; margin-top: 0; } 
+    
+    .hero-proof-strip     { grid-column: 1; grid-row: 4; align-self: end; }
 }
 
-.hero-container {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-}
-
-@media (min-width: 769px) {
+@media (min-width: 1441px) {
     .hero-container {
-        max-width: 900px;
-        margin: 0 auto;
+        grid-template-columns: 1fr minmax(320px, 460px);
     }
 }
 
 .hero-visual {
-    display: none;
-}
-
-@media (min-width: 1441px) {
-    .hero-visual {
-        display: block;
-        position: relative;
-        z-index: 10;
-    }
+    position: relative;
+    z-index: 10;
+    width: 100%;
 }
 
 .hero-visual-frame {
     position: relative;
+    display: block;
     width: 100%;
-    aspect-ratio: 4 / 5;
-    border-radius: var(--radius-lg);
-    border: 1px dashed var(--surface-3);
-    background: var(--surface-2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    aspect-ratio: 1800 / 844;
     overflow: hidden;
+    border-radius: var(--radius-lg);
 }
 
 .hero-visual-media {
@@ -100,16 +103,21 @@
     display: block;
 }
 
-.hero-visual-placeholder-label {
+.hero-visual-caption {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: var(--space-3);
     font-family: var(--mono);
     font-size: 0.6875rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    letter-spacing: 0.04em;
     color: var(--ink-muted);
-    text-align: center;
-    line-height: 1.6;
-    padding: var(--space-4);
+    transition: color var(--dur-fast);
 }
+
+.hero-visual-caption:hover { color: var(--accent); }
+
+.hero-visual-caption svg.lucide { width: 12px; height: 12px; }
 
 .hero-content {
     width: 100%;
@@ -130,6 +138,11 @@
     align-items: flex-start;
     gap: var(--space-6);
     max-width: 680px;
+    margin-bottom: 0;
+}
+
+.hero-actions-wrapper {
+    width: 100%;
     margin-bottom: var(--space-12);
 }
 
@@ -1585,7 +1598,8 @@
     .hero-section {
         padding-bottom: var(--space-6) !important;
     }
-    .hero-supporting {
+    .hero-supporting,
+    .hero-actions-wrapper {
         margin-bottom: 0 !important;
     }
     .hero-title-massive {
