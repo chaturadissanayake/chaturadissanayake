@@ -331,7 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const disciplineTags = Array.isArray(rawDiscipline) ? rawDiscipline : (rawDiscipline ? [rawDiscipline] : []);
             disciplineTags.forEach(tag => disciplineTagsSet.add(tag));
 
-            const tagsHTML = safeTags.slice(1).map(tag => `<button type="button" class="card-tag-btn" data-tag="${tag}" aria-pressed="false" aria-label="Filter projects by ${tag}">${tag}</button>`).join('');
+            const tagsHTML = safeTags.map(tag => `<button type="button" class="card-tag-btn" data-tag="${tag}" aria-pressed="false" aria-label="Filter projects by ${tag}">${tag}</button>`).join('');
             const catHTML = safeTags[0]
                 ? `<button type="button" class="card-cat card-tag-btn" data-tag="${safeTags[0]}" aria-pressed="false" aria-label="Filter projects by ${safeTags[0]}">${safeTags[0]}</button>`
                 : '';
@@ -350,9 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="card-inner">
                         <div class="card-image">
                             <img src="${proj.thumbnail}" alt="${proj.title}" width="800" height="600" ${loadingAttr}>
-                            <div class="card-overlay">
-                                <span class="card-open-label">View Project <i data-lucide="arrow-up-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></span>
-                            </div>
+                            <span class="card-arrow-btn" aria-hidden="true"><i data-lucide="arrow-up-right"></i></span>
                         </div>
                         <div class="card-body">
                             <div class="card-meta">
@@ -364,7 +362,8 @@ document.addEventListener('DOMContentLoaded', () => {
                                 <p class="card-desc">${descSnippet}</p>
                             </div>
                             ${(proj.dataSource || proj.stack) ? `<p class="card-methodology">${proj.dataSource ? `Data Source: ${proj.dataSource}` : ''}${proj.dataSource && proj.stack ? ' &middot; ' : ''}${proj.stack ? `Stack: ${proj.stack}` : ''}</p>` : ''}
-                            </div>
+                            ${tagsHTML ? `<div class="card-tags">${tagsHTML}</div>` : ''}
+                        </div>
                     </div>
                 </div>
             `;
@@ -534,28 +533,25 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (announcer) announcer.textContent = `Showing ${currentLimit} of ${totalMatching} projects.`;
                     } else {
                         expandBusy = true;
+                        const anchorRectBefore = expandBtn.getBoundingClientRect();
+                        const anchorViewportY = anchorRectBefore.top;
+
                         currentLimit = baseLimit;
                         applyProjectFilter({ animate: false });
                         if (announcer) announcer.textContent = `Showing ${baseLimit} of ${totalMatching} projects.`;
 
                         requestAnimationFrame(() => {
                             requestAnimationFrame(() => {
-                                const projectsSection = document.getElementById('projects');
                                 const actionWrapper = expandBtn.parentElement;
-                                if (projectsSection && actionWrapper) {
+                                if (actionWrapper) {
                                     actionWrapper.classList.remove('floating-action-wrapper', 'is-docked', 'is-visible');
-                                    const contentRect = actionWrapper.getBoundingClientRect();
-                                    const contentBottom = contentRect.bottom + window.scrollY;
-                                    const viewportBottom = window.scrollY + window.innerHeight;
-
-                                    if (viewportBottom > contentBottom + 40) {
-                                        const header = document.getElementById('main-header');
-                                        const headerOffset = header ? header.offsetHeight : 0;
-                                        const minTop = projectsSection.getBoundingClientRect().top + window.scrollY - headerOffset - 16;
-                                        const idealTop = contentBottom - window.innerHeight + 80;
-                                        const targetTop = Math.max(minTop, idealTop);
-                                        window.scrollTo({ top: targetTop, behavior: SiteUtils.getScrollBehavior() });
-                                    }
+                                }
+                                // Keep the button anchored at the same spot on screen instead of
+                                // jumping back up to the top of the section.
+                                const anchorRectAfter = expandBtn.getBoundingClientRect();
+                                const delta = anchorRectAfter.top - anchorViewportY;
+                                if (Math.abs(delta) > 1) {
+                                    window.scrollTo({ top: window.scrollY + delta, behavior: 'auto' });
                                 }
                                 updateFloatingExpandBtn();
                                 expandBusy = false;

@@ -311,6 +311,10 @@
 
 .projects-section { padding: var(--space-16) 0 var(--space-24); background: var(--surface); position: relative; }
 
+/* Reserve extra clearance so the floating "View all work" button never
+   sits flush against (or overlaps) the last row of project cards. */
+.projects-section { padding-bottom: calc(var(--space-24) + 32px); }
+
 @media (max-width: 1023px) {
     .projects-section {
         padding-top: var(--space-16);

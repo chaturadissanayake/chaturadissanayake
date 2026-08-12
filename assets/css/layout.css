@@ -677,7 +677,7 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
 
 .floating-action-wrapper.is-docked {
     position: absolute !important;
-    bottom: 76px;
+    bottom: 24px;
 }
 
 .floating-action-wrapper button {
@@ -693,5 +693,4 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
 
 @media (max-width: 640px) {
     .floating-action-wrapper { bottom: calc(var(--space-5) + 60px); }
-    .floating-action-wrapper.is-docked { bottom: 72px; }
 }
