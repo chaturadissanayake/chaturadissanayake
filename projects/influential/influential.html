@@ -20,9 +20,7 @@
     <link rel="canonical" href="https://chaturadissanayake.vercel.app/projects/influential/influential.html">
 
     <link rel="preload" as="font" href="/assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link rel="preload" as="font" href="/assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
     <link rel="preload" as="style" href="/assets/css/base.css">
     <link rel="stylesheet" href="/assets/css/base.css">
     <link rel="stylesheet" href="/assets/css/layout.css">
@@ -477,21 +475,44 @@
         }
     }
 </style>
-    <script src="https://unpkg.com/lucide@0.292.0" defer></script>
+    <script type="module">
+    import replaceElement from "/assets/icons/replaceElement.js";
+    import ArrowRight from "/assets/icons/arrow-right.js";
+    import ArrowUp from "/assets/icons/arrow-up.js";
+    const lucideIcons = { ArrowRight, ArrowUp };
+    window.lucide = { createIcons: () => { document.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
+    </script>
     
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
     <link rel="manifest" href="/assets/favicons/site.webmanifest">
 </head>
-<body>
+<body class="loading">
+<div class="site-loader" id="site-loader" aria-hidden="true">
+    <div class="site-loader-inner">
+        <div class="loader-graphic">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="loader-icon">
+                <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/>
+            </svg>
+            <span class="site-loader-bar"><span class="site-loader-bar-fill"></span></span>
+        </div>
+        <div class="loader-text-group">
+            <span class="site-loader-text">Loading...</span>
+            <span class="site-loader-timeout">
+                If you are having issues loading the app <a href="javascript:window.location.reload(true)">click here to refresh.</a>
+            </span>
+        </div>
+    </div>
+</div>
+
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="scroll-progress-bar" id="scroll-progress" aria-hidden="true"></div>
 
 <noscript>
     <style>
         body.loading { overflow: auto; }
-        .reveal-up { opacity: 1 !important; transform: none !important; }
+        .reveal-up, .section-fade-in { opacity: 1 !important; transform: none !important; }
         .card-image img, .media-item img { opacity: 1 !important; }
     </style>
 </noscript>
@@ -563,7 +584,7 @@
     </div>
 </div>
 
-<main id="main-content">
+<main id="main-content" tabindex="-1" style="outline: none;">
     <div class="site-wrapper">
 
         <header class="project-header">
@@ -594,7 +615,7 @@
                 <div class="media-grid">
 
                     <!-- Image 1 -->
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/main.png"
                              alt="High-fidelity account creation and onboarding screen for Influential, showing a weekly review progress preview alongside the sign-up form on a laptop device"
                              loading="eager"
@@ -612,7 +633,7 @@
                     </div>
                     
                     <!-- Image 2 -->
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/design_process.png"
                              alt="The Double Diamond design process used to structure the research, definition, and delivery phases of Influential"
                              loading="lazy"
@@ -622,7 +643,7 @@
                         <p class="media-caption">The Double Diamond design methodology driving the project's foundational structure.</p>
                     </div>
 
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <div class="media-placeholder" style="aspect-ratio: 4/1;">
                             <span class="ph-title">Audience Segmentation</span>
                             <span class="ph-sub">To create</span>
@@ -630,7 +651,7 @@
                         <p class="media-caption">Three groups within the target audience: multi-location owners (the primary buyer), single-location owners scaling up, and front-line team members who actually action the reviews.</p>
                     </div>
 
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <div class="media-placeholder">
                             <span class="ph-title">Discovery Interviews &amp; Notes</span>
                             <span class="ph-sub">To create</span>
@@ -638,7 +659,7 @@
                         <p class="media-caption">Early conversations with business owners, exploring how they currently track feedback and what "winning" looks like to them.</p>
                     </div>
                     
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <div class="media-placeholder">
                             <span class="ph-title">Focus Group Session Summary</span>
                             <span class="ph-sub">To create</span>
@@ -647,7 +668,7 @@
                     </div>
 
                     <!-- Image 3 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/research_questionaire_one.png"
                              alt="Questionnaire results displaying how many different platforms owners check for reviews"
                              loading="lazy"
@@ -658,7 +679,7 @@
                     </div>
                     
                     <!-- Image 4 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/research_questionaire_two.png"
                              alt="Questionnaire results displaying the frequency of checking reviews and competitor comparisons"
                              loading="lazy"
@@ -669,7 +690,7 @@
                     </div>
 
                     <!-- Image 5 -->
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/competitor_analysis.png"
                              alt="Competitor analysis comparing Birdeye, Podium, and ReviewTrackers, listing strengths and weaknesses for each"
                              loading="lazy"
@@ -680,7 +701,7 @@
                     </div>
 
                     <!-- Image 6 -->
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/inspiration.png"
                              alt="Moodboard of dashboard UI inspiration gathered from various SaaS products during the visual research phase"
                              loading="lazy"
@@ -695,7 +716,7 @@
                         The Problem, and Who It Belongs To
                     </div>
 
-                    <div class="standard-quote">
+                    <div class="standard-quote section-fade-in">
                         &ldquo;I don't have time to babysit every platform I need one place to see if my business is winning or losing.&rdquo;
                         <span class="quote-source">Research synthesis, business owner persona</span>
                     </div>
@@ -705,7 +726,7 @@
                     </p>
 
                     <!-- Image 7 -->
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/owners_pain_points_journey_based.png"
                              alt="Owners' pain points mapped across four themes: manual tracking, competitive blind spot, team coordination, and reporting overhead"
                              loading="lazy"
@@ -716,7 +737,7 @@
                     </div>
 
                     <!-- Image 8 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/primary_persona.png"
                              alt="Primary persona: Sarah Fernando, 38, a business owner managing multiple locations, with pain points and the new experience Influential offers her"
                              loading="lazy"
@@ -727,7 +748,7 @@
                     </div>
                     
                     <!-- Image 9 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/secondary_persona.png"
                              alt="Secondary persona: Dinuka Perera, 26, a front-line team member handling customer feedback, with pain points and the new experience Influential offers him"
                              loading="lazy"
@@ -743,7 +764,7 @@
                     </div>
 
                     <!-- Image 10 -->
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/sitemap.png"
                              alt="Sitemap version one: a single unified structure covering performance management, feedback management, goal setting and progress, reports and analytics, and settings"
                              loading="lazy"
@@ -754,7 +775,7 @@
                     </div>
                     
                     <!-- Image 11 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/sitemap_admin.png"
                              alt="Sitemap version two, admin: feedback management, performance management, goal setting and progress, and settings, scoped to full oversight"
                              loading="lazy"
@@ -765,7 +786,7 @@
                     </div>
                     
                     <!-- Image 12 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/sitemap_member.png"
                              alt="Sitemap version two, member: performance management, feedback management, goal setting and progress, and settings, scoped to personal metrics and assigned work"
                              loading="lazy"
@@ -781,7 +802,7 @@
                     </div>
 
                     <!-- Image 13 -->
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/diagram_signin.png"
                              alt="Sign-in and authentication flow diagram, including social login, forgot password recovery, and retry or support fallback"
                              loading="lazy"
@@ -792,7 +813,7 @@
                     </div>
 
                     <!-- Image 14 -->
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/diagram_review_management.png"
                              alt="Review management flow diagram, showing view reviews, respond to reviews, flag reviews, and generate reports branches from the dashboard"
                              loading="lazy"
@@ -808,7 +829,7 @@
                     </div>
 
                     <!-- Image 15 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/low_fidelity_wireframes.png"
                              alt="Low-fidelity admin wireframes covering review management, moderation, promotion management, and analytics overview screens"
                              loading="lazy"
@@ -819,7 +840,7 @@
                     </div>
 
                     <!-- Image 16 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/mobile_low_fidelity.png"
                              alt="Low-fidelity mobile wireframes covering score, review, team, benchmark, and leaderboard screens"
                              loading="lazy"
@@ -829,7 +850,7 @@
                         <p class="media-caption">Early mobile wireframes: score, review, team, and leaderboard screens, laid out before any visual styling.</p>
                     </div>
 
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <div class="media-placeholder" style="aspect-ratio: 4/1;">
                             <span class="ph-title">Usability Test 1 Plan &amp; Task List</span>
                             <span class="ph-sub">To create</span>
@@ -838,7 +859,7 @@
                     </div>
 
                     <!-- Image 17 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/colour_system_and_typography.png"
                              alt="Design elements encompassing typography, colors, and styling rules tailored for SaaS dashoard density"
                              loading="lazy"
@@ -849,7 +870,7 @@
                     </div>
                     
                     <!-- Image 18 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/ui_component.png"
                              alt="Key UI components for the dashboard interface, highlighting interactions and state variations"
                              loading="lazy"
@@ -865,7 +886,7 @@
                     </div>
 
                     <!-- Image 19 -->
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/previous_version_mobile.png"
                              alt="An earlier mobile-first design direction, using circular score gauges and a gamified confetti leaderboard, later superseded by the web dashboard direction"
                              loading="lazy"
@@ -876,7 +897,7 @@
                     </div>
                     
                     <!-- Image 20 -->
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/figma_screens_admin.png"
                              alt="High-level view of the Figma workspace illustrating admin dashboard flows and screen mapping"
                              loading="lazy"
@@ -887,7 +908,7 @@
                     </div>
                     
                     <!-- Image 21 -->
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/figma_screens_settings.png"
                              alt="High-level view of the Figma workspace depicting detailed interactions for settings and user accounts"
                              loading="lazy"
@@ -898,7 +919,7 @@
                     </div>
 
                     <!-- Image 22 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/high_fidelity_review_management.png"
                              alt="High-fidelity review management screen, showing a searchable, filterable table of reviews with assignment and status controls"
                              loading="lazy"
@@ -909,7 +930,7 @@
                     </div>
                     
                     <!-- Image 23 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/high_fidelity_team_leaderboard.png"
                              alt="High-fidelity team leaderboard screen, showing individual point totals, goal ranks, and progress bars for each team member"
                              loading="lazy"
@@ -919,7 +940,7 @@
                         <p class="media-caption">Shared goals made visible: a ranked leaderboard turning individual review responses into team-wide momentum.</p>
                     </div>
 
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <div class="media-placeholder" style="aspect-ratio: 4/1;">
                             <span class="ph-title">Usability Test 2 Plan &amp; Task List</span>
                             <span class="ph-sub">To create</span>
@@ -933,7 +954,7 @@
                     </div>
 
                     <!-- Image 24 -->
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/high_fidelity_admin_dashboard.png"
                              alt="Influential high-fidelity admin dashboard, showing total reviews, average rating, response rate, and connected platform integrations"
                              loading="lazy"
@@ -944,7 +965,7 @@
                     </div>
 
                     <!-- Image 25 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/homescreen_admin.png"
                              alt="Admin homescreen showcasing a robust schedule timeline and task lists for immediate daily overview"
                              loading="lazy"
@@ -955,7 +976,7 @@
                     </div>
                     
                     <!-- Image 26 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/keyscreen_admin.png"
                              alt="Admin key screen for creating a task, showing file attachments, external resource links, reviewer assignment, and due date scheduling"
                              loading="lazy"
@@ -966,7 +987,7 @@
                     </div>
                     
                     <!-- Image 27 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/task_management_screen.png"
                              alt="Comprehensive task management interface showing deliverable checklists, priorities, and workflow notes"
                              loading="lazy"
@@ -977,7 +998,7 @@
                     </div>
                     
                     <!-- Image 28 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/keyscreen_member.png"
                              alt="Member key screen: a personalised dashboard greeting with a to-do list, daily activity timeline, and a notification panel showing new reviews and task assignments"
                              loading="lazy"
@@ -988,7 +1009,7 @@
                     </div>
                     
                     <!-- Image 29 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/settings_screen.png"
                              alt="Integrations and settings view where connections like Google My Business and Facebook are configured"
                              loading="lazy"
@@ -999,7 +1020,7 @@
                     </div>
                     
                     <!-- Image 30 -->
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/additional_screen.png"
                              alt="Onboarding domain-entry screen with validation messaging, part of a four-step setup wizard for choosing a shop system, industry, domain, and connecting Google accounts"
                              loading="lazy"
@@ -1070,7 +1091,7 @@
 
                     </div>
 
-                    <div class="meta-section">
+                    <div class="meta-section section-fade-in">
                         <div class="meta-grid">
                             <div class="meta-item">
                                 <div class="meta-label">Client</div>
@@ -1106,7 +1127,7 @@
 
         </div>
 
-<section class="next-project-section" id="nextProjectTarget">
+<section class="next-project-section section-fade-in" id="nextProjectTarget">
 </section>
 
         <div class="btn-wrapper-mobile" id="mobileFloatBtn">

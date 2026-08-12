@@ -207,24 +207,29 @@ document.addEventListener('DOMContentLoaded', () => {
         if (announcer) announcer.textContent = `Showing ${visibleCount} projects.`;
 
         if (expandBtn && actionWrapper) {
+            const collapseBtn = document.getElementById('collapse-projects-btn');
             if (count > baseLimit) {
                 actionWrapper.style.display = 'flex';
-                expandBtn.style.display = 'inline-flex';
-
+                
                 if (count > currentLimit) {
+                    expandBtn.style.display = 'inline-flex';
                     const stepLimit = window.innerWidth <= 640 ? 6 : 12;
                     const nextBatch = Math.min(stepLimit, count - currentLimit);
                     expandBtn.innerHTML = `<span class="btn-label">Load ${nextBatch} more (${currentLimit} of ${count})</span><i data-lucide="chevron-down" aria-hidden="true" style="width:16px;height:16px;margin-left:6px;"></i>`;
                     expandBtn.setAttribute('aria-expanded', 'false');
                 } else {
-                    expandBtn.innerHTML = '<span class="btn-label">Show less</span><i data-lucide="chevron-up" aria-hidden="true" style="width:16px;height:16px;margin-left:6px;"></i>';
-                    expandBtn.setAttribute('aria-expanded', 'true');
+                    expandBtn.style.display = 'none';
                 }
 
-                if (window.lucide) lucide.createIcons({ root: expandBtn });
+                if (collapseBtn) {
+                    collapseBtn.style.display = currentLimit > baseLimit ? 'inline-flex' : 'none';
+                }
+
+                if (window.lucide) lucide.createIcons({ root: actionWrapper });
             } else {
                 actionWrapper.style.display = 'none';
                 expandBtn.style.display = 'none';
+                if (collapseBtn) collapseBtn.style.display = 'none';
                 actionWrapper.classList.remove('floating-action-wrapper', 'is-docked', 'is-visible');
             }
 
@@ -349,7 +354,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <a href="${finalHref}" ${externalAttr} class="card-hitbox" aria-label="View Project: ${proj.title}"></a>
                     <div class="card-inner">
                         <div class="card-image">
-                            <img src="${proj.thumbnail}" alt="${proj.title}" width="800" height="600" ${loadingAttr}>
+                            <img src="${proj.thumbnail}" alt="${proj.title}" width="800" height="600" decoding="async" ${loadingAttr}>
                             <span class="card-arrow-btn" aria-hidden="true"><i data-lucide="arrow-up-right"></i></span>
                         </div>
                         <div class="card-body">
@@ -491,17 +496,65 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             const expandBtn = document.getElementById('expand-projects-btn');
+            const collapseBtn = document.getElementById('collapse-projects-btn');
             if (expandBtn) {
                 let expandBusy = false;
+
+                const doCollapse = (e) => {
+                    if (e) e.preventDefault();
+                    if (expandBusy) return;
+                    if (collapseBtn) collapseBtn.blur();
+                    if (expandBtn) expandBtn.blur();
+
+                    const baseLimit = window.innerWidth <= 640 ? 3 : 6;
+                    const visibleCards = Array.from(allProjCards).filter(card => {
+                        const tags = (card.getAttribute('data-tags') || '').split(',').map(t => t.trim()).filter(Boolean);
+                        return currentFilter === 'all' || tags.includes(currentFilter);
+                    });
+                    const totalMatching = visibleCards.length;
+                    const announcer = document.getElementById('filter-announcer');
+
+                    expandBusy = true;
+                    currentLimit = baseLimit;
+                    applyProjectFilter({ animate: false });
+                    if (announcer) announcer.textContent = `Showing ${baseLimit} of ${totalMatching} projects.`;
+
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            const actionWrapper = expandBtn.parentElement;
+                            if (actionWrapper) {
+                                actionWrapper.classList.remove('floating-action-wrapper', 'is-docked', 'is-visible');
+                            }
+                            const projectsSection = document.getElementById('projects');
+                            if (projectsSection) {
+                                const offset = projectsSection.getBoundingClientRect().top + window.scrollY - 80;
+                                window.scrollTo({ top: offset, behavior: 'smooth' });
+                                
+                                // Return focus to filters so keyboard users don't lose their place
+                                setTimeout(() => {
+                                    const filterTrigger = document.getElementById('filter-dropdown-trigger');
+                                    const activeFilterBtn = document.querySelector('.filter-pill.active');
+                                    if (window.innerWidth <= 860 && filterTrigger) {
+                                        filterTrigger.focus({ preventScroll: true });
+                                    } else if (activeFilterBtn) {
+                                        activeFilterBtn.focus({ preventScroll: true });
+                                    }
+                                }, 400); // wait for smooth scroll to finish
+                            }
+                            updateFloatingExpandBtn();
+                            expandBusy = false;
+                        });
+                    });
+                };
+
+                if (collapseBtn) collapseBtn.addEventListener('click', doCollapse);
 
                 expandBtn.addEventListener('click', (e) => {
                     e.preventDefault();
                     if (expandBusy) return;
                     expandBtn.blur();
 
-                    const baseLimit = window.innerWidth <= 640 ? 3 : 6;
                     const stepLimit = window.innerWidth <= 640 ? 6 : 12;
-
                     const visibleCards = Array.from(allProjCards).filter(card => {
                         const tags = (card.getAttribute('data-tags') || '').split(',').map(t => t.trim()).filter(Boolean);
                         return currentFilter === 'all' || tags.includes(currentFilter);
@@ -511,52 +564,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (currentLimit < totalMatching) {
                         expandBusy = true;
-                        const previousLimit = currentLimit;
+                        const previousScrollY = window.scrollY;
                         currentLimit = Math.min(currentLimit + stepLimit, totalMatching);
+                        
+                        document.documentElement.style.overflowAnchor = 'none';
                         applyProjectFilter({ animate: true });
 
                         requestAnimationFrame(() => {
+                            window.scrollTo(0, previousScrollY);
                             requestAnimationFrame(() => {
-                                const firstNewCard = visibleCards[previousLimit];
-                                if (firstNewCard) {
-                                    const header = document.getElementById('main-header');
-                                    const headerOffset = header ? header.offsetHeight : 0;
-                                    const targetTop = firstNewCard.getBoundingClientRect().top + window.scrollY - headerOffset - 24;
-                                    window.scrollTo({ top: targetTop, behavior: SiteUtils.getScrollBehavior() });
-                                }
                                 updateCardTagOverflow();
                                 updateFloatingExpandBtn();
                                 expandBusy = false;
+                                setTimeout(() => { document.documentElement.style.overflowAnchor = ''; }, 100);
                             });
                         });
 
                         if (announcer) announcer.textContent = `Showing ${currentLimit} of ${totalMatching} projects.`;
                     } else {
-                        expandBusy = true;
-                        const anchorRectBefore = expandBtn.getBoundingClientRect();
-                        const anchorViewportY = anchorRectBefore.top;
-
-                        currentLimit = baseLimit;
-                        applyProjectFilter({ animate: false });
-                        if (announcer) announcer.textContent = `Showing ${baseLimit} of ${totalMatching} projects.`;
-
-                        requestAnimationFrame(() => {
-                            requestAnimationFrame(() => {
-                                const actionWrapper = expandBtn.parentElement;
-                                if (actionWrapper) {
-                                    actionWrapper.classList.remove('floating-action-wrapper', 'is-docked', 'is-visible');
-                                }
-                                // Keep the button anchored at the same spot on screen instead of
-                                // jumping back up to the top of the section.
-                                const anchorRectAfter = expandBtn.getBoundingClientRect();
-                                const delta = anchorRectAfter.top - anchorViewportY;
-                                if (Math.abs(delta) > 1) {
-                                    window.scrollTo({ top: window.scrollY + delta, behavior: 'auto' });
-                                }
-                                updateFloatingExpandBtn();
-                                expandBusy = false;
-                            });
-                        });
+                        doCollapse(e);
                     }
                 });
             }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    
+
     <!-- Main Home Page -->
     <url>
         <loc>https://chaturadissanayake.vercel.app/</loc>
-        <lastmod>2026-07-02</lastmod>
+        <lastmod>2026-08-12</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -12,103 +12,55 @@
     <!-- Privacy Policy -->
     <url>
         <loc>https://chaturadissanayake.vercel.app/privacy.html</loc>
-        <lastmod>2026-07-02</lastmod>
+        <lastmod>2026-05-27</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.3</priority>
     </url>
 
-    <!-- Project: Ceylon Harvest -->
+    <!-- Project: Ceylon Harvest Co. -->
     <url>
-        <loc>https://chaturadissanayake.vercel.app/projects/ceylon-harvest/index.html</loc>
-        <lastmod>2026-07-02</lastmod>
+        <loc>https://chaturadissanayake.vercel.app/projects/ceylon-harvest/ceylon-harvest.html</loc>
+        <lastmod>2026-08-12</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
-    <!-- Project: Ditwah Cyclone -->
+    <!-- Project: Influential -->
     <url>
-        <loc>https://chaturadissanayake.vercel.app/projects/ditwah-cyclone/index.html</loc>
-        <lastmod>2026-07-02</lastmod>
+        <loc>https://chaturadissanayake.vercel.app/projects/influential/influential.html</loc>
+        <lastmod>2026-08-12</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
-    <!-- Project: Drug Crisis -->
+    <!-- Project: Midnight Sun – Part I -->
     <url>
-        <loc>https://chaturadissanayake.vercel.app/projects/drug-crisis/index.html</loc>
-        <lastmod>2026-07-02</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- Project: Embracy Platform -->
-    <url>
-        <loc>https://chaturadissanayake.vercel.app/projects/embracy-platform/index.html</loc>
-        <lastmod>2026-07-02</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- Project: Midnight Sun -->
-    <url>
-        <loc>https://chaturadissanayake.vercel.app/projects/midnight-sun/index.html</loc>
-        <lastmod>2026-07-02</lastmod>
+        <loc>https://chaturadissanayake.vercel.app/projects/midnight-sun/midnight-sun.html</loc>
+        <lastmod>2026-08-12</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <!-- Project: Mood of the Nation -->
     <url>
-        <loc>https://chaturadissanayake.vercel.app/projects/mood-of-the-nation/index.html</loc>
-        <lastmod>2026-07-02</lastmod>
+        <loc>https://chaturadissanayake.vercel.app/projects/mood-of-the-nation/mood-of-the-nation.html</loc>
+        <lastmod>2026-08-12</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <!-- Project: Practical Solutions for Inclusive Growth -->
     <url>
-        <loc>https://chaturadissanayake.vercel.app/projects/practical-solutions-for-inclusive-growth/index.html</loc>
-        <lastmod>2026-07-02</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- Project: Ycli -->
-    <url>
-        <loc>https://chaturadissanayake.vercel.app/projects/project-ycli/index.html</loc>
-        <lastmod>2026-07-02</lastmod>
+        <loc>https://chaturadissanayake.vercel.app/projects/practical-solutions-for-inclusive-growth/practical-solutions-for-inclusive-growth.html</loc>
+        <lastmod>2026-08-12</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
 
     <!-- Project: Road Remains -->
     <url>
-        <loc>https://chaturadissanayake.vercel.app/projects/road-remains/index.html</loc>
-        <lastmod>2026-07-02</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- Project: Salary Inflation Tracker -->
-    <url>
-        <loc>https://chaturadissanayake.vercel.app/projects/salary-inflation-tracker/index.html</loc>
-        <lastmod>2026-07-02</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- Project: UN Annual Results -->
-    <url>
-        <loc>https://chaturadissanayake.vercel.app/projects/un-annual-results/index.html</loc>
-        <lastmod>2026-07-02</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <!-- Project: UN SDG Fund -->
-    <url>
-        <loc>https://chaturadissanayake.vercel.app/projects/un-sdg-fund/index.html</loc>
-        <lastmod>2026-07-02</lastmod>
+        <loc>https://chaturadissanayake.vercel.app/projects/road-remains/road-remains.html</loc>
+        <lastmod>2026-08-12</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>

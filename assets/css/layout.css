@@ -648,6 +648,7 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 16px); }
     width: 100%;
     display: flex;
     justify-content: center;
+    gap: 12px;
     pointer-events: none;
     overflow-anchor: none;
 }

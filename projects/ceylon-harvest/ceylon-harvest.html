@@ -20,9 +20,7 @@
     <link rel="canonical" href="https://chaturadissanayake.vercel.app/projects/ceylon-harvest/ceylon-harvest.html">
 
     <link rel="preload" as="font" href="/assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link rel="preload" as="font" href="/assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
     <link rel="preload" as="style" href="/assets/css/base.css">
     <link rel="stylesheet" href="/assets/css/base.css">
     <link rel="stylesheet" href="/assets/css/layout.css">
@@ -477,21 +475,44 @@
         }
     }
 </style>
-    <script src="https://unpkg.com/lucide@0.292.0" defer></script>
+    <script type="module">
+    import replaceElement from "/assets/icons/replaceElement.js";
+    import ArrowRight from "/assets/icons/arrow-right.js";
+    import ArrowUp from "/assets/icons/arrow-up.js";
+    const lucideIcons = { ArrowRight, ArrowUp };
+    window.lucide = { createIcons: () => { document.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
+    </script>
     
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
     <link rel="manifest" href="/assets/favicons/site.webmanifest">
 </head>
-<body>
+<body class="loading">
+<div class="site-loader" id="site-loader" aria-hidden="true">
+    <div class="site-loader-inner">
+        <div class="loader-graphic">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="loader-icon">
+                <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/>
+            </svg>
+            <span class="site-loader-bar"><span class="site-loader-bar-fill"></span></span>
+        </div>
+        <div class="loader-text-group">
+            <span class="site-loader-text">Loading...</span>
+            <span class="site-loader-timeout">
+                If you are having issues loading the app <a href="javascript:window.location.reload(true)">click here to refresh.</a>
+            </span>
+        </div>
+    </div>
+</div>
+
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="scroll-progress-bar" id="scroll-progress" aria-hidden="true"></div>
 
 <noscript>
     <style>
         body.loading { overflow: auto; }
-        .reveal-up { opacity: 1 !important; transform: none !important; }
+        .reveal-up, .section-fade-in { opacity: 1 !important; transform: none !important; }
         .card-image img, .media-item img { opacity: 1 !important; }
     </style>
 </noscript>
@@ -563,7 +584,7 @@
     </div>
 </div>
 
-<main id="main-content">
+<main id="main-content" tabindex="-1" style="outline: none;">
     <div class="site-wrapper">
 
         <header class="project-header">
@@ -593,7 +614,7 @@
             <div class="media-col">
                 <div class="media-grid">
 
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/01_Hero_Cover.webp"
                              alt="Ceylon Harvest Co. Hero Brand Identity"
                              loading="eager"
@@ -610,7 +631,7 @@
                         The Challenge
                     </div>
 
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/process-01-client-brief-concept.webp"
                              alt="The client's own logo concept, delivered before I was brought on: an orange seal with a four-petal mark for Ceylon Botanical Spice Co."
                              loading="lazy"
@@ -619,7 +640,7 @@
                              onload="this.classList.add('img-loaded')">
                         <p class="media-caption">Where I came in: the client's own concept. The client couldn't say what was wrong with it, only that it wasn't quite right.</p>
                     </div>
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/process-02-competitor-research.webp"
                              alt="Competitor and inspiration research: Dilmah, Burlap and Barrel, King Arthur Baking, Druera and other spice and tea export brands"
                              loading="lazy"
@@ -629,7 +650,7 @@
                         <p class="media-caption">Mapping the field: how Dilmah, Burlap &amp; Barrel and other export-grade spice brands actually present themselves.</p>
                     </div>
 
-                    <div class="standard-quote">
+                    <div class="standard-quote section-fade-in">
                         &ldquo;Like discovering something rare. Ancient. Trustworthy. Not tourist.&rdquo;
                         <span class="quote-source">The client's own words, describing what the client's first attempt was missing</span>
                     </div>
@@ -638,7 +659,7 @@
                         The client's logo used a sun face inside a seal, captioned "Live. Long. Rich." The drawing wasn't the issue. A sun is a universal symbol. It says optimism and warmth for a resort or a suncream just as easily as it does for a 3,000-year-old spice trade. It couldn't say Sri Lanka, and it couldn't say ancient. Naming that problem set the direction: move the mark from the sky to the soil.
                     </p>
 
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/process-03-logo-sketches.webp"
                              alt="Early hand-drawn sketches exploring tea leaves, black pepper, cinnamon and vanilla as the seed of a new mark, under the name Ceylon Harvest"
                              loading="lazy"
@@ -647,7 +668,7 @@
                              onload="this.classList.add('img-loaded')">
                         <p class="media-caption">First sketches: replacing the sun with tea leaves, black pepper, cinnamon and vanilla under a new name, Ceylon Harvest.</p>
                     </div>
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/process-05-strategy-notes-naming.webp"
                              alt="Notes weighing the two name candidates, Ceylon Harvest Co. and Ceylon Botanical Spice Co., and diagnosing why the client's own logo attempt fell short"
                              loading="lazy"
@@ -656,7 +677,7 @@
                              onload="this.classList.add('img-loaded')">
                         <p class="media-caption">Working notes: choosing between two names, and listing exactly why the client's own attempt hadn't landed.</p>
                     </div>
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/process-04-strategy-notes-brief.webp"
                              alt="Mood words describing the brief, ancient, trustworthy, quiet, not exotic, heritage authority, alongside first sketches of cinnamon, pepper, cardamom, vanilla and tea leaves, and an early circular seal layout"
                              loading="lazy"
@@ -671,7 +692,7 @@
                         The Solution
                     </div>
 
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/process-06-icon-development-pass1.webp"
                              alt="Icon development: reference photographs of black pepper, chilli, tea leaf and clove reduced to flat single-colour illustrations"
                              loading="lazy"
@@ -681,7 +702,7 @@
                         <p class="media-caption">Every plant went through the same process: reference photo, essential silhouette, flat single-colour redraw. I repeated this for all eight ingredients in the final seal.</p>
                     </div>
 
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/process-08-seal-assembly.webp"
                              alt="Construction of the final seal: the wordmark ring, plus the cluster of spice icons, combined into a single botanical wreath mark"
                              loading="lazy"
@@ -691,7 +712,7 @@
                         <p class="media-caption">Assembly logic: wordmark ring plus botanical cluster, arranged into a single wreath.</p>
                     </div>
 
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/process-10-before-after.webp"
                              alt="Old logo, a sun face seal reading Live Long Rich, next to the new botanical seal reading Pure Heritage, Naturally Sri Lankan"
                              loading="lazy"
@@ -701,7 +722,7 @@
                         <p class="media-caption">Before and after: from a universal sun motif to a mark that could only belong to Sri Lanka.</p>
                     </div>
 
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/02_Mark_Anatomy.webp"
                              alt="Anatomy of the Botanical Mark detailing trace ingredients"
                              loading="lazy"
@@ -710,7 +731,7 @@
                              onload="this.classList.add('img-loaded')">
                         <p class="media-caption">The finished mark's anatomy, traced ingredient by ingredient.</p>
                     </div>
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/09_Color_Palette.webp"
                              alt="Extracted from the Earth colour palette"
                              loading="lazy"
@@ -720,11 +741,11 @@
                         <p class="media-caption">Heritage Green, Raw Parchment, Cinnamon Bark, and Cracked Pepper, pulled from the spices themselves, not a stock "premium" palette.</p>
                     </div>
 
-                    <div class="standard-quote">
+                    <div class="standard-quote section-fade-in">
                         &ldquo;We speak with quiet confidence. Our language is precise, factual, and grounded in expertise; never ornamental, never borrowed from the tourism playbook.&rdquo;
                     </div>
 
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/08_Typographic_Hierarchy.webp"
                              alt="Typographic Hierarchy showcasing Baskerville and Poppins"
                              loading="lazy"
@@ -734,7 +755,7 @@
                         <p class="media-caption">Baskerville Old Face for history and weight, paired with Poppins for functional, modern packaging copy.</p>
                     </div>
 
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/10_Final_Emblem.webp"
                              alt="Ceylon Harvest Co. final seal shown in both colourways, cream-on-green and white-on-orange"
                              loading="lazy"
@@ -749,7 +770,7 @@
                         Applications
                     </div>
 
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/Wooden_Stamp_Mockup.webp"
                              alt="Ceylon Harvest Co. brand seal as a wooden stamp on paper"
                              loading="lazy"
@@ -758,7 +779,7 @@
                              onload="this.classList.add('img-loaded')">
                         <p class="media-caption">The seal as a wax-style stamp, testing whether the mark still reads once it loses colour and gets pressed into paper.</p>
                     </div>
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <img src="assets/Free_Tote_Bag_Mockup_5.webp"
                              alt="Ceylon Harvest Co. natural canvas tote bag with botanical pattern"
                              loading="lazy"
@@ -768,7 +789,7 @@
                         <p class="media-caption">The botanical pattern, printed across a canvas tote.</p>
                     </div>
 
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/Paper_Tube_Mockup_4.webp"
                              alt="Ceylon Harvest Co. Cardamom paper tube packaging with gold lid"
                              loading="lazy"
@@ -778,14 +799,14 @@
                         <p class="media-caption">The system on shelf: cardamom, in a paper tube with a gold lid.</p>
                     </div>
 
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <div class="media-placeholder">
                             <span class="ph-title">Business Card</span>
                             <span class="ph-sub">In progress</span>
                         </div>
                         <p class="media-caption">The stationery suite is next up, not yet photographed.</p>
                     </div>
-                    <div class="media-item">
+                    <div class="media-item section-fade-in">
                         <div class="media-placeholder">
                             <span class="ph-title">Letterhead</span>
                             <span class="ph-sub">In progress</span>
@@ -830,7 +851,7 @@
 
                     </div>
 
-                    <div class="meta-section">
+                    <div class="meta-section section-fade-in">
                         <div class="meta-grid">
                             <div class="meta-item">
                                 <div class="meta-label">Client</div>
@@ -865,7 +886,7 @@
 
         </div>
 
-<section class="next-project-section" id="nextProjectTarget">
+<section class="next-project-section section-fade-in" id="nextProjectTarget">
 </section>
 
         <div class="btn-wrapper-mobile" id="mobileFloatBtn">

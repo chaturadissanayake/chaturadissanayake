@@ -8,16 +8,44 @@
 </description>
 <link>https://chaturadissanayake.vercel.app/</link>
 <image>
-<url>https://chaturadissanayake.vercel.app/assets/apple-touch-icon.png</url>
+<url>https://chaturadissanayake.vercel.app/assets/favicons/apple-touch-icon.png</url>
 <title>Chatura Dissanayake | Communications Specialist</title>
 <link>https://chaturadissanayake.vercel.app/</link>
 </image>
 <generator>https://rss.app</generator>
-<lastBuildDate>Sun, 31 May 2026 19:44:44 GMT</lastBuildDate>
+<lastBuildDate>Wed, 12 Aug 2026 00:00:00 GMT</lastBuildDate>
 <atom:link href="https://rss.app/feeds/1QjFWlxkKTZLVQd7.xml" rel="self" type="application/rss+xml"/>
 <language>
 <![CDATA[ en ]]>
 </language>
+<item>
+<title>
+<![CDATA[ Road Remains ]]>
+</title>
+<description>
+<![CDATA[ Case study: Road Remains. A browser-based game that teaches voters how elections actually work. ]]>
+</description>
+<link>https://chaturadissanayake.vercel.app/projects/road-remains/road-remains.html</link>
+<guid isPermaLink="false">rr-case-study-road-remains</guid>
+<dc:creator>
+<![CDATA[ chaturadissanayake.vercel.app ]]>
+</dc:creator>
+<pubDate>Wed, 12 Aug 2026 00:00:00 GMT</pubDate>
+</item>
+<item>
+<title>
+<![CDATA[ Ceylon Harvest Co. ]]>
+</title>
+<description>
+<![CDATA[ Case study: Ceylon Harvest Co. A 3,000-year-old tradition, presented with modern premium confidence through strategic brand identity and design. ]]>
+</description>
+<link>https://chaturadissanayake.vercel.app/projects/ceylon-harvest/ceylon-harvest.html</link>
+<guid isPermaLink="false">rr-case-study-ceylon-harvest</guid>
+<dc:creator>
+<![CDATA[ chaturadissanayake.vercel.app ]]>
+</dc:creator>
+<pubDate>Fri, 01 May 2026 12:00:00 GMT</pubDate>
+</item>
 <item>
 <title>
 <![CDATA[ Privacy Policy ]]>
@@ -46,6 +74,34 @@
 </dc:creator>
 <pubDate>Tue, 01 Jul 2025 12:00:00 GMT</pubDate>
 <media:content medium="image" url="https://chaturadissanayake.vercel.app/assets/Social_Preview.webp"/>
+</item>
+<item>
+<title>
+<![CDATA[ Influential ]]>
+</title>
+<description>
+<![CDATA[ Case study: Influential. Turning five platforms of scattered customer feedback into one measurable team goal, through research-led UX design. ]]>
+</description>
+<link>https://chaturadissanayake.vercel.app/projects/influential/influential.html</link>
+<guid isPermaLink="false">rr-case-study-influential</guid>
+<dc:creator>
+<![CDATA[ chaturadissanayake.vercel.app ]]>
+</dc:creator>
+<pubDate>Sat, 01 Aug 2025 12:00:00 GMT</pubDate>
+</item>
+<item>
+<title>
+<![CDATA[ Midnight Sun – Part I ]]>
+</title>
+<description>
+<![CDATA[ Case study: Midnight Sun – Part I. A 1950s sci-fi pin-up fantasy reimagined as album cover art for an independent band's debut release. ]]>
+</description>
+<link>https://chaturadissanayake.vercel.app/projects/midnight-sun/midnight-sun.html</link>
+<guid isPermaLink="false">rr-case-study-midnight-sun</guid>
+<dc:creator>
+<![CDATA[ chaturadissanayake.vercel.app ]]>
+</dc:creator>
+<pubDate>Thu, 02 Oct 2025 12:00:00 GMT</pubDate>
 </item>
 <item>
 <title>
@@ -84,9 +140,37 @@
 </item>
 <item>
 <title>
+<![CDATA[ Mood of the Nation ]]>
+</title>
+<description>
+<![CDATA[ Case study: Mood of the Nation. Tracking government approval ratings, national satisfaction, and economic confidence across Sri Lanka. ]]>
+</description>
+<link>https://chaturadissanayake.vercel.app/projects/mood-of-the-nation/mood-of-the-nation.html</link>
+<guid isPermaLink="false">rr-case-study-mood-of-the-nation</guid>
+<dc:creator>
+<![CDATA[ chaturadissanayake.vercel.app ]]>
+</dc:creator>
+<pubDate>Sat, 01 Jun 2022 12:00:00 GMT</pubDate>
+</item>
+<item>
+<title>
+<![CDATA[ Practical Solutions for Inclusive Growth ]]>
+</title>
+<description>
+<![CDATA[ Case study: Practical Solutions for Inclusive Growth. A framework for addressing the root causes of Sri Lanka's economic crisis through accountability. ]]>
+</description>
+<link>https://chaturadissanayake.vercel.app/projects/practical-solutions-for-inclusive-growth/practical-solutions-for-inclusive-growth.html</link>
+<guid isPermaLink="false">rr-case-study-practical-solutions</guid>
+<dc:creator>
+<![CDATA[ chaturadissanayake.vercel.app ]]>
+</dc:creator>
+<pubDate>Mon, 01 Jul 2024 12:00:00 GMT</pubDate>
+</item>
+<item>
+<title>
 <![CDATA[ Download Services Guide ]]>
 </title>
-<link>https://chaturadissanayake.vercel.app/assets/Services_Guide.pdf</link>
+<link>https://chaturadissanayake.vercel.app/assets/documents/Services_Guide.pdf</link>
 <guid isPermaLink="false">d1d647954a8d5ce9148e4babf525efd4</guid>
 <dc:creator>
 <![CDATA[ chaturadissanayake.vercel.app ]]>

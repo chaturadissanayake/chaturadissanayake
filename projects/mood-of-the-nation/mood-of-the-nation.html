@@ -23,9 +23,7 @@
     <link rel="canonical" href="https://chaturadissanayake.vercel.app/projects/mood-of-the-nation/mood-of-the-nation.html">
 
     <link rel="preload" as="font" href="/assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
+    <link rel="preload" as="font" href="/assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
     <link rel="preload" as="style" href="/assets/css/base.css">
     <link rel="stylesheet" href="/assets/css/base.css">
 <link rel="stylesheet" href="/assets/css/layout.css">
@@ -188,21 +186,44 @@
         }
     }
 </style>
-    <script src="https://unpkg.com/lucide@0.292.0" defer></script>
+    <script type="module">
+    import replaceElement from "/assets/icons/replaceElement.js";
+    import ArrowRight from "/assets/icons/arrow-right.js";
+    import ArrowUp from "/assets/icons/arrow-up.js";
+    const lucideIcons = { ArrowRight, ArrowUp };
+    window.lucide = { createIcons: () => { document.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
+    </script>
     
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
     <link rel="manifest" href="/assets/favicons/site.webmanifest">
 </head>
-<body>
+<body class="loading">
+<div class="site-loader" id="site-loader" aria-hidden="true">
+    <div class="site-loader-inner">
+        <div class="loader-graphic">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="loader-icon">
+                <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/>
+            </svg>
+            <span class="site-loader-bar"><span class="site-loader-bar-fill"></span></span>
+        </div>
+        <div class="loader-text-group">
+            <span class="site-loader-text">Loading...</span>
+            <span class="site-loader-timeout">
+                If you are having issues loading the app <a href="javascript:window.location.reload(true)">click here to refresh.</a>
+            </span>
+        </div>
+    </div>
+</div>
+
 <a href="#main-content" class="skip-link">Skip to main content</a>
 <div class="scroll-progress-bar" id="scroll-progress" aria-hidden="true"></div>
 
 <noscript>
     <style>
         body.loading { overflow: auto; }
-        .reveal-up { opacity: 1 !important; transform: none !important; }
+        .reveal-up, .section-fade-in { opacity: 1 !important; transform: none !important; }
         .card-image img, .media-item img { opacity: 1 !important; }
     </style>
 </noscript>
@@ -274,7 +295,7 @@
     </div>
 </div>
 
-<main id="main-content">
+<main id="main-content" tabindex="-1" style="outline: none;">
     <div class="site-wrapper">   
 
         <header class="project-header">
@@ -305,7 +326,7 @@
                 <div class="media-grid">
                     
                     <!-- 1. Full width — Hero (English version) -->
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/MOTN_ENG.webp"
                              alt="Mood of the Nation - English Version"
                              loading="eager"
@@ -317,13 +338,13 @@
                     </div>
 
                     <!-- 2. Actual quote from the MOTN June 2022 survey -->
-                    <div class="standard-quote">
+                    <div class="standard-quote section-fade-in">
                         &ldquo;To the question, 'In general, are you satisfied or dissatisfied with the way things are going in Sri Lanka?' only 2% said they were satisfied.&rdquo;
                         <span class="quote-author">&mdash; Verité Research, June 2022</span>
                     </div>
 
                     <!-- 3. Full width — Sinhala & Tamil Versions (Combined) -->
-                    <div class="media-item full-width">
+                    <div class="media-item full-width section-fade-in">
                         <img src="assets/MOTN_SINTAM.webp"
                              alt="Mood of the Nation - Sinhala and Tamil Versions"
                              loading="lazy"
@@ -333,7 +354,7 @@
                     </div>
 
                     <!-- 4. Full width — Newspaper Mockup -->
-                    <div class="media-item full-width" style="flex-direction: column; background: transparent;">
+                    <div class="media-item full-width section-fade-in" style="flex-direction: column; background: transparent;">
                         <img src="assets/MOTN_News.webp"
                              alt="Mood of the Nation - Newspaper Mockup"
                              loading="lazy"
@@ -361,7 +382,7 @@
                     </div>
 
                     <!-- Updated Meta Section to precisely match your template -->
-                    <div class="meta-section">
+                    <div class="meta-section section-fade-in">
                         <div class="meta-grid">
                             <div class="meta-item">
                                 <div class="meta-label">Client</div>
@@ -396,7 +417,7 @@
 
         </div>
 
-<section class="next-project-section" id="nextProjectTarget">
+<section class="next-project-section section-fade-in" id="nextProjectTarget">
     <!-- Dynamic Next Project injected via app.js -->
 </section>
 
@@ -461,6 +482,8 @@
             <button id="accept-cookies" class="btn-primary" style="padding: 8px 18px; font-size: 0.8125rem;">Accept</button>
             <button id="decline-cookies" class="show-more-btn" style="padding: 8px 18px; font-size: 0.8125rem; margin-top: 0;">Decline</button>
         </div>
+    </div>
+</div>
 
 <script>
 function toggleSidebar() {
