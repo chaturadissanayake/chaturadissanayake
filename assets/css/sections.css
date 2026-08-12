@@ -37,12 +37,13 @@
         min-height: auto;
     }
 
-    /* Surface the CTA before the (large) showcase image, so it's
-       reachable without scrolling past the gif on shorter viewports. */
-    .hero-content        { order: 1; }
-    .hero-supporting      { order: 2; }
-    .hero-actions-wrapper { order: 3; }
-    .hero-visual           { order: 4; }
+    /* Show the visual right after the headline so it breaks up the text
+       and gives the "digital experiences" claim something concrete to
+       point at, before the supporting paragraph and CTA. */
+    .hero-content          { order: 1; }
+    .hero-visual           { order: 2; }
+    .hero-supporting       { order: 3; }
+    .hero-actions-wrapper  { order: 4; }
     .hero-proof-strip      { order: 5; }
 }
 
@@ -200,6 +201,10 @@
     .hero-actions {
         margin-top: var(--space-2);
     }
+
+    .hero-actions-wrapper {
+        margin-bottom: var(--space-4);
+    }
 }
 
 .scroll-link-custom {
@@ -290,8 +295,8 @@
 
 @media (max-width: 768px) {
 .hero-title-massive {
-    font-size: clamp(1.85rem, 8.5vw, 2.35rem);
-    line-height: 1.15;
+    font-size: clamp(1.6rem, 7vw, 1.95rem);
+    line-height: 1.25;
     text-align: left !important;
     margin-left: -0.02em;
     max-width: 21ch;
@@ -773,8 +778,10 @@
     padding: 5px 11px;
     border-radius: var(--radius-pill);
     white-space: nowrap;
-    transition: color var(--dur-fast), background var(--dur-fast), border-color var(--dur-fast);
+    transition: color var(--dur-fast), background-color var(--dur-fast), border-color var(--dur-fast);
 }
+
+
 
 .service-row:hover .service-row-tools span {
     color: var(--ink);
@@ -834,7 +841,8 @@
     }
     .service-row-title .most-requested-badge { margin-top: 0; }
     .service-row-desc { font-size: 0.875rem; margin-bottom: var(--space-4); }
-    .service-row-tools { display: none; }
+    .service-row-tools { flex-wrap: wrap; gap: var(--space-2); }
+    .service-row-tools span { font-size: 0.5625rem; padding: 4px 9px; }
     .services-footer-bar { flex-direction: column; align-items: center; gap: var(--space-5); text-align: center; }
     .services-footer-bar p { white-space: nowrap; font-size: 0.6875rem; }
     .services-pdf-link--light { width: 100%; justify-content: center; }

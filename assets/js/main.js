@@ -43,6 +43,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
     SiteUtils.initIcons();
 
+    document.querySelectorAll('.tag[data-tag-filter]').forEach(tagEl => {
+        tagEl.addEventListener('click', () => {
+            sessionStorage.setItem('activeProjectFilter', tagEl.getAttribute('data-tag-filter'));
+        });
+    });
+
+    document.querySelectorAll('.tag[data-tag-filter]').forEach(tagEl => {
+        tagEl.addEventListener('click', () => {
+            sessionStorage.setItem('activeProjectFilter', tagEl.getAttribute('data-tag-filter'));
+        });
+    });
+
     console.log('%cChatura Dissanayake', 'font-size:22px;font-weight:bold;color:#111;');
     console.log('%cThis site design and code are original work by Chatura Dissanayake (chaturadissanayake.vercel.app). Copying or reusing this template without permission is not permitted.', 'font-size:13px;color:#555;');
 
@@ -270,25 +282,4 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
-    const supportsFineHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-    if (supportsFineHover && !prefersReducedMotion) {
-        const magneticTargets = document.querySelectorAll('.form-submit');
-        const magnetStrength = 0.3;
-
-        magneticTargets.forEach(el => {
-            el.classList.add('magnetic-btn');
-
-            el.addEventListener('mousemove', e => {
-                const rect = el.getBoundingClientRect();
-                const relX = e.clientX - rect.left - rect.width / 2;
-                const relY = e.clientY - rect.top - rect.height / 2;
-                el.style.transform = `translate(${relX * magnetStrength}px, ${relY * magnetStrength}px)`;
-            });
-
-            el.addEventListener('mouseleave', () => {
-                el.style.transform = '';
-            });
-        });
-    }
-});
+    });

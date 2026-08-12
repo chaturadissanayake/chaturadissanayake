@@ -54,10 +54,11 @@
 
 @media (max-width: 768px) {
     .hero-title-massive {
-        font-size: clamp(1.85rem, 8.5vw, 2.35rem);
-        line-height: 1.15;
+        font-size: clamp(1.6rem, 7vw, 1.95rem);
+        line-height: 1.25;
         margin-left: -0.02em;
         max-width: 21ch;
+        margin-bottom: var(--space-4);
     }
 }
 

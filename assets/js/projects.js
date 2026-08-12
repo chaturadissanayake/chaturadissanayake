@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     expandBtn.style.display = 'inline-flex';
                     const stepLimit = window.innerWidth <= 640 ? 6 : 12;
                     const nextBatch = Math.min(stepLimit, count - currentLimit);
-                    expandBtn.innerHTML = `<span class="btn-label">Load ${nextBatch} more (${currentLimit} of ${count})</span><i data-lucide="chevron-down" aria-hidden="true" style="width:16px;height:16px;margin-left:6px;"></i>`;
+                    expandBtn.innerHTML = `<span class="btn-label">Show more</span><i data-lucide="chevron-down" aria-hidden="true" style="width:16px;height:16px;margin-left:6px;"></i>`;
                     expandBtn.setAttribute('aria-expanded', 'false');
                 } else {
                     expandBtn.style.display = 'none';

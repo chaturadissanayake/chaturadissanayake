@@ -56,7 +56,7 @@
         background: var(--accent); border-color: var(--accent);
     }
 
-    .btn-primary:not(.magnetic-btn):not(#hero-cta):hover, .form-submit:hover {
+    .btn-primary:not(.magnetic-btn):not(#hero-cta):hover {
         box-shadow: var(--shadow-md);
         transform: translateY(-2px);
     }
@@ -1298,6 +1298,8 @@
 }
 
 .tag {
+    display: inline-flex;
+    align-items: center;
     font-family: var(--sans);
     font-size: 0.75rem;
     color: var(--ink-muted);
@@ -1305,6 +1307,16 @@
     border: 1px solid var(--surface-3);
     padding: 4px 10px;
     border-radius: 4px;
+    cursor: pointer;
+    transition: color var(--dur-fast), background-color var(--dur-fast), border-color var(--dur-fast);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .tag:hover {
+        color: var(--ink);
+        background: var(--white);
+        border-color: var(--accent);
+    }
 }
 
 .standard-quote {
