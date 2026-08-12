@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Off Duty | Chatura Dissanayake</title>
-    <meta name="description" content="Designer by day, gamer at night. A few things I like when I'm not working: games, music, and whatever candid nonsense ends up on my camera roll.">
+    <title>Journal | Chatura Dissanayake</title>
+    <meta name="description" content="Games, side projects, and whatever's on my desk. A running feed, not a portfolio.">
     <meta name="robots" content="noindex">
     <link rel="canonical" href="https://chaturadissanayake.vercel.app/journal.html">
 
@@ -21,14 +21,7 @@
     import replaceElement from "/assets/icons/replaceElement.js";
     import ArrowLeft from "/assets/icons/arrow-left.js";
     import ArrowRight from "/assets/icons/arrow-right.js";
-    import ArrowUpRight from "/assets/icons/arrow-up-right.js";
-    import Compass from "/assets/icons/compass.js";
-    import Monitor from "/assets/icons/monitor.js";
-    import Play from "/assets/icons/play.js";
-    import Headphones from "/assets/icons/headphones.js";
-    import Camera from "/assets/icons/camera.js";
-    import Terminal from "/assets/icons/terminal.js";
-    const lucideIcons = { ArrowLeft, ArrowRight, ArrowUpRight, Compass, Monitor, Play, Headphones, Camera, Terminal };
+    const lucideIcons = { ArrowLeft, ArrowRight };
     window.lucide = { createIcons: (options = {}) => { const root = options.root || document; root.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
     </script>
 
@@ -39,7 +32,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
     <link rel="manifest" href="assets/favicons/site.webmanifest">
 </head>
-<body class="off-duty-theme loading">
+<body class="loading">
 <div class="site-loader" id="site-loader" aria-hidden="true">
     <div class="site-loader-inner">
         <span class="site-loader-mark">Chatura Dissanayake<span class="site-loader-caret"></span></span>
@@ -98,320 +91,140 @@
     </div>
 </div>
 
-<main id="main-content" tabindex="-1" class="raw-main">
-    
-    <div class="raw-noise-overlay"></div>
+<main id="main-content" tabindex="-1" class="thread-main">
 
-    <div class="raw-marquee-container">
-        <div class="raw-marquee-track">
-            <span>UNAPOLOGETICALLY HAPPY</span><span class="raw-bullet"></span>
-            <span>DESIGNER BY DAY</span><span class="raw-bullet"></span>
-            <span>GAMER AT NIGHT</span><span class="raw-bullet"></span>
-            <span>CAMERA ROLL DUMP</span><span class="raw-bullet"></span>
-            <span>UNAPOLOGETICALLY HAPPY</span><span class="raw-bullet"></span>
-            <span>DESIGNER BY DAY</span><span class="raw-bullet"></span>
-            <span>GAMER AT NIGHT</span><span class="raw-bullet"></span>
-            <span>CAMERA ROLL DUMP</span><span class="raw-bullet"></span>
-        </div>
+    <section class="thread-hero">
+        <a href="index.html#about" class="thread-back-btn">
+            <i data-lucide="arrow-left"></i> Back
+        </a>
+        <h1 class="thread-hero-title">The stuff that doesn't fit on a resume.</h1>
+        <p class="thread-hero-lede">Games I'm playing, things I made for no reason, and whatever's on my desk. Updated whenever, not on a schedule.</p>
+    </section>
+
+    <div class="thread-feed">
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">Aug 2026</div>
+            <p class="thread-post-caption">If you'd asked teenage me what I'd end up doing, "communications consultant for the UN" was not on the list. I skipped more school than I attended &mdash; less a plan, more a temper.</p>
+        </article>
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">Aug 2026</div>
+            <figure class="thread-post-media">
+                <img src="assets/off-duty/origin-photo.webp" alt="A teenage Chatura standing on rocks in a river">
+            </figure>
+            <p class="thread-post-caption">The one thing that stuck from all that unsupervised time was making things &mdash; digital collages, cut and pasted for no reason other than it felt good to build something out of nothing. That's how graphic design found me, not the other way around.</p>
+        </article>
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">Aug 2026</div>
+            <p class="thread-post-caption thread-post-quote">&ldquo;Good kids. #alwaysinschool&rdquo; &mdash; my own Instagram caption, 2018, on a day I very much wasn't.</p>
+        </article>
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">Aug 2026</div>
+            <figure class="thread-post-media">
+                <img src="assets/off-duty/origin-timeline.png" alt="A streamgraph mapping how Chatura's time was spent from 2006 to 2026">
+            </figure>
+            <p class="thread-post-caption">Mapped the whole thing out once, because apparently even my personal chaos wants to be a chart. Old habits.</p>
+        </article>
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">Jul 2026</div>
+            <p class="thread-post-caption">2560×1440 @ 179Hz, i5-12600K, 32GB RAM. Runs way faster than any design file needs. The games below don't complain either.</p>
+        </article>
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">Jul 2026</div>
+            <figure class="thread-post-media">
+                <img src="assets/off-duty/games/daysgone.jpg" alt="Days Gone">
+            </figure>
+            <p class="thread-post-caption">Days Gone. Not a ranking, but this is the hill I'll die on. 10/10, completed, would replay.</p>
+        </article>
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">Jul 2026</div>
+            <figure class="thread-post-media">
+                <img src="assets/off-duty/games/reddeadredemption.jpg" alt="Red Dead Redemption II">
+            </figure>
+            <p class="thread-post-caption">Red Dead II. Favorite art style, easily. 9.5/10.</p>
+        </article>
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">Jun 2026</div>
+            <figure class="thread-post-media">
+                <img src="assets/off-duty/games/sekiro.jpg" alt="Sekiro">
+            </figure>
+            <p class="thread-post-caption">Sekiro. Still ongoing &mdash; it's punishing me on purpose. Favorite combat system I've played.</p>
+        </article>
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">Jun 2026</div>
+            <figure class="thread-post-media">
+                <img src="assets/off-duty/games/plaguetale.jpg" alt="Plague Tale">
+            </figure>
+            <p class="thread-post-caption">Plague Tale. Most underrated game I've played, hands down. 8.5/10.</p>
+        </article>
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">May 2026</div>
+            <figure class="thread-post-media">
+                <img src="assets/off-duty/games/farcrythree.jpg" alt="Far Cry 3">
+            </figure>
+            <p class="thread-post-caption">Far Cry 3. A classic. Still the best antagonist in the series.</p>
+        </article>
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">May 2026</div>
+            <figure class="thread-post-media">
+                <img src="assets/off-duty/games/pubg.jpg" alt="PUBG">
+            </figure>
+            <p class="thread-post-caption">PUBG. Go-to when I want something casual with friends.</p>
+        </article>
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">Apr 2026</div>
+            <figure class="thread-post-media">
+                <img src="assets/off-duty/scrapbook/dancer-collage.jpg" alt="Collage artwork">
+            </figure>
+            <p class="thread-post-caption">Digital collages I made before I knew "graphic design" was a job title &mdash; pulled straight off the Instagram grid.</p>
+        </article>
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">Apr 2026</div>
+            <figure class="thread-post-media">
+                <img src="assets/off-duty/scrapbook/thorns-collage.jpg" alt="Collage artwork">
+            </figure>
+        </article>
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">Mar 2026</div>
+            <figure class="thread-post-media">
+                <img src="assets/off-duty/scrapbook/egghead-collage.jpg" alt="Collage artwork">
+            </figure>
+        </article>
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">Mar 2026</div>
+            <figure class="thread-post-media">
+                <img src="assets/off-duty/scrapbook/scream-collage.jpg" alt="Collage artwork">
+            </figure>
+        </article>
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">Feb 2026</div>
+            <figure class="thread-post-media">
+                <img src="assets/off-duty/scrapbook/planet-collage.jpg" alt="Collage artwork">
+            </figure>
+            <p class="thread-post-caption">More real photos going in as I actually take them.</p>
+        </article>
+
+        <article class="thread-post section-fade-in">
+            <div class="thread-post-date">Ongoing</div>
+            <p class="thread-post-caption">Being a picky, opinionated player for years eventually made me want to build one myself. So I'm making a voter-education visual novel in my spare time &mdash; badly at first, AI-assisted now. Same instinct behind everything else I do: research first, then make it land. Working title: Road Remains.</p>
+        </article>
+
     </div>
-
-    <section class="raw-hero-section">
-        <div class="raw-hero-grid">
-            <div class="raw-hero-left">
-                <a href="index.html#about" class="raw-back-btn">
-                    <i data-lucide="arrow-left"></i> BACK TO PROFESSIONAL
-                </a>
-                <h1 class="raw-hero-title">
-                    OFF<br>
-                    <span class="raw-title-outline">DUTY</span><br>
-                    LOGS
-                </h1>
-                <div class="raw-hero-lede">
-                    <p>That's the line I use on my own Instagram bio, and it's the closest thing I have to a personal mission statement. The rest of this site is careful and considered, on-brand.</p>
-                    <p>This page isn't. It's the messy desk, the late-night sessions, and what I actually spend my evenings on.</p>
-                </div>
-            </div>
-            <div class="raw-hero-right">
-                <div class="raw-crosshair-box">
-                    <div class="rcb-corner top-left"></div>
-                    <div class="rcb-corner top-right"></div>
-                    <div class="rcb-corner bottom-left"></div>
-                    <div class="rcb-corner bottom-right"></div>
-                    
-                    <div class="rcb-scanline"></div>
-                    
-                    <div class="rcb-content">
-                        <span class="rcb-status">AWAITING SIGNAL</span>
-                        <span class="rcb-sub">IMAGE_DATA_MISSING</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="raw-section raw-origin section-fade-in">
-        <div class="raw-section-header">
-            <h2 class="raw-h2"><i data-lucide="compass"></i> The Long Way Round</h2>
-            <div class="raw-header-line"></div>
-        </div>
-        <div class="raw-split-layout">
-            <div class="raw-split-left">
-                <div class="raw-hero-lede">
-                    <p>If you'd asked teenage me what I'd end up doing, "communications consultant for the UN" was not on the list. I skipped more school than I attended, most of it spent outside the gates rather than in them &mdash; less a plan, more a temper. I'd read too much and wanted my own version of the stories on the shelf, so I just left and tried to have one.</p>
-                    <p>Some of that was a boarding house year I didn't love, and a home I wasn't in a hurry to get back to. I won't dress it up as mischief for its own sake. Looking back, most of what read as rebellion then was really just a kid trying to find somewhere to put his energy.</p>
-                    <p>The one thing that stuck from all that unsupervised time was making things &mdash; digital collages, cut and pasted for no reason other than it felt good to build something out of nothing. That's how graphic design found me, not really the other way around. A few years into it, sitting at a screen every day, I realised design on its own wasn't the whole plan. I wanted to work on things with actual stakes, go further, be useful somewhere bigger than a client brief. Same instinct, different desk &mdash; that's the thread that eventually led to the work on the other page.</p>
-                </div>
-                <div class="rc-box" style="margin-top: 32px;">
-                    <div class="rc-box-title">MY OWN INSTAGRAM CAPTION, 2018</div>
-                    <div class="rc-box-value" style="font-family: var(--serif); font-style: italic;">"Good kids. #alwaysinschool" &mdash; on a day I very much wasn't.</div>
-                </div>
-            </div>
-            <div class="raw-split-right">
-                <div class="raw-crosshair-box" style="aspect-ratio: 1/1;">
-                    <img src="assets/off-duty/origin-photo.webp" alt="A teenage Chatura standing on rocks in a river, one of the good kids who was always in school" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:grayscale(100%) contrast(1.05);">
-                    <div class="rcb-corner top-left"></div>
-                    <div class="rcb-corner top-right"></div>
-                    <div class="rcb-corner bottom-left"></div>
-                    <div class="rcb-corner bottom-right"></div>
-                </div>
-            </div>
-        </div>
-        <figure style="margin-top: 56px;">
-            <img src="assets/off-duty/origin-timeline.png" alt="A streamgraph titled 'From Skipping Classes to Figuring It Out Myself', mapping how Chatura's time was spent from 2006 to 2026 across education, spiritual growth, work, and moments of pause" style="width:100%; height:auto; display:block; border:1px solid var(--raw-border);">
-            <figcaption class="raw-subtext" style="margin-top:16px; margin-bottom:0;">I mapped the whole thing out once, because apparently even my personal chaos wants to be a chart. Old habits.</figcaption>
-        </figure>
-    </section>
-
-    <section class="raw-section raw-hardware section-fade-in">
-        <div class="raw-section-header">
-            <h2 class="raw-h2"><i data-lucide="monitor"></i> Workspace & Rig</h2>
-            <div class="raw-header-line"></div>
-        </div>
-        <div class="raw-hardware-grid">
-            <div class="raw-hard-card">
-                <div class="rh-label">Primary Display</div>
-                <div class="rh-value">2560 &times; 1440 @ 179Hz</div>
-                <div class="rh-desc">Runs way faster than any design file needs. The games below don't complain either.</div>
-            </div>
-            <div class="raw-hard-card">
-                <div class="rh-label">Daily Driver</div>
-                <div class="rh-value">Intel Core i5-12600K · 32GB RAM</div>
-                <div class="rh-desc">Handles Figma files and heavy renders without complaining. The GPU is doing its best.</div>
-            </div>
-            <div class="raw-hard-card">
-                <div class="rh-label">Peripherals</div>
-                <div class="rh-value">Razer Ornata V3 · Logitech Mouse</div>
-                <div class="rh-desc">Tactile feedback is non-negotiable for the workflow.</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="raw-section raw-gaming section-fade-in">
-        <div class="raw-section-header">
-            <h2 class="raw-h2"><i data-lucide="play"></i> Time Sinks</h2>
-            <div class="raw-header-line"></div>
-        </div>
-        <div class="raw-gaming-intro">
-            <p class="raw-subtext">Not a ranking, just the ones I'd defend in an argument. Days Gone is the hill I'll die on.</p>
-            <a href="https://steamcommunity.com/" target="_blank" rel="noopener" class="raw-steam-btn">
-                STEAM PROFILE <i data-lucide="arrow-up-right"></i>
-            </a>
-        </div>
-        
-        <div class="raw-game-board">
-            <div class="raw-game-item">
-                <div class="raw-game-image-wrap">
-                    <img src="assets/off-duty/games/daysgone.jpg" alt="Days Gone">
-                </div>
-                <div class="raw-game-info">
-                    <div class="rg-top">
-                        <h3>Days Gone</h3>
-                        <span class="rg-tag">Favorite Overall</span>
-                    </div>
-                    <div class="rg-stats">
-                        <div class="rg-stat-box"><span>Status</span><strong>Completed</strong></div>
-                        <div class="rg-stat-box"><span>Rating</span><strong>10/10</strong></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="raw-game-item">
-                <div class="raw-game-image-wrap">
-                    <img src="assets/off-duty/games/reddeadredemption.jpg" alt="Red Dead Redemption II">
-                </div>
-                <div class="raw-game-info">
-                    <div class="rg-top">
-                        <h3>Red Dead II</h3>
-                        <span class="rg-tag">Favorite Art Style</span>
-                    </div>
-                    <div class="rg-stats">
-                        <div class="rg-stat-box"><span>Status</span><strong>Completed</strong></div>
-                        <div class="rg-stat-box"><span>Rating</span><strong>9.5/10</strong></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="raw-game-item">
-                <div class="raw-game-image-wrap">
-                    <img src="assets/off-duty/games/sekiro.jpg" alt="Sekiro">
-                </div>
-                <div class="raw-game-info">
-                    <div class="rg-top">
-                        <h3>Sekiro</h3>
-                        <span class="rg-tag">Favorite Combat</span>
-                    </div>
-                    <div class="rg-stats">
-                        <div class="rg-stat-box"><span>Status</span><strong>Ongoing</strong></div>
-                        <div class="rg-stat-box"><span>Rating</span><strong>9/10</strong></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="raw-game-item">
-                <div class="raw-game-image-wrap">
-                    <img src="assets/off-duty/games/plaguetale.jpg" alt="Plague Tale">
-                </div>
-                <div class="raw-game-info">
-                    <div class="rg-top">
-                        <h3>Plague Tale</h3>
-                        <span class="rg-tag">Most Underrated</span>
-                    </div>
-                    <div class="rg-stats">
-                        <div class="rg-stat-box"><span>Status</span><strong>Completed</strong></div>
-                        <div class="rg-stat-box"><span>Rating</span><strong>8.5/10</strong></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="raw-game-item">
-                <div class="raw-game-image-wrap">
-                    <img src="assets/off-duty/games/farcrythree.jpg" alt="Far Cry 3">
-                </div>
-                <div class="raw-game-info">
-                    <div class="rg-top">
-                        <h3>Far Cry 3</h3>
-                        <span class="rg-tag">Favorite Antagonist</span>
-                    </div>
-                    <div class="rg-stats">
-                        <div class="rg-stat-box"><span>Status</span><strong>Classic</strong></div>
-                        <div class="rg-stat-box"><span>Rating</span><strong>9/10</strong></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="raw-game-item">
-                <div class="raw-game-image-wrap">
-                    <img src="assets/off-duty/games/pubg.jpg" alt="PUBG">
-                </div>
-                <div class="raw-game-info">
-                    <div class="rg-top">
-                        <h3>PUBG</h3>
-                        <span class="rg-tag">Go-To Multiplayer</span>
-                    </div>
-                    <div class="rg-stats">
-                        <div class="rg-stat-box"><span>Status</span><strong>Active</strong></div>
-                        <div class="rg-stat-box"><span>Rating</span><strong>Casual</strong></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="raw-section raw-audio-obsessions section-fade-in">
-        <div class="raw-split-layout">
-            <div class="raw-split-left">
-                <div class="raw-section-header">
-                    <h2 class="raw-h2"><i data-lucide="headphones"></i> Audio & Media</h2>
-                    <div class="raw-header-line"></div>
-                </div>
-                <p class="raw-subtext">Whatever gets a deadline done. This changes with the project and my mood, and I will judge you slightly if you skip to the chorus.</p>
-                
-                <div class="raw-currently-boxes">
-                    <div class="rc-box">
-                        <div class="rc-box-title">CURRENTLY READING</div>
-                        <div class="rc-box-value">TBD</div>
-                    </div>
-                    <div class="rc-box">
-                        <div class="rc-box-title">CURRENTLY WATCHING</div>
-                        <div class="rc-box-value">TBD</div>
-                    </div>
-                </div>
-            
-            <div class="raw-split-right">
-                <div class="raw-spotify-container">
-                    <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1CL4Bl2C1BhJyq?utm_source=generator&theme=0" width="100%" height="352" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="raw-section raw-scrapbook section-fade-in">
-        <div class="raw-section-header">
-            <h2 class="raw-h2"><i data-lucide="camera"></i> Visual Dump</h2>
-            <div class="raw-header-line"></div>
-        </div>
-        <p class="raw-subtext">Digital collages I made before I knew "graphic design" was a job title &mdash; pulled straight off the Instagram grid. More real photos going in as I actually take them.</p>
-        
-        <div class="raw-masonry">
-            <div class="rm-item rm-tall">
-                <img src="assets/off-duty/scrapbook/dancer-collage.jpg" alt="Collage artwork" style="width:100%;height:100%;object-fit:cover;">
-            </div>
-            <div class="rm-item">
-                <img src="assets/off-duty/scrapbook/thorns-collage.jpg" alt="Collage artwork" style="width:100%;height:100%;object-fit:cover;">
-            </div>
-            <div class="rm-item">
-                <img src="assets/off-duty/scrapbook/egghead-collage.jpg" alt="Collage artwork" style="width:100%;height:100%;object-fit:cover;">
-            </div>
-            <div class="rm-item rm-wide">
-                <img src="assets/off-duty/scrapbook/scream-collage.jpg" alt="Collage artwork" style="width:100%;height:100%;object-fit:cover;">
-            </div>
-            <div class="rm-item">
-                <img src="assets/off-duty/scrapbook/planet-collage.jpg" alt="Collage artwork" style="width:100%;height:100%;object-fit:cover;">
-            </div>
-            <div class="rm-item">
-                <div class="rm-placeholder">MORE SOON</div>
-            </div>
-        </div>
-    </section>
-
-    <section class="raw-section raw-project section-fade-in">
-        <div class="raw-section-header">
-            <h2 class="raw-h2"><i data-lucide="terminal"></i> Developer Log</h2>
-            <div class="raw-header-line"></div>
-        </div>
-        <div class="raw-project-box">
-            <div class="rpb-content">
-                <div class="rpb-tag">SIDE PROJECT</div>
-                <h2 class="rpb-title">From Player To Maker</h2>
-                <p class="rpb-desc">Being a picky, opinionated player for years eventually made me want to build one myself. So I'm making a voter-education visual novel in my spare time, badly at first, AI-assisted now, but the same instinct behind everything else I do: research first, then make it land.</p>
-                <div class="rpb-stats">
-                    <div class="rpb-stat">
-                        <span>Status</span>
-                        <strong>In Development</strong>
-                    </div>
-                    <div class="rpb-stat">
-                        <span>Engine</span>
-                        <strong>TBD</strong>
-                    </div>
-                </div>
-            </div>
-            <div class="rpb-media">
-                <div class="rpb-terminal">
-                    <div class="rt-header">
-                        <span class="rt-dot"></span>
-                        <span class="rt-dot"></span>
-                        <span class="rt-dot"></span>
-                    </div>
-                    <div class="rt-body">
-                        <p>> Initializing project 'ROAD_REMAINS'...</p>
-                        <p>> Compiling assets...</p>
-                        <p>> [WARN] Screenshot not found in directory.</p>
-                        <p class="rt-cursor">></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
 </main>
 
@@ -438,6 +251,7 @@
                 <a href="assets/documents/Services_Guide.pdf" target="_blank" rel="noopener">Services Guide</a>
                 <a href="assets/documents/Chatura_CurriculumVitae.pdf" target="_blank" rel="noopener" download>Download CV</a>
                 <a href="privacy.html">Privacy Policy</a>
+                <a href="terms.html">Terms &amp; Conditions</a>
             </div>
         </div>
         <div class="footer-bottom-container">
