@@ -6,7 +6,7 @@
     <title>Off Duty | Chatura Dissanayake</title>
     <meta name="description" content="Designer by day, gamer at night. A few things I like when I'm not working: games, music, and whatever candid nonsense ends up on my camera roll.">
     <meta name="robots" content="noindex">
-    <link rel="canonical" href="https://chaturadissanayake.vercel.app/off-duty.html">
+    <link rel="canonical" href="https://chaturadissanayake.vercel.app/journal.html">
 
     <link rel="preload" as="font" href="assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
     <link rel="preload" as="font" href="assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="assets/css/base.css">
     <link rel="stylesheet" href="assets/css/layout.css">
     <link rel="stylesheet" href="assets/css/components.css">
-    <link rel="stylesheet" href="assets/css/off-duty.css">
+    <link rel="stylesheet" href="assets/css/journal.css">
     <link rel="stylesheet" href="assets/css/animations.css">
 
     <script type="module">
@@ -22,8 +22,14 @@
     import ArrowLeft from "/assets/icons/arrow-left.js";
     import ArrowRight from "/assets/icons/arrow-right.js";
     import ArrowUpRight from "/assets/icons/arrow-up-right.js";
-    const lucideIcons = { ArrowLeft, ArrowRight, ArrowUpRight };
-    window.lucide = { createIcons: () => { document.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
+    import Compass from "/assets/icons/compass.js";
+    import Monitor from "/assets/icons/monitor.js";
+    import Play from "/assets/icons/play.js";
+    import Headphones from "/assets/icons/headphones.js";
+    import Camera from "/assets/icons/camera.js";
+    import Terminal from "/assets/icons/terminal.js";
+    const lucideIcons = { ArrowLeft, ArrowRight, ArrowUpRight, Compass, Monitor, Play, Headphones, Camera, Terminal };
+    window.lucide = { createIcons: (options = {}) => { const root = options.root || document; root.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
     </script>
 
     <noscript><style>body.loading { overflow: auto; }</style></noscript>
@@ -323,14 +329,13 @@
                 <div class="raw-currently-boxes">
                     <div class="rc-box">
                         <div class="rc-box-title">CURRENTLY READING</div>
-                        <div class="rc-box-value">Add the book you're reading right now.</div>
+                        <div class="rc-box-value">TBD</div>
                     </div>
                     <div class="rc-box">
                         <div class="rc-box-title">CURRENTLY WATCHING</div>
-                        <div class="rc-box-value">Add a show or film you'd highly recommend.</div>
+                        <div class="rc-box-value">TBD</div>
                     </div>
                 </div>
-            </div>
             
             <div class="raw-split-right">
                 <div class="raw-spotify-container">
@@ -386,7 +391,7 @@
                     </div>
                     <div class="rpb-stat">
                         <span>Engine</span>
-                        <strong>Add Engine Here</strong>
+                        <strong>TBD</strong>
                     </div>
                 </div>
             </div>

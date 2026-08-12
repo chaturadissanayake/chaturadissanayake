@@ -20,7 +20,7 @@
     import replaceElement from "/assets/icons/replaceElement.js";
     import ArrowRight from "/assets/icons/arrow-right.js";
     const lucideIcons = { ArrowRight };
-    window.lucide = { createIcons: () => { document.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
+    window.lucide = { createIcons: (options = {}) => { const root = options.root || document; root.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
     </script>
     
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">

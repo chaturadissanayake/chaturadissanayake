@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const siteLoader = document.getElementById('site-loader');
-    const siteLoaderType = document.getElementById('site-loader-type');
-    const loaderText = 'Chatura Dissanayake';
     const prefersReducedMotionLoader = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     let typingDone = false;
@@ -18,18 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    if (siteLoader && siteLoaderType) {
-        if (prefersReducedMotionLoader) {
-            siteLoaderType.textContent = loaderText;
-            typingDone = true;
-        } else {
-            siteLoaderType.textContent = loaderText;
-            typingDone = true;
-            revealContent();
-        }
-    } else {
-        typingDone = true;
-    }
+    typingDone = true;
 
     if (document.readyState === 'complete') {
         pageReady = true;
@@ -49,12 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.querySelectorAll('.tag[data-tag-filter]').forEach(tagEl => {
-        tagEl.addEventListener('click', () => {
-            sessionStorage.setItem('activeProjectFilter', tagEl.getAttribute('data-tag-filter'));
-        });
-    });
-
     console.log('%cChatura Dissanayake', 'font-size:22px;font-weight:bold;color:#111;');
     console.log('%cThis site design and code are original work by Chatura Dissanayake (chaturadissanayake.vercel.app). Copying or reusing this template without permission is not permitted.', 'font-size:13px;color:#555;');
 
@@ -66,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     document.addEventListener('click', e => {
-        const anchor = e.target.closest('a[href^="/#"]');
+        const anchor = e.target.closest('a[href^="/#"], a[href^="#"]');
         if (anchor && !anchor.classList.contains('mobile-link')) {
             const targetId = anchor.getAttribute('href').split('#')[1];
             const targetEl = document.getElementById(targetId);

@@ -47,7 +47,7 @@
     import X from "/assets/icons/x.js";
     import ZoomIn from "/assets/icons/zoom-in.js";
     const lucideIcons = { Archive, ArrowDownUp, ArrowLeft, ArrowRight, ArrowUp, ArrowUpRight, ChevronDown, ChevronLeft, ChevronRight, ChevronUp, FileText, RefreshCw, Send, X, ZoomIn };
-    window.lucide = { createIcons: () => { document.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
+    window.lucide = { createIcons: (options = {}) => { const root = options.root || document; root.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
     </script>
     
     <noscript>
@@ -58,10 +58,10 @@
         </style>
     </noscript>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
-    <link rel="manifest" href="assets/favicons/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
     <link rel="alternate" type="application/rss+xml" title="Chatura Dissanayake, Insights RSS Feed" href="https://rss.app/feeds/1QjFWlxkKTZLVQd7.xml">
 
     <script>
@@ -182,19 +182,19 @@
         <div class="hero-content">
             <span class="hero-label reveal-up" style="--d:0ms">Digital Communications &amp; Information Design</span>
             <h1 class="hero-title-massive" id="hero-headline">
-               Turning content and data into <span class="hero-accent-blue" data-plain="digital experiences">digital experiences</span> that help people to understand information intuitively.
+                Turning <a href="index.html#about" class="hero-word-link">policy</a>, <a href="index.html#visualisations" class="hero-word-link">research</a>, and institutional content into <a href="index.html#projects" class="hero-word-link">communications</a> that people actually read, trust, and act.
             </h1>
         </div>
         <div class="hero-supporting reveal-up" style="--d:150ms">
-            <p class="hero-subtext">At the intersection of technology, data analytics, and information design. I learn by doing, and enjoy sharing what I've created along the way!</p>
+            <p class="hero-subtext">At the intersection of institutional communications, data storytelling, and design. I learn by doing, and enjoy sharing what I've created along the way!
         </div>
         
         <div class="hero-visual reveal-up" style="--d:200ms">
             <div class="hero-visual-frame">
                 <img src="assets/site.gif" alt="Screens from a recent product design flow: a member dashboard, task views, and settings pages mapped together with connecting arrows" class="hero-visual-media" loading="eager" fetchpriority="high" width="1800" height="844">
             </div>
-            <a href="projects/influential/influential.html" target="_blank" rel="noopener" class="hero-visual-caption">
-                <span>Site dashboard, mapped screen to screen</span>
+            <a href="projects/influential/influential.html" class="hero-visual-caption">
+                <span>Influential, mapped screen to screen</span>
                 <i data-lucide="arrow-up-right" aria-hidden="true"></i>
             </a>
         </div>
@@ -852,7 +852,7 @@
 
 <div id="cookie-banner" class="cookie-banner" style="display: none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
     <div class="cookie-content">
-        <p>I use Google Analytics to analyse how visitors interact with this site, ensuring you have the best experience while using our website. <a href="privacy-policy.html" target="_blank" rel="noopener">Cookie Policy</a>.</p>
+        <p>I use Google Analytics to analyse how visitors interact with this site, ensuring you have the best experience while using our website. <a href="privacy.html" target="_blank" rel="noopener">Cookie Policy</a>.</p>
         <div class="cookie-actions">
             <button id="accept-cookies" class="btn-primary" style="padding: 8px 18px; font-size: 0.8125rem;">Accept</button>
             <button id="decline-cookies" class="show-more-btn" style="padding: 8px 18px; font-size: 0.8125rem; margin-top: 0;">Decline</button>
