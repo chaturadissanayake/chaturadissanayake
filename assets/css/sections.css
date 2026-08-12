@@ -36,6 +36,14 @@
         padding-bottom: var(--space-10);
         min-height: auto;
     }
+
+    /* Surface the CTA before the (large) showcase image, so it's
+       reachable without scrolling past the gif on shorter viewports. */
+    .hero-content        { order: 1; }
+    .hero-supporting      { order: 2; }
+    .hero-actions-wrapper { order: 3; }
+    .hero-visual           { order: 4; }
+    .hero-proof-strip      { order: 5; }
 }
 
 .hero-container {
@@ -65,8 +73,8 @@
         max-width: 880px; 
     }
     
-    .hero-supporting      { grid-column: 1; grid-row: 2; margin-bottom: var(--space-8); }
-    .hero-actions-wrapper { grid-column: 1; grid-row: 3; }
+    .hero-supporting      { grid-column: 1; grid-row: 2; }
+    .hero-actions-wrapper { grid-column: 1; grid-row: 3; margin-top: var(--space-4); }
     
     /* Safest placement: Margin is 0. 
        The Grid strictly forces the GIF into Row 2, guaranteeing it sits perfectly aligned with the paragraph and below the title on ALL screens. */

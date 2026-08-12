@@ -81,7 +81,6 @@
 @media (hover: hover) and (pointer: fine) {
     .nav-cta:hover {
         background: var(--accent); border-color: var(--accent);
-        transform: translateY(-2px); box-shadow: var(--shadow-md);
     }
 }
 

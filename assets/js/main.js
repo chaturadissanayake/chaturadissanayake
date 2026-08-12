@@ -273,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const supportsFineHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
     if (supportsFineHover && !prefersReducedMotion) {
-        const magneticTargets = document.querySelectorAll('.nav-cta, #hero-cta, .form-submit');
+        const magneticTargets = document.querySelectorAll('.form-submit');
         const magnetStrength = 0.3;
 
         magneticTargets.forEach(el => {
