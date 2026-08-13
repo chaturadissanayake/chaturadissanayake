@@ -32,14 +32,14 @@ Reports, data stories, campaigns, whatever the format, if it has a lot to say, I
 ### Tools I reach for
 
 <p align="left">
-  <img src="https://img.shields.io/badge/Figma-1a1a1a?style=flat-square&logo=figma&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Illustrator-1a1a1a?style=flat-square&logo=adobeillustrator&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Photoshop-1a1a1a?style=flat-square&logo=adobephotoshop&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Premiere%20Pro-1a1a1a?style=flat-square&logo=adobepremierepro&logoColor=white"/>
-  <img src="https://img.shields.io/badge/HTML5-1a1a1a?style=flat-square&logo=html5&logoColor=white"/>
-  <img src="https://img.shields.io/badge/CSS3-1a1a1a?style=flat-square&logo=css3&logoColor=white"/>
-  <img src="https://img.shields.io/badge/JavaScript-1a1a1a?style=flat-square&logo=javascript&logoColor=white"/>
-  <img src="https://img.shields.io/badge/WordPress-1a1a1a?style=flat-square&logo=wordpress&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Figma-1a1a1a?style=flat-square&logo=figma&logoColor=F24E1E"/>
+  <img src="https://img.shields.io/badge/Illustrator-1a1a1a?style=flat-square&logo=adobeillustrator&logoColor=FF9A00"/>
+  <img src="https://img.shields.io/badge/Photoshop-1a1a1a?style=flat-square&logo=adobephotoshop&logoColor=31A8FF"/>
+  <img src="https://img.shields.io/badge/Premiere%20Pro-1a1a1a?style=flat-square&logo=adobepremierepro&logoColor=9999FF"/>
+  <img src="https://img.shields.io/badge/HTML5-1a1a1a?style=flat-square&logo=html5&logoColor=E34F26"/>
+  <img src="https://img.shields.io/badge/CSS3-1a1a1a?style=flat-square&logo=css3&logoColor=1572B6"/>
+  <img src="https://img.shields.io/badge/JavaScript-1a1a1a?style=flat-square&logo=javascript&logoColor=F7DF1E"/>
+  <img src="https://img.shields.io/badge/WordPress-1a1a1a?style=flat-square&logo=wordpress&logoColor=21759B"/>
 </p>
 
 ### How I work
@@ -50,7 +50,7 @@ Mostly Figma and code for the visuals, a lot of trial and error for everything e
 
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=chaturadissanayake&show_icons=true&hide_title=true&hide_border=true&theme=default&count_private=true" alt="GitHub Stats" height="150"/>
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=chaturadissanayake&hide_border=true" alt="GitHub Streak" height="150"/>
+  <img src="https://streak-stats.demolab.com/?user=chaturadissanayake&hide_border=true" alt="GitHub Streak" height="150"/>
 </p>
 
 <p align="center"><sub>chaturadissanayake.com &nbsp;&middot;&nbsp; linkedin.com/in/chaturadissanayake</sub></p>
