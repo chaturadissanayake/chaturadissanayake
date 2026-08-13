@@ -1,55 +1,51 @@
-<h1 align="center">Hey, I'm Chatura</h1>
+<div align="center">
 
-<p align="center">
-Digital Communications & Information Design Specialist<br/>
-Colombo, Sri Lanka
-</p>
+# CHATURA DISSANAYAKE
+<sub>DIGITAL COMMUNICATIONS &amp; INFORMATION DESIGN &nbsp;·&nbsp; COLOMBO, SRI LANKA</sub>
 
-<p align="center">
-  <a href="https://chaturadissanayake.com"><img src="https://img.shields.io/badge/Portfolio-chaturadissanayake.com-1a1a1a?style=flat-square" alt="Portfolio"/></a>
-  <a href="https://linkedin.com/in/chaturadissanayake"><img src="https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"/></a>
-  <a href="mailto:consultchatura@gmail.com"><img src="https://img.shields.io/badge/Email-Say%20hello-D14836?style=flat-square&logo=gmail&logoColor=white" alt="Email"/></a>
-</p>
+</div>
 
-<p align="center">
-I turn dense, complicated information into things people actually want to look at.<br/>
-Reports, data stories, campaigns, whatever the format, if it has a lot to say, I figure out how to say it clearly.
-</p>
+<br>
 
----
+I take information that is dense, official, and hard to sit through, national budgets, UN results reports, disaster data, and rebuild it into something a reader will actually finish. That is the job, in a government ministry or in my own projects.
 
-### What I'm building
+<br>
 
-- Turning government and UN data into stories people can follow without a briefing document
-- Scrollytelling pieces on things that matter locally, storms, drug policy, inflation
-- A portfolio site I keep rebuilding because I can never leave it alone
-- A civic education game set in a fictional Sri Lankan village, because apparently reports weren't enough
+### Record
 
-### Previously
+| | |
+|---|---|
+| `2025 – now` | Communications Design Consultant, **Department of National Planning**, Government of Sri Lanka |
+| `2025` | Communications Designer, **UN Resident Coordinator's Office / UNDP** |
+| `2024 – 2025` | Communications Designer, **Ideas Marketing Agency**, Sydney (remote) |
+| `2022 – 2024` | Senior / Junior Communications Designer, **Verite Research** |
 
-`United Nations Resident Coordinator's Office` &nbsp;&middot;&nbsp; `Government of Sri Lanka, Department of National Planning` &nbsp;&middot;&nbsp; `Verite Research` &nbsp;&middot;&nbsp; `Ideas Marketing Agency, Sydney`
+<br>
 
-### Tools I reach for
+### Field notes
 
-<p align="left">
-  <img src="https://img.shields.io/badge/Figma-1a1a1a?style=flat-square&logo=figma&logoColor=F24E1E"/>
-  <img src="https://img.shields.io/badge/Illustrator-1a1a1a?style=flat-square&logo=adobeillustrator&logoColor=FF9A00"/>
-  <img src="https://img.shields.io/badge/Photoshop-1a1a1a?style=flat-square&logo=adobephotoshop&logoColor=31A8FF"/>
-  <img src="https://img.shields.io/badge/Premiere%20Pro-1a1a1a?style=flat-square&logo=adobepremierepro&logoColor=9999FF"/>
-  <img src="https://img.shields.io/badge/HTML5-1a1a1a?style=flat-square&logo=html5&logoColor=E34F26"/>
-  <img src="https://img.shields.io/badge/CSS3-1a1a1a?style=flat-square&logo=css3&logoColor=1572B6"/>
-  <img src="https://img.shields.io/badge/JavaScript-1a1a1a?style=flat-square&logo=javascript&logoColor=F7DF1E"/>
-  <img src="https://img.shields.io/badge/WordPress-1a1a1a?style=flat-square&logo=wordpress&logoColor=21759B"/>
-</p>
+**[Road Remains](https://github.com/chaturadissanayake/roadremains)** &nbsp;·&nbsp; an isometric civic education game set in the fictional village of Alupotha, built to counter election misinformation.
 
-### How I work
+**[The Shadow War](https://github.com/chaturadissanayake/theshadowwar)** &nbsp;·&nbsp; a scrollytelling investigation into Sri Lanka's drug crisis, 2018 to 2025.
 
-Mostly Figma and code for the visuals, a lot of trial and error for everything else. I like precision over decoration, and I would rather something be honest than flashy.
+**[Cyclone Ditwah](https://github.com/chaturadissanayake/cycloneditwah)** &nbsp;·&nbsp; a data journalism report tracing the socio-economic impact of the storm.
+
+**[The Unfair Climate Price](https://github.com/chaturadissanayake/theunfairclimateprice)** &nbsp;·&nbsp; a Pacific Dataviz Challenge entry on structural climate inequality.
+
+<br>
+
+### Instruments
+
+`Figma` `Illustrator` `Photoshop` `Premiere Pro` `HTML` `CSS` `JavaScript` `WordPress`
+
+<br>
 
 ---
 
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=chaturadissanayake&show_icons=true&hide_title=true&hide_border=true&theme=default&count_private=true" alt="GitHub Stats" height="150"/>
-</p>
+<div align="center">
+<sub>
 
-<p align="center"><sub>chaturadissanayake.com &nbsp;&middot;&nbsp; linkedin.com/in/chaturadissanayake</sub></p>
+[chaturadissanayake.com](https://chaturadissanayake.vercel.app/) &nbsp;·&nbsp; [LinkedIn](https://linkedin.com/in/chaturadissanayake) &nbsp;·&nbsp; [consultchatura@gmail.com](mailto:consultchatura@gmail.com)
+
+</sub>
+</div>
