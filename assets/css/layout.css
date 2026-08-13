@@ -203,6 +203,7 @@ body.modal-open .main-header {
 .mobile-menu.is-active .mobile-link:nth-child(3) { transition-delay: 170ms; }
 .mobile-menu.is-active .mobile-link:nth-child(4) { transition-delay: 220ms; }
 .mobile-menu.is-active .mobile-link:nth-child(5) { transition-delay: 270ms; }
+.mobile-menu.is-active .mobile-link:nth-child(6) { transition-delay: 320ms; }
 
 .mobile-link:hover, .mobile-link.active { color: var(--white); }
 
@@ -213,7 +214,7 @@ body.modal-open .main-header {
     display: inline-flex; align-items: center; justify-content: flex-start;
     opacity: 0; transform: translateY(18px);
     transition: color var(--dur-fast), opacity 380ms ease, transform 380ms ease;
-    transition-delay: 320ms;
+    transition-delay: 370ms;
 }
 
 .mobile-menu.is-active .mobile-cta {

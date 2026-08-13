@@ -1,21 +1,20 @@
 /* ============================================
-   JOURNAL — CHRONOLOGICAL THREAD FEED
-   Image first, caption under, connected by a line
+   notes — MASONRY UNCURATED FEED LAYOUT (2 Columns)
    ============================================ */
 
 .thread-main {
     position: relative;
-    padding-top: calc(var(--nav-h) + var(--space-16));
+    padding-top: calc(var(--nav-h) + var(--space-12));
     padding-bottom: var(--space-24);
-    background: var(--surface);
+    background: var(--surface); 
+    min-height: 100vh;
 }
 
-/* ---------- Hero ---------- */
-
+/* ---------- Hero & Filters ---------- */
 .thread-hero {
-    max-width: var(--max-w-narrow);
+    max-width: 980px; /* Constrained width to match the tighter feed */
     margin: 0 auto;
-    padding: 0 var(--space-6) var(--space-14);
+    padding: 0 var(--space-6) var(--space-10);
 }
 
 .thread-back-btn {
@@ -28,118 +27,200 @@
     color: var(--ink-muted);
     margin-bottom: var(--space-8);
     transition: color var(--dur-fast) var(--ease-out);
+    text-transform: uppercase;
 }
 
 .thread-back-btn:hover { color: var(--accent); }
-
 .thread-back-btn svg.lucide { width: 14px; height: 14px; }
 
 .thread-hero-title {
     font-family: var(--serif);
     font-weight: 400;
-    font-size: clamp(2rem, 4.5vw, 3.25rem);
-    line-height: 1.12;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    line-height: 1.1;
     letter-spacing: -0.02em;
     color: var(--ink);
-    margin: 0 0 var(--space-5);
-    max-width: 18ch;
+    margin: 0 0 var(--space-3);
 }
 
-.thread-hero-lede {
+.thread-hero-desc {
+    max-width: 65ch;
     font-size: 1.0625rem;
-    line-height: 1.65;
+    line-height: 1.6;
     color: var(--ink-muted);
-    max-width: 52ch;
+    margin-bottom: var(--space-6);
 }
 
-/* ---------- Feed shell ---------- */
+/* Filter Menu Styles */
+.thread-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--surface-3);
+}
 
+.filter-btn {
+    padding: 6px 14px;
+    border: 1px solid transparent;
+    border-radius: var(--radius-pill);
+    background: var(--surface-3);
+    color: var(--ink-soft);
+    font-family: var(--sans);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--dur-fast) var(--ease-out);
+}
+
+.filter-btn:hover {
+    background: var(--surface-2);
+    border-color: var(--surface-3);
+}
+
+.filter-btn.is-active {
+    background: var(--ink);
+    color: var(--white);
+}
+
+/* ---------- Feed shell (2 Column Masonry) ---------- */
 .thread-feed {
-    max-width: 560px;
+    max-width: 980px; /* Reduced to ensure 2 columns stay focused */
     margin: 0 auto;
     padding: 0 var(--space-6);
-    display: flex;
-    flex-direction: column;
+    
+    /* 2 Columns to avoid cognitive overload */
+    column-count: 2;
+    column-gap: var(--space-12); 
 }
 
-/* ---------- Individual post ---------- */
-
+/* ---------- Individual Post ---------- */
 .thread-post {
-    position: relative;
-    padding: 0 0 var(--space-10) var(--space-8);
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    display: inline-block;
+    width: 100%;
+    
+    /* Generous bottom margin replaces borders/boxes as the visual separator */
+    margin-bottom: var(--space-16);
 }
 
-/* The connecting thread line */
-.thread-post::before {
-    content: '';
-    position: absolute;
-    left: 6px;
-    top: 6px;
-    bottom: -8px;
-    width: 1.5px;
-    background: var(--surface-3);
-}
-
-.thread-post:last-child::before {
+/* Filtering: collapsed out of layout so column-count masonry rebalances
+   correctly, instead of leaving gaps behind display:none placeholders. */
+.thread-post.is-filtered-out {
     display: none;
 }
 
-/* The node/dot on the line */
-.thread-post::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 6px;
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    background: var(--surface);
-    border: 2px solid var(--accent);
-}
-
-.thread-post-date {
+/* The metadata acts as the "header" or starting point for each note */
+.thread-post-meta {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
     font-family: var(--mono);
     font-size: 0.75rem;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.05em;
     color: var(--ink-muted);
+    text-transform: uppercase;
     margin-bottom: var(--space-3);
+}
+
+.thread-post-meta .thread-post-location {
+    color: var(--ink-muted);
+    opacity: 0.6;
+}
+
+.thread-post-meta .thread-post-location::before {
+    content: '·';
+    margin-right: var(--space-3);
 }
 
 .thread-post-media {
-    border-radius: var(--radius-lg);
+    width: 80%; /* 8/10 Scale: Intentionally reduced image size to avoid overwhelming the view */
+    border-radius: var(--radius);
     overflow: hidden;
-    border: 1px solid var(--surface-3);
-    box-shadow: var(--shadow-sm);
-    margin-bottom: var(--space-3);
+    margin-bottom: var(--space-4);
+    background: var(--surface-3); 
 }
 
-.thread-post-media img {
+.thread-post-media img,
+.thread-post-media video {
     width: 100%;
+    max-width: 1080px; 
+    max-height: 1920px; 
     height: auto;
     display: block;
     object-fit: cover;
 }
 
+.thread-post-media + .thread-post-media {
+    margin-top: var(--space-2);
+}
+
 .thread-post-caption {
-    font-size: 1rem;
+    width: 85%; /* Keeps reading measure comfortable and aligned with smaller images */
+    font-size: 0.95rem;
     line-height: 1.6;
     color: var(--ink-soft);
-    max-width: 60ch;
+}
+
+.thread-post-caption + .thread-post-caption {
+    margin-top: var(--space-4);
+}
+
+.thread-post-caption strong {
+    color: var(--ink);
+    font-weight: 600;
 }
 
 .thread-post-quote {
     font-family: var(--serif);
     font-style: italic;
-    font-size: 1.125rem;
+    font-size: 1.1875rem; /* Clean, slightly smaller italic font */
+    line-height: 1.5;
     color: var(--ink);
+    /* Removed the blue left border entirely to blend naturally */
 }
 
 /* ============================================
-   RESPONSIVE
+   RESPONSIVE (Masonry to Instagram Mobile)
    ============================================ */
 
-@media (max-width: 640px) {
-    .thread-main { padding-top: calc(var(--nav-h) + var(--space-8)); }
-    .thread-hero { padding-bottom: var(--space-10); }
-    .thread-post { padding-left: var(--space-6); }
+/* Mobile: Single column Instagram-style feed */
+@media (max-width: 768px) {
+    .thread-feed {
+        column-count: 1;
+        column-gap: 0;
+        max-width: 540px; /* Constrains max width slightly for better reading */
+    }
+    
+    .thread-main { padding-top: calc(var(--nav-h) + var(--space-6)); }
+    .thread-hero { padding-bottom: var(--space-8); }
+    
+    .thread-hero-title { font-size: 2rem; }
+    .thread-hero-desc { font-size: 1rem; }
+    
+    .thread-post { 
+        margin-bottom: var(--space-12);
+    }
+    
+    /* Reset widths to full on mobile so they don't look awkwardly inset */
+    .thread-post-media {
+        width: 100%;
+    }
+    
+    .thread-post-caption {
+        width: 100%; 
+        font-size: 1rem; 
+    }
+    
+    .thread-filters {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: var(--space-2);
+        scrollbar-width: none; 
+    }
+    .thread-filters::-webkit-scrollbar { display: none; }
 }
