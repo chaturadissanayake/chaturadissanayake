@@ -50,7 +50,6 @@ Mostly Figma and code for the visuals, a lot of trial and error for everything e
 
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=chaturadissanayake&show_icons=true&hide_title=true&hide_border=true&theme=default&count_private=true" alt="GitHub Stats" height="150"/>
-  <img src="https://streak-stats.demolab.com/?user=chaturadissanayake&hide_border=true" alt="GitHub Streak" height="150"/>
 </p>
 
 <p align="center"><sub>chaturadissanayake.com &nbsp;&middot;&nbsp; linkedin.com/in/chaturadissanayake</sub></p>
