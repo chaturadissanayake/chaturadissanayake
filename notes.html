@@ -8,14 +8,14 @@
     <meta name="robots" content="noindex">
     <link rel="canonical" href="https://chaturadissanayake.vercel.app/notes.html">
 
-    <link rel="preload" as="font" href="assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
-    <link rel="preload" as="font" href="assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="assets/css/base.css">
-    <link rel="stylesheet" href="assets/css/layout.css">
-    <link rel="stylesheet" href="assets/css/components.css">
-    <link rel="stylesheet" href="assets/css/sections.css">
-    <link rel="stylesheet" href="assets/css/journal.css">
-    <link rel="stylesheet" href="assets/css/animations.css">
+    <link rel="preload" as="font" href="/assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
+    <link rel="preload" as="font" href="/assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/assets/css/base.css">
+    <link rel="stylesheet" href="/assets/css/layout.css">
+    <link rel="stylesheet" href="/assets/css/components.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/journal.css">
+    <link rel="stylesheet" href="/assets/css/animations.css">
 
     <script type="module">
     import replaceElement from "/assets/icons/replaceElement.js";
@@ -25,10 +25,10 @@
     window.lucide = { createIcons: (options = {}) => { const root = options.root || document; root.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
     </script>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
-    <link rel="manifest" href="assets/favicons/site.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="/assets/favicons/site.webmanifest">
 
     <noscript><style>body.loading { overflow: auto; }</style></noscript>
 </head>
@@ -47,11 +47,11 @@
             <span class="brand-wordmark">Chatura Dissanayake</span>
         </a>
         <nav class="desktop-nav" role="navigation" aria-label="Primary">
-            <a href="index.html#projects"       class="nav-link" data-section="projects">Work</a>
-            <a href="index.html#about"          class="nav-link" data-section="about">About</a>
-            <a href="index.html#services"       class="nav-link" data-section="services">Services</a>
-            <a href="index.html#insights"       class="nav-link" data-section="insights">Writing</a>
-            <a href="index.html#visualisations" class="nav-link" data-section="visualisations">Visualisations</a>
+            <a href="/index.html#projects"       class="nav-link" data-section="projects">Work</a>
+            <a href="/index.html#about"          class="nav-link" data-section="about">About</a>
+            <a href="/index.html#services"       class="nav-link" data-section="services">Services</a>
+            <a href="/index.html#insights"       class="nav-link" data-section="insights">Writing</a>
+            <a href="/index.html#visualisations" class="nav-link" data-section="visualisations">Visualisations</a>
             <a href="notes.html" class="nav-link active" aria-current="page">Notes</a>
         </nav>
         <div class="nav-actions">
@@ -60,7 +60,7 @@
                 <span class="lang-divider" aria-hidden="true">/</span>
                 <button type="button" class="lang-text" data-lang="fr" aria-pressed="false">FR</button>
             </div>
-            <a href="index.html#contact" class="nav-cta">Get in touch <i data-lucide="arrow-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
+            <a href="/index.html#contact" class="nav-cta">Get in touch <i data-lucide="arrow-right" aria-hidden="true" style="width:14px;height:14px;margin-left:4px;"></i></a>
             <button type="button" class="hamburger-btn" id="mobile-nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-nav-menu">
                 <span></span><span></span>
             </button>
@@ -88,8 +88,8 @@
         <a href="https://github.com/chaturadissanayake"      target="_blank" rel="noopener">GitHub</a>
         <a href="https://consultchatura.medium.com"          target="_blank" rel="noopener">Medium</a>
         <a href="https://rss.app/feeds/1QjFWlxkKTZLVQd7.xml" target="_blank" rel="noopener">RSS</a>
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="terms.html">Terms &amp; Conditions</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/terms.html">Terms &amp; Conditions</a>
     </div>
 </div>
 
@@ -106,15 +106,24 @@
         <div class="thread-filters">
             <button class="filter-btn is-active" data-filter="all">All</button>
             <button class="filter-btn" data-filter="photos">Photos</button>
-            <button class="filter-btn" data-filter="drawings">Drawings</button>
             <button class="filter-btn" data-filter="games">Games</button>
             <button class="filter-btn" data-filter="music">Music</button>
-            <button class="filter-btn" data-filter="music">Video</button>
+            <button class="filter-btn" data-filter="video">Video</button>
         </div>
     </section>
 
     <!-- Masonry Feed (2 Columns on Desktop) -->
-    <div class="thread-feed" id="masonry-feed">
+    <div class="thread-feed" id="masonry-feed">        
+
+        <article class="thread-post" data-category="music">
+            <div class="thread-post-meta">
+                <span>Aug 2026</span>
+            </div>
+            <figure class="thread-post-media">
+                <img src="/assets/off-duty/pic_phoebebridgers.jpg" alt="Phoebe Bridgers">
+            </figure>
+            <p class="thread-post-caption">To Phoebe Bridgers: This is so important to me.</p>
+        </article>        
 
         <article class="thread-post is-text-only" data-category="music">
             <div class="thread-post-meta">
@@ -129,23 +138,9 @@
                 <span class="thread-post-location">Sabaragamuwa Province</span>
             </div>
             <figure class="thread-post-media">
-                <img src="assets/off-duty/pic_sabaragamuwa.webp" alt="Wide blue sky with scattered clouds over hills, Sabaragamuwa Province">
+                <img src="/assets/off-duty/pic_sabaragamuwa.webp" alt="Wide blue sky with scattered clouds over hills, Sabaragamuwa Province">
             </figure>
             <p class="thread-post-caption">Pulled over on the way back just to look at this for a minute. Some skies are worth the extra five minutes on a long drive.</p>
-        </article>
-
-        <article class="thread-post is-text-only" data-category="photos">
-            <div class="thread-post-meta">
-                <span>Aug 2026</span>
-            </div>
-            <p class="thread-post-caption">Rewired my whole desk setup this week, mostly so I'd stop losing ten minutes every morning untangling cables I refuse to label.</p>
-        </article>
-
-        <article class="thread-post is-text-only" data-category="photos">
-            <div class="thread-post-meta">
-                <span>Aug 2026</span>
-            </div>
-            <p class="thread-post-caption">Half a sketch of a dog from the corner of a notebook page. Might finish it, might not. That's most of them.</p>
         </article>
 
         <article class="thread-post" data-category="photos">
@@ -154,10 +149,10 @@
                 <span class="thread-post-location">Olithanna</span>
             </div>
             <figure class="thread-post-media">
-                <img src="assets/off-duty/pic_olithanna1.webp" alt="A river with large boulders and clear water surrounded by trees">
+                <img src="/assets/off-duty/pic_olithanna1.webp" alt="A river with large boulders and clear water surrounded by trees">
             </figure>
             <figure class="thread-post-media">
-                <img src="assets/off-duty/pic_olithanna2.webp" alt="A river with large boulders and clear water surrounded by trees">
+                <img src="/assets/off-duty/pic_olithanna2.webp" alt="A river with large boulders and clear water surrounded by trees">
             </figure>
             <p class="thread-post-caption">Serenity.</p>
         </article>
@@ -166,7 +161,7 @@
             <div class="thread-post-meta">
                 <span>Aug 2026</span>
             </div>
-            <p class="thread-post-caption">Power cut lasted long enough that I gave up and read on the balcony until it came back. Turned out to be the better evening.</p>
+            <p class="thread-post-caption">The power cut lasted long enough that I gave up and started socialising with my family, "Good people". Turned out to be a better evening.</p>
         </article>
 
         <article class="thread-post" data-category="games">
@@ -174,7 +169,7 @@
                 <span>Aug 2026</span>
             </div>
             <figure class="thread-post-media">
-                <img src="assets/off-duty/pic_schedule1.webp" alt="In-game character mid-jump above a rainy landscape">
+                <img src="/assets/off-duty/pic_schedule1.webp" alt="In-game character mid-jump above a rainy landscape">
             </figure>
             <p class="thread-post-caption">Tyler, bless you!</p>
         </article>
@@ -191,7 +186,7 @@
                 <span>Aug 2026</span>
             </div>
             <figure class="thread-post-media">
-                <img src="assets/off-duty/pic_2018.webp" alt="Black and white photo of Chatura standing on rocks in a river, 2018">
+                <img src="/assets/off-duty/pic_2018.webp" alt="Black and white photo of Chatura standing on rocks in a river, 2018">
             </figure>
             <p class="thread-post-caption">Good kids, always in school. Good old days. 2018.</p>
         </article>
@@ -201,7 +196,7 @@
                 <span>Aug 2026</span>
             </div>
             <figure class="thread-post-media">
-                <img src="assets/off-duty/pic_plaguetale.jpeg" alt="Plague Tale">
+                <img src="/assets/off-duty/pic_plaguetale.jpeg" alt="Plague Tale">
             </figure>
             <p class="thread-post-caption">Plague Tale. The most underrated game I've played, no contest. Quietly brutal in a way that stuck with me longer than I expected.</p>
         </article>
@@ -210,8 +205,39 @@
             <div class="thread-post-meta">
                 <span>April 2026</span>
             </div>
-            <p class="thread-post-caption">Years of being an opinionated, picky player eventually turned into wanting to build one myself. So I'm making a voter-education visual novel in my spare time, clumsily at first, AI-assisted now. Same instinct as everything else here: research first, then figure out how to make it land. Working title: <strong>Road Remains</strong>.</p>
-        </article>
+            <p class="thread-post-caption">Years of being an opinionated, picky player eventually turned into wanting to build one myself. Working title: <strong>Road Remains</strong>.</p>
+        </article>    
+        
+        <article class="thread-post" data-category="photos">
+            <div class="thread-post-meta">
+                <span>June 2025</span>
+            </div>
+            <figure class="thread-post-media">
+                <img src="/assets/off-duty/pic_tree.webp" alt="Phoebe Bridgers">
+            </figure>
+            <p class="thread-post-caption">Steady as this tree... no noise, no rush.</p>
+        </article> 
+
+        <article class="thread-post" data-category="photos">
+            <div class="thread-post-meta">
+                <span>May 2023</span>
+            </div>
+            <figure class="thread-post-media">
+                <img src="/assets/off-duty/pic_diebold.webp" alt="Phoebe Bridgers">
+            </figure>
+            <p class="thread-post-caption">Don’t forget! no one else sees the world the way you do, so no one else can tell the stories you have to tell.</p>
+        </article>      
+        
+        <article class="thread-post" data-category="photos">
+            <div class="thread-post-meta">
+                <span>November 2020</span>
+            </div>
+            <figure class="thread-post-media">
+                <img src="/assets/off-duty/grewapart.jpg" alt="Phoebe Bridgers">
+            </figure>
+            <p class="thread-post-caption">Grew apart from lot of people, we just don't relate anymore.</p>
+        </article>         
+
 
     </div>
 </main>
@@ -237,8 +263,8 @@
             </div>
             <div class="footer-col">
                 <p class="footer-title">Resources &amp; Legal</p>
-                <a href="assets/documents/Services_Guide.pdf" target="_blank" rel="noopener">Services Guide</a>
-                <a href="assets/documents/Chatura_CurriculumVitae.pdf" target="_blank" rel="noopener" download>Download CV</a>
+                <a href="/assets/documents/Services_Guide.pdf" target="_blank" rel="noopener">Services Guide</a>
+                <a href="/assets/documents/Chatura_CurriculumVitae.pdf" target="_blank" rel="noopener" download>Download CV</a>
                 <a href="privacy.html">Privacy Policy</a>
                 <a href="terms.html">Terms &amp; Conditions</a>
             </div>
@@ -254,9 +280,9 @@
     </div>
 </footer>
 
-<script src="assets/js/utilities.js" defer></script>
-<script src="assets/js/main.js" defer></script>
-<script src="assets/js/navigation.js" defer></script>
+<script src="/assets/js/utilities.js" defer></script>
+<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/navigation.js" defer></script>
 
 <!-- Script for Feed Filtering -->
 <script>

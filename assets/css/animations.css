@@ -267,6 +267,31 @@
     to { opacity: 1; pointer-events: auto; }
 }
 
+.site-loader-mark {
+    display: inline-flex;
+    align-items: baseline;
+    font-family: var(--serif);
+    font-size: 1.375rem;
+    font-weight: 400;
+    letter-spacing: -0.025em;
+    color: var(--ink);
+}
+
+.site-loader-caret {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    margin-left: 3px;
+    background: var(--accent);
+    opacity: 1;
+    animation: siteLoaderCaretBlink 1s step-end infinite;
+}
+
+@keyframes siteLoaderCaretBlink {
+    0%, 50%   { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+}
+
 .site-loader-bar {
     display: block;
     width: 140px;
