@@ -7,7 +7,6 @@
     <meta name="description" content="Games, side projects, and whatever's on my desk right now. A running feed, not a portfolio.">
     <meta name="robots" content="noindex">
     <link rel="canonical" href="https://chaturadissanayake.vercel.app/notes.html">
-
     <link rel="preload" as="font" href="/assets/fonts/inter-regular.woff2" type="font/woff2" crossorigin>
     <link rel="preload" as="font" href="/assets/fonts/fraunces-variable.woff2" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="/assets/css/base.css">
@@ -16,7 +15,6 @@
     <link rel="stylesheet" href="/assets/css/sections.css">
     <link rel="stylesheet" href="/assets/css/journal.css">
     <link rel="stylesheet" href="/assets/css/animations.css">
-
     <script type="module">
     import replaceElement from "/assets/icons/replaceElement.js";
     import ArrowLeft from "/assets/icons/arrow-left.js";
@@ -24,26 +22,54 @@
     const lucideIcons = { ArrowLeft, ArrowRight };
     window.lucide = { createIcons: (options = {}) => { const root = options.root || document; root.querySelectorAll('[data-lucide]').forEach(el => replaceElement(el, { nameAttr: 'data-lucide', icons: lucideIcons, attrs: {} })); } };
     </script>
-
     <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
     <link rel="manifest" href="/assets/favicons/site.webmanifest">
-
-    <noscript><style>body.loading { overflow: auto; }</style></noscript>
+    <noscript>
+        <style>
+            body.loading { overflow: auto; }
+            .reveal-up, .section-fade-in { opacity: 1 !important; transform: none !important; }
+            .card-image img, .media-item img { opacity: 1 !important; }
+        </style>
+    </noscript>
+    <script>
+        function loadGA() {
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = "https://www.googletagmanager.com/gtag/js?id=G-24MX1C8QK3";
+            document.head.appendChild(script);
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-24MX1C8QK3');
+        }
+        if (localStorage.getItem('cookieConsent') === 'granted') {
+            loadGA();
+        }
+    </script>
 </head>
 <body class="loading">
 <div class="site-loader" id="site-loader" aria-hidden="true">
     <div class="site-loader-inner">
-        <span class="site-loader-mark">Chatura Dissanayake<span class="site-loader-caret"></span></span>
-        <span class="site-loader-bar"><span class="site-loader-bar-fill"></span></span>
+        <div class="loader-graphic">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="loader-icon">
+                <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/>
+            </svg>
+            <span class="site-loader-bar"><span class="site-loader-bar-fill"></span></span>
+        </div>
+        <div class="loader-text-group">
+            <span class="site-loader-text">Loading...</span>
+            <span class="site-loader-timeout">
+                If you are having issues loading the app <a href="javascript:window.location.reload(true)">click here to refresh.</a>
+            </span>
+        </div>
     </div>
 </div>
 <a href="#main-content" class="skip-link">Skip to main content</a>
-
 <header class="main-header" id="main-header">
     <div class="nav-inner">
-        <a href="index.html#hero" class="nav-logo" aria-label="Chatura Dissanayake Home">
+        <a href="/index.html" class="nav-logo" aria-label="Chatura Dissanayake Home">
             <span class="brand-wordmark">Chatura Dissanayake</span>
         </a>
         <nav class="desktop-nav" role="navigation" aria-label="Primary">
@@ -52,7 +78,7 @@
             <a href="/index.html#services"       class="nav-link" data-section="services">Services</a>
             <a href="/index.html#insights"       class="nav-link" data-section="insights">Writing</a>
             <a href="/index.html#visualisations" class="nav-link" data-section="visualisations">Visualisations</a>
-            <a href="notes.html" class="nav-link active" aria-current="page">Notes</a>
+            <a href="/notes.html" class="nav-link active" aria-current="page">Notes</a>
         </nav>
         <div class="nav-actions">
             <div class="lang-switcher" role="group" aria-label="Select language">
@@ -67,7 +93,6 @@
         </div>
     </div>
 </header>
-
 <div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
     <div class="mobile-lang-switcher" role="group" aria-label="Select language">
         <button type="button" class="mobile-lang-text is-active" data-lang="en" aria-pressed="true">EN</button>
@@ -75,13 +100,13 @@
         <button type="button" class="mobile-lang-text" data-lang="fr" aria-pressed="false">FR</button>
     </div>
     <nav class="mobile-nav-links">
-        <a href="index.html#projects"       class="mobile-link" data-section="projects">Work</a>
-        <a href="index.html#about"          class="mobile-link" data-section="about">About</a>
-        <a href="index.html#services"       class="mobile-link" data-section="services">Services</a>
-        <a href="index.html#insights"       class="mobile-link" data-section="insights">Writing</a>
-        <a href="index.html#visualisations" class="mobile-link" data-section="visualisations">Visualisations</a>
-        <a href="notes.html" class="mobile-link active" aria-current="page">Notes</a>
-        <a href="index.html#contact"        class="mobile-link mobile-cta">Get in touch <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
+        <a href="/index.html#projects"       class="mobile-link" data-section="projects">Work</a>
+        <a href="/index.html#about"          class="mobile-link" data-section="about">About</a>
+        <a href="/index.html#services"       class="mobile-link" data-section="services">Services</a>
+        <a href="/index.html#insights"       class="mobile-link" data-section="insights">Writing</a>
+        <a href="/index.html#visualisations" class="mobile-link" data-section="visualisations">Visualisations</a>
+        <a href="/notes.html" class="mobile-link active" aria-current="page">Notes</a>
+        <a href="/index.html#contact"        class="mobile-link mobile-cta">Get in touch <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
     </nav>
     <div class="mobile-menu-footer">
         <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
@@ -92,16 +117,13 @@
         <a href="/terms.html">Terms &amp; Conditions</a>
     </div>
 </div>
-
 <main id="main-content" tabindex="-1" class="thread-main">
-
     <section class="thread-hero">
-        <a href="index.html#hero" class="thread-back-btn">
+        <a href="/index.html#hero" class="thread-back-btn">
             <i data-lucide="arrow-left"></i> Back to site
         </a>
         <h1 class="thread-hero-title">Notes</h1>
         <p class="thread-hero-desc">The stuff that doesn't fit anywhere else on this site: what I'm playing, half-finished drawings, songs on loop, and the slow build of a game I'm making in my spare time. Less portfolio, more open tab.</p>
-
         <!-- Filter Menu -->
         <div class="thread-filters">
             <button class="filter-btn is-active" data-filter="all">All</button>
@@ -111,11 +133,9 @@
             <button class="filter-btn" data-filter="video">Video</button>
         </div>
     </section>
-
     <!-- Masonry Feed (2 Columns on Desktop) -->
-    <div class="thread-feed" id="masonry-feed">        
-
-        <article class="thread-post" data-category="music">
+    <div class="thread-feed" id="masonry-feed">
+                <article class="thread-post" data-category="music">
             <div class="thread-post-meta">
                 <span>Aug 2026</span>
             </div>
@@ -123,15 +143,13 @@
                 <img src="/assets/off-duty/pic_phoebebridgers.jpg" alt="Phoebe Bridgers">
             </figure>
             <p class="thread-post-caption">To Phoebe Bridgers: This is so important to me.</p>
-        </article>        
-
-        <article class="thread-post is-text-only" data-category="music">
+        </article>
+                <article class="thread-post is-text-only" data-category="music">
             <div class="thread-post-meta">
                 <span>Aug 2026</span>
             </div>
             <p class="thread-post-caption">On repeat this week: <strong>Love Me Different - Hayley Williams</strong>. Trying to finish the portfolio soon. I need to start playing games again. I miss it!</p>
         </article>
-
         <article class="thread-post" data-category="photos">
             <div class="thread-post-meta">
                 <span>Aug 2026</span>
@@ -142,7 +160,6 @@
             </figure>
             <p class="thread-post-caption">Pulled over on the way back just to look at this for a minute. Some skies are worth the extra five minutes on a long drive.</p>
         </article>
-
         <article class="thread-post" data-category="photos">
             <div class="thread-post-meta">
                 <span>Aug 2026</span>
@@ -156,14 +173,12 @@
             </figure>
             <p class="thread-post-caption">Serenity.</p>
         </article>
-
         <article class="thread-post is-text-only" data-category="photos">
             <div class="thread-post-meta">
                 <span>Aug 2026</span>
             </div>
             <p class="thread-post-caption">The power cut lasted long enough that I gave up and started socialising with my family, "Good people". Turned out to be a better evening.</p>
         </article>
-
         <article class="thread-post" data-category="games">
             <div class="thread-post-meta">
                 <span>Aug 2026</span>
@@ -173,14 +188,12 @@
             </figure>
             <p class="thread-post-caption">Tyler, bless you!</p>
         </article>
-
         <article class="thread-post is-text-only" data-category="photos">
             <div class="thread-post-meta">
                 <span>Aug 2026</span>
             </div>
             <p class="thread-post-caption">Found an old photo folder I'd forgotten existed. Spent way too long scrolling through it instead of doing anything I was actually supposed to.</p>
         </article>
-
         <article class="thread-post" data-category="photos">
             <div class="thread-post-meta">
                 <span>Aug 2026</span>
@@ -190,7 +203,6 @@
             </figure>
             <p class="thread-post-caption">Good kids, always in school. Good old days. 2018.</p>
         </article>
-
         <article class="thread-post" data-category="games">
             <div class="thread-post-meta">
                 <span>Aug 2026</span>
@@ -200,14 +212,13 @@
             </figure>
             <p class="thread-post-caption">Plague Tale. The most underrated game I've played, no contest. Quietly brutal in a way that stuck with me longer than I expected.</p>
         </article>
-
         <article class="thread-post is-text-only" data-category="games">
             <div class="thread-post-meta">
                 <span>April 2026</span>
             </div>
             <p class="thread-post-caption">Years of being an opinionated, picky player eventually turned into wanting to build one myself. Working title: <strong>Road Remains</strong>.</p>
-        </article>    
-        
+        </article>
+                     
         <article class="thread-post" data-category="photos">
             <div class="thread-post-meta">
                 <span>June 2025</span>
@@ -216,8 +227,8 @@
                 <img src="/assets/off-duty/pic_tree.webp" alt="Phoebe Bridgers">
             </figure>
             <p class="thread-post-caption">Steady as this tree... no noise, no rush.</p>
-        </article> 
-
+        </article>
+         
         <article class="thread-post" data-category="photos">
             <div class="thread-post-meta">
                 <span>May 2023</span>
@@ -225,9 +236,9 @@
             <figure class="thread-post-media">
                 <img src="/assets/off-duty/pic_diebold.webp" alt="Phoebe Bridgers">
             </figure>
-            <p class="thread-post-caption">Don’t forget! no one else sees the world the way you do, so no one else can tell the stories you have to tell.</p>
-        </article>      
-        
+            <p class="thread-post-caption">Don t forget! no one else sees the world the way you do, so no one else can tell the stories you have to tell.</p>
+        </article>
+                       
         <article class="thread-post" data-category="photos">
             <div class="thread-post-meta">
                 <span>November 2020</span>
@@ -236,23 +247,21 @@
                 <img src="/assets/off-duty/grewapart.jpg" alt="Phoebe Bridgers">
             </figure>
             <p class="thread-post-caption">Grew apart from lot of people, we just don't relate anymore.</p>
-        </article>         
-
-
+        </article>
+             
     </div>
 </main>
-
 <footer class="site-footer">
     <div class="container">
         <div class="footer-grid">
             <div class="footer-col">
                 <p class="footer-title">Navigate</p>
-                <a href="index.html#projects">Work</a>
-                <a href="index.html#about">About</a>
-                <a href="index.html#services">Services</a>
-                <a href="index.html#insights">Writing</a>
-                <a href="index.html#visualisations">Visualisations</a>
-                <a href="notes.html">Notes</a>
+                <a href="/index.html#projects">Work</a>
+                <a href="/index.html#about">About</a>
+                <a href="/index.html#services">Services</a>
+                <a href="/index.html#insights">Writing</a>
+                <a href="/index.html#visualisations">Visualisations</a>
+                <a href="/notes.html">Notes</a>
             </div>
             <div class="footer-col">
                 <p class="footer-title">Connect</p>
@@ -265,38 +274,42 @@
                 <p class="footer-title">Resources &amp; Legal</p>
                 <a href="/assets/documents/Services_Guide.pdf" target="_blank" rel="noopener">Services Guide</a>
                 <a href="/assets/documents/Chatura_CurriculumVitae.pdf" target="_blank" rel="noopener" download>Download CV</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms &amp; Conditions</a>
+                <a href="/privacy.html">Privacy Policy</a>
+                <a href="/terms.html">Terms &amp; Conditions</a>
             </div>
         </div>
         <div class="footer-bottom-container">
             <div class="footer-divider"></div>
             <div class="footer-bottom-bar">
                 <div class="footer-copyright">
-                    © 2022–2026 Chatura Dissanayake. All rights reserved.
+                      2022 2026 Chatura Dissanayake. All rights reserved.
                 </div>
             </div>
         </div>
     </div>
 </footer>
-
+<div id="cookie-banner" class="cookie-banner" style="display: none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+    <div class="cookie-content">
+        <p>I use Google Analytics to analyse how visitors interact with this site, ensuring you have the best experience while using our website. <a href="/privacy.html" target="_blank" rel="noopener">Cookie Policy</a>.</p>
+        <div class="cookie-actions">
+            <button id="accept-cookies" class="btn-primary" style="padding: 8px 18px; font-size: 0.8125rem;">Accept</button>
+            <button id="decline-cookies" class="show-more-btn" style="padding: 8px 18px; font-size: 0.8125rem; margin-top: 0;">Decline</button>
+        </div>
+    </div>
+</div>
 <script src="/assets/js/utilities.js" defer></script>
 <script src="/assets/js/main.js" defer></script>
 <script src="/assets/js/navigation.js" defer></script>
-
 <!-- Script for Feed Filtering -->
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         const filterBtns = document.querySelectorAll('.filter-btn');
         const posts = document.querySelectorAll('.thread-post');
-
         filterBtns.forEach(btn => {
             btn.addEventListener('click', () => {
                 filterBtns.forEach(b => b.classList.remove('is-active'));
                 btn.classList.add('is-active');
-
                 const filterValue = btn.getAttribute('data-filter');
-
                 posts.forEach(post => {
                     const matches = filterValue === 'all' || post.getAttribute('data-category') === filterValue;
                     post.classList.toggle('is-filtered-out', !matches);

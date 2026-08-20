@@ -25,20 +25,50 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
     <link rel="manifest" href="/assets/favicons/site.webmanifest">
-    <noscript><style>body.loading { overflow: auto; }</style></noscript>
+    <noscript>
+        <style>
+            body.loading { overflow: auto; }
+            .reveal-up, .section-fade-in { opacity: 1 !important; transform: none !important; }
+            .card-image img, .media-item img { opacity: 1 !important; }
+        </style>
+    </noscript>
+    <script>
+        function loadGA() {
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = "https://www.googletagmanager.com/gtag/js?id=G-24MX1C8QK3";
+            document.head.appendChild(script);
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-24MX1C8QK3');
+        }
+        if (localStorage.getItem('cookieConsent') === 'granted') {
+            loadGA();
+        }
+    </script>
 </head>
 <body class="loading">
 <div class="site-loader" id="site-loader" aria-hidden="true">
     <div class="site-loader-inner">
-        <span class="site-loader-mark">Chatura Dissanayake<span class="site-loader-caret"></span></span>
-        <span class="site-loader-bar"><span class="site-loader-bar-fill"></span></span>
+        <div class="loader-graphic">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="loader-icon">
+                <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/>
+            </svg>
+            <span class="site-loader-bar"><span class="site-loader-bar-fill"></span></span>
+        </div>
+        <div class="loader-text-group">
+            <span class="site-loader-text">Loading...</span>
+            <span class="site-loader-timeout">
+                If you are having issues loading the app <a href="javascript:window.location.reload(true)">click here to refresh.</a>
+            </span>
+        </div>
     </div>
 </div>
 <a href="#main-content" class="skip-link">Skip to main content</a>
-
 <header class="main-header" id="main-header">
     <div class="nav-inner">
-        <a href="index.html#hero" class="nav-logo" aria-label="Chatura Dissanayake Home">
+        <a href="/index.html" class="nav-logo" aria-label="Chatura Dissanayake Home">
             <span class="brand-wordmark">Chatura Dissanayake</span>
         </a>
         <nav class="desktop-nav" role="navigation" aria-label="Primary">
@@ -47,7 +77,7 @@
             <a href="/index.html#services"       class="nav-link" data-section="services">Services</a>
             <a href="/index.html#insights"       class="nav-link" data-section="insights">Writing</a>
             <a href="/index.html#visualisations" class="nav-link" data-section="visualisations">Visualisations</a>
-            <a href="notes.html" class="nav-link">Notes</a>
+            <a href="/notes.html" class="nav-link">Notes</a>
         </nav>
         <div class="nav-actions">
             <div class="lang-switcher" role="group" aria-label="Select language">
@@ -62,7 +92,6 @@
         </div>
     </div>
 </header>
-
 <div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
     <div class="mobile-lang-switcher" role="group" aria-label="Select language">
         <button type="button" class="mobile-lang-text is-active" data-lang="en" aria-pressed="true">EN</button>
@@ -70,13 +99,13 @@
         <button type="button" class="mobile-lang-text" data-lang="fr" aria-pressed="false">FR</button>
     </div>
     <nav class="mobile-nav-links">
-        <a href="index.html#projects"       class="mobile-link" data-section="projects">Work</a>
-        <a href="index.html#about"          class="mobile-link" data-section="about">About</a>
-        <a href="index.html#services"       class="mobile-link" data-section="services">Services</a>
-        <a href="index.html#insights"       class="mobile-link" data-section="insights">Writing</a>
-        <a href="index.html#visualisations" class="mobile-link" data-section="visualisations">Visualisations</a>
-        <a href="notes.html" class="mobile-link">Notes</a>
-        <a href="index.html#contact"        class="mobile-link mobile-cta">Get in touch <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
+        <a href="/index.html#projects"       class="mobile-link" data-section="projects">Work</a>
+        <a href="/index.html#about"          class="mobile-link" data-section="about">About</a>
+        <a href="/index.html#services"       class="mobile-link" data-section="services">Services</a>
+        <a href="/index.html#insights"       class="mobile-link" data-section="insights">Writing</a>
+        <a href="/index.html#visualisations" class="mobile-link" data-section="visualisations">Visualisations</a>
+        <a href="/notes.html" class="mobile-link">Notes</a>
+        <a href="/index.html#contact"        class="mobile-link mobile-cta">Get in touch <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
     </nav>
     <div class="mobile-menu-footer">
         <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
@@ -87,57 +116,42 @@
         <a href="/terms.html">Terms &amp; Conditions</a>
     </div>
 </div>
-
 <main id="main-content" tabindex="-1" style="outline: none;">
 <section class="legal-section">
     <div class="container">
         <div class="legal-content">
             <h1>Terms &amp; Conditions</h1>
             <span class="last-updated">Last updated: August 15, 2026</span>
-
             <p>These terms apply when you hire me for freelance design or communications work, whether that's through Fiverr, direct contact, or any other channel. I want them to be clear and fair, not a wall of legalese. If anything here is unclear, ask me before we start - that's always easier than sorting it out afterward.</p>
-
             <h2>Scope of work</h2>
             <p>Every project starts with an agreed scope: what I'm delivering, in what format, and by when. This is usually confirmed in writing, whether that's a Fiverr order description, an email, or a short brief we agree on together. Work outside that scope - a new deliverable, a different format, an added platform - is treated as a new request and may involve additional time or cost, which I'll always flag before starting.</p>
-
             <h2>Revisions</h2>
             <p>Most packages include a set number of revision rounds, agreed upfront. Revisions cover refinements to the agreed brief: adjusting colours, copy, layout, or similar. They don't cover a full change of direction partway through - if the brief changes significantly after work has started, that's treated as a new scope and quoted separately.</p>
-
             <h2>Working together</h2>
             <p>The quality of the final work depends on more than just the work I put in. I work alone on most projects, and I do my best to understand the brief, the goals, and any research behind a project before I start designing. When a client shares a clear brief, answers questions promptly, and gives feedback along the way, the results are usually strong. When communication is slow, unclear, or the brief is thin to begin with, that affects the outcome too, even when I've put in solid, professional work.</p>
             <p>When a project needs more hands or specialist skills than I have alone, especially if the timeframe is short, I bring in outside help - copywriters, designers, animators, video editors, or producers - to keep the quality where it needs to be. I currently work closely with 3 people I bring in this way; we're not a company, and they work under my direction on projects I'm running. If a project needs this kind of extra help, I'll always tell you upfront, and it comes with an additional cost that I'll flag before starting.</p>
             <p>I want to be upfront about this because I care about getting the work right for my clients. If I don't have enough information about the research, goals, or context behind a project, it's harder for me to produce something like an infographic or design that hits the mark. I'll always ask questions when something's unclear, but I also need timely answers to keep a project on track, especially with a short timeframe. Delays in feedback or replies can affect both the timeline and the quality of the result, as noted under Timelines.</p>
             <p>At the end of most projects, I share a short feedback form to check whether the work met expectations. Some clients respond and some don't, and I take that feedback into account for my own work. If I don't hear back within 7 days of delivery, I'll treat the work as accepted.</p>
             <p>If I feel I genuinely didn't deliver what was promised, I'll say so myself and only ask for partial payment for that work, without needing to be pushed on it. But if I've done my best with the information and input I was given, and the result falls short because the brief was thin or communication was slow on the client's side, I don't consider that a failure on my part, and the agreed payment still applies. I'd always rather talk it through honestly than leave it unresolved.</p>
-
             <h2>Payment</h2>
             <p>For work booked through Fiverr, payment is handled entirely through Fiverr's own system, and their terms apply to that transaction. For direct client work, I typically ask for an upfront deposit before starting, with the remainder due on delivery or per an agreed schedule for larger projects. Final files are released once payment is complete.</p>
-
             <h2>Timelines</h2>
             <p>Delivery dates are estimates based on the agreed scope and my current workload, and I'll flag as early as possible if something's going to run late. Delays caused by slow feedback, late file delivery, or scope changes on the client's side aren't counted against the original timeline.</p>
-
             <h2>Ownership &amp; usage rights</h2>
             <p>Once a project is paid in full, the client owns the final delivered files and can use them as agreed for the project. I retain the right to showcase the work in my portfolio, on this site, and on social media, unless we've specifically agreed otherwise in writing - for example, for a project under NDA or embargo.</p>
             <p>Any source files, working drafts, templates, or design systems I use to produce the final work remain mine unless their transfer was specifically agreed and paid for as part of the project.</p>
-
             <h2>Third-party assets</h2>
             <p>Where a project uses licensed assets - stock photography, fonts, icons, or similar - those come with whatever license terms the original provider sets. I'll let you know if a project depends on a license that needs to be renewed or doesn't transfer with the final files.</p>
-
             <h2>Cancellations</h2>
             <p>If a project is cancelled after work has started, payment is due for the work completed up to that point. Any deposit already paid is non-refundable once work has begun, since it reserves time set aside for the project.</p>
-
             <h2>Confidentiality</h2>
             <p>I treat client information, unreleased materials, and project details as confidential by default, and I'm happy to sign an NDA if a project requires one. I won't share draft work publicly before it's approved for release.</p>
-
             <h2>Limitation of liability</h2>
             <p>I do good-faith, professional work, but I can't guarantee specific business outcomes - sales, engagement, or otherwise - since those depend on many factors outside a designer's control, including the brief and communication factors described under Working together. My liability for any project is limited to the amount paid for that project.</p>
-
             <h2>Communication</h2>
             <p>Most projects are managed through Fiverr's messaging system or direct email. I aim to respond within 1&ndash;2 business days. If a project needs faster turnaround on communication, let me know upfront and we can agree on that as part of the scope.</p>
-
             <h2>Changes to these terms</h2>
             <p>If these terms change, I'll update the date at the top. For work already agreed and in progress, the terms in place at the time we started apply.</p>
-
             <h2>Questions</h2>
             <p>
                 If anything here needs clarifying before, during, or after a project, email me directly at
@@ -147,18 +161,17 @@
     </div>
 </section>
 </main>
-
 <footer class="site-footer">
     <div class="container">
         <div class="footer-grid">
             <div class="footer-col">
                 <p class="footer-title">Navigate</p>
-                <a href="index.html#projects">Work</a>
-                <a href="index.html#about">About</a>
-                <a href="index.html#services">Services</a>
-                <a href="index.html#insights">Writing</a>
-                <a href="index.html#visualisations">Visualisations</a>
-                <a href="notes.html">Notes</a>
+                <a href="/index.html#projects">Work</a>
+                <a href="/index.html#about">About</a>
+                <a href="/index.html#services">Services</a>
+                <a href="/index.html#insights">Writing</a>
+                <a href="/index.html#visualisations">Visualisations</a>
+                <a href="/notes.html">Notes</a>
             </div>
             <div class="footer-col">
                 <p class="footer-title">Connect</p>
@@ -171,21 +184,29 @@
                 <p class="footer-title">Resources &amp; Legal</p>
                 <a href="/assets/documents/Services_Guide.pdf" target="_blank" rel="noopener">Services Guide</a>
                 <a href="/assets/documents/Chatura_CurriculumVitae.pdf" target="_blank" rel="noopener" download>Download CV</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms &amp; Conditions</a>
+                <a href="/privacy.html">Privacy Policy</a>
+                <a href="/terms.html">Terms &amp; Conditions</a>
             </div>
         </div>
         <div class="footer-bottom-container">
             <div class="footer-divider"></div>
             <div class="footer-bottom-bar">
                 <div class="footer-copyright">
-                    © 2022–2026 Chatura Dissanayake. All rights reserved.
+                      2022 2026 Chatura Dissanayake. All rights reserved.
                 </div>
             </div>
         </div>
     </div>
 </footer>
-
+<div id="cookie-banner" class="cookie-banner" style="display: none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+    <div class="cookie-content">
+        <p>I use Google Analytics to analyse how visitors interact with this site, ensuring you have the best experience while using our website. <a href="/privacy.html" target="_blank" rel="noopener">Cookie Policy</a>.</p>
+        <div class="cookie-actions">
+            <button id="accept-cookies" class="btn-primary" style="padding: 8px 18px; font-size: 0.8125rem;">Accept</button>
+            <button id="decline-cookies" class="show-more-btn" style="padding: 8px 18px; font-size: 0.8125rem; margin-top: 0;">Decline</button>
+        </div>
+    </div>
+</div>
 <script src="/assets/js/utilities.js" defer></script>
 <script src="/assets/js/main.js" defer></script>
 <script src="/assets/js/navigation.js" defer></script>

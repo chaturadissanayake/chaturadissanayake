@@ -27,19 +27,49 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicons/favicon-16x16.png">
     <link rel="manifest" href="/assets/favicons/site.webmanifest">
-    <noscript><style>body.loading { overflow: auto; }</style></noscript>
+    <noscript>
+        <style>
+            body.loading { overflow: auto; }
+            .reveal-up, .section-fade-in { opacity: 1 !important; transform: none !important; }
+            .card-image img, .media-item img { opacity: 1 !important; }
+        </style>
+    </noscript>
+    <script>
+        function loadGA() {
+            const script = document.createElement('script');
+            script.async = true;
+            script.src = "https://www.googletagmanager.com/gtag/js?id=G-24MX1C8QK3";
+            document.head.appendChild(script);
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-24MX1C8QK3');
+        }
+        if (localStorage.getItem('cookieConsent') === 'granted') {
+            loadGA();
+        }
+    </script>
 </head>
 <body class="loading">
 <div class="site-loader" id="site-loader" aria-hidden="true">
     <div class="site-loader-inner">
-        <span class="site-loader-mark">Chatura Dissanayake<span class="site-loader-caret"></span></span>
-        <span class="site-loader-bar"><span class="site-loader-bar-fill"></span></span>
+        <div class="loader-graphic">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="loader-icon">
+                <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"/>
+            </svg>
+            <span class="site-loader-bar"><span class="site-loader-bar-fill"></span></span>
+        </div>
+        <div class="loader-text-group">
+            <span class="site-loader-text">Loading...</span>
+            <span class="site-loader-timeout">
+                If you are having issues loading the app <a href="javascript:window.location.reload(true)">click here to refresh.</a>
+            </span>
+        </div>
     </div>
 </div>
-
 <header class="main-header" id="main-header">
     <div class="nav-inner">
-        <a href="index.html#hero" class="nav-logo" aria-label="Chatura Dissanayake Home">
+        <a href="/index.html" class="nav-logo" aria-label="Chatura Dissanayake Home">
             <span class="brand-wordmark">Chatura Dissanayake</span>
         </a>
         <nav class="desktop-nav" role="navigation" aria-label="Primary">
@@ -63,7 +93,6 @@
         </div>
     </div>
 </header>
-
 <div class="mobile-menu" id="mobile-nav-menu" role="dialog" aria-modal="true" aria-label="Mobile Navigation">
     <div class="mobile-lang-switcher" role="group" aria-label="Select language">
         <button type="button" class="mobile-lang-text is-active" data-lang="en" aria-pressed="true">EN</button>
@@ -71,13 +100,13 @@
         <button type="button" class="mobile-lang-text" data-lang="fr" aria-pressed="false">FR</button>
     </div>
     <nav class="mobile-nav-links">
-        <a href="index.html#projects"       class="mobile-link" data-section="projects">Work</a>
-        <a href="index.html#about"          class="mobile-link" data-section="about">About</a>
-        <a href="index.html#services"       class="mobile-link" data-section="services">Services</a>
-        <a href="index.html#insights"       class="mobile-link" data-section="insights">Writing</a>
-        <a href="index.html#visualisations" class="mobile-link" data-section="visualisations">Visualisations</a>
-        <a href="notes.html" class="mobile-link">Notes</a>
-        <a href="index.html#contact"        class="mobile-link mobile-cta">Get in touch <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
+        <a href="/index.html#projects"       class="mobile-link" data-section="projects">Work</a>
+        <a href="/index.html#about"          class="mobile-link" data-section="about">About</a>
+        <a href="/index.html#services"       class="mobile-link" data-section="services">Services</a>
+        <a href="/index.html#insights"       class="mobile-link" data-section="insights">Writing</a>
+        <a href="/index.html#visualisations" class="mobile-link" data-section="visualisations">Visualisations</a>
+        <a href="/notes.html" class="mobile-link">Notes</a>
+        <a href="/index.html#contact"        class="mobile-link mobile-cta">Get in touch <i data-lucide="arrow-right" aria-hidden="true" style="width:18px;height:18px;margin-left:6px;"></i></a>
     </nav>
     <div class="mobile-menu-footer">
         <a href="https://linkedin.com/in/chaturadissanayake" target="_blank" rel="noopener">LinkedIn</a>
@@ -88,7 +117,6 @@
         <a href="/terms.html">Terms &amp; Conditions</a>
     </div>
 </div>
-
 <main id="main-content" tabindex="-1" style="outline: none;">
     <section class="hero-section" style="min-height: 85vh; padding-top: var(--nav-h);">
         <div class="container" style="text-align: center; position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center;">
@@ -102,24 +130,23 @@
                 The link you followed might be broken, or the page may have been moved or deleted.
             </p>
             
-            <a href="index.html#hero" class="btn-primary" style="display: inline-flex;">
+            <a href="/index.html#hero" class="btn-primary" style="display: inline-flex;">
                 Return to homepage <i data-lucide="arrow-right" aria-hidden="true"></i>
             </a>
         </div>
     </section>
 </main>
-
 <footer class="site-footer">
     <div class="container">
         <div class="footer-grid">
             <div class="footer-col">
                 <p class="footer-title">Navigate</p>
-                <a href="index.html#projects">Work</a>
-                <a href="index.html#about">About</a>
-                <a href="index.html#services">Services</a>
-                <a href="index.html#insights">Writing</a>
-                <a href="index.html#visualisations">Visualisations</a>
-                <a href="notes.html">Notes</a>
+                <a href="/index.html#projects">Work</a>
+                <a href="/index.html#about">About</a>
+                <a href="/index.html#services">Services</a>
+                <a href="/index.html#insights">Writing</a>
+                <a href="/index.html#visualisations">Visualisations</a>
+                <a href="/notes.html">Notes</a>
             </div>
             <div class="footer-col">
                 <p class="footer-title">Connect</p>
@@ -132,24 +159,31 @@
                 <p class="footer-title">Resources &amp; Legal</p>
                 <a href="/assets/documents/Services_Guide.pdf" target="_blank" rel="noopener">Services Guide</a>
                 <a href="/assets/documents/Chatura_CurriculumVitae.pdf" target="_blank" rel="noopener" download>Download CV</a>
-                <a href="privacy.html">Privacy Policy</a>
-                <a href="terms.html">Terms &amp; Conditions</a>
+                <a href="/privacy.html">Privacy Policy</a>
+                <a href="/terms.html">Terms &amp; Conditions</a>
             </div>
         </div>
         <div class="footer-bottom-container">
             <div class="footer-divider"></div>
             <div class="footer-bottom-bar">
                 <div class="footer-copyright">
-                    © 2022–2026 Chatura Dissanayake. All rights reserved.
+                      2022 2026 Chatura Dissanayake. All rights reserved.
                 </div>
             </div>
         </div>
     </div>
 </footer>
-
+<div id="cookie-banner" class="cookie-banner" style="display: none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
+    <div class="cookie-content">
+        <p>I use Google Analytics to analyse how visitors interact with this site, ensuring you have the best experience while using our website. <a href="/privacy.html" target="_blank" rel="noopener">Cookie Policy</a>.</p>
+        <div class="cookie-actions">
+            <button id="accept-cookies" class="btn-primary" style="padding: 8px 18px; font-size: 0.8125rem;">Accept</button>
+            <button id="decline-cookies" class="show-more-btn" style="padding: 8px 18px; font-size: 0.8125rem; margin-top: 0;">Decline</button>
+        </div>
+    </div>
+</div>
 <script src="/assets/js/utilities.js" defer></script>
 <script src="/assets/js/main.js" defer></script>
 <script src="/assets/js/navigation.js" defer></script>
-
 </body>
 </html>
