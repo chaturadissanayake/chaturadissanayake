@@ -590,7 +590,9 @@
     background: transparent;
     border: none;
     padding: 0;
-    min-height: auto;
+    min-height: 24px;
+    display: inline-flex;
+    align-items: center;
     border-radius: 0;
     color: var(--accent);
     transition: color var(--dur-fast);
@@ -599,7 +601,7 @@
 .card-cat.card-tag-btn::before {
     content: "";
     position: absolute;
-    inset: -6px;
+    inset: -10px;
 }
 
 .card-cat.card-tag-btn:hover {
