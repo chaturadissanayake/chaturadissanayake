@@ -941,7 +941,7 @@
 
 <div id="cookie-banner" class="cookie-banner" style="display: none;" role="dialog" aria-live="polite" aria-label="Cookie consent">
     <div class="cookie-content">
-        <p>I use Google Analytics to understand how visitors interact with this site. This may involve anonymised data such as your general location and device type.</p>
+        <p>I use Google Analytics to analyse how visitors interact with this site, ensuring you have the best experience while using our website. <a href="/privacy.html" target="_blank" rel="noopener">Cookie Policy</a>.</p>
         <div class="cookie-actions">
             <button id="accept-cookies" class="btn-primary" style="padding: 8px 18px; font-size: 0.8125rem;">Accept</button>
             <button id="decline-cookies" class="show-more-btn" style="padding: 8px 18px; font-size: 0.8125rem; margin-top: 0;">Decline</button>
@@ -949,74 +949,65 @@
     </div>
 </div>
 <script>
-function toggleSidebar() {
-    var sidebar = document.getElementById('sidebarWrap');
-    var desktopBtn = document.getElementById('sidebar-toggle-desktop');
-    var mobileBtn = document.getElementById('sidebar-toggle-mobile');
-    var isMobile = window.innerWidth <= 1024;
-
-    if (isMobile) {
-        var opening = !sidebar.classList.contains('is-open-mobile');
-        sidebar.classList.toggle('is-open-mobile');
-        if (mobileBtn) {
-            mobileBtn.setAttribute('aria-expanded', opening ? 'true' : 'false');
-            var icon = mobileBtn.querySelector('.toggle-icon');
-            if (icon) icon.textContent = opening ? '-' : '+';
-        }
-        document.body.style.overflow = opening ? 'hidden' : '';
-    } else {
-        var isCollapsed = sidebar.classList.toggle('is-collapsed');
-        if (desktopBtn) {
-            desktopBtn.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
-            var icon = desktopBtn.querySelector('.toggle-icon');
-            if (icon) icon.textContent = isCollapsed ? '+' : '-';
-        }
-    }
-}
-</script>
-<script>
 document.addEventListener("DOMContentLoaded", function() {
     var lightbox = document.createElement("div");
     lightbox.id = "image-lightbox";
-    lightbox.innerHTML = "<span id='lightbox-close' aria-label='Close'>&times;</span><img id='lightbox-img' src='' alt=''>";
+    lightbox.setAttribute("role", "dialog");
+    lightbox.setAttribute("aria-modal", "true");
+    lightbox.setAttribute("aria-label", "Image viewer");
+    lightbox.innerHTML = "<span id='lightbox-close' role='button' tabindex='0' aria-label='Close'>&times;</span><img id='lightbox-img' src='' alt=''>";
     document.body.appendChild(lightbox);
-    
+
     var lbImg = document.getElementById("lightbox-img");
     var closeBtn = document.getElementById("lightbox-close");
-    
-    function closeLB() {
-        lightbox.classList.remove("active");
+    var lastFocused = null;
+
+    function openLB(imgEl) {
+        lastFocused = document.activeElement;
+        lbImg.src = imgEl.src;
+        lbImg.alt = imgEl.alt;
+        lightbox.classList.add("active");
+        document.body.classList.add("modal-open");
+        var mainContent = document.getElementById("main-content");
+        var mainHeader = document.getElementById("main-header");
+        if (mainContent) mainContent.setAttribute("aria-hidden", "true");
+        if (mainHeader) mainHeader.setAttribute("aria-hidden", "true");
+        closeBtn.focus();
     }
-    
+
+    function closeLB() {
+        if (!lightbox.classList.contains("active")) return;
+        lightbox.classList.remove("active");
+        document.body.classList.remove("modal-open");
+        var mainContent = document.getElementById("main-content");
+        var mainHeader = document.getElementById("main-header");
+        if (mainContent) mainContent.removeAttribute("aria-hidden");
+        if (mainHeader) mainHeader.removeAttribute("aria-hidden");
+        if (lastFocused) lastFocused.focus();
+    }
+
     closeBtn.addEventListener("click", closeLB);
-    lightbox.addEventListener("click", function(e) {
-        if(e.target === lightbox) {
-            closeLB();
-        }
-    });
-    
-    closeBtn.setAttribute("tabindex", "0");
     closeBtn.addEventListener("keydown", function(e) {
         if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
             closeLB();
         }
     });
+    lightbox.addEventListener("click", function(e) {
+        if (e.target === lightbox) closeLB();
+    });
+    document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape") closeLB();
+    });
 
     var imgs = document.querySelectorAll(".media-item img");
-    for(var i=0; i<imgs.length; i++) {
+    for (var i = 0; i < imgs.length; i++) {
         imgs[i].setAttribute("tabindex", "0");
-        imgs[i].addEventListener("click", function() {
-            lbImg.src = this.src;
-            lbImg.alt = this.alt;
-            lightbox.classList.add("active");
-        });
+        imgs[i].addEventListener("click", function() { openLB(this); });
         imgs[i].addEventListener("keydown", function(e) {
             if (e.key === "Enter" || e.key === " ") {
                 e.preventDefault();
-                lbImg.src = this.src;
-                lbImg.alt = this.alt;
-                lightbox.classList.add("active");
+                openLB(this);
             }
         });
     }
