@@ -11,17 +11,6 @@ I take information that is dense, official, and hard to sit through, national bu
 
 <br>
 
-### Record
-
-| | |
-|---|---|
-| `2025 – now` | Communications Design Consultant, **Department of National Planning**, Government of Sri Lanka |
-| `2025` | Communications Designer, **UN Resident Coordinator's Office / UNDP** |
-| `2024 – 2025` | Communications Designer, **Ideas Marketing Agency**, Sydney (remote) |
-| `2022 – 2024` | Senior / Junior Communications Designer, **Verite Research** |
-
-<br>
-
 ### Field notes
 
 **[Road Remains](https://github.com/chaturadissanayake/roadremains)** &nbsp;·&nbsp; an isometric civic education game set in the fictional village of Alupotha, built to counter election misinformation.
